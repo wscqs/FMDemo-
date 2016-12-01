@@ -80,8 +80,8 @@ class ViewController: UIViewController {
 //        CMTime startTime = CMTimeMake([_startTime.text floatValue], 1);
 //        CMTime stopTime = CMTimeMake([_endTime.text floatValue], 1);
 //        CMTimeRange exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime);
-        let startTime = CMTime(value: 1, timescale: 1)
-        let stopTime = CMTime(value: 10, timescale: 1)
+        let startTime = CMTime(seconds: 1, preferredTimescale: 1)        
+        let stopTime = CMTime(seconds: 10, preferredTimescale: 1)
         let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
         
         
