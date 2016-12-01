@@ -64,7 +64,7 @@ class ViewController: UIViewController {
 //            NSLog (@"error: %@", assetError);
 //            return;
 //        }
-        let exportURL = URL(fileURLWithPath: "已剪辑.mp3".docDir())
+        let exportURL = URL(fileURLWithPath: "yijianji.m4a".docDir())
         do {
             let assetWirter = try AVAssetWriter(url: exportURL, fileType: AVFileTypeAppleM4A)
         } catch {
@@ -80,15 +80,11 @@ class ViewController: UIViewController {
 //        CMTime startTime = CMTimeMake([_startTime.text floatValue], 1);
 //        CMTime stopTime = CMTimeMake([_endTime.text floatValue], 1);
 //        CMTimeRange exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime);
-        let startTime = CMTime(seconds: 1, preferredTimescale: 1)        
+        let startTime = CMTime(seconds: 1, preferredTimescale: 1)
         let stopTime = CMTime(seconds: 10, preferredTimescale: 1)
         let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
         
-        
-        
-        let filePath = URL(fileURLWithPath: "yijianji.m4a".docDir())
-        print(filePath)
-        exportSession?.outputURL = filePath
+        exportSession?.outputURL = exportURL
         exportSession?.outputFileType = AVFileTypeAppleM4A
         exportSession?.timeRange = exportTimeRange
         exportSession?.exportAsynchronously {
