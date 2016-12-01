@@ -41,51 +41,21 @@ class ViewController: UIViewController {
     }
     
     func strokeTest() {
-//        1. 创建AVURLAsset对象（继承了AVAsset）
-//        let path = Bundle.main.path(forResource: "英雄谁属", ofType: "mp3")
-        let path = Bundle.main.url(forResource: "英雄谁属", withExtension: "mp3")
-        print(path)
-//        let songURL = path
+//        let path = Bundle.main.url(forResource: "英雄谁属", withExtension: "mp3")
+        let path = Bundle.main.url(forResource: "yijianji", withExtension: "caf")
         let songAsset = AVURLAsset(url: path!)
+
+        let exportURL = URL(fileURLWithPath: "yijianji1.caf".docDir())
+        print(exportURL)
         
-        
-//        NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
-//        NSString *documentsDirectoryPath = [dirs objectAtIndex:0];
-//        NSString *exportPath = [[documentsDirectoryPath stringByAppendingPathComponent:EXPORT_NAME] retain];//EXPORT_NAME为导出音频文件名
-//        if ([[NSFileManager defaultManager] fileExistsAtPath:exportPath]) {
-//            [[NSFileManager defaultManager] removeItemAtPath:exportPath error:nil];
-//        }
-//        NSURL *exportURL = [NSURL fileURLWithPath:exportPath];
-//        AVAssetWriter *assetWriter = [[AVAssetWriter assetWriterWithURL:exportURL
-//            fileType:AVFileTypeCoreAudioFormat
-//            error:&assetError]
-//            retain];
-//        if (assetError) {
-//            NSLog (@"error: %@", assetError);
-//            return;
-//        }
-        let exportURL = URL(fileURLWithPath: "yijianji.m4a".docDir())
-        do {
-            let assetWirter = try AVAssetWriter(url: exportURL, fileType: AVFileTypeAppleM4A)
-        } catch {
-            print(error)
-        }
-        
-        
-//        AVAssetExportSession *exportSession = [AVAssetExportSession exportSessionWithAsset:songAsset
-//            presetName:AVAssetExportPresetAppleM4A];
-        
-        let exportSession = AVAssetExportSession(asset: songAsset, presetName: AVAssetExportPresetAppleM4A)//fixes
-        
-//        CMTime startTime = CMTimeMake([_startTime.text floatValue], 1);
-//        CMTime stopTime = CMTimeMake([_endTime.text floatValue], 1);
-//        CMTimeRange exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime);
-        let startTime = CMTime(seconds: 1, preferredTimescale: 1)
-        let stopTime = CMTime(seconds: 10, preferredTimescale: 1)
+        let exportSession = AVAssetExportSession(asset: songAsset, presetName: AVAssetExportPresetPassthrough)
+
+        let startTime = CMTime(seconds: 2, preferredTimescale: 1)
+        let stopTime = CMTime(seconds: 8, preferredTimescale: 1)
         let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
         
         exportSession?.outputURL = exportURL
-        exportSession?.outputFileType = AVFileTypeAppleM4A
+        exportSession?.outputFileType = AVFileTypeCoreAudioFormat
         exportSession?.timeRange = exportTimeRange
         exportSession?.exportAsynchronously {
             if AVAssetExportSessionStatus.completed == exportSession?.status {
@@ -96,23 +66,6 @@ class ViewController: UIViewController {
                  print("Export Session Status: %d", exportSession?.status ?? "")
             }
         }
-        
-//        exportSession.outputURL = [NSURL fileURLWithPath:filePath]; // output path
-//        exportSession.outputFileType = AVFileTypeAppleM4A; // output file type
-//        exportSession.timeRange = exportTimeRange; // trim time range
-//        [exportSession exportAsynchronouslyWithCompletionHandler:^{
-//            
-//            if (AVAssetExportSessionStatusCompleted == exportSession.status) {
-//            NSLog(@"AVAssetExportSessionStatusCompleted");
-//            } else if (AVAssetExportSessionStatusFailed == exportSession.status) {
-//            // a failure may happen because of an event out of your control
-//            // for example, an interruption like a phone call comming in
-//            // make sure and handle this case appropriately
-//            NSLog(@"AVAssetExportSessionStatusFailed");
-//            } else {
-//            NSLog(@"Export Session Status: %d", exportSession.status);
-//            }
-//            }];
         
     }
 
@@ -153,12 +106,14 @@ class ViewController: UIViewController {
         timerInit()
     }
     
+
+    //暂停录音
     func pauseRecord(_ sender: AnyObject) {
         MBAAudioHelper.shared.pauseRecord()
         timerPause()
     }
     
-    
+    //继续录音
     func continueRecord(_ sender: AnyObject) {
         MBAAudioHelper.shared.continueRecord()
         timerContinue()
