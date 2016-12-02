@@ -25,12 +25,12 @@ class ViewController: UIViewController {
     
     
     var timer: Timer?
-    var time = 0
+    var time:TimeInterval = 0
 //    var recordTime = 0
     
     
     var playTimer: Timer?
-    var playTime = 0
+    var playTime:TimeInterval = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +50,10 @@ class ViewController: UIViewController {
     
     
     func sliderChangeValue(sender: UISlider) {
-        playTime = Int(sender.value)
+        playTime = TimeInterval(sender.value)
         initPlayInitTimeStatue(time: playTime)
         playTimerContinue()
-        MBAAudioHelper.shared.play(atTime: TimeInterval(playTime))
+        MBAAudioHelper.shared.play(atTime: playTime)
     }
     
     /// 裁剪
@@ -140,7 +140,7 @@ class ViewController: UIViewController {
     func startRecord() {
         MBAAudioHelper.shared.initRecord()
         MBAAudioHelper.shared.startRecord()
-        initOraginTimeStatue(time:1)
+        initOraginTimeStatue(time:0)
         timerInit()
         // 代理设为本身
         MBAAudioHelper.shared.audioRecorder?.delegate = self
@@ -179,7 +179,6 @@ class ViewController: UIViewController {
 
         initPlayInitTimeStatue(time: 0)
         MBAAudioHelper.shared.startPlaying()
-//        initPlayInitTimeStatue(time: 1)
         playTimerInit()
     }
     
@@ -202,7 +201,6 @@ class ViewController: UIViewController {
         MBAAudioHelper.shared.stopPlaying()
         playTimerInvalidate()
         listenPlayBtn.isSelected = false
-        initPlayInitTimeStatue(time: 0)
     }
     
   
@@ -239,7 +237,7 @@ class ViewController: UIViewController {
 // MARK: - timer 一些控制
 extension ViewController {
     
-    func initOraginTimeStatue(time: Int){
+    func initOraginTimeStatue(time: TimeInterval){
         self.time = time
 //        self.cell!.recordTimeLabel.text = "\(self.time)\""
         timeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(time))
@@ -276,10 +274,10 @@ extension ViewController {
     
     
     
-    func initPlayInitTimeStatue(time: Int){
+    func initPlayInitTimeStatue(time: TimeInterval){
         self.playTime = time
-        let endTime = TimeTool.getFormatTime(timerInval: TimeInterval(self.time))
-        let startTime = TimeTool.getFormatTime(timerInval: TimeInterval(self.playTime))
+        let endTime = TimeTool.getFormatTime(timerInval: self.time)
+        let startTime = TimeTool.getFormatTime(timerInval: self.playTime)
 //        slider.value = Float(MBAAudioHelper.shared.audioPlayer.currentTime)
         slider.value = Float(time)
         timeLabel.text = "\(startTime)\\\(endTime)"
@@ -298,7 +296,7 @@ extension ViewController {
         playTime = playTime + 1
         initPlayInitTimeStatue(time:playTime)
         
-        if playTime == self.time {
+        if playTime >= self.time {
             //            结束？
             stopPlaying()
         }

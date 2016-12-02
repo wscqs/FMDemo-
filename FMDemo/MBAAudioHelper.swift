@@ -153,7 +153,9 @@ extension MBAAudioHelper{
     ///
     /// - Parameter atTime:指定时间
     func play(atTime: TimeInterval) {
-        audioPlayer?.play(atTime: atTime)
+//        audioPlayer?.play(atTime: (audioPlayer?.deviceCurrentTime)! + atTime) // 这是延迟atTime 时间执行!
+        audioPlayer?.currentTime = atTime
+        audioPlayer?.play()
     }
     
 
