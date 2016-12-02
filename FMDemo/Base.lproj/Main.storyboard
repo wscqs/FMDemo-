@@ -56,7 +56,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSL-SU-pJR">
                                         <rect key="frame" x="47.5" y="41" width="31" height="30"/>
-                                        <state key="normal" title="暂停"/>
+                                        <state key="normal" title="重录"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -76,6 +76,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hQ-iN-Epk">
                                         <rect key="frame" x="8" y="93" width="31" height="30"/>
                                         <state key="normal" title="试听"/>
+                                        <state key="selected" title="暂停"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05U-Uh-g7x">
                                         <rect key="frame" x="336" y="93" width="31" height="30"/>

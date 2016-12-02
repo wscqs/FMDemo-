@@ -24,36 +24,60 @@ class ViewController: UIViewController {
     
     
     var timer: Timer!
-    var time = 60
-    var recordTime = 0
+    var time = 0
+//    var recordTime = 0
+    
+    
+    var playTimer: Timer!
+    var playTime = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        recordBtn.addTarget(self, action: #selector(ViewController.actionRecordClick), for: .touchUpInside)
-        listenPlayBtn.addTarget(self, action: #selector(ViewController.play), for: .touchUpInside)
-        savaBtn.addTarget(self, action: #selector(ViewController.stopRecord), for: .touchUpInside)
-        strokeBtn.addTarget(self, action: #selector(ViewController.actionStroke), for: .touchUpInside)
+        recordBtn.addTarget(self, action: #selector(actionRecordClick), for: .touchUpInside)
+        recordBtn.setTitle("开始录音", for: .normal)
+        recordBtn.setTitle("录音中", for: .selected)
+        
+        listenPlayBtn.addTarget(self, action: #selector(play), for: .touchUpInside)
+        savaBtn.addTarget(self, action: #selector(stopRecord), for: .touchUpInside)
+        strokeBtn.addTarget(self, action: #selector(actionStroke), for: .touchUpInside)
+        
+        slider.addTarget(self, action: #selector(sliderChangeValue), for: .valueChanged)
+        slider.isContinuous = false // 滑动结束
     }
     
+    
+    func sliderChangeValue(sender: UISlider) {
+        playTime = Int(sender.value)
+        initPlayInitTimeStatue(time: playTime)
+        playTimerContinue()
+        MBAAudioHelper.shared.play(atTime: TimeInterval(playTime))
+    }
     
     func actionStroke() {
         strokeTest()
     }
     
     func strokeTest() {
-//        let path = Bundle.main.url(forResource: "英雄谁属", withExtension: "mp3")
+        // 1.拿到预处理音频文件
         let path = Bundle.main.url(forResource: "yijianji", withExtension: "caf")
         let songAsset = AVURLAsset(url: path!)
 
-        let exportURL = URL(fileURLWithPath: "yijianji1.caf".docDir())
+        let exportPath = "yijianji1.caf".docDir()
+        let exportURL = URL(fileURLWithPath: exportPath)
         print(exportURL)
         
+        // 2.创建新的音频文件
+        if FileManager.default.fileExists(atPath: exportPath) {
+            try? FileManager.default.removeItem(atPath: exportPath)
+        }
+        
+        // 3.创建音频输出会话
         let exportSession = AVAssetExportSession(asset: songAsset, presetName: AVAssetExportPresetPassthrough)
 
         let startTime = CMTime(seconds: 2, preferredTimescale: 1)
         let stopTime = CMTime(seconds: 8, preferredTimescale: 1)
         let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
-        
+         // 4.设置音频输出会话并执行
         exportSession?.outputURL = exportURL
         exportSession?.outputFileType = AVFileTypeCoreAudioFormat
         exportSession?.timeRange = exportTimeRange
@@ -80,11 +104,9 @@ class ViewController: UIViewController {
         
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            startRecord(sender)
-            // 代理设为本身
-            MBAAudioHelper.shared.audioRecorder.delegate = self
+            MBAAudioHelper.shared.audioRecorder == nil ? startRecord() : continueRecord()
         }else{
-            pauseRecord(sender)
+            pauseRecord()
         }
     }
     
@@ -92,47 +114,79 @@ class ViewController: UIViewController {
     func play(_ sender: UIButton){
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            startPlaying(sender)
+            startPlaying()
         }else{
-            stopPlaying(sender)
+            pausePlaying()
         }
     }
     
     // MARK: - 录音状态
     //开始录音
-    func startRecord(_ sender: AnyObject) {
+    func startRecord() {
+        MBAAudioHelper.shared.initRecord()
         MBAAudioHelper.shared.startRecord()
         initOraginTimeStatue(time:1)
         timerInit()
+        // 代理设为本身
+        MBAAudioHelper.shared.audioRecorder?.delegate = self
+        recordBtn.setTitle("暂停", for: .normal)
     }
     
 
     //暂停录音
-    func pauseRecord(_ sender: AnyObject) {
+    func pauseRecord() {
         MBAAudioHelper.shared.pauseRecord()
         timerPause()
+        
+        initPlayInitTimeStatue(time: 0)
     }
     
     //继续录音
-    func continueRecord(_ sender: AnyObject) {
+    func continueRecord() {
         MBAAudioHelper.shared.continueRecord()
         timerContinue()
+        
+        initOraginTimeStatue(time: time)
+        
+        stopPlaying()
     }
     
     //停止录音
-    func stopRecord(_ sender: AnyObject) {
+    func stopRecord() {
         MBAAudioHelper.shared.stopRecord()
         timerInvalidate()
     }
     
     //开始播放
-    func startPlaying(_ sender: AnyObject) {
+    func startPlaying() {
+        slider.maximumValue = Float(time)
+        slider.minimumValue = 0
+
+
         MBAAudioHelper.shared.startPlaying()
+        initPlayInitTimeStatue(time: 1)
+        playTimerInit()
+    }
+    
+    //暂停播放
+    func pausePlaying() {
+        MBAAudioHelper.shared.pausePlaying()
+        playTimerPause()
+    }
+    
+    //继续播放
+    func continuePlaying() {
+        MBAAudioHelper.shared.continuePlaying()
+        playTimerContinue()
+        
+        initPlayInitTimeStatue(time: playTime)
     }
     
     //结束播放
-    func stopPlaying(_ sender: AnyObject) {
+    func stopPlaying() {
         MBAAudioHelper.shared.stopPlaying()
+        playTimerPause()
+        listenPlayBtn.isSelected = false
     }
     
   
@@ -159,7 +213,7 @@ extension ViewController {
     }
     
     func timerInit(){
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.timerDown), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(actionTimer), userInfo: nil, repeats: true)
     }
     
     func timerInvalidate(){
@@ -167,7 +221,7 @@ extension ViewController {
         timer = nil
     }
     
-    func timerDown() { // 60分钟，3600 秒
+    func actionTimer() { // 60分钟，3600 秒
         time = time + 1
         initOraginTimeStatue(time:time)
         if time == 3600 {
@@ -185,6 +239,48 @@ extension ViewController {
     
     func timerContinue() {
         timer.fireDate = Date()
+    }
+    
+    
+    
+    func initPlayInitTimeStatue(time: Int){
+        self.playTime = time
+        let endTime = TimeTool.getFormatTime(timerInval: TimeInterval(self.time))
+        let startTime = TimeTool.getFormatTime(timerInval: TimeInterval(self.playTime))
+//        slider.value = Float(MBAAudioHelper.shared.audioPlayer.currentTime)
+        slider.value = Float(time)
+        timeLabel.text = "\(startTime)\\\(endTime)"
+    }
+    
+    func playTimerInit(){
+        playTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(actionPlayTimer), userInfo: nil, repeats: true)
+    }
+    
+    func playTimerInvalidate(){
+        playTimer.invalidate()
+        playTimer = nil
+    }
+    
+    func actionPlayTimer() {
+        playTime = playTime + 1
+        initPlayInitTimeStatue(time:playTime)
+        
+        if playTime == self.time {
+            //            结束？
+            stopPlaying()
+        }
+    }
+    
+    //    func timerStart() {
+    //        timer.fireDate = Date.distantPast
+    //    }
+    
+    func playTimerPause() {
+        playTimer.fireDate = Date.distantFuture
+    }
+    
+    func playTimerContinue() {
+        playTimer.fireDate = Date()
     }
 }
 
