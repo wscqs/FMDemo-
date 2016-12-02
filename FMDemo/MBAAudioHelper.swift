@@ -30,7 +30,7 @@ class MBAAudioHelper: NSObject {
     // MARK: - var
     var audioSession:AVAudioSession!
     var audioRecorder:AVAudioRecorder?
-    var audioPlayer:AVAudioPlayer!
+    var audioPlayer:AVAudioPlayer?
 
     
     ////定义音频的编码参数，这部分比较重要，决定录制音频文件的格式、音质、容量大小等，建议采用AAC的编码方式
@@ -118,7 +118,7 @@ extension MBAAudioHelper{
     func startPlaying() {
         do {
             try audioPlayer = AVAudioPlayer(contentsOf: (audioRecorder?.url)!)
-            audioPlayer.play()
+            audioPlayer?.play()
             print("startPlaying!!")
         } catch {
             print("playError!!")
@@ -127,32 +127,33 @@ extension MBAAudioHelper{
     
     /// 是否播放
     var isPlaying:Bool {
-        return audioPlayer.isPlaying
+        return audioPlayer?.isPlaying ?? false
     }
     
     /// 暂停播放
     func pausePlaying() {
         print("pausePlaying!!")
-        audioPlayer.pause()
+        audioPlayer?.pause()
     }
     
     /// 继续播放
     func continuePlaying() {
         print("continuePlaying!!")
-        audioPlayer.play()
+        audioPlayer?.play()
     }
     
     /// 停止播放
     func stopPlaying() {
         print("stopPlaying!!")
-        audioPlayer.stop()
+        audioPlayer?.stop()
+        audioPlayer = nil
     }
     
     /// 从指定时间播放
     ///
     /// - Parameter atTime:指定时间
     func play(atTime: TimeInterval) {
-        audioPlayer.play(atTime: atTime)
+        audioPlayer?.play(atTime: atTime)
     }
     
 

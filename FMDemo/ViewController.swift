@@ -19,16 +19,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var strokeBtn: UIButton!
     @IBOutlet weak var pauseBtn: UIButton!
     @IBOutlet weak var recordBtn: UIButton!
+    @IBOutlet weak var reRecordBtn: UIButton!
     @IBOutlet weak var savaBtn: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
     
     
-    var timer: Timer!
+    var timer: Timer?
     var time = 0
 //    var recordTime = 0
     
     
-    var playTimer: Timer!
+    var playTimer: Timer?
     var playTime = 0
     
     override func viewDidLoad() {
@@ -40,6 +41,8 @@ class ViewController: UIViewController {
         listenPlayBtn.addTarget(self, action: #selector(play), for: .touchUpInside)
         savaBtn.addTarget(self, action: #selector(stopRecord), for: .touchUpInside)
         strokeBtn.addTarget(self, action: #selector(actionStroke), for: .touchUpInside)
+        
+        reRecordBtn.addTarget(self, action: #selector(actionReRecord), for: .touchUpInside)
         
         slider.addTarget(self, action: #selector(sliderChangeValue), for: .valueChanged)
         slider.isContinuous = false // 滑动结束
@@ -53,7 +56,19 @@ class ViewController: UIViewController {
         MBAAudioHelper.shared.play(atTime: TimeInterval(playTime))
     }
     
+    /// 裁剪
     func actionStroke() {
+        let alertController = UIAlertController(title: "重新录制", message: "是否重新录制？", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler:nil)
+        let alertAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
+
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+        
         strokeTest()
     }
     
@@ -114,7 +129,7 @@ class ViewController: UIViewController {
     func play(_ sender: UIButton){
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            startPlaying()
+            MBAAudioHelper.shared.audioPlayer == nil ? startPlaying() : continuePlaying()
         }else{
             pausePlaying()
         }
@@ -138,7 +153,6 @@ class ViewController: UIViewController {
         MBAAudioHelper.shared.pauseRecord()
         timerPause()
         
-        initPlayInitTimeStatue(time: 0)
     }
     
     //继续录音
@@ -163,8 +177,9 @@ class ViewController: UIViewController {
         slider.minimumValue = 0
 
 
+        initPlayInitTimeStatue(time: 0)
         MBAAudioHelper.shared.startPlaying()
-        initPlayInitTimeStatue(time: 1)
+//        initPlayInitTimeStatue(time: 1)
         playTimerInit()
     }
     
@@ -185,11 +200,29 @@ class ViewController: UIViewController {
     //结束播放
     func stopPlaying() {
         MBAAudioHelper.shared.stopPlaying()
-        playTimerPause()
+        playTimerInvalidate()
         listenPlayBtn.isSelected = false
+        initPlayInitTimeStatue(time: 0)
     }
     
   
+    
+    /// 重新录制
+    func actionReRecord() {
+        let alertController = UIAlertController(title: "重新录制", message: "是否重新录制？", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .default, handler:nil)
+        let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: { (action) in
+            if MBAAudioHelper.shared.deleteRecording() {
+                print("删除成功")
+            } else {
+                 print("删除失败")
+            }
+        })
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
 
     /// 是否可录音控制
     func canRecord() -> Bool{
@@ -217,7 +250,7 @@ extension ViewController {
     }
     
     func timerInvalidate(){
-        timer.invalidate()
+        timer?.invalidate()
         timer = nil
     }
     
@@ -234,11 +267,11 @@ extension ViewController {
 //    }
     
     func timerPause() {
-        timer.fireDate = Date.distantFuture
+        timer?.fireDate = Date.distantFuture
     }
     
     func timerContinue() {
-        timer.fireDate = Date()
+        timer?.fireDate = Date()
     }
     
     
@@ -257,7 +290,7 @@ extension ViewController {
     }
     
     func playTimerInvalidate(){
-        playTimer.invalidate()
+        playTimer?.invalidate()
         playTimer = nil
     }
     
@@ -276,11 +309,11 @@ extension ViewController {
     //    }
     
     func playTimerPause() {
-        playTimer.fireDate = Date.distantFuture
+        playTimer?.fireDate = Date.distantFuture
     }
     
     func playTimerContinue() {
-        playTimer.fireDate = Date()
+        playTimer?.fireDate = Date()
     }
 }
 

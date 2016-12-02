@@ -123,6 +123,7 @@
                         <outlet property="heartButton" destination="6yT-OY-RmR" id="h8p-Tq-g2S"/>
                         <outlet property="listenPlayBtn" destination="3hQ-iN-Epk" id="0K1-q3-sNo"/>
                         <outlet property="pauseBtn" destination="QSL-SU-pJR" id="s3k-Jp-bPa"/>
+                        <outlet property="reRecordBtn" destination="QSL-SU-pJR" id="Ez6-Rd-bRi"/>
                         <outlet property="recordBtn" destination="6bJ-32-MUC" id="dvf-PW-aar"/>
                         <outlet property="savaBtn" destination="L1g-J9-zeH" id="Wfb-PT-l4C"/>
                         <outlet property="slider" destination="Pzg-S9-E10" id="7jc-p2-Ahj"/>
