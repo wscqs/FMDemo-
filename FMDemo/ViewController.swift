@@ -23,6 +23,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var savaBtn: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var strokeSlider: UISlider!
+    @IBOutlet weak var strokeCancelBtn: UIButton!
+    @IBOutlet weak var strokeYesBtn: UIButton!
+    
     
     var timer: Timer?
     var time:TimeInterval = 0
@@ -45,31 +49,48 @@ class ViewController: UIViewController {
         reRecordBtn.addTarget(self, action: #selector(actionReRecord), for: .touchUpInside)
         
         slider.addTarget(self, action: #selector(sliderChangeValue), for: .valueChanged)
-        slider.isContinuous = false // 滑动结束
+        slider.isContinuous = false // 滑动结束 才会执行valueChanged 事件
+        
+
+        strokeSlider.isContinuous = false
+        strokeSlider.value = 0
+        slider.addTarget(self, action: #selector(strokeSliderChangeValue), for: .valueChanged)
+        strokeCancelBtn.addTarget(self, action: #selector(actionStrokeCancel), for: .touchUpInside)
+        strokeYesBtn.addTarget(self, action: #selector(actionStrokeYes), for: .touchUpInside)
+
+        strokeHide(isHidden: true)
+        recoredHide(isHidden: true)
     }
     
-    
-    func sliderChangeValue(sender: UISlider) {
-        playTime = TimeInterval(sender.value)
-        initPlayInitTimeStatue(time: playTime)
-        playTimerContinue()
-        MBAAudioHelper.shared.play(atTime: playTime)
+    func actionStrokeCancel() {
+        strokeHide(isHidden: true)
     }
+    
+    func actionStrokeYes() {
+        strokeTest()
+    }
+    
+    func strokeHide(isHidden: Bool) {
+        strokeCancelBtn.isHidden = isHidden
+        strokeYesBtn.isHidden = isHidden
+        strokeSlider.isHidden = isHidden
+    }
+    
+    func recoredHide(isHidden: Bool) {
+        listenPlayBtn.isHidden = isHidden
+        strokeBtn.isHidden = isHidden
+    }
+
+    
+
     
     /// 裁剪
     func actionStroke() {
-        let alertController = UIAlertController(title: "重新录制", message: "是否重新录制？", preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler:nil)
-        let alertAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
-
-        })
+        strokeHide(isHidden: false)
         
-        alertController.addAction(cancelAction)
-        alertController.addAction(alertAction)
-        self.present(alertController, animated: true, completion: nil)
+        pausePlaying()
+        listenPlayBtn.isSelected = false
         
-        
-        strokeTest()
     }
     
     func strokeTest() {
@@ -106,6 +127,19 @@ class ViewController: UIViewController {
             }
         }
         
+    }
+    
+    func strokeSliderChangeValue(sender: UISlider) {
+        slider.value = sender.value
+        playTime = TimeInterval(sender.value)
+        initPlayInitTimeStatue(time: playTime)
+    }
+    
+    func sliderChangeValue(sender: UISlider) {
+        playTime = TimeInterval(sender.value)
+        initPlayInitTimeStatue(time: playTime)
+        playTimerContinue()
+        MBAAudioHelper.shared.play(atTime: playTime)
     }
 
     func actionRecordClick(sender: UIButton) {
@@ -145,6 +179,8 @@ class ViewController: UIViewController {
         // 代理设为本身
         MBAAudioHelper.shared.audioRecorder?.delegate = self
         recordBtn.setTitle("暂停", for: .normal)
+        
+        recoredHide(isHidden: true)
     }
     
 
@@ -152,7 +188,7 @@ class ViewController: UIViewController {
     func pauseRecord() {
         MBAAudioHelper.shared.pauseRecord()
         timerPause()
-        
+        recoredHide(isHidden: false)
     }
     
     //继续录音
@@ -163,6 +199,8 @@ class ViewController: UIViewController {
         initOraginTimeStatue(time: time)
         
         stopPlaying()
+        
+        recoredHide(isHidden: true)
     }
     
     //停止录音
@@ -175,8 +213,6 @@ class ViewController: UIViewController {
     func startPlaying() {
         slider.maximumValue = Float(time)
         slider.minimumValue = 0
-
-
         initPlayInitTimeStatue(time: 0)
         MBAAudioHelper.shared.startPlaying()
         playTimerInit()

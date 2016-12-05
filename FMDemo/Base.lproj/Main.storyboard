@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -91,9 +92,13 @@
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Pzg-S9-E10">
                                         <rect key="frame" x="6" y="66" width="363" height="31"/>
                                     </slider>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="CEM-7V-yuy">
+                                        <rect key="frame" x="6" y="28" width="363" height="31"/>
+                                    </slider>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="CEM-7V-yuy" firstAttribute="trailing" secondItem="Pzg-S9-E10" secondAttribute="trailing" id="0z3-JI-tml"/>
                                     <constraint firstItem="BER-Jl-j0g" firstAttribute="centerY" secondItem="3hQ-iN-Epk" secondAttribute="centerY" id="8ZR-mL-tmE"/>
                                     <constraint firstItem="3hQ-iN-Epk" firstAttribute="leading" secondItem="Sfm-Qo-ffG" secondAttribute="leading" constant="8" id="8oj-Kc-zdV"/>
                                     <constraint firstAttribute="trailing" secondItem="Pzg-S9-E10" secondAttribute="trailing" constant="8" id="AMK-xE-rQ2"/>
@@ -102,17 +107,31 @@
                                     <constraint firstAttribute="bottom" secondItem="BER-Jl-j0g" secondAttribute="bottom" constant="8" id="Xj0-YJ-MKF"/>
                                     <constraint firstItem="Pzg-S9-E10" firstAttribute="leading" secondItem="Sfm-Qo-ffG" secondAttribute="leading" constant="8" id="bGH-hI-S3v"/>
                                     <constraint firstItem="BER-Jl-j0g" firstAttribute="centerX" secondItem="Sfm-Qo-ffG" secondAttribute="centerX" id="eDW-dL-6QS"/>
+                                    <constraint firstItem="Pzg-S9-E10" firstAttribute="top" secondItem="CEM-7V-yuy" secondAttribute="bottom" constant="8" id="f7W-yT-rmw"/>
                                     <constraint firstItem="BER-Jl-j0g" firstAttribute="centerY" secondItem="05U-Uh-g7x" secondAttribute="centerY" id="idZ-53-85D"/>
+                                    <constraint firstItem="CEM-7V-yuy" firstAttribute="leading" secondItem="Pzg-S9-E10" secondAttribute="leading" id="mEc-GS-U53"/>
                                     <constraint firstItem="BER-Jl-j0g" firstAttribute="top" secondItem="Pzg-S9-E10" secondAttribute="bottom" id="yhf-1Z-Qqa"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pY-sB-nS9">
+                                <rect key="frame" x="75" y="318.5" width="31" height="30"/>
+                                <state key="normal" title="取消"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qf6-Ab-3Pw">
+                                <rect key="frame" x="284" y="318.5" width="31" height="30"/>
+                                <state key="normal" title="确定"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="8pY-sB-nS9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="59" id="7aL-qc-CQV"/>
+                            <constraint firstItem="Qf6-Ab-3Pw" firstAttribute="centerY" secondItem="8pY-sB-nS9" secondAttribute="centerY" id="881-6U-NHZ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="6yT-OY-RmR" secondAttribute="bottom" constant="-50" id="KXJ-SV-mVO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qf6-Ab-3Pw" secondAttribute="trailing" constant="44" id="NzK-Ec-4Wb"/>
                             <constraint firstAttribute="trailing" secondItem="mjh-5y-jmD" secondAttribute="trailing" id="XGa-P5-O2f"/>
                             <constraint firstItem="Sfm-Qo-ffG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="YRg-Vs-k1Q"/>
                             <constraint firstAttribute="trailing" secondItem="Sfm-Qo-ffG" secondAttribute="trailing" id="b1v-hw-VeJ"/>
+                            <constraint firstItem="8pY-sB-nS9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="eDg-SX-dSH"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mjh-5y-jmD" secondAttribute="bottom" id="gEf-5F-cjb"/>
                             <constraint firstItem="mjh-5y-jmD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hW5-vZ-cJ6"/>
                             <constraint firstItem="6yT-OY-RmR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lt8-Sv-PwJ"/>
@@ -128,6 +147,9 @@
                         <outlet property="savaBtn" destination="L1g-J9-zeH" id="Wfb-PT-l4C"/>
                         <outlet property="slider" destination="Pzg-S9-E10" id="7jc-p2-Ahj"/>
                         <outlet property="strokeBtn" destination="05U-Uh-g7x" id="3iU-7W-MT1"/>
+                        <outlet property="strokeCancelBtn" destination="8pY-sB-nS9" id="TJR-9c-SUs"/>
+                        <outlet property="strokeSlider" destination="CEM-7V-yuy" id="T6y-4h-Z9L"/>
+                        <outlet property="strokeYesBtn" destination="Qf6-Ab-3Pw" id="KYi-tY-WZX"/>
                         <outlet property="timeLabel" destination="BER-Jl-j0g" id="Q6Y-9L-EL3"/>
                     </connections>
                 </viewController>
