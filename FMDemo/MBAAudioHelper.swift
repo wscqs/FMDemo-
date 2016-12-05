@@ -13,6 +13,8 @@ import AVFoundation
 
 //public typealias AudioRecordHandler = (_ response: SKProductsResponse?, _ error: Error?) -> ()
 
+let MBAAudio = MBAAudioHelper.shared
+
 class MBAAudioHelper: NSObject {
     
     /// 转化后路径
@@ -57,6 +59,28 @@ class MBAAudioHelper: NSObject {
 //            audioRecorder?.delegate = self
             audioRecorder?.prepareToRecord()//准备录音
         } catch {
+        }
+    }
+    
+    func initPlayer() {
+        do {
+            try audioPlayer = AVAudioPlayer(contentsOf: (audioRecorder?.url)!)
+            print("startPlaying!!")
+        } catch {
+            print("playError!!")
+        }
+    }
+    
+    var audioPlayerDuration: TimeInterval{
+        return audioPlayer?.duration ?? 0
+    }
+    
+    var audioPlayerCurrentTime: TimeInterval{
+        set {
+            audioPlayer?.currentTime = audioPlayerCurrentTime
+        }
+        get {
+            return audioPlayer?.currentTime ?? 0
         }
     }
 
@@ -113,16 +137,18 @@ extension MBAAudioHelper{
     func deleteRecording() -> Bool {
         return audioRecorder?.deleteRecording() ?? false
     }
+    
+    func audioPowerChange() -> Float{
+        audioRecorder?.updateMeters()//更新测量值
+        let power = audioRecorder?.averagePower(forChannel: 0)//取得第一个通道的音频，注意音频强度范围时-160到0
+        let progress = (1.0/160.0)*(power! + 160.0)
+        return progress
+    }
 
     /// 开始播放
     func startPlaying() {
-        do {
-            try audioPlayer = AVAudioPlayer(contentsOf: (audioRecorder?.url)!)
-            audioPlayer?.play()
-            print("startPlaying!!")
-        } catch {
-            print("playError!!")
-        }
+        initPlayer()
+        play(atTime: 0)
     }
     
     /// 是否播放
@@ -158,6 +184,7 @@ extension MBAAudioHelper{
         audioPlayer?.play()
     }
     
+
 
     
 //    func cafChangceToMp3(){
