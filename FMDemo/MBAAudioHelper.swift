@@ -65,9 +65,9 @@ class MBAAudioHelper: NSObject {
     func initPlayer() {
         do {
             try audioPlayer = AVAudioPlayer(contentsOf: (audioRecorder?.url)!)
-            print("startPlaying!!")
+            print("initPlayer!!")
         } catch {
-            print("playError!!")
+            print("initPlayerError!!")
         }
     }
     
@@ -77,7 +77,7 @@ class MBAAudioHelper: NSObject {
     
     var audioPlayerCurrentTime: TimeInterval{
         set {
-            audioPlayer?.currentTime = audioPlayerCurrentTime
+            audioPlayer?.currentTime = newValue
         }
         get {
             return audioPlayer?.currentTime ?? 0
@@ -147,7 +147,7 @@ extension MBAAudioHelper{
 
     /// 开始播放
     func startPlaying() {
-        initPlayer()
+        print("startPlaying!!")
         play(atTime: 0)
     }
     
@@ -172,7 +172,7 @@ extension MBAAudioHelper{
     func stopPlaying() {
         print("stopPlaying!!")
         audioPlayer?.stop()
-        audioPlayer = nil
+//        audioPlayer = nil
     }
     
     /// 从指定时间播放

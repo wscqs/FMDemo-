@@ -70,7 +70,7 @@ class ViewController: UIViewController {
         strokeTest()
     }
     
-    /// 截图的隐藏
+    /// 截取的隐藏
     func strokeHide(isHidden: Bool) {
         strokeCancelBtn.isHidden = isHidden
         strokeYesBtn.isHidden = isHidden
@@ -105,7 +105,8 @@ class ViewController: UIViewController {
         
         pausePlaying()
         listenPlayBtn.isSelected = false
-        
+        strokeSlider.minimumValue = 0
+        strokeSlider.maximumValue = slider.maximumValue
     }
     
     func strokeTest() {
@@ -145,16 +146,19 @@ class ViewController: UIViewController {
     }
     
     func strokeSliderChangeValue(sender: UISlider) {
+
         slider.value = sender.value
-        playTime = TimeInterval(sender.value)
-        initPlayInitTimeStatue(time: playTime)
+//        playTime = TimeInterval(sender.value)
+//        initPlayInitTimeStatue(time: playTime)
+        sliderChangeValue(sender: slider)
     }
     
     func sliderChangeValue(sender: UISlider) {
         playTime = TimeInterval(sender.value)
         initPlayInitTimeStatue(time: playTime)
-        playTimerContinue()
-        MBAAudio.play(atTime: playTime)
+//        playTimerContinue()
+//        MBAAudio.play(atTime: playTime)
+        MBAAudio.audioPlayerCurrentTime = playTime
     }
 
     func actionRecordClick(sender: UIButton) {
@@ -178,7 +182,8 @@ class ViewController: UIViewController {
     func play(_ sender: UIButton){
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            MBAAudio.audioPlayer == nil ? startPlaying() : continuePlaying()
+            print(MBAAudio.audioPlayerCurrentTime,MBAAudio.audioPlayerDuration,"aaaaa")
+            (MBAAudio.audioPlayerCurrentTime == 0 || MBAAudio.audioPlayerCurrentTime == MBAAudio.audioPlayerDuration) ? startPlaying() : continuePlaying()
         }else{
             pausePlaying()
         }
@@ -209,6 +214,8 @@ class ViewController: UIViewController {
         MBAAudio.pauseRecord()
         timerPause()
         recoredHide(isHidden: false)
+        
+        MBAAudio.initPlayer()
     }
     
     //继续录音
@@ -236,6 +243,7 @@ class ViewController: UIViewController {
         recoredHide(isHidden: false)
         
         MBAAudio.startPlaying()
+        MBAAudio.audioPlayer?.delegate = self
         slider.maximumValue = Float(time)
         slider.minimumValue = 0
         initPlayInitTimeStatue(time: 0)
@@ -255,15 +263,16 @@ class ViewController: UIViewController {
     //继续播放
     func continuePlaying() {
         MBAAudio.continuePlaying()
-        playTimerContinue()
         initPlayInitTimeStatue(time: playTime)
+        playTimerContinue()
 //        initPlayInitTimeStatue(time: MBAAudio.audioPlayerCurrentTime)
     }
     
     //结束播放
     func stopPlaying() {
         MBAAudio.stopPlaying()
-        playTimerInvalidate()
+//        playTimerInvalidate()
+        playTimerPause()
         listenPlayBtn.isSelected = false
     }
     
@@ -355,8 +364,13 @@ extension ViewController {
     
     func actionPlayTimer() {
         playTime = playTime + 1
+//        playTime = MBAAudio.audioPlayerCurrentTime + 0.5
         initPlayInitTimeStatue(time:playTime)
         
+        print(MBAAudio.audioPlayerCurrentTime,MBAAudio.audioPlayerDuration)
+//        if MBAAudio.audioPlayerCurrentTime >= MBAAudio.audioPlayerDuration {
+//            stopPlaying()
+//        }
         if playTime >= self.time {
             //            结束？
             stopPlaying()
@@ -389,6 +403,16 @@ extension ViewController: AVAudioRecorderDelegate{
             print("录音失败")
         }
     }
+}
+
+extension ViewController: AVAudioPlayerDelegate{
+
+//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//        if flag {
+//            stopPlaying()
+//        }else{
+//        }
+//    }
 }
 
 
