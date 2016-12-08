@@ -22,10 +22,15 @@ class PlayViewController: UIViewController {
     var btn = UIButton(frame: CGRect(x: 10, y: 160, width: UIScreen.main.bounds.width - 20, height: 20))
     
     var player: AVAudioPlayer!
+    var url:URL?
+    var exportURL: URL!    
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
+        
+        
         view.backgroundColor = UIColor.gray
 
         view.addSubview(slider)
@@ -42,6 +47,8 @@ class PlayViewController: UIViewController {
         strokBtn.addTarget(self, action: #selector(actionStroke), for: .touchUpInside)
         cancelBtn.setTitle("取消", for: .normal)
         yesBtn.setTitle("确定", for: .normal)
+        cancelBtn.addTarget(self, action: #selector(actionStrokeCancel), for: .touchUpInside)
+        yesBtn.addTarget(self, action: #selector(actionStrokeYes), for: .touchUpInside)
         strokeSlider.addTarget(self, action: #selector(actionStrokeSlider), for: .valueChanged)
         strokeHide(isHidden: true)
 
@@ -50,7 +57,15 @@ class PlayViewController: UIViewController {
         btn.setTitle("暂停", for: .selected)
         btn.addTarget(self, action: #selector(actionClick), for: .touchUpInside)
         
+        slider.addTarget(self, action: #selector(actionSlider), for: .valueChanged)
+
+
         let url = Bundle.main.url(forResource: "yijianji", withExtension: "caf")
+        loadPlay(url: url)
+    }
+    
+    func loadPlay(url: URL?) {
+        self.url = url
         player = try? AVAudioPlayer(contentsOf: url!)
         player.delegate = self
         player.prepareToPlay()
@@ -62,18 +77,24 @@ class PlayViewController: UIViewController {
         strokeSlider.maximumValue = Float(player.duration)
         strokeSlider.value = 0
         strokeSlider.isContinuous = false
-//        slider.isContinuous = false
-        slider.addTarget(self, action: #selector(actionSlider), for: .valueChanged)
-        
-//        updateLabel(currentTime: 0)
         updateLabel()
+    }
+    func actionStrokeCancel() {
+        strokBtn.isSelected = false
+        strokeHide(isHidden: true)
+    }
+    
+    func actionStrokeYes() {
+        strokBtn.isSelected = false
+        strokeHide(isHidden: true)
+        
+        strokeTest()
     }
     
     func actionSlider(sender: UISlider) {
         pausePlay()
         player.currentTime = TimeInterval(sender.value)
         sliderTime = player.currentTime
-//        updateLabel(currentTime: player.currentTime)
         updateLabel()
         if btn.isSelected {// 在播放中
             continuePlay()
@@ -107,7 +128,17 @@ class PlayViewController: UIViewController {
     func actionClick(sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected { // 播放状态
-            player.currentTime == 0 ? startPlay() : continuePlay()
+            
+            if strokBtn.isSelected { // 裁剪中
+                if player.currentTime == 0 {
+                    actionStrokeSlider(sender: strokeSlider)
+                }else{
+                    continuePlay()
+                }
+            }else {
+                player.currentTime == 0 ? startPlay() : continuePlay()
+            }
+            
         } else {
             pausePlay()
         }
@@ -157,8 +188,6 @@ class PlayViewController: UIViewController {
     
     func stopPlay() {
         sliderTimer.fireDate = Date.distantFuture
-//        sliderTimer.invalidate()
-//        sliderTimer = nil
         btn.isSelected = false
     }
     
@@ -186,6 +215,49 @@ class PlayViewController: UIViewController {
     var tipTimer: Timer!
     
 }
+extension PlayViewController {
+    func strokeTest() {
+        // 1.拿到预处理音频文件
+        let songAsset = AVURLAsset(url: url!)
+
+        let exportPath = (Date().formatDate + ".caf").docDir()
+        exportURL = URL(fileURLWithPath: exportPath)
+        print(exportURL)
+        
+        // 2.创建新的音频文件
+        if FileManager.default.fileExists(atPath: exportPath) {
+            try? FileManager.default.removeItem(atPath: exportPath)
+        }
+        
+        // 3.创建音频输出会话
+        let exportSession = AVAssetExportSession(asset: songAsset, presetName: AVAssetExportPresetPassthrough)
+        
+        let startStrokeTime = strokeSlider.value
+        let stopStrokeTime = player.duration
+        let startTime = CMTime(seconds: Double(startStrokeTime), preferredTimescale: 1000)
+        let stopTime = CMTime(seconds: stopStrokeTime, preferredTimescale: 1000)
+        let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
+        // 4.设置音频输出会话并执行
+        exportSession?.outputURL = exportURL
+        exportSession?.outputFileType = AVFileTypeCoreAudioFormat
+        exportSession?.timeRange = exportTimeRange
+        exportSession?.exportAsynchronously {
+            if AVAssetExportSessionStatus.completed == exportSession?.status {
+                print("AVAssetExportSessionStatusCompleted")
+                
+                DispatchQueue.main.async {
+                    self.loadPlay(url: self.exportURL)
+                }
+            } else if AVAssetExportSessionStatus.failed == exportSession?.status {
+                print("AVAssetExportSessionStatusFailed")
+            } else {
+                print("Export Session Status: %d", exportSession?.status ?? "")
+            }
+        }
+        
+    }
+}
+
 
 extension PlayViewController: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -196,6 +268,4 @@ extension PlayViewController: AVAudioPlayerDelegate {
             print("finishError")
         }
     }
-    
-
 }
