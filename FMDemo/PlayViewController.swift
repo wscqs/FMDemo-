@@ -11,7 +11,7 @@ import AVFoundation
 
 class PlayViewController: UIViewController {
 
-    var strokeSlider = UISlider(frame: CGRect(x: 10, y: 50, width: UIScreen.main.bounds.width - 20, height: 20))
+    var cutSlider = UISlider(frame: CGRect(x: 10, y: 50, width: UIScreen.main.bounds.width - 20, height: 20))
     var strokBtn = UIButton(frame: CGRect(x: 10, y: 190, width: UIScreen.main.bounds.width - 20, height: 20))
     
     var cancelBtn = UIButton(frame: CGRect(x: 10, y: 220, width: UIScreen.main.bounds.width - 20, height: 20))
@@ -38,19 +38,19 @@ class PlayViewController: UIViewController {
         view.addSubview(btn)
         
         view.addSubview(strokBtn)
-        view.addSubview(strokeSlider)
+        view.addSubview(cutSlider)
         view.addSubview(cancelBtn)
         view.addSubview(yesBtn)
         
         strokBtn.setTitle("裁剪", for: .normal)
         strokBtn.setTitle("裁剪中", for: .selected)
-        strokBtn.addTarget(self, action: #selector(actionStroke), for: .touchUpInside)
+        strokBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
         cancelBtn.setTitle("取消", for: .normal)
         yesBtn.setTitle("确定", for: .normal)
-        cancelBtn.addTarget(self, action: #selector(actionStrokeCancel), for: .touchUpInside)
-        yesBtn.addTarget(self, action: #selector(actionStrokeYes), for: .touchUpInside)
-        strokeSlider.addTarget(self, action: #selector(actionStrokeSlider), for: .valueChanged)
-        strokeHide(isHidden: true)
+        cancelBtn.addTarget(self, action: #selector(actionCutCancel), for: .touchUpInside)
+        yesBtn.addTarget(self, action: #selector(actionCutYes), for: .touchUpInside)
+        cutSlider.addTarget(self, action: #selector(actionCutSlider), for: .valueChanged)
+        cutHide(isHidden: true)
 
         
         btn.setTitle("播放", for: .normal)
@@ -73,22 +73,22 @@ class PlayViewController: UIViewController {
         slider.minimumValue = 0
         slider.maximumValue = Float(player.duration)
         slider.value = 0
-        strokeSlider.minimumValue = 0
-        strokeSlider.maximumValue = Float(player.duration)
-        strokeSlider.value = 0
-        strokeSlider.isContinuous = false
+        cutSlider.minimumValue = 0
+        cutSlider.maximumValue = Float(player.duration)
+        cutSlider.value = 0
+        cutSlider.isContinuous = false
         updateLabel()
     }
-    func actionStrokeCancel() {
+    func actionCutCancel() {
         strokBtn.isSelected = false
-        strokeHide(isHidden: true)
+        cutHide(isHidden: true)
     }
     
-    func actionStrokeYes() {
+    func actionCutYes() {
         strokBtn.isSelected = false
-        strokeHide(isHidden: true)
+        cutHide(isHidden: true)
         
-        strokeTest()
+        cutTest()
     }
     
     func actionSlider(sender: UISlider) {
@@ -104,22 +104,22 @@ class PlayViewController: UIViewController {
         
     }
     
-    func actionStroke(sender: UIButton) {
+    func actionCut(sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected { // 裁剪中
-            strokeHide(isHidden: false)
+            cutHide(isHidden: false)
         } else {
-            strokeHide(isHidden: true)
+            cutHide(isHidden: true)
         }
     }
     
-    func strokeHide(isHidden: Bool) {
-        strokeSlider.isHidden = isHidden
+    func cutHide(isHidden: Bool) {
+        cutSlider.isHidden = isHidden
         yesBtn.isHidden = isHidden
         cancelBtn.isHidden = isHidden
     }
     
-    func actionStrokeSlider(sender: UISlider) {
+    func actionCutSlider(sender: UISlider) {
         slider.value = sender.value
         actionSlider(sender: sender)
     }
@@ -131,7 +131,7 @@ class PlayViewController: UIViewController {
             
             if strokBtn.isSelected { // 裁剪中
                 if player.currentTime == 0 {
-                    actionStrokeSlider(sender: strokeSlider)
+                    actionCutSlider(sender: cutSlider)
                 }else{
                     continuePlay()
                 }
@@ -210,17 +210,17 @@ class PlayViewController: UIViewController {
     }
     
     var playTime: TimeInterval!
-    var sliderTime: TimeInterval!
+    var sliderTime: TimeInterval! 
     var sliderTimer: Timer!
     var tipTimer: Timer!
     
 }
 extension PlayViewController {
-    func strokeTest() {
+    func cutTest() {
         // 1.拿到预处理音频文件
         let songAsset = AVURLAsset(url: url!)
 
-        let exportPath = (Date().formatDate + ".caf").docDir()
+        let exportPath = (Date().formatDate + ".caf").docCutDir()
         exportURL = URL(fileURLWithPath: exportPath)
         print(exportURL)
         
@@ -232,10 +232,10 @@ extension PlayViewController {
         // 3.创建音频输出会话
         let exportSession = AVAssetExportSession(asset: songAsset, presetName: AVAssetExportPresetPassthrough)
         
-        let startStrokeTime = strokeSlider.value
-        let stopStrokeTime = player.duration
-        let startTime = CMTime(seconds: Double(startStrokeTime), preferredTimescale: 1000)
-        let stopTime = CMTime(seconds: stopStrokeTime, preferredTimescale: 1000)
+        let startCutTime = cutSlider.value
+        let stopCutTime = player.duration
+        let startTime = CMTime(seconds: Double(startCutTime), preferredTimescale: 1000)
+        let stopTime = CMTime(seconds: stopCutTime, preferredTimescale: 1000)
         let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
         // 4.设置音频输出会话并执行
         exportSession?.outputURL = exportURL

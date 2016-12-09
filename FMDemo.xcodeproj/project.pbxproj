@@ -120,7 +120,7 @@
 				TargetAttributes = {
 					2C7818BC1DEEA0F4001E3594 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = NY29ELVFD2;
+						DevelopmentTeam = 6BY5V9TZ5E;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -295,7 +295,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = NY29ELVFD2;
+				DEVELOPMENT_TEAM = 6BY5V9TZ5E;
 				INFOPLIST_FILE = FMDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -314,7 +314,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = NY29ELVFD2;
+				DEVELOPMENT_TEAM = 6BY5V9TZ5E;
 				INFOPLIST_FILE = FMDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

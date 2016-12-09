@@ -403,6 +403,13 @@ extension ViewController: AVAudioRecorderDelegate{
             print("录音失败")
         }
     }
+    
+    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
+        if error != nil {
+            print(error)
+        }
+    }
+    
 }
 
 extension ViewController: AVAudioPlayerDelegate{

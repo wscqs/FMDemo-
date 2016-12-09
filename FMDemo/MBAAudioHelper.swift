@@ -49,7 +49,8 @@ class MBAAudioHelper: NSObject {
         let formatter = DateFormatter()
         formatter.dateFormat = "ddMMyyyyHHmmss"
         let recordingName = formatter.string(from: currentDateTime)+".caf"
-        cafAudioString = recordingName.docRecordDir()
+//        cafAudioString = recordingName.docRecordDir()
+        cafAudioString = "09122016111911.caf".docRecordDir()
         print(cafAudioString)
         mp3AudioString = (formatter.string(from: currentDateTime) + ".mp3").docRecordDir()
         
@@ -59,6 +60,7 @@ class MBAAudioHelper: NSObject {
 //            audioRecorder?.delegate = self
             audioRecorder?.prepareToRecord()//准备录音
         } catch {
+            print(error)
         }
     }
     
@@ -117,6 +119,14 @@ extension MBAAudioHelper{
         audioRecorder?.record()
     }
     
+    /// 从指定时间播放
+    ///
+    /// - Parameter atTime:指定时间
+    func record(atTime: TimeInterval) {
+        //        audioPlayer?.play(atTime: (audioPlayer?.deviceCurrentTime)! + atTime) // 这是延迟atTime 时间执行!
+//        audioRecorder?.currentTime = atTime
+//        audioRecorder?.record(atTime: <#T##TimeInterval#>)
+    }
     
     /// 停止录音
     func stopRecord() {
