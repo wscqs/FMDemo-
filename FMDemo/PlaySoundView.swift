@@ -20,6 +20,9 @@ class PlaySoundView: UIView {
     var audioPlayer: AVPlayer?
     var audioItem: AVPlayerItem?
     
+    var timer: Timer?
+    var audioTotalTime: TimeInterval!
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -47,8 +50,25 @@ class PlaySoundView: UIView {
         view.frame = bounds
         
         view.superview?.backgroundColor = UIColor.clear
+
+        initAudio()
+        setStatusUI()
         
-        playSlider.setThumbImage(nil, for: .normal)
+        playBtn.addTarget(self, action: #selector(actionPlay), for: .touchUpInside)
+    }
+    
+    
+    func actionPlay() {
+        
+        if audioPlayer?.rate == 1 { // 在播放，点击后暂停
+            playBtn.isSelected = false
+            audioPlayer?.pause()
+            timerPause()
+        } else {
+            audioPlayer?.play()
+            playBtn.isSelected = true
+            timerContinue()
+        }
         
     }
     
@@ -70,76 +90,95 @@ class PlaySoundView: UIView {
     @IBOutlet weak var cycleBtn: UIButton!
     @IBOutlet weak var playSlider: UISlider!
     
-    var isPlay: Bool = false
-    var isPay: Bool = false
-    
     func tapAction(_ sender: UITapGestureRecognizer) {
         delegate?.playSoundViewClick(self)
-        
-    }
-    
-    /// 已付款点击播放状态
-    func setLinstenClick() {
-        
-        if audioPlayer != nil && audioItem != nil{
-            (self.audioPlayer?.rate == 1) ? self.setPauseStatus() : self.setPlayStatus() // 由速度判断是否播放
-            return
-        }
-        let playString = "http://i.111ttt.com:8282/97301815582.mp3"
-
-        self.onSetAudio(playString)
-        (self.audioPlayer?.rate == 1) ? self.setPauseStatus() : self.setPlayStatus() // 由速度判断是否播放
-        
-    }
-
-
-    /// 正在播放状态
-    func setPlayStatus() {
-        audioPlayer?.play()
-
     }
     
     
-
-    /// 暂停播放状态
-    func setPauseStatus() {
-
-        playTimeLabel.isHidden = false
-        audioPlayer?.pause()
-        audioPlayer?.seek(to: CMTime(seconds: 0, preferredTimescale: 1000))
+    func setStatusUI() {
+        playNameLabel.text = "yijianji.caf"
+        audioTotalTime = CMTimeGetSeconds((audioPlayer?.currentItem?.asset.duration)!)
+        playTimeLabel.text = TimeTool.getFormatTime(timerInval: audioTotalTime)
     }
  
 }
 
+// MARK: - timer 一些控制
+extension PlaySoundView {
+    
+    
+    func timerInit(){
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(actionTimer), userInfo: nil, repeats: true)
+        timerPause()
+    }
+    
+    func timerInvalidate(){
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func actionTimer() {
+        let currentTime: Float = Float(CMTimeGetSeconds((audioPlayer?.currentTime())!))
+        let totalTime: Float = Float(CMTimeGetSeconds((audioPlayer?.currentItem?.asset.duration)!))
+        playSlider.value = currentTime / totalTime
+        let remainTime = totalTime - currentTime
+        playTimeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(remainTime))
+    }
+    
+    
+    func timerPause() {
+        timer?.fireDate = Date.distantFuture
+    }
+    
+    func timerContinue() {
+        timer?.fireDate = Date()
+    }
+
+}
 
 // MARK: - 音频播放状态设置
 extension PlaySoundView {
+    // 播放完成
+    @objc fileprivate func playbackFinished(notice: NSNotification) {
+        // 恢复最开始的0状态
+        audioPlayer?.currentItem?.seek(to: CMTime(value: 0, timescale: 1))
+        playBtn.isSelected = false
+    }
     
-    func onSetAudio(_ url:String, isCache:Bool = false){
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if "status" == keyPath{
+            guard let status = audioPlayer?.status else {
+                return
+            }
+//            switch status as AVPlayerStatus{
+//            case .unknown:
+////                MBAProgressHUD.dismiss()
+//            //                MBAToast.show(text: "未知状态，此时不能播放")
+//            case .readyToPlay:
+////                MBAProgressHUD.dismiss()
+//                //                MBAToast.show(text: "准备完毕，可以播放")
+//                break
+//            case .failed:
+////                MBAProgressHUD.dismiss()
+////                MBAToast.show(text: "加载失败，网络或者服务器出现问题")
+//            }
+        }
+    }
     
-        var itemUrl:URL?
-        if isCache {
-            itemUrl = URL(fileURLWithPath: url)
-        } else {
-            itemUrl = URL(string: url)
-        }
-        guard let itemOkUrl = itemUrl else {
-            print("url 不能为空")
-            return
-        }
-        audioItem = AVPlayerItem(url: itemOkUrl)
+    func initAudio() {
+        let path = Bundle.main.url(forResource: "yijianji", withExtension: "caf")
+        
+        let a = path?.lastPathComponent // 获取文件名字
+//        let url = "http://i.111ttt.com:8282/97301815582.mp3"
+//        let audiourl = URL(string: url)
+        let audiourl = path
+        audioItem = AVPlayerItem(url: audiourl!)
         audioPlayer = AVPlayer(playerItem: audioItem)
         
         audioItem?.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.new, context: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playbackFinished(notice:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: audioItem)
         
+        timerInit()
     }
-    
-    // 播放完成
-    @objc fileprivate func playbackFinished(notice: NSNotification) {
-        // 恢复最开始的0状态
-        audioPlayer?.currentItem?.seek(to: CMTime(value: 0, timescale: 1))
-    }
-    
-    
 }

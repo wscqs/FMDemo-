@@ -16,26 +16,32 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var listenPlayBtn: UIButton!
-    @IBOutlet weak var strokeBtn: UIButton!
+    @IBOutlet weak var cutBtn: UIButton!
     @IBOutlet weak var pauseBtn: UIButton!
     @IBOutlet weak var recordBtn: UIButton!
     @IBOutlet weak var reRecordBtn: UIButton!
     @IBOutlet weak var savaBtn: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
     
-    @IBOutlet weak var strokeSlider: UISlider!
-    @IBOutlet weak var strokeCancelBtn: UIButton!
-    @IBOutlet weak var strokeYesBtn: UIButton!
+    @IBOutlet weak var cutSlider: UISlider!
+    @IBOutlet weak var cutCancelBtn: UIButton!
+    @IBOutlet weak var cutYesBtn: UIButton!
     
 
     
     var timer: Timer?
     var time:TimeInterval = 0
-//    var recordTime = 0
     
     
     var playTimer: Timer?
     var playTime:TimeInterval = 0
+    
+    
+//    var playTime: TimeInterval!
+    var sliderTime: TimeInterval!
+    var sliderTimer: Timer!
+    var tipTimer: Timer!
+    var player: AVAudioPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,49 +49,57 @@ class ViewController: UIViewController {
         recordBtn.setTitle("开始录音", for: .normal)
         recordBtn.setTitle("录音中", for: .selected)
         
-        listenPlayBtn.addTarget(self, action: #selector(play), for: .touchUpInside)
+//        listenPlayBtn.addTarget(self, action: #selector(play), for: .touchUpInside)
+        listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
+
+        
         savaBtn.addTarget(self, action: #selector(stopRecord), for: .touchUpInside)
-        strokeBtn.addTarget(self, action: #selector(actionStroke), for: .touchUpInside)
+//        cutBtn.addTarget(self, action: #selector(actionStroke), for: .touchUpInside)
+        cutBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
         
         reRecordBtn.addTarget(self, action: #selector(actionReRecord), for: .touchUpInside)
         
-        slider.addTarget(self, action: #selector(sliderChangeValue), for: .valueChanged)
+//        slider.addTarget(self, action: #selector(sliderChangeValue), for: .valueChanged)
+        slider.addTarget(self, action: #selector(actionSlider), for: .valueChanged)
+
         slider.isContinuous = false // 滑动结束 才会执行valueChanged 事件
         
 
-        strokeSlider.isContinuous = false
-        strokeSlider.value = 0
-        strokeSlider.addTarget(self, action: #selector(strokeSliderChangeValue), for: .valueChanged)
-        strokeCancelBtn.addTarget(self, action: #selector(actionStrokeCancel), for: .touchUpInside)
-        strokeYesBtn.addTarget(self, action: #selector(actionStrokeYes), for: .touchUpInside)
+        cutSlider.isContinuous = false
+        cutSlider.value = 0
+//        cutSlider.addTarget(self, action: #selector(cutSliderChangeValue), for: .valueChanged)
+        cutSlider.addTarget(self, action: #selector(actionCutSlider), for: .valueChanged)
+        
+        cutCancelBtn.addTarget(self, action: #selector(actionStrokeCancel), for: .touchUpInside)
+        cutYesBtn.addTarget(self, action: #selector(actionStrokeYes), for: .touchUpInside)
 
         initStatusHide(isHidden: true)
     }
     
     func actionStrokeCancel() {
-        strokeHide(isHidden: true)
+        cutHide(isHidden: true)
     }
     
     func actionStrokeYes() {
-        strokeTest()
+        cutEvent()
     }
     
     /// 截取的隐藏
-    func strokeHide(isHidden: Bool) {
-        strokeCancelBtn.isHidden = isHidden
-        strokeYesBtn.isHidden = isHidden
-        strokeSlider.isHidden = isHidden
+    func cutHide(isHidden: Bool) {
+        cutCancelBtn.isHidden = isHidden
+        cutYesBtn.isHidden = isHidden
+        cutSlider.isHidden = isHidden
     }
     
     /// 录音的隐藏
     func recoredHide(isHidden: Bool) {
         listenPlayBtn.isHidden = isHidden
-        strokeBtn.isHidden = isHidden
+        cutBtn.isHidden = isHidden
     }
     
     func initStatusHide(isHidden: Bool) {
         recoredHide(isHidden: true)
-        strokeHide(isHidden: true)
+        cutHide(isHidden: true)
         recoredHide(isHidden: true)
         noRecordHide(isHidden: true)
     }
@@ -100,64 +114,23 @@ class ViewController: UIViewController {
 
     
     /// 裁剪
-    func actionStroke() {
-        strokeHide(isHidden: false)
-        
-        pausePlaying()
-        listenPlayBtn.isSelected = false
-        strokeSlider.minimumValue = 0
-        strokeSlider.maximumValue = slider.maximumValue
-    }
+//    func actionStroke() {
+//        cutHide(isHidden: false)
+//        
+//        pausePlaying()
+//        listenPlayBtn.isSelected = false
+//        cutSlider.minimumValue = 0
+//        cutSlider.maximumValue = slider.maximumValue
+//    }
     
-    func strokeTest() {
-        // 1.拿到预处理音频文件
-        let path = Bundle.main.url(forResource: "yijianji", withExtension: "caf")
-        let songAsset = AVURLAsset(url: path!)
-
-        let exportPath = "yijianji1.caf".docDir()
-        let exportURL = URL(fileURLWithPath: exportPath)
-        print(exportURL)
-        
-        // 2.创建新的音频文件
-        if FileManager.default.fileExists(atPath: exportPath) {
-            try? FileManager.default.removeItem(atPath: exportPath)
-        }
-        
-        // 3.创建音频输出会话
-        let exportSession = AVAssetExportSession(asset: songAsset, presetName: AVAssetExportPresetPassthrough)
-
-        let startTime = CMTime(seconds: 2, preferredTimescale: 1)
-        let stopTime = CMTime(seconds: 8, preferredTimescale: 1)
-        let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
-         // 4.设置音频输出会话并执行
-        exportSession?.outputURL = exportURL
-        exportSession?.outputFileType = AVFileTypeCoreAudioFormat
-        exportSession?.timeRange = exportTimeRange
-        exportSession?.exportAsynchronously {
-            if AVAssetExportSessionStatus.completed == exportSession?.status {
-                print("AVAssetExportSessionStatusCompleted")
-            } else if AVAssetExportSessionStatus.failed == exportSession?.status {
-                print("AVAssetExportSessionStatusFailed")
-            } else {
-                 print("Export Session Status: %d", exportSession?.status ?? "")
-            }
-        }
-        
-    }
-    
-    func strokeSliderChangeValue(sender: UISlider) {
-
+    func cutSliderChangeValue(sender: UISlider) {
         slider.value = sender.value
-//        playTime = TimeInterval(sender.value)
-//        initPlayInitTimeStatue(time: playTime)
         sliderChangeValue(sender: slider)
     }
     
     func sliderChangeValue(sender: UISlider) {
         playTime = TimeInterval(sender.value)
         initPlayInitTimeStatue(time: playTime)
-//        playTimerContinue()
-//        MBAAudio.play(atTime: playTime)
         MBAAudio.audioPlayerCurrentTime = playTime
     }
 
@@ -215,7 +188,9 @@ class ViewController: UIViewController {
         timerPause()
         recoredHide(isHidden: false)
         
-        MBAAudio.initPlayer()
+        // 初始化歌曲
+//        MBAAudio.initPlayer()
+        loadPlay(url: MBAAudio.audioRecorder?.url)
     }
     
     //继续录音
@@ -242,38 +217,38 @@ class ViewController: UIViewController {
     func startPlaying() {
         recoredHide(isHidden: false)
         
-        MBAAudio.startPlaying()
-        MBAAudio.audioPlayer?.delegate = self
-        slider.maximumValue = Float(time)
-        slider.minimumValue = 0
-        initPlayInitTimeStatue(time: 0)
-        
-//        slider.maximumValue = Float(MBAAudio.audioPlayerDuration)
+//        MBAAudio.startPlaying()
+//        MBAAudio.audioPlayer?.delegate = self
+//        slider.maximumValue = Float(time)
 //        slider.minimumValue = 0
-//        initPlayInitTimeStatue(time: MBAAudio.audioPlayerCurrentTime)
-        playTimerInit()
+//        initPlayInitTimeStatue(time: 0)
+        
+        
+//        playTimerInit()
+        startPlay()
     }
     
     //暂停播放
     func pausePlaying() {
-        MBAAudio.pausePlaying()
-        playTimerPause()
+//        MBAAudio.pausePlaying()
+//        playTimerPause()
+        pausePlay()
     }
     
     //继续播放
     func continuePlaying() {
-        MBAAudio.continuePlaying()
-        initPlayInitTimeStatue(time: playTime)
-        playTimerContinue()
-//        initPlayInitTimeStatue(time: MBAAudio.audioPlayerCurrentTime)
+//        MBAAudio.continuePlaying()
+//        initPlayInitTimeStatue(time: playTime)
+//        playTimerContinue()
+        continuePlay()
     }
     
     //结束播放
     func stopPlaying() {
-        MBAAudio.stopPlaying()
-//        playTimerInvalidate()
-        playTimerPause()
-        listenPlayBtn.isSelected = false
+//        MBAAudio.stopPlaying()
+//        playTimerPause()
+//        listenPlayBtn.isSelected = false
+        stopPlay()
     }
     
   
@@ -306,6 +281,56 @@ class ViewController: UIViewController {
     }
 
 }
+
+
+extension ViewController {
+    
+    func cutEvent() {
+        // 1.拿到预处理音频文件
+        let inputPath = MBAAudio.audioRecorder?.url.absoluteString
+        let url = URL(fileURLWithPath: inputPath!)
+        print(url)
+        let songAsset = AVURLAsset(url: url)
+        
+        let exportPath = (Date().formatDate + ".caf").docCutDir()
+        let exportURL = URL(fileURLWithPath: exportPath)
+        print(exportURL)
+        
+        // 2.创建新的音频文件
+        if FileManager.default.fileExists(atPath: exportPath) {
+            try? FileManager.default.removeItem(atPath: exportPath)
+        }
+        
+        // 3.创建音频输出会话
+        let exportSession = AVAssetExportSession(asset: songAsset, presetName: AVAssetExportPresetPassthrough)
+        
+        let startCutTime = cutSlider.value
+        let stopCutTime = player.duration
+        let startTime = CMTime(seconds: Double(startCutTime), preferredTimescale: 1000)
+        let stopTime = CMTime(seconds: stopCutTime, preferredTimescale: 1000)
+        let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
+        // 4.设置音频输出会话并执行
+        exportSession?.outputURL = exportURL
+        exportSession?.outputFileType = AVFileTypeCoreAudioFormat
+        exportSession?.timeRange = exportTimeRange
+        exportSession?.exportAsynchronously {
+            if AVAssetExportSessionStatus.completed == exportSession?.status {
+                print("AVAssetExportSessionStatusCompleted")
+                
+                DispatchQueue.main.async {
+                    self.loadPlay(url: exportURL)
+                }
+            } else if AVAssetExportSessionStatus.failed == exportSession?.status {
+                print("AVAssetExportSessionStatusFailed")
+            } else {
+                print("Export Session Status: %d", exportSession?.status ?? "")
+            }
+        }
+        
+    }
+}
+
+
 
 // MARK: - timer 一些控制
 extension ViewController {
@@ -375,13 +400,6 @@ extension ViewController {
             //            结束？
             stopPlaying()
         }
-//                playTime = MBAAudio.audioPlayerCurrentTime
-//                initPlayInitTimeStatue(time:playTime)
-//        
-//                if playTime >= self.time {
-//                    //            结束？
-//                    stopPlaying()
-//                }
     }
     
     func playTimerPause() {
@@ -406,20 +424,182 @@ extension ViewController: AVAudioRecorderDelegate{
     
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
         if error != nil {
-            print(error)
+//            print(error)
         }
     }
     
 }
 
+
+
+
+
+// MARK: - PlayViewController  后修改
+
+extension ViewController  {
+    func loadPlay(url: URL?) {
+        player = try? AVAudioPlayer(contentsOf: url!)
+        player.delegate = self
+        player.prepareToPlay()
+        initCutUI()
+    }
+    
+    func initCutUI() {
+        slider.minimumValue = 0
+        slider.maximumValue = Float(player.duration)
+        slider.value = 0
+        cutSlider.minimumValue = 0
+        cutSlider.maximumValue = Float(player.duration)
+        cutSlider.value = 0
+        cutSlider.isContinuous = false
+        updateLabel()
+    }
+}
+extension ViewController {
+    func actionCutCancel() {
+        cutBtn.isSelected = false
+        cutHide(isHidden: true)
+    }
+    
+    func actionCutYes() {
+        cutBtn.isSelected = false
+        cutHide(isHidden: true)
+        
+        cutEvent()
+    }
+    
+    func actionSlider(sender: UISlider) {
+        pausePlay()
+        player.currentTime = TimeInterval(sender.value)
+        sliderTime = player.currentTime
+        updateLabel()
+        if listenPlayBtn.isSelected {// 在播放中
+            continuePlay()
+        } else {
+            
+        }
+        
+    }
+    
+    func actionCut(sender: UIButton) {
+        pausePlaying()
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected { // 裁剪中
+            cutHide(isHidden: false)
+        } else {
+            cutHide(isHidden: true)
+        }        
+    }
+    
+    func actionCutSlider(sender: UISlider) {
+        slider.value = sender.value
+        actionSlider(sender: sender)
+    }
+    
+    //MARK: 点击播放
+    func actionPlayClick(sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected { // 播放状态
+            
+            if cutBtn.isSelected { // 裁剪中
+                if player.currentTime == 0 {
+                    actionCutSlider(sender: cutSlider)
+                }else{
+                    continuePlay()
+                }
+            }else {
+                player.currentTime == 0 ? startPlay() : continuePlay()
+            }
+            
+        } else {
+            pausePlay()
+        }
+    }
+
+}
+
+extension ViewController {
+    func startPlay() {
+        playTime = 0
+        sliderTime = 0
+        player.currentTime = playTime
+        updateLabel()
+        player.play()
+        
+        initTimer()
+    }
+    
+    func pausePlay() {
+        player.pause()
+        pauseTimer()
+    }
+    
+    func continuePlay() {
+        player.play()
+        continueTimer()
+    }
+    
+    func stopPlay() {
+        sliderTimer.fireDate = Date.distantFuture
+        listenPlayBtn.isSelected = false
+    }
+}
+extension ViewController {
+    func tipTimerEvent() {
+        updateLabel()
+    }
+    
+    func sliderTimerEvent() {
+        sliderTime = sliderTime + 0.01
+        slider.value = Float(sliderTime)
+        if sliderTime >= player.duration {
+            stopPlay()
+        }
+    }
+    
+    
+    func updateLabel() {
+        print((player.currentTime + 0.1) ,player.duration)
+        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime + 0.1))//player.currentTime  第一秒0.9几
+        let endTime = TimeTool.getFormatTime(timerInval: player.duration)
+        timeLabel.text = "\(playTime)\\\(endTime)"
+    }
+
+}
+extension ViewController {
+    func initTimer() {
+        tipTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(tipTimerEvent), userInfo: nil, repeats: true)
+        sliderTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(sliderTimerEvent), userInfo: nil, repeats: true)
+    }
+    
+    func pauseTimer() {
+        tipTimer.fireDate = Date.distantFuture
+        sliderTimer.fireDate = Date.distantFuture
+    }
+    
+    func continueTimer() {
+        tipTimer.fireDate = Date()
+        sliderTimer.fireDate = Date()
+    }
+    
+    func stopTimer() {
+        sliderTimer.invalidate()
+        sliderTimer = nil
+        tipTimer.invalidate()
+        tipTimer = nil
+    }
+}
+
 extension ViewController: AVAudioPlayerDelegate{
 
-//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-//        if flag {
-//            stopPlaying()
-//        }else{
-//        }
-//    }
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if flag {
+            print("finishS")
+            tipTimer.fireDate = Date.distantFuture
+        } else {
+            print("finishError")
+        }
+    }
 }
 
 

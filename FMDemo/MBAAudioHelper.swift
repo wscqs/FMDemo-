@@ -49,9 +49,9 @@ class MBAAudioHelper: NSObject {
         let formatter = DateFormatter()
         formatter.dateFormat = "ddMMyyyyHHmmss"
         let recordingName = formatter.string(from: currentDateTime)+".caf"
-//        cafAudioString = recordingName.docRecordDir()
-        cafAudioString = "09122016111911.caf".docRecordDir()
-        print(cafAudioString)
+        cafAudioString = recordingName.docRecordDir()
+//        cafAudioString = "09122016111911.caf".docRecordDir()
+//        print(cafAudioString)
         mp3AudioString = (formatter.string(from: currentDateTime) + ".mp3").docRecordDir()
         
         do {
@@ -131,7 +131,7 @@ extension MBAAudioHelper{
     /// 停止录音
     func stopRecord() {
         audioRecorder?.stop()
-        audioRecorder = nil
+//        audioRecorder = nil
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
             try audioSession.setActive(false)

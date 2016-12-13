@@ -149,6 +149,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cutBtn" destination="05U-Uh-g7x" id="YTr-ou-c1B"/>
+                        <outlet property="cutCancelBtn" destination="8pY-sB-nS9" id="TBj-b2-cGV"/>
+                        <outlet property="cutSlider" destination="CEM-7V-yuy" id="JU8-7t-c3A"/>
+                        <outlet property="cutYesBtn" destination="Qf6-Ab-3Pw" id="OX7-Ib-2oQ"/>
                         <outlet property="heartButton" destination="6yT-OY-RmR" id="h8p-Tq-g2S"/>
                         <outlet property="listenPlayBtn" destination="3hQ-iN-Epk" id="0K1-q3-sNo"/>
                         <outlet property="pauseBtn" destination="QSL-SU-pJR" id="s3k-Jp-bPa"/>
@@ -156,10 +160,6 @@
                         <outlet property="recordBtn" destination="6bJ-32-MUC" id="dvf-PW-aar"/>
                         <outlet property="savaBtn" destination="L1g-J9-zeH" id="Wfb-PT-l4C"/>
                         <outlet property="slider" destination="Pzg-S9-E10" id="7jc-p2-Ahj"/>
-                        <outlet property="strokeBtn" destination="05U-Uh-g7x" id="3iU-7W-MT1"/>
-                        <outlet property="strokeCancelBtn" destination="8pY-sB-nS9" id="TJR-9c-SUs"/>
-                        <outlet property="strokeSlider" destination="CEM-7V-yuy" id="T6y-4h-Z9L"/>
-                        <outlet property="strokeYesBtn" destination="Qf6-Ab-3Pw" id="KYi-tY-WZX"/>
                         <outlet property="timeLabel" destination="BER-Jl-j0g" id="Q6Y-9L-EL3"/>
                     </connections>
                 </viewController>

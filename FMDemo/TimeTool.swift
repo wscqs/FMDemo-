@@ -11,7 +11,9 @@ import UIKit
 class TimeTool: NSObject {
     
     class func getFormatTime(timerInval : TimeInterval) -> String {
-        
+        if timerInval.isNaN {
+            return "00 : 00"
+        }
         let min = Int(timerInval) / 60
         let sec = Int(timerInval) % 60
         return String(format: "%02d : %02d", min, sec)

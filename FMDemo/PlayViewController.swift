@@ -60,7 +60,8 @@ class PlayViewController: UIViewController {
         slider.addTarget(self, action: #selector(actionSlider), for: .valueChanged)
 
 
-        let url = Bundle.main.url(forResource: "yijianji", withExtension: "caf")
+//        let url = Bundle.main.url(forResource: "yijianji", withExtension: "caf")
+        let url = URL(fileURLWithPath: "13122016182951.caf".docRecordDir())
         loadPlay(url: url)
     }
     
@@ -171,8 +172,8 @@ class PlayViewController: UIViewController {
         player.currentTime = playTime
         updateLabel()
         player.play()
-        tipTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(tipTimerEvent), userInfo: nil, repeats: true)
-        sliderTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(sliderTimerEvent), userInfo: nil, repeats: true)
+
+        initTimer()
     }
     
     
@@ -191,6 +192,10 @@ class PlayViewController: UIViewController {
         btn.isSelected = false
     }
     
+    func initTimer() {
+        tipTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(tipTimerEvent), userInfo: nil, repeats: true)
+        sliderTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(sliderTimerEvent), userInfo: nil, repeats: true)
+    }
     
     func pauseTimer() {
         tipTimer.fireDate = Date.distantFuture
