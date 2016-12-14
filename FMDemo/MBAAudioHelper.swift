@@ -109,12 +109,14 @@ extension MBAAudioHelper{
     
     /// 暂停录音
     func pauseRecord() {
+        try? audioSession.setActive(false)
         print("pauseRecord!!")
         audioRecorder?.pause()
     }
     
     /// 继续录音
     func continueRecord() {
+        try? audioSession.setActive(true)
         print("continueRecord!!")
         audioRecorder?.record()
     }
@@ -133,8 +135,8 @@ extension MBAAudioHelper{
         audioRecorder?.stop()
 //        audioRecorder = nil
         do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
-            try audioSession.setActive(false)
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback)//此处需要恢复设置回放标志，否则会导致其它播放声音也会变小
+            try audioSession.setActive(true)
             print("stop!!")
         } catch {
             print("stopError!!")
