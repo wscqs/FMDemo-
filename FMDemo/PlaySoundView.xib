@@ -15,7 +15,7 @@
                 <outlet property="cycleBtn" destination="fHT-tz-Bar" id="BXp-BB-ti9"/>
                 <outlet property="playBtn" destination="Tq5-qG-rmE" id="45D-fw-whe"/>
                 <outlet property="playNameLabel" destination="hnk-Gf-bd8" id="WAL-Yd-WXw"/>
-                <outlet property="playSlider" destination="3Tc-1n-uev" id="XKQ-pU-cCQ"/>
+                <outlet property="playProgress" destination="8ht-DW-vPy" id="rEP-kr-KzW"/>
                 <outlet property="playTimeLabel" destination="rZq-MJ-FCM" id="8ik-3D-rIC"/>
                 <outlet property="view" destination="iN0-l3-epB" id="fCC-fe-y8z"/>
             </connections>
@@ -42,9 +42,6 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="3Tc-1n-uev">
-                            <rect key="frame" x="66" y="21" width="312" height="31"/>
-                        </slider>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHT-tz-Bar">
                             <rect key="frame" x="395" y="21" width="46" height="30"/>
                             <state key="normal" title="已循环">
@@ -55,23 +52,27 @@
                             </state>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-00：37" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZq-MJ-FCM">
-                            <rect key="frame" x="310.5" y="43" width="65.5" height="21"/>
+                            <rect key="frame" x="310" y="43" width="66" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8ht-DW-vPy">
+                            <rect key="frame" x="68" y="35" width="308" height="2"/>
+                        </progressView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="fHT-tz-Bar" firstAttribute="leading" secondItem="3Tc-1n-uev" secondAttribute="trailing" constant="19" id="11m-6u-tK0"/>
-                        <constraint firstItem="Tq5-qG-rmE" firstAttribute="top" secondItem="3Tc-1n-uev" secondAttribute="top" id="5OV-q5-gJC"/>
-                        <constraint firstItem="rZq-MJ-FCM" firstAttribute="top" secondItem="3Tc-1n-uev" secondAttribute="bottom" constant="-8" id="7ma-Br-4rt"/>
-                        <constraint firstItem="rZq-MJ-FCM" firstAttribute="trailing" secondItem="3Tc-1n-uev" secondAttribute="trailing" id="Am7-M8-pn2"/>
+                        <constraint firstItem="rZq-MJ-FCM" firstAttribute="trailing" secondItem="8ht-DW-vPy" secondAttribute="trailing" id="CBa-gJ-XZE"/>
                         <constraint firstItem="Tq5-qG-rmE" firstAttribute="leading" secondItem="Q0e-dY-Mrf" secondAttribute="leading" constant="14" id="E6s-tD-50B"/>
+                        <constraint firstItem="rZq-MJ-FCM" firstAttribute="bottom" secondItem="Q0e-dY-Mrf" secondAttribute="bottomMargin" id="J7W-qw-JXb"/>
                         <constraint firstItem="hnk-Gf-bd8" firstAttribute="leading" secondItem="Tq5-qG-rmE" secondAttribute="trailing" constant="8" symbolic="YES" id="JRf-mq-gQo"/>
                         <constraint firstItem="Tq5-qG-rmE" firstAttribute="centerY" secondItem="Q0e-dY-Mrf" secondAttribute="centerY" id="MG4-JF-fTz"/>
-                        <constraint firstItem="hnk-Gf-bd8" firstAttribute="leading" secondItem="3Tc-1n-uev" secondAttribute="leading" id="dUh-JM-fgw"/>
+                        <constraint firstItem="8ht-DW-vPy" firstAttribute="centerY" secondItem="Q0e-dY-Mrf" secondAttribute="centerY" id="epO-wr-peD"/>
                         <constraint firstItem="hnk-Gf-bd8" firstAttribute="top" secondItem="Q0e-dY-Mrf" secondAttribute="topMargin" id="iDH-PC-bRu"/>
+                        <constraint firstItem="fHT-tz-Bar" firstAttribute="leading" secondItem="8ht-DW-vPy" secondAttribute="trailing" constant="19" id="jOg-T5-XvC"/>
+                        <constraint firstItem="8ht-DW-vPy" firstAttribute="leading" secondItem="Tq5-qG-rmE" secondAttribute="trailing" constant="8" id="oOL-RB-xar"/>
+                        <constraint firstItem="8ht-DW-vPy" firstAttribute="top" secondItem="hnk-Gf-bd8" secondAttribute="bottom" constant="6" id="sFE-UX-igp"/>
                         <constraint firstItem="Tq5-qG-rmE" firstAttribute="baseline" secondItem="fHT-tz-Bar" secondAttribute="baseline" id="t5v-aE-xsQ"/>
                         <constraint firstItem="fHT-tz-Bar" firstAttribute="trailing" secondItem="Q0e-dY-Mrf" secondAttribute="trailingMargin" id="z1f-c6-xqT"/>
                     </constraints>

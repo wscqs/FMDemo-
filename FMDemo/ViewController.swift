@@ -39,8 +39,8 @@ class ViewController: UIViewController {
     
 //    var playTime: TimeInterval!
     var sliderTime: TimeInterval!
-    var sliderTimer: Timer!
-    var tipTimer: Timer!
+    var sliderTimer: Timer?
+    var tipTimer: Timer?
     var player: AVAudioPlayer!
     
     override func viewDidLoad() {
@@ -49,17 +49,14 @@ class ViewController: UIViewController {
         recordBtn.setTitle("开始录音", for: .normal)
         recordBtn.setTitle("录音中", for: .selected)
         
-//        listenPlayBtn.addTarget(self, action: #selector(play), for: .touchUpInside)
         listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
 
         
         savaBtn.addTarget(self, action: #selector(stopRecord), for: .touchUpInside)
-//        cutBtn.addTarget(self, action: #selector(actionStroke), for: .touchUpInside)
         cutBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
         
         reRecordBtn.addTarget(self, action: #selector(actionReRecord), for: .touchUpInside)
         
-//        slider.addTarget(self, action: #selector(sliderChangeValue), for: .valueChanged)
         slider.addTarget(self, action: #selector(actionSlider), for: .valueChanged)
 
         slider.isContinuous = false // 滑动结束 才会执行valueChanged 事件
@@ -67,7 +64,6 @@ class ViewController: UIViewController {
 
         cutSlider.isContinuous = false
         cutSlider.value = 0
-//        cutSlider.addTarget(self, action: #selector(cutSliderChangeValue), for: .valueChanged)
         cutSlider.addTarget(self, action: #selector(actionCutSlider), for: .valueChanged)
         
         cutCancelBtn.addTarget(self, action: #selector(actionStrokeCancel), for: .touchUpInside)
@@ -109,30 +105,7 @@ class ViewController: UIViewController {
         reRecordBtn.isHidden = isHidden
         savaBtn.isHidden = isHidden
     }
-
     
-
-    
-    /// 裁剪
-//    func actionStroke() {
-//        cutHide(isHidden: false)
-//        
-//        pausePlaying()
-//        listenPlayBtn.isSelected = false
-//        cutSlider.minimumValue = 0
-//        cutSlider.maximumValue = slider.maximumValue
-//    }
-    
-    func cutSliderChangeValue(sender: UISlider) {
-        slider.value = sender.value
-        sliderChangeValue(sender: slider)
-    }
-    
-    func sliderChangeValue(sender: UISlider) {
-        playTime = TimeInterval(sender.value)
-        initPlayInitTimeStatue(time: playTime)
-        MBAAudio.audioPlayerCurrentTime = playTime
-    }
 
     func actionRecordClick(sender: UIButton) {
         if !canRecord() {
@@ -163,6 +136,11 @@ class ViewController: UIViewController {
     }
     
     // MARK: - 录音状态
+//    func initRecordStatus() {
+//        initStatusHide(isHidden: true)
+//        
+//    }
+    
     //开始录音
     func startRecord() {
         noRecordHide(isHidden: false)
@@ -216,38 +194,21 @@ class ViewController: UIViewController {
     //开始播放
     func startPlaying() {
         recoredHide(isHidden: false)
-        
-//        MBAAudio.startPlaying()
-//        MBAAudio.audioPlayer?.delegate = self
-//        slider.maximumValue = Float(time)
-//        slider.minimumValue = 0
-//        initPlayInitTimeStatue(time: 0)
-        
-        
-//        playTimerInit()
         startPlay()
     }
     
     //暂停播放
     func pausePlaying() {
-//        MBAAudio.pausePlaying()
-//        playTimerPause()
         pausePlay()
     }
     
     //继续播放
     func continuePlaying() {
-//        MBAAudio.continuePlaying()
-//        initPlayInitTimeStatue(time: playTime)
-//        playTimerContinue()
         continuePlay()
     }
     
     //结束播放
     func stopPlaying() {
-//        MBAAudio.stopPlaying()
-//        playTimerPause()
-//        listenPlayBtn.isSelected = false
         stopPlay()
     }
     
@@ -260,6 +221,10 @@ class ViewController: UIViewController {
         let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: { (action) in
             if MBAAudio.deleteRecording() {
                 print("删除成功")
+                self.initStatusHide(isHidden: true)
+                MBAAudio.audioRecorder = nil
+                self.recordBtn.setTitle("录音", for: .normal)
+                self.recordBtn.isSelected = false                
             } else {
                  print("删除失败")
             }
@@ -289,7 +254,6 @@ extension ViewController {
         // 1.拿到预处理音频文件
         let inputPath = MBAAudio.audioRecorder?.url.absoluteString
         let url = URL(fileURLWithPath: inputPath!)
-        print(url)
         let songAsset = AVURLAsset(url: url)
         
         let exportPath = (Date().formatDate + ".caf").docCutDir()
@@ -337,7 +301,6 @@ extension ViewController {
     
     func initOraginTimeStatue(time: TimeInterval){
         self.time = time
-//        self.cell!.recordTimeLabel.text = "\(self.time)\""
         timeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(time))
     }
     
@@ -366,49 +329,7 @@ extension ViewController {
     func timerContinue() {
         timer?.fireDate = Date()
     }
-    
-    
-    
-    func initPlayInitTimeStatue(time: TimeInterval){
-        self.playTime = time
-        let endTime = TimeTool.getFormatTime(timerInval: self.time)
-        let startTime = TimeTool.getFormatTime(timerInval: self.playTime)
-//        slider.value = Float(MBAAudio.audioPlayerCurrentTime)
-        slider.value = Float(time)
-        timeLabel.text = "\(startTime)\\\(endTime)"
-    }
-    
-    func playTimerInit(){
-        playTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(actionPlayTimer), userInfo: nil, repeats: true)
-    }
-    
-    func playTimerInvalidate(){
-        playTimer?.invalidate()
-        playTimer = nil
-    }
-    
-    func actionPlayTimer() {
-        playTime = playTime + 1
-//        playTime = MBAAudio.audioPlayerCurrentTime + 0.5
-        initPlayInitTimeStatue(time:playTime)
-        
-        print(MBAAudio.audioPlayerCurrentTime,MBAAudio.audioPlayerDuration)
-//        if MBAAudio.audioPlayerCurrentTime >= MBAAudio.audioPlayerDuration {
-//            stopPlaying()
-//        }
-        if playTime >= self.time {
-            //            结束？
-            stopPlaying()
-        }
-    }
-    
-    func playTimerPause() {
-        playTimer?.fireDate = Date.distantFuture
-    }
-    
-    func playTimerContinue() {
-        playTimer?.fireDate = Date()
-    }
+
 }
 
 
@@ -540,7 +461,7 @@ extension ViewController {
     }
     
     func stopPlay() {
-        sliderTimer.fireDate = Date.distantFuture
+        sliderTimer?.fireDate = Date.distantFuture
         listenPlayBtn.isSelected = false
     }
 }
@@ -573,19 +494,19 @@ extension ViewController {
     }
     
     func pauseTimer() {
-        tipTimer.fireDate = Date.distantFuture
-        sliderTimer.fireDate = Date.distantFuture
+        tipTimer?.fireDate = Date.distantFuture
+        sliderTimer?.fireDate = Date.distantFuture
     }
     
     func continueTimer() {
-        tipTimer.fireDate = Date()
-        sliderTimer.fireDate = Date()
+        tipTimer?.fireDate = Date()
+        sliderTimer?.fireDate = Date()
     }
     
     func stopTimer() {
-        sliderTimer.invalidate()
+        sliderTimer?.invalidate()
         sliderTimer = nil
-        tipTimer.invalidate()
+        tipTimer?.invalidate()
         tipTimer = nil
     }
 }
@@ -595,7 +516,7 @@ extension ViewController: AVAudioPlayerDelegate{
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if flag {
             print("finishS")
-            tipTimer.fireDate = Date.distantFuture
+            tipTimer?.fireDate = Date.distantFuture
         } else {
             print("finishError")
         }

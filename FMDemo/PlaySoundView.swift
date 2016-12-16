@@ -88,7 +88,8 @@ class PlaySoundView: UIView {
     @IBOutlet weak var playTimeLabel: UILabel!
     @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var cycleBtn: UIButton!
-    @IBOutlet weak var playSlider: UISlider!
+//    @IBOutlet weak var playSlider: UISlider!
+    @IBOutlet weak var playProgress: UIProgressView!
     
     func tapAction(_ sender: UITapGestureRecognizer) {
         delegate?.playSoundViewClick(self)
@@ -120,7 +121,7 @@ extension PlaySoundView {
     func actionTimer() {
         let currentTime: Float = Float(CMTimeGetSeconds((audioPlayer?.currentTime())!))
         let totalTime: Float = Float(CMTimeGetSeconds((audioPlayer?.currentItem?.asset.duration)!))
-        playSlider.value = currentTime / totalTime
+        playProgress.progress = currentTime / totalTime
         let remainTime = totalTime - currentTime
         playTimeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(remainTime))
     }
