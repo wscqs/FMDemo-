@@ -28,6 +28,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var cutYesBtn: UIButton!
     
 
+    var addBtn: UIButton = UIButton()
     
     var timer: Timer?
     var time:TimeInterval = 0
@@ -43,8 +44,66 @@ class ViewController: UIViewController {
     var tipTimer: Timer?
     var player: AVAudioPlayer!
     
+    
+    func add() {
+        
+        let path1 = Bundle.main.path(forResource: "yijianji", ofType: "caf")
+        let path2 = Bundle.main.path(forResource: "yijianji1", ofType: "caf")
+        let audioAsset1 = AVURLAsset(url: URL(fileURLWithPath: path1!))
+        let audioAsset2 = AVURLAsset(url: URL(fileURLWithPath: path2!))
+        
+        
+        let compostiton = AVMutableComposition()
+        let audioTrack1 = compostiton.addMutableTrack(withMediaType: AVMediaTypeAudio, preferredTrackID: 0)
+        let audioTrack2 = compostiton.addMutableTrack(withMediaType: AVMediaTypeAudio, preferredTrackID: 0)
+        let audioAssetTrack1 = audioAsset1.tracks(withMediaType: AVMediaTypeAudio).first!
+        let audioAssetTrack2 = audioAsset2.tracks(withMediaType: AVMediaTypeAudio).first!
+        
+        
+        try? audioTrack1.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset1.duration), of: audioAssetTrack1, at: kCMTimeZero)
+        try? audioTrack2.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset2.duration), of: audioAssetTrack2, at: audioAsset1.duration)
+        
+        
+
+        let exportPath = (Date().formatDate + ".caf").docCutDir()
+        let exportURL = URL(fileURLWithPath: exportPath)
+        print(exportURL)
+        
+        let exportSession = AVAssetExportSession(asset: compostiton, presetName: AVAssetExportPresetAppleM4A)
+        exportSession?.outputURL = exportURL
+        exportSession?.outputFileType = AVFileTypeAppleM4A
+        
+        
+//        // 3.创建音频输出会话
+//        let exportSession = AVAssetExportSession(asset: compostiton, presetName: AVAssetExportPresetPassthrough)
+//        // 4.设置音频输出会话并执行
+//        exportSession?.outputURL = exportURL
+//        exportSession?.outputFileType = AVFileTypeCoreAudioFormat
+        exportSession?.exportAsynchronously {
+            if AVAssetExportSessionStatus.completed == exportSession?.status {
+                print("AVAssetExportSessionStatusCompleted")
+                
+                DispatchQueue.main.async {
+                    self.loadPlay(url: exportURL)
+                }
+            } else if AVAssetExportSessionStatus.failed == exportSession?.status {
+                print("AVAssetExportSessionStatusFailed")
+            } else {
+                print("Export Session Status: %d", exportSession?.status ?? "")
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addSubview(addBtn)
+        addBtn.setTitle("合并", for: .normal)
+        addBtn.setTitleColor(UIColor.blue, for: .normal)
+        addBtn.center = view.center
+        addBtn.sizeToFit()
+        addBtn.addTarget(self, action: "add", for: .touchUpInside)
+        
         recordBtn.addTarget(self, action: #selector(actionRecordClick), for: .touchUpInside)
         recordBtn.setTitle("开始录音", for: .normal)
         recordBtn.setTitle("录音中", for: .selected)
@@ -176,9 +235,10 @@ class ViewController: UIViewController {
         recoredHide(isHidden: true)
         
         MBAAudio.continueRecord()
-        timerContinue()
-        
+
+        time = player.duration 
         initOraginTimeStatue(time: time)
+        timerContinue()
         
         stopPlaying()
         

@@ -51,11 +51,12 @@ class MBAAudioHelper: NSObject {
         let recordingName = formatter.string(from: currentDateTime)+".caf"
         cafAudioString = recordingName.docRecordDir()
 //        cafAudioString = "09122016111911.caf".docRecordDir()
-//        print(cafAudioString)
+        print(cafAudioString)
         mp3AudioString = (formatter.string(from: currentDateTime) + ".mp3").docRecordDir()
         
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker) // 解决音频声音播放过小
             try audioRecorder = AVAudioRecorder(url: URL(string: cafAudioString)!,                                                settings: recordSettings)//初始化实例
 //            audioRecorder?.delegate = self
             audioRecorder?.prepareToRecord()//准备录音
@@ -109,14 +110,12 @@ extension MBAAudioHelper{
     
     /// 暂停录音
     func pauseRecord() {
-        try? audioSession.setActive(false)
         print("pauseRecord!!")
         audioRecorder?.pause()
     }
     
     /// 继续录音
     func continueRecord() {
-        try? audioSession.setActive(true)
         print("continueRecord!!")
         audioRecorder?.record()
     }
@@ -160,6 +159,7 @@ extension MBAAudioHelper{
     /// 开始播放
     func startPlaying() {
         print("startPlaying!!")
+        try? audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker) // 解决音频声音播放过小
         play(atTime: 0)
     }
     

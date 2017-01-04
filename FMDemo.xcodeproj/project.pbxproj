@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C5772731DF6B56600D038B3 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5772721DF6B56600D038B3 /* PlayViewController.swift */; };
+		2C4CEA6D1E1D047900D0508C /* yijianji1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C4CEA6C1E1CFBE400D0508C /* yijianji1.caf */; };
 		2C5772751DF9129C00D038B3 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5772741DF9129C00D038B3 /* Date+Extension.swift */; };
 		2C5772781DFAABBF00D038B3 /* PlaySoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5772761DFAABBF00D038B3 /* PlaySoundView.swift */; };
 		2C5772791DFAABBF00D038B3 /* PlaySoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C5772771DFAABBF00D038B3 /* PlaySoundView.xib */; };
@@ -25,7 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2C5772721DF6B56600D038B3 /* PlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
+		2C4CEA6C1E1CFBE400D0508C /* yijianji1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = yijianji1.caf; sourceTree = "<group>"; };
 		2C5772741DF9129C00D038B3 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		2C5772761DFAABBF00D038B3 /* PlaySoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaySoundView.swift; sourceTree = "<group>"; };
 		2C5772771DFAABBF00D038B3 /* PlaySoundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaySoundView.xib; sourceTree = "<group>"; };
@@ -77,12 +77,12 @@
 				2C7818D21DEEA125001E3594 /* DOFavoriteButton.swift */,
 				2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */,
 				2C7818C21DEEA0F4001E3594 /* ViewController.swift */,
-				2C5772721DF6B56600D038B3 /* PlayViewController.swift */,
 				2C5772761DFAABBF00D038B3 /* PlaySoundView.swift */,
 				2C5772771DFAABBF00D038B3 /* PlaySoundView.xib */,
 				2C794D561DF009FD003A0E26 /* MBAAudioHelper.swift */,
 				2C5772741DF9129C00D038B3 /* Date+Extension.swift */,
 				4798A07F1DF08CA700FE7418 /* yijianji.caf */,
+				2C4CEA6C1E1CFBE400D0508C /* yijianji1.caf */,
 				2C794D5A1DF02404003A0E26 /* mp.mp3 */,
 				2C794D581DF00A2D003A0E26 /* String+Extension.swift */,
 				2C794D541DF00264003A0E26 /* TimeTool.swift */,
@@ -154,6 +154,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C4CEA6D1E1D047900D0508C /* yijianji1.caf in Resources */,
 				2C5772791DFAABBF00D038B3 /* PlaySoundView.xib in Resources */,
 				4798A0801DF08DC700FE7418 /* yijianji.caf in Resources */,
 				2C7818CB1DEEA0F4001E3594 /* LaunchScreen.storyboard in Resources */,
@@ -177,7 +178,6 @@
 				2C794D591DF00A2D003A0E26 /* String+Extension.swift in Sources */,
 				2C5772781DFAABBF00D038B3 /* PlaySoundView.swift in Sources */,
 				2C5772751DF9129C00D038B3 /* Date+Extension.swift in Sources */,
-				2C5772731DF6B56600D038B3 /* PlayViewController.swift in Sources */,
 				2C7818C11DEEA0F4001E3594 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
