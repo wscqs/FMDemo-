@@ -46,39 +46,43 @@ class ViewController: UIViewController {
     
     
     func add() {
-        
-        let path1 = Bundle.main.path(forResource: "yijianji", ofType: "caf")
-        let path2 = Bundle.main.path(forResource: "yijianji1", ofType: "caf")
-        let audioAsset1 = AVURLAsset(url: URL(fileURLWithPath: path1!))
-        let audioAsset2 = AVURLAsset(url: URL(fileURLWithPath: path2!))
-        
-        
-        let compostiton = AVMutableComposition()
-        let audioTrack1 = compostiton.addMutableTrack(withMediaType: AVMediaTypeAudio, preferredTrackID: 0)
-        let audioTrack2 = compostiton.addMutableTrack(withMediaType: AVMediaTypeAudio, preferredTrackID: 0)
-        let audioAssetTrack1 = audioAsset1.tracks(withMediaType: AVMediaTypeAudio).first!
-        let audioAssetTrack2 = audioAsset2.tracks(withMediaType: AVMediaTypeAudio).first!
+
+        let path1 = "05012017161357.caf".docRecordDir()
+        let path2 = "05012017160800.caf".docRecordDir()
+        let audioAsset1 = AVURLAsset(url: URL(fileURLWithPath: path1))
+        let audioAsset2 = AVURLAsset(url: URL(fileURLWithPath: path2))
+
         
         
-        try? audioTrack1.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset1.duration), of: audioAssetTrack1, at: kCMTimeZero)
-        try? audioTrack2.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset2.duration), of: audioAssetTrack2, at: audioAsset1.duration)
+//        let audioAssetTrack1 = audioAsset1.tracks(withMediaType: AVMediaTypeAudio).first!
+//        let audioAssetTrack2 = audioAsset2.tracks(withMediaType: AVMediaTypeAudio).first!
+//        let audioTrack1 = composititon.addMutableTrack(withMediaType: AVAssetExportPresetPassthrough, preferredTrackID: kCMPersistentTrackID_Invalid)
+//        let audioTrack2 = composititon.addMutableTrack(withMediaType: AVAssetExportPresetPassthrough, preferredTrackID: kCMPersistentTrackID_Invalid)
+//
+//        
+//        try? audioTrack1.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset1.duration), of: audioAssetTrack1, at: kCMTimeZero)
+//        try? audioTrack2.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset2.duration), of: audioAssetTrack2, at: audioAsset1.duration)
+        
+        let composititon = AVMutableComposition()
+        try? composititon.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset1.duration), of: audioAsset1, at: kCMTimeZero)
+        try? composititon.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset2.duration), of: audioAsset2, at: audioAsset1.duration)
         
         
 
-        let exportPath = (Date().formatDate + ".caf").docCutDir()
+        let exportPath = (Date().formatDate + ".caf").docDir()
         let exportURL = URL(fileURLWithPath: exportPath)
         print(exportURL)
         
-        let exportSession = AVAssetExportSession(asset: compostiton, presetName: AVAssetExportPresetAppleM4A)
-        exportSession?.outputURL = exportURL
-        exportSession?.outputFileType = AVFileTypeAppleM4A
-        
-        
-//        // 3.创建音频输出会话
-//        let exportSession = AVAssetExportSession(asset: compostiton, presetName: AVAssetExportPresetPassthrough)
-//        // 4.设置音频输出会话并执行
+//        let exportSession = AVAssetExportSession(asset: compostiton, presetName: AVAssetExportPresetAppleM4A)
 //        exportSession?.outputURL = exportURL
-//        exportSession?.outputFileType = AVFileTypeCoreAudioFormat
+//        exportSession?.outputFileType = AVFileTypeAppleM4A
+        
+        
+        // 3.创建音频输出会话
+        let exportSession = AVAssetExportSession(asset: composititon, presetName: AVAssetExportPresetPassthrough)
+        // 4.设置音频输出会话并执行
+        exportSession?.outputURL = exportURL
+        exportSession?.outputFileType = AVFileTypeCoreAudioFormat
         exportSession?.exportAsynchronously {
             if AVAssetExportSessionStatus.completed == exportSession?.status {
                 print("AVAssetExportSessionStatusCompleted")
@@ -88,10 +92,15 @@ class ViewController: UIViewController {
                 }
             } else if AVAssetExportSessionStatus.failed == exportSession?.status {
                 print("AVAssetExportSessionStatusFailed")
+                print(exportSession?.error.debugDescription)
             } else {
                 print("Export Session Status: %d", exportSession?.status ?? "")
             }
         }
+    }
+    
+    func trans() {
+        MBAAudioHelper.shared.cafChangceToMp3()
     }
     
     override func viewDidLoad() {
@@ -102,8 +111,7 @@ class ViewController: UIViewController {
         addBtn.setTitleColor(UIColor.blue, for: .normal)
         addBtn.center = view.center
         addBtn.sizeToFit()
-        addBtn.addTarget(self, action: "add", for: .touchUpInside)
-        
+        addBtn.addTarget(self, action: "trans", for: .touchUpInside)
         recordBtn.addTarget(self, action: #selector(actionRecordClick), for: .touchUpInside)
         recordBtn.setTitle("开始录音", for: .normal)
         recordBtn.setTitle("录音中", for: .selected)

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2C4CEA6D1E1D047900D0508C /* yijianji1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C4CEA6C1E1CFBE400D0508C /* yijianji1.caf */; };
+		2C4CEA811E1DE6F000D0508C /* Lame2mp3Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CEA7F1E1DE6F000D0508C /* Lame2mp3Tool.m */; };
+		2C4CEA821E1DE6F000D0508C /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4CEA801E1DE6F000D0508C /* libmp3lame.a */; };
 		2C5772751DF9129C00D038B3 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5772741DF9129C00D038B3 /* Date+Extension.swift */; };
 		2C5772781DFAABBF00D038B3 /* PlaySoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5772761DFAABBF00D038B3 /* PlaySoundView.swift */; };
 		2C5772791DFAABBF00D038B3 /* PlaySoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C5772771DFAABBF00D038B3 /* PlaySoundView.xib */; };
@@ -20,12 +22,16 @@
 		2C794D551DF00264003A0E26 /* TimeTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C794D541DF00264003A0E26 /* TimeTool.swift */; };
 		2C794D571DF009FD003A0E26 /* MBAAudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C794D561DF009FD003A0E26 /* MBAAudioHelper.swift */; };
 		2C794D591DF00A2D003A0E26 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C794D581DF00A2D003A0E26 /* String+Extension.swift */; };
-		2C794D5B1DF02404003A0E26 /* mp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C794D5A1DF02404003A0E26 /* mp.mp3 */; };
 		4798A0801DF08DC700FE7418 /* yijianji.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4798A07F1DF08CA700FE7418 /* yijianji.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2C4CEA6C1E1CFBE400D0508C /* yijianji1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = yijianji1.caf; sourceTree = "<group>"; };
+		2C4CEA781E1DE6D000D0508C /* FMDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FMDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		2C4CEA7D1E1DE6F000D0508C /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
+		2C4CEA7E1E1DE6F000D0508C /* Lame2mp3Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lame2mp3Tool.h; sourceTree = "<group>"; };
+		2C4CEA7F1E1DE6F000D0508C /* Lame2mp3Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lame2mp3Tool.m; sourceTree = "<group>"; };
+		2C4CEA801E1DE6F000D0508C /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		2C5772741DF9129C00D038B3 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		2C5772761DFAABBF00D038B3 /* PlaySoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaySoundView.swift; sourceTree = "<group>"; };
 		2C5772771DFAABBF00D038B3 /* PlaySoundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaySoundView.xib; sourceTree = "<group>"; };
@@ -40,7 +46,6 @@
 		2C794D541DF00264003A0E26 /* TimeTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTool.swift; sourceTree = "<group>"; };
 		2C794D561DF009FD003A0E26 /* MBAAudioHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBAAudioHelper.swift; sourceTree = "<group>"; };
 		2C794D581DF00A2D003A0E26 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		2C794D5A1DF02404003A0E26 /* mp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mp.mp3; sourceTree = "<group>"; };
 		4798A07F1DF08CA700FE7418 /* yijianji.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = yijianji.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,12 +54,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C4CEA821E1DE6F000D0508C /* libmp3lame.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C4CEA7C1E1DE6F000D0508C /* lame */ = {
+			isa = PBXGroup;
+			children = (
+				2C4CEA7D1E1DE6F000D0508C /* lame.h */,
+				2C4CEA7E1E1DE6F000D0508C /* Lame2mp3Tool.h */,
+				2C4CEA7F1E1DE6F000D0508C /* Lame2mp3Tool.m */,
+				2C4CEA801E1DE6F000D0508C /* libmp3lame.a */,
+			);
+			path = lame;
+			sourceTree = "<group>";
+		};
 		2C7818B41DEEA0F4001E3594 = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +91,7 @@
 		2C7818BF1DEEA0F4001E3594 /* FMDemo */ = {
 			isa = PBXGroup;
 			children = (
+				2C4CEA7C1E1DE6F000D0508C /* lame */,
 				2C7818D21DEEA125001E3594 /* DOFavoriteButton.swift */,
 				2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */,
 				2C7818C21DEEA0F4001E3594 /* ViewController.swift */,
@@ -83,13 +101,13 @@
 				2C5772741DF9129C00D038B3 /* Date+Extension.swift */,
 				4798A07F1DF08CA700FE7418 /* yijianji.caf */,
 				2C4CEA6C1E1CFBE400D0508C /* yijianji1.caf */,
-				2C794D5A1DF02404003A0E26 /* mp.mp3 */,
 				2C794D581DF00A2D003A0E26 /* String+Extension.swift */,
 				2C794D541DF00264003A0E26 /* TimeTool.swift */,
 				2C7818C41DEEA0F4001E3594 /* Main.storyboard */,
 				2C7818C71DEEA0F4001E3594 /* Assets.xcassets */,
 				2C7818C91DEEA0F4001E3594 /* LaunchScreen.storyboard */,
 				2C7818CC1DEEA0F4001E3594 /* Info.plist */,
+				2C4CEA781E1DE6D000D0508C /* FMDemo-Bridging-Header.h */,
 			);
 			path = FMDemo;
 			sourceTree = "<group>";
@@ -127,6 +145,7 @@
 					2C7818BC1DEEA0F4001E3594 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = 6BY5V9TZ5E;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -159,7 +178,6 @@
 				4798A0801DF08DC700FE7418 /* yijianji.caf in Resources */,
 				2C7818CB1DEEA0F4001E3594 /* LaunchScreen.storyboard in Resources */,
 				2C7818C81DEEA0F4001E3594 /* Assets.xcassets in Resources */,
-				2C794D5B1DF02404003A0E26 /* mp.mp3 in Resources */,
 				2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,6 +195,7 @@
 				2C794D551DF00264003A0E26 /* TimeTool.swift in Sources */,
 				2C794D591DF00A2D003A0E26 /* String+Extension.swift in Sources */,
 				2C5772781DFAABBF00D038B3 /* PlaySoundView.swift in Sources */,
+				2C4CEA811E1DE6F000D0508C /* Lame2mp3Tool.m in Sources */,
 				2C5772751DF9129C00D038B3 /* Date+Extension.swift in Sources */,
 				2C7818C11DEEA0F4001E3594 /* AppDelegate.swift in Sources */,
 			);
@@ -302,15 +321,22 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6BY5V9TZ5E;
 				INFOPLIST_FILE = FMDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FMDemo/lame",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cqs.FMDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "FMDemo/FMDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -320,16 +346,22 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6BY5V9TZ5E;
 				INFOPLIST_FILE = FMDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FMDemo/lame",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cqs.FMDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "FMDemo/FMDemo-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

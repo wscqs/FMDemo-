@@ -199,11 +199,22 @@ extension MBAAudioHelper{
 
 
     
-//    func cafChangceToMp3(){
-//        let cafPath = URL(string: cafAudioString)
-//        let mp3Path = URL(string: mp3AudioString)
-//        Lame2mp3Tool.transformCAFPath(cafPath!, toMP3: mp3Path!)
-//    }
+    func cafChangceToMp3(){
+        let path1 = "05012017175828.caf".docDir()
+        let cafPath = URL(string: path1)
+//        
+//
+        let path2 = "05012017115202tran.mp3".docDir()
+//        let mp3Path = URL(fileURLWithPath: path2)
+        
+//                let cafPath = URL(string: path1)
+                let mp3Path = URL(string: path2)
+                print(mp3Path?.absoluteString)
+//                let cafPath = URL(string: cafAudioString)
+        //        let mp3Path = URL(string: mp3AudioString)
+        //        print(mp3Path?.absoluteString)
+        Lame2mp3Tool.transformCAFPath(cafPath, toMP3: mp3Path)
+    }
     
     
 }
