@@ -89,7 +89,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Pzg-S9-E10">
+                                    <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Pzg-S9-E10">
                                         <rect key="frame" x="6" y="66" width="363" height="31"/>
                                     </slider>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="CEM-7V-yuy">
@@ -121,7 +121,7 @@
                                 <rect key="frame" x="284" y="318.5" width="31" height="30"/>
                                 <state key="normal" title="确定"/>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L0x-31-k7R" customClass="PlaySoundView" customModule="FMDemo" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L0x-31-k7R" customClass="PlaySoundView" customModule="FMDemo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="412" width="375" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>

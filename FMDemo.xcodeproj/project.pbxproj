@@ -10,6 +10,7 @@
 		2C4CEA6D1E1D047900D0508C /* yijianji1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C4CEA6C1E1CFBE400D0508C /* yijianji1.caf */; };
 		2C4CEA811E1DE6F000D0508C /* Lame2mp3Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CEA7F1E1DE6F000D0508C /* Lame2mp3Tool.m */; };
 		2C4CEA821E1DE6F000D0508C /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4CEA801E1DE6F000D0508C /* libmp3lame.a */; };
+		2C4CEA861E1F968000D0508C /* MBACache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4CEA851E1F968000D0508C /* MBACache.swift */; };
 		2C5772751DF9129C00D038B3 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5772741DF9129C00D038B3 /* Date+Extension.swift */; };
 		2C5772781DFAABBF00D038B3 /* PlaySoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5772761DFAABBF00D038B3 /* PlaySoundView.swift */; };
 		2C5772791DFAABBF00D038B3 /* PlaySoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C5772771DFAABBF00D038B3 /* PlaySoundView.xib */; };
@@ -32,6 +33,7 @@
 		2C4CEA7E1E1DE6F000D0508C /* Lame2mp3Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lame2mp3Tool.h; sourceTree = "<group>"; };
 		2C4CEA7F1E1DE6F000D0508C /* Lame2mp3Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lame2mp3Tool.m; sourceTree = "<group>"; };
 		2C4CEA801E1DE6F000D0508C /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
+		2C4CEA851E1F968000D0508C /* MBACache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBACache.swift; sourceTree = "<group>"; };
 		2C5772741DF9129C00D038B3 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		2C5772761DFAABBF00D038B3 /* PlaySoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaySoundView.swift; sourceTree = "<group>"; };
 		2C5772771DFAABBF00D038B3 /* PlaySoundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaySoundView.xib; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				2C5772761DFAABBF00D038B3 /* PlaySoundView.swift */,
 				2C5772771DFAABBF00D038B3 /* PlaySoundView.xib */,
 				2C794D561DF009FD003A0E26 /* MBAAudioHelper.swift */,
+				2C4CEA851E1F968000D0508C /* MBACache.swift */,
 				2C5772741DF9129C00D038B3 /* Date+Extension.swift */,
 				4798A07F1DF08CA700FE7418 /* yijianji.caf */,
 				2C4CEA6C1E1CFBE400D0508C /* yijianji1.caf */,
@@ -139,7 +142,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = mbalib;
 				TargetAttributes = {
 					2C7818BC1DEEA0F4001E3594 = {
@@ -194,6 +197,7 @@
 				2C7818D31DEEA126001E3594 /* DOFavoriteButton.swift in Sources */,
 				2C794D551DF00264003A0E26 /* TimeTool.swift in Sources */,
 				2C794D591DF00A2D003A0E26 /* String+Extension.swift in Sources */,
+				2C4CEA861E1F968000D0508C /* MBACache.swift in Sources */,
 				2C5772781DFAABBF00D038B3 /* PlaySoundView.swift in Sources */,
 				2C4CEA811E1DE6F000D0508C /* Lame2mp3Tool.m in Sources */,
 				2C5772751DF9129C00D038B3 /* Date+Extension.swift in Sources */,
@@ -241,12 +245,14 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -291,12 +297,14 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

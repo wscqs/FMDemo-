@@ -149,9 +149,9 @@ extension PlaySoundView {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if "status" == keyPath{
-            guard let status = audioPlayer?.status else {
-                return
-            }
+//            guard let status = audioPlayer?.status else {
+//                return
+//            }
 //            switch status as AVPlayerStatus{
 //            case .unknown:
 ////                MBAProgressHUD.dismiss()
@@ -170,7 +170,7 @@ extension PlaySoundView {
     func initAudio() {
         let path = Bundle.main.url(forResource: "yijianji", withExtension: "caf")
         
-        let a = path?.lastPathComponent // 获取文件名字
+//        let a = path?.lastPathComponent // 获取文件名字
 //        let url = "http://i.111ttt.com:8282/97301815582.mp3"
 //        let audiourl = URL(string: url)
         let audiourl = path

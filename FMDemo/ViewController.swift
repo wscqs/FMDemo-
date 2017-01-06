@@ -27,8 +27,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var cutCancelBtn: UIButton!
     @IBOutlet weak var cutYesBtn: UIButton!
     
+    
+    var isCuted: Bool = false
+    
 
-    var addBtn: UIButton = UIButton()
+//    var addBtn: UIButton = UIButton()
     
     var timer: Timer?
     var time:TimeInterval = 0
@@ -44,24 +47,13 @@ class ViewController: UIViewController {
     var tipTimer: Timer?
     var player: AVAudioPlayer!
     
+    var mergeExportPath = ""
+    var cutExportPath = ""
     
-    func add() {
+    func mergeVoice(path1: String, path2: String) {
 
-        let path1 = "05012017161357.caf".docRecordDir()
-        let path2 = "05012017160800.caf".docRecordDir()
         let audioAsset1 = AVURLAsset(url: URL(fileURLWithPath: path1))
         let audioAsset2 = AVURLAsset(url: URL(fileURLWithPath: path2))
-
-        
-        
-//        let audioAssetTrack1 = audioAsset1.tracks(withMediaType: AVMediaTypeAudio).first!
-//        let audioAssetTrack2 = audioAsset2.tracks(withMediaType: AVMediaTypeAudio).first!
-//        let audioTrack1 = composititon.addMutableTrack(withMediaType: AVAssetExportPresetPassthrough, preferredTrackID: kCMPersistentTrackID_Invalid)
-//        let audioTrack2 = composititon.addMutableTrack(withMediaType: AVAssetExportPresetPassthrough, preferredTrackID: kCMPersistentTrackID_Invalid)
-//
-//        
-//        try? audioTrack1.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset1.duration), of: audioAssetTrack1, at: kCMTimeZero)
-//        try? audioTrack2.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset2.duration), of: audioAssetTrack2, at: audioAsset1.duration)
         
         let composititon = AVMutableComposition()
         try? composititon.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset1.duration), of: audioAsset1, at: kCMTimeZero)
@@ -69,15 +61,10 @@ class ViewController: UIViewController {
         
         
 
-        let exportPath = (Date().formatDate + ".caf").docDir()
-        let exportURL = URL(fileURLWithPath: exportPath)
+        mergeExportPath = (Date().formatDate + ".caf").docDir()
+        let exportURL = URL(fileURLWithPath: mergeExportPath)
         print(exportURL)
-        
-//        let exportSession = AVAssetExportSession(asset: compostiton, presetName: AVAssetExportPresetAppleM4A)
-//        exportSession?.outputURL = exportURL
-//        exportSession?.outputFileType = AVFileTypeAppleM4A
-        
-        
+ 
         // 3.创建音频输出会话
         let exportSession = AVAssetExportSession(asset: composititon, presetName: AVAssetExportPresetPassthrough)
         // 4.设置音频输出会话并执行
@@ -92,7 +79,7 @@ class ViewController: UIViewController {
                 }
             } else if AVAssetExportSessionStatus.failed == exportSession?.status {
                 print("AVAssetExportSessionStatusFailed")
-                print(exportSession?.error.debugDescription)
+//                print(exportSession?.error.debugDescription)
             } else {
                 print("Export Session Status: %d", exportSession?.status ?? "")
             }
@@ -106,15 +93,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(addBtn)
-        addBtn.setTitle("合并", for: .normal)
-        addBtn.setTitleColor(UIColor.blue, for: .normal)
-        addBtn.center = view.center
-        addBtn.sizeToFit()
-        addBtn.addTarget(self, action: "trans", for: .touchUpInside)
+//        view.addSubview(addBtn)
+//        addBtn.setTitle("合并", for: .normal)
+//        addBtn.setTitleColor(UIColor.blue, for: .normal)
+//        addBtn.center = view.center
+//        addBtn.sizeToFit()
+//        addBtn.addTarget(self, action: "trans", for: .touchUpInside)
+        
         recordBtn.addTarget(self, action: #selector(actionRecordClick), for: .touchUpInside)
-        recordBtn.setTitle("开始录音", for: .normal)
-        recordBtn.setTitle("录音中", for: .selected)
+        
         
         listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
 
@@ -130,14 +117,32 @@ class ViewController: UIViewController {
         
 
         cutSlider.isContinuous = false
-        cutSlider.value = 0
         cutSlider.addTarget(self, action: #selector(actionCutSlider), for: .valueChanged)
         
         cutCancelBtn.addTarget(self, action: #selector(actionStrokeCancel), for: .touchUpInside)
         cutYesBtn.addTarget(self, action: #selector(actionStrokeYes), for: .touchUpInside)
 
-        initStatusHide(isHidden: true)
+        initStates()
     }
+    
+    func initStates() {
+        initStatusHide(isHidden: true)
+        recordBtn.setTitle("开始录音", for: .normal)
+        recordBtn.setTitle("录音中", for: .selected)
+        cutSlider.value = 0
+        initOraginTimeStatue(time:0)
+    }
+    
+    ///FIXME:
+    /// 初始或重置后的状态
+    func actionReset() {
+        initStates()
+        stopTimer()
+//        player.stop()
+        MBAAudio.stopRecord()
+        MBAAudio.audioRecorder = nil
+    }
+
     
     func actionStrokeCancel() {
         cutHide(isHidden: true)
@@ -158,6 +163,8 @@ class ViewController: UIViewController {
     func recoredHide(isHidden: Bool) {
         listenPlayBtn.isHidden = isHidden
         cutBtn.isHidden = isHidden
+        slider.isHidden = isHidden
+        cutHide(isHidden: isHidden)
     }
     
     func initStatusHide(isHidden: Bool) {
@@ -202,11 +209,6 @@ class ViewController: UIViewController {
         }
     }
     
-    // MARK: - 录音状态
-//    func initRecordStatus() {
-//        initStatusHide(isHidden: true)
-//        
-//    }
     
     //开始录音
     func startRecord() {
@@ -215,7 +217,6 @@ class ViewController: UIViewController {
         
         MBAAudio.initRecord()
         MBAAudio.startRecord()
-        initOraginTimeStatue(time:0)
         timerInit()
         // 代理设为本身
         MBAAudio.audioRecorder?.delegate = self
@@ -231,18 +232,29 @@ class ViewController: UIViewController {
         
         MBAAudio.pauseRecord()
         timerPause()
-        recoredHide(isHidden: false)
         
-        // 初始化歌曲
-//        MBAAudio.initPlayer()
-        loadPlay(url: MBAAudio.audioRecorder?.url)
+        if isCuted { // 如果裁剪过，就合并
+            mergeVoice(path1: cutExportPath, path2: MBAAudio.cafAudioString)
+
+        } else {
+            loadPlay(url: MBAAudio.audioRecorder?.url)
+        }
+        
     }
     
     //继续录音
     func continueRecord() {
         recoredHide(isHidden: true)
         
-        MBAAudio.continueRecord()
+        
+        if isCuted {
+            MBAAudio.stopRecord()
+            MBAAudio.initRecord()
+            MBAAudio.startRecord()
+        } else {
+            MBAAudio.continueRecord()
+        }
+       
 
         time = player.duration 
         initOraginTimeStatue(time: time)
@@ -250,7 +262,6 @@ class ViewController: UIViewController {
         
         stopPlaying()
         
-        recoredHide(isHidden: true)
     }
     
     //停止录音
@@ -287,15 +298,8 @@ class ViewController: UIViewController {
         let alertController = UIAlertController(title: "重新录制", message: "是否重新录制？", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .default, handler:nil)
         let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: { (action) in
-            if MBAAudio.deleteRecording() {
-                print("删除成功")
-                self.initStatusHide(isHidden: true)
-                MBAAudio.audioRecorder = nil
-                self.recordBtn.setTitle("录音", for: .normal)
-                self.recordBtn.isSelected = false                
-            } else {
-                 print("删除失败")
-            }
+            print("删除成功")
+            self.actionReset()
         })
 
         alertController.addAction(cancelAction)
@@ -320,17 +324,24 @@ extension ViewController {
     
     func cutEvent() {
         // 1.拿到预处理音频文件
-        let inputPath = MBAAudio.audioRecorder?.url.absoluteString
-        let url = URL(fileURLWithPath: inputPath!)
+        var inputPath = ""
+        if isCuted {
+            inputPath = mergeExportPath
+        } else {
+            inputPath = (MBAAudio.audioRecorder?.url.absoluteString)!
+        }
+        
+        
+        let url = URL(fileURLWithPath: inputPath)
         let songAsset = AVURLAsset(url: url)
         
-        let exportPath = (Date().formatDate + ".caf").docCutDir()
-        let exportURL = URL(fileURLWithPath: exportPath)
+        cutExportPath = (Date().formatDate + ".caf").docCutDir()
+        let exportURL = URL(fileURLWithPath: cutExportPath)
         print(exportURL)
         
         // 2.创建新的音频文件
-        if FileManager.default.fileExists(atPath: exportPath) {
-            try? FileManager.default.removeItem(atPath: exportPath)
+        if FileManager.default.fileExists(atPath: cutExportPath) {
+            try? FileManager.default.removeItem(atPath: cutExportPath)
         }
         
         // 3.创建音频输出会话
@@ -350,6 +361,7 @@ extension ViewController {
                 print("AVAssetExportSessionStatusCompleted")
                 
                 DispatchQueue.main.async {
+                    self.isCuted = true
                     self.loadPlay(url: exportURL)
                 }
             } else if AVAssetExportSessionStatus.failed == exportSession?.status {
@@ -529,7 +541,7 @@ extension ViewController {
     }
     
     func stopPlay() {
-        sliderTimer?.fireDate = Date.distantFuture
+        pauseTimer()
         listenPlayBtn.isSelected = false
     }
 }
@@ -549,7 +561,7 @@ extension ViewController {
     
     func updateLabel() {
         print((player.currentTime + 0.1) ,player.duration)
-        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime + 0.1))//player.currentTime  第一秒0.9几
+        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime + 0.5))//player.currentTime  第一秒0.9几
         let endTime = TimeTool.getFormatTime(timerInval: player.duration)
         timeLabel.text = "\(playTime)\\\(endTime)"
     }
@@ -576,6 +588,8 @@ extension ViewController {
         sliderTimer = nil
         tipTimer?.invalidate()
         tipTimer = nil
+        
+        timerInvalidate()
     }
 }
 

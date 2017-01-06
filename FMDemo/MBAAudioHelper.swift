@@ -30,7 +30,7 @@ class MBAAudioHelper: NSObject {
 
     
     // MARK: - var
-    var audioSession:AVAudioSession!
+    var audioSession:AVAudioSession?
     var audioRecorder:AVAudioRecorder?
     var audioPlayer:AVAudioPlayer?
 
@@ -42,6 +42,7 @@ class MBAAudioHelper: NSObject {
         AVEncoderAudioQualityKey : NSNumber(value: Int(AVAudioQuality.high.rawValue)),//音频质量
         AVLinearPCMBitDepthKey : NSNumber(value: 16 as Int)//采样位数 默认 16
     ]
+    
 
      func initRecord() {
         //根据时间设置存储文件名
@@ -50,13 +51,12 @@ class MBAAudioHelper: NSObject {
         formatter.dateFormat = "ddMMyyyyHHmmss"
         let recordingName = formatter.string(from: currentDateTime)+".caf"
         cafAudioString = recordingName.docRecordDir()
-//        cafAudioString = "09122016111911.caf".docRecordDir()
         print(cafAudioString)
         mp3AudioString = (formatter.string(from: currentDateTime) + ".mp3").docRecordDir()
         
         do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker) // 解决音频声音播放过小
+            try audioSession?.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try audioSession?.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker) // 解决音频声音播放过小
             try audioRecorder = AVAudioRecorder(url: URL(string: cafAudioString)!,                                                settings: recordSettings)//初始化实例
 //            audioRecorder?.delegate = self
             audioRecorder?.prepareToRecord()//准备录音
@@ -95,7 +95,7 @@ extension MBAAudioHelper{
     /// 开始录音
     func startRecord() {
         do {
-            try audioSession.setActive(true)
+            try audioSession?.setActive(true)
             audioRecorder?.record()
             print("startRecord!")
         } catch {
@@ -134,8 +134,8 @@ extension MBAAudioHelper{
         audioRecorder?.stop()
 //        audioRecorder = nil
         do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayback)//此处需要恢复设置回放标志，否则会导致其它播放声音也会变小
-            try audioSession.setActive(true)
+            try audioSession?.setCategory(AVAudioSessionCategoryPlayback)//此处需要恢复设置回放标志，否则会导致其它播放声音也会变小
+            try audioSession?.setActive(true)
             print("stop!!")
         } catch {
             print("stopError!!")
@@ -159,7 +159,6 @@ extension MBAAudioHelper{
     /// 开始播放
     func startPlaying() {
         print("startPlaying!!")
-        try? audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker) // 解决音频声音播放过小
         play(atTime: 0)
     }
     
@@ -209,7 +208,7 @@ extension MBAAudioHelper{
         
 //                let cafPath = URL(string: path1)
                 let mp3Path = URL(string: path2)
-                print(mp3Path?.absoluteString)
+//                print(mp3Path?.absoluteString)
 //                let cafPath = URL(string: cafAudioString)
         //        let mp3Path = URL(string: mp3AudioString)
         //        print(mp3Path?.absoluteString)
