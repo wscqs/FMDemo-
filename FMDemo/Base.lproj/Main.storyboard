@@ -22,27 +22,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yT-OY-RmR" customClass="DOFavoriteButton" customModule="FMDemo" customModuleProvider="target">
-                                <rect key="frame" x="172" y="683" width="30" height="34"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="image" value="heart"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="imageColorOn">
-                                        <color key="value" red="0.98958176880000004" green="1" blue="0.40395193400000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
-                                        <color key="value" red="0.98958176880000004" green="1" blue="0.40395193400000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="circleColor">
-                                        <color key="value" red="0.98958176880000004" green="1" blue="0.40395193400000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="imageColorOff">
-                                        <color key="value" red="0.98958176880000004" green="1" blue="0.40395193400000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
-                                        <real key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mjh-5y-jmD">
                                 <rect key="frame" x="0.0" y="567" width="375" height="100"/>
                                 <subviews>
@@ -134,7 +113,6 @@
                             <constraint firstItem="8pY-sB-nS9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="59" id="7aL-qc-CQV"/>
                             <constraint firstItem="L0x-31-k7R" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7t1-6c-vmc"/>
                             <constraint firstItem="Qf6-Ab-3Pw" firstAttribute="centerY" secondItem="8pY-sB-nS9" secondAttribute="centerY" id="881-6U-NHZ"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="6yT-OY-RmR" secondAttribute="bottom" constant="-50" id="KXJ-SV-mVO"/>
                             <constraint firstAttribute="trailing" secondItem="L0x-31-k7R" secondAttribute="trailing" id="LKQ-0W-sLj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Qf6-Ab-3Pw" secondAttribute="trailing" constant="44" id="NzK-Ec-4Wb"/>
                             <constraint firstAttribute="trailing" secondItem="mjh-5y-jmD" secondAttribute="trailing" id="XGa-P5-O2f"/>
@@ -144,7 +122,6 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mjh-5y-jmD" secondAttribute="bottom" id="gEf-5F-cjb"/>
                             <constraint firstItem="mjh-5y-jmD" firstAttribute="top" secondItem="L0x-31-k7R" secondAttribute="bottom" constant="27" id="gbl-a3-GRj"/>
                             <constraint firstItem="mjh-5y-jmD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hW5-vZ-cJ6"/>
-                            <constraint firstItem="6yT-OY-RmR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lt8-Sv-PwJ"/>
                             <constraint firstItem="Sfm-Qo-ffG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="22" id="s8Y-L4-ybr"/>
                         </constraints>
                     </view>
@@ -153,7 +130,6 @@
                         <outlet property="cutCancelBtn" destination="8pY-sB-nS9" id="TBj-b2-cGV"/>
                         <outlet property="cutSlider" destination="CEM-7V-yuy" id="JU8-7t-c3A"/>
                         <outlet property="cutYesBtn" destination="Qf6-Ab-3Pw" id="OX7-Ib-2oQ"/>
-                        <outlet property="heartButton" destination="6yT-OY-RmR" id="h8p-Tq-g2S"/>
                         <outlet property="listenPlayBtn" destination="3hQ-iN-Epk" id="0K1-q3-sNo"/>
                         <outlet property="pauseBtn" destination="QSL-SU-pJR" id="s3k-Jp-bPa"/>
                         <outlet property="reRecordBtn" destination="QSL-SU-pJR" id="Ez6-Rd-bRi"/>
@@ -168,7 +144,4 @@
             <point key="canvasLocation" x="24.800000000000001" y="36.431784107946029"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="heart" width="128" height="128"/>
-    </resources>
 </document>

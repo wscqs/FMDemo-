@@ -21,6 +21,10 @@ class MBAAudioHelper: NSObject {
     public var mp3AudioString: String!
     public var cafAudioString: String!
     
+    var url:URL? {
+        return URL(fileURLWithPath: cafAudioString)
+    }
+    
     private override init() {
         super.init()
         audioSession = AVAudioSession.sharedInstance()
@@ -32,7 +36,6 @@ class MBAAudioHelper: NSObject {
     // MARK: - var
     var audioSession:AVAudioSession?
     var audioRecorder:AVAudioRecorder?
-    var audioPlayer:AVAudioPlayer?
 
     
     ////定义音频的编码参数，这部分比较重要，决定录制音频文件的格式、音质、容量大小等，建议采用AAC的编码方式
@@ -62,28 +65,6 @@ class MBAAudioHelper: NSObject {
             audioRecorder?.prepareToRecord()//准备录音
         } catch {
             print(error)
-        }
-    }
-    
-    func initPlayer() {
-        do {
-            try audioPlayer = AVAudioPlayer(contentsOf: (audioRecorder?.url)!)
-            print("initPlayer!!")
-        } catch {
-            print("initPlayerError!!")
-        }
-    }
-    
-    var audioPlayerDuration: TimeInterval{
-        return audioPlayer?.duration ?? 0
-    }
-    
-    var audioPlayerCurrentTime: TimeInterval{
-        set {
-            audioPlayer?.currentTime = newValue
-        }
-        get {
-            return audioPlayer?.currentTime ?? 0
         }
     }
 
@@ -119,16 +100,7 @@ extension MBAAudioHelper{
         print("continueRecord!!")
         audioRecorder?.record()
     }
-    
-    /// 从指定时间播放
-    ///
-    /// - Parameter atTime:指定时间
-    func record(atTime: TimeInterval) {
-        //        audioPlayer?.play(atTime: (audioPlayer?.deviceCurrentTime)! + atTime) // 这是延迟atTime 时间执行!
-//        audioRecorder?.currentTime = atTime
-//        audioRecorder?.record(atTime: <#T##TimeInterval#>)
-    }
-    
+
     /// 停止录音
     func stopRecord() {
         audioRecorder?.stop()
@@ -156,45 +128,6 @@ extension MBAAudioHelper{
         return progress
     }
 
-    /// 开始播放
-    func startPlaying() {
-        print("startPlaying!!")
-        play(atTime: 0)
-    }
-    
-    /// 是否播放
-    var isPlaying:Bool {
-        return audioPlayer?.isPlaying ?? false
-    }
-    
-    /// 暂停播放
-    func pausePlaying() {
-        print("pausePlaying!!")
-        audioPlayer?.pause()
-    }
-    
-    /// 继续播放
-    func continuePlaying() {
-        print("continuePlaying!!")
-        audioPlayer?.play()
-    }
-    
-    /// 停止播放
-    func stopPlaying() {
-        print("stopPlaying!!")
-        audioPlayer?.stop()
-//        audioPlayer = nil
-    }
-    
-    /// 从指定时间播放
-    ///
-    /// - Parameter atTime:指定时间
-    func play(atTime: TimeInterval) {
-//        audioPlayer?.play(atTime: (audioPlayer?.deviceCurrentTime)! + atTime) // 这是延迟atTime 时间执行!
-        audioPlayer?.currentTime = atTime
-        audioPlayer?.play()
-    }
-    
 
 
     

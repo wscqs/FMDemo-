@@ -10,9 +10,6 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-
-    @IBOutlet var heartButton: DOFavoriteButton!
-    
     
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var listenPlayBtn: UIButton!
@@ -42,49 +39,14 @@ class ViewController: UIViewController {
     
     
 //    var playTime: TimeInterval!
-    var sliderTime: TimeInterval!
+    var sliderTime: TimeInterval = 0
     var sliderTimer: Timer?
     var tipTimer: Timer?
-    var player: AVAudioPlayer!
+    var player: MBAAudioPlayer!
     
-    var mergeExportPath = ""
-    var cutExportPath = ""
-    
-    func mergeVoice(path1: String, path2: String) {
 
-        let audioAsset1 = AVURLAsset(url: URL(fileURLWithPath: path1))
-        let audioAsset2 = AVURLAsset(url: URL(fileURLWithPath: path2))
-        
-        let composititon = AVMutableComposition()
-        try? composititon.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset1.duration), of: audioAsset1, at: kCMTimeZero)
-        try? composititon.insertTimeRange(CMTimeRangeMake(kCMTimeZero, audioAsset2.duration), of: audioAsset2, at: audioAsset1.duration)
-        
-        
-
-        mergeExportPath = (Date().formatDate + ".caf").docDir()
-        let exportURL = URL(fileURLWithPath: mergeExportPath)
-        print(exportURL)
- 
-        // 3.创建音频输出会话
-        let exportSession = AVAssetExportSession(asset: composititon, presetName: AVAssetExportPresetPassthrough)
-        // 4.设置音频输出会话并执行
-        exportSession?.outputURL = exportURL
-        exportSession?.outputFileType = AVFileTypeCoreAudioFormat
-        exportSession?.exportAsynchronously {
-            if AVAssetExportSessionStatus.completed == exportSession?.status {
-                print("AVAssetExportSessionStatusCompleted")
-                
-                DispatchQueue.main.async {
-                    self.loadPlay(url: exportURL)
-                }
-            } else if AVAssetExportSessionStatus.failed == exportSession?.status {
-                print("AVAssetExportSessionStatusFailed")
-//                print(exportSession?.error.debugDescription)
-            } else {
-                print("Export Session Status: %d", exportSession?.status ?? "")
-            }
-        }
-    }
+    var cutExportURL: URL?
+    var mergeExportURL: URL?
     
     func trans() {
         MBAAudioHelper.shared.cafChangceToMp3()
@@ -136,6 +98,7 @@ class ViewController: UIViewController {
     ///FIXME:
     /// 初始或重置后的状态
     func actionReset() {
+        
         initStates()
         stopTimer()
 //        player.stop()
@@ -202,8 +165,7 @@ class ViewController: UIViewController {
     func play(_ sender: UIButton){
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            print(MBAAudio.audioPlayerCurrentTime,MBAAudio.audioPlayerDuration,"aaaaa")
-            (MBAAudio.audioPlayerCurrentTime == 0 || MBAAudio.audioPlayerCurrentTime == MBAAudio.audioPlayerDuration) ? startPlaying() : continuePlaying()
+            (player.currentTime == 0 || player.currentTime == player.duration) ? startPlaying() : continuePlaying()
         }else{
             pausePlaying()
         }
@@ -234,10 +196,22 @@ class ViewController: UIViewController {
         timerPause()
         
         if isCuted { // 如果裁剪过，就合并
-            mergeVoice(path1: cutExportPath, path2: MBAAudio.cafAudioString)
 
+            guard let mergeExportURL = mergeExportURL,
+                let recodedVoiceURL = MBAAudio.url
+                 else {
+                    print("mergeExportURL error")
+                    return
+            }
+            MBAAudioUtil.mergeAudio(url1: mergeExportURL, url2: recodedVoiceURL, handleComplet: { (mergeExportURL) in
+                if let mergeExportURL = mergeExportURL {
+                    self.mergeExportURL = mergeExportURL
+                    self.loadPlay(url: mergeExportURL)
+                }
+            })
+            
         } else {
-            loadPlay(url: MBAAudio.audioRecorder?.url)
+            loadPlay(url: MBAAudio.url)
         }
         
     }
@@ -256,7 +230,7 @@ class ViewController: UIViewController {
         }
        
 
-        time = player.duration 
+        time = player.duration
         initOraginTimeStatue(time: time)
         timerContinue()
         
@@ -324,53 +298,20 @@ extension ViewController {
     
     func cutEvent() {
         // 1.拿到预处理音频文件
-        var inputPath = ""
-        if isCuted {
-            inputPath = mergeExportPath
-        } else {
-            inputPath = (MBAAudio.audioRecorder?.url.absoluteString)!
-        }
         
+        guard let url = isCuted ? mergeExportURL : MBAAudio.url else{return}
         
-        let url = URL(fileURLWithPath: inputPath)
-        let songAsset = AVURLAsset(url: url)
-        
-        cutExportPath = (Date().formatDate + ".caf").docCutDir()
-        let exportURL = URL(fileURLWithPath: cutExportPath)
-        print(exportURL)
-        
-        // 2.创建新的音频文件
-        if FileManager.default.fileExists(atPath: cutExportPath) {
-            try? FileManager.default.removeItem(atPath: cutExportPath)
-        }
-        
-        // 3.创建音频输出会话
-        let exportSession = AVAssetExportSession(asset: songAsset, presetName: AVAssetExportPresetPassthrough)
-        
-        let startCutTime = cutSlider.value
+        let startCutTime = Double(cutSlider.value)
         let stopCutTime = player.duration
-        let startTime = CMTime(seconds: Double(startCutTime), preferredTimescale: 1000)
-        let stopTime = CMTime(seconds: stopCutTime, preferredTimescale: 1000)
-        let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
-        // 4.设置音频输出会话并执行
-        exportSession?.outputURL = exportURL
-        exportSession?.outputFileType = AVFileTypeCoreAudioFormat
-        exportSession?.timeRange = exportTimeRange
-        exportSession?.exportAsynchronously {
-            if AVAssetExportSessionStatus.completed == exportSession?.status {
-                print("AVAssetExportSessionStatusCompleted")
-                
-                DispatchQueue.main.async {
-                    self.isCuted = true
-                    self.loadPlay(url: exportURL)
-                }
-            } else if AVAssetExportSessionStatus.failed == exportSession?.status {
-                print("AVAssetExportSessionStatusFailed")
+        MBAAudioUtil.cutAudio(of: url, startTime: startCutTime, stopTime: stopCutTime) { (cutExportURL) in
+            if let cutExportURL = cutExportURL {
+                self.isCuted = true
+                self.mergeExportURL = cutExportURL
+                self.loadPlay(url: cutExportURL)
             } else {
-                print("Export Session Status: %d", exportSession?.status ?? "")
+                print("剪切失败")
             }
         }
-        
     }
 }
 
@@ -439,9 +380,11 @@ extension ViewController: AVAudioRecorderDelegate{
 
 extension ViewController  {
     func loadPlay(url: URL?) {
-        player = try? AVAudioPlayer(contentsOf: url!)
-        player.delegate = self
-        player.prepareToPlay()
+        guard let url = url else {
+            return
+        }
+        player = MBAAudioPlayer(contentsOf: url)
+        player.player?.delegate = self
         initCutUI()
     }
     
@@ -523,20 +466,20 @@ extension ViewController {
     func startPlay() {
         playTime = 0
         sliderTime = 0
-        player.currentTime = playTime
+        player?.currentTime = playTime
         updateLabel()
-        player.play()
+        player?.startPlay()
         
         initTimer()
     }
     
     func pausePlay() {
-        player.pause()
+        player?.pausePlay()
         pauseTimer()
     }
     
     func continuePlay() {
-        player.play()
+        player?.continuePlay()
         continueTimer()
     }
     
@@ -604,81 +547,3 @@ extension ViewController: AVAudioPlayerDelegate{
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// MARK: - 点赞，收藏等效果
-extension ViewController {
-
-    func setUI() {
-        let width = (self.view.frame.width - 44) / 4
-        let x = width / 2
-        let y = self.view.frame.height / 2 - 22
-        
-        var btnRect = CGRect(x: x, y: y, width: 44, height: 44)
-        // star button
-        
-        let starButton = DOFavoriteButton(frame: btnRect, image: UIImage(named: "star"))
-        starButton.addTarget(self, action: #selector(ViewController.tappedButton), for: .touchUpInside)
-        self.view.addSubview(starButton)
-        btnRect.origin.x += width
-        
-        // heart button
-        let heartButton = DOFavoriteButton(frame: btnRect, image: UIImage(named: "heart"))
-        heartButton.imageColorOn = UIColor(red: 254/255, green: 110/255, blue: 111/255, alpha: 1.0)
-        heartButton.circleColor = UIColor(red: 254/255, green: 110/255, blue: 111/255, alpha: 1.0)
-        heartButton.lineColor = UIColor(red: 226/255, green: 96/255, blue: 96/255, alpha: 1.0)
-        heartButton.addTarget(self, action: #selector(ViewController.tappedButton), for: .touchUpInside)
-        self.view.addSubview(heartButton)
-        btnRect.origin.x += width
-        
-        // like button
-        let likeButton = DOFavoriteButton(frame: btnRect, image: UIImage(named: "like"))
-        likeButton.imageColorOn = UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
-        likeButton.circleColor = UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
-        likeButton.lineColor = UIColor(red: 41/255, green: 128/255, blue: 185/255, alpha: 1.0)
-        likeButton.addTarget(self, action: #selector(ViewController.tappedButton), for: .touchUpInside)
-        self.view.addSubview(likeButton)
-        btnRect.origin.x += width
-        
-        // smile button
-        let smileButton = DOFavoriteButton(frame: btnRect
-            , image: UIImage(named: "smile"))
-        smileButton.imageColorOn = UIColor(red: 45/255, green: 204/255, blue: 112/255, alpha: 1.0)
-        smileButton.circleColor = UIColor(red: 45/255, green: 204/255, blue: 112/255, alpha: 1.0)
-        smileButton.lineColor = UIColor(red: 45/255, green: 195/255, blue: 106/255, alpha: 1.0)
-        smileButton.addTarget(self, action: #selector(ViewController.tappedButton), for: .touchUpInside)
-        self.view.addSubview(smileButton)
-        
-        self.heartButton.addTarget(self, action: #selector(ViewController.tappedButton), for: .touchUpInside)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func tappedButton(sender: DOFavoriteButton) {
-        if sender.isSelected {
-            sender.deselect()
-        } else {
-            sender.select()
-        }
-    }
-}
-
