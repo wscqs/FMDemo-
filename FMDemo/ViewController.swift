@@ -87,23 +87,30 @@ class ViewController: UIViewController {
         initStates()
     }
     
+    deinit {
+        MBACache.clearRecordCache()
+        MBACache.clearCutCache()
+    }
+    
     func initStates() {
         initStatusHide(isHidden: true)
+        recordBtn.isSelected = false
         recordBtn.setTitle("开始录音", for: .normal)
         recordBtn.setTitle("录音中", for: .selected)
         cutSlider.value = 0
         initOraginTimeStatue(time:0)
+        isCuted = false
     }
     
-    ///FIXME:
     /// 初始或重置后的状态
     func actionReset() {
         
-        initStates()
-        stopTimer()
-//        player.stop()
-        MBAAudio.stopRecord()
+        stopRecord()
+        stopPlay()
+        player = nil
         MBAAudio.audioRecorder = nil
+        stopTimer()
+        initStates()
     }
 
     
@@ -112,6 +119,7 @@ class ViewController: UIViewController {
     }
     
     func actionStrokeYes() {
+        cutHide(isHidden: true)
         cutEvent()
     }
     
@@ -127,7 +135,8 @@ class ViewController: UIViewController {
         listenPlayBtn.isHidden = isHidden
         cutBtn.isHidden = isHidden
         slider.isHidden = isHidden
-        cutHide(isHidden: isHidden)
+        cutHide(isHidden: true)
+        noRecordHide(isHidden: isHidden)
     }
     
     func initStatusHide(isHidden: Bool) {
@@ -174,7 +183,6 @@ class ViewController: UIViewController {
     
     //开始录音
     func startRecord() {
-        noRecordHide(isHidden: false)
         recoredHide(isHidden: true)
         
         MBAAudio.initRecord()
