@@ -22,7 +22,7 @@ class MBAAudioUtil {
                   stopTime: TimeInterval,
                   handleComplet: @escaping (_ exportURL: URL?)->Void){
         
-        let cutExportPath = (Date().formatDate + ".caf").docCutDir()
+        let cutExportPath = (Date().formatDate + ".caf").tmpDir()
         let exportURL = URL(fileURLWithPath: cutExportPath)
         print(exportURL)
         
@@ -76,7 +76,7 @@ class MBAAudioUtil {
         
         
         
-        let mergeExportPath = (Date().formatDate + ".caf").docDir()
+        let mergeExportPath = (Date().formatDate + ".caf").tmpDir()
         let exportURL = URL(fileURLWithPath: mergeExportPath)
         print(exportURL.absoluteURL)
         
@@ -99,6 +99,21 @@ class MBAAudioUtil {
                 print("Export Session Status: %d", exportSession?.status ?? "")
             }
         }
+    }
+    
+    
+    class func changceToMp3(of cafURL: URL?,mp3Name: String) -> URL?{
+
+        guard let cafURL = cafURL else{
+            return nil
+        }
+        let cafURL1 = URL(string: cafURL.path)
+        let mp3Name1 = mp3Name.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let path2 = (mp3Name1! + ".mp3").docRecordMP3Dir()
+        let mp3URL = URL(fileURLWithPath: path2)
+        
+        Lame2mp3Tool.transformCAFPath(cafURL1, toMP3: mp3URL)
+        return mp3URL
     }
 
 }

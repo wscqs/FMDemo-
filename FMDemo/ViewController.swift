@@ -49,7 +49,7 @@ class ViewController: UIViewController {
     var mergeExportURL: URL?
     
     func trans() {
-        MBAAudioHelper.shared.cafChangceToMp3()
+//        MBAAudioUtil.changceToMp3(of: <#T##URL#>, mp3Name: <#T##String#>)
     }
     
     override func viewDidLoad() {
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
 
         
-        savaBtn.addTarget(self, action: #selector(stopRecord), for: .touchUpInside)
+        savaBtn.addTarget(self, action: #selector(actionSave), for: .touchUpInside)
         cutBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
         
         reRecordBtn.addTarget(self, action: #selector(actionReRecord), for: .touchUpInside)
@@ -88,8 +88,7 @@ class ViewController: UIViewController {
     }
     
     deinit {
-        MBACache.clearRecordCache()
-        MBACache.clearCutCache()
+        
     }
     
     func initStates() {
@@ -102,6 +101,12 @@ class ViewController: UIViewController {
         isCuted = false
     }
     
+    
+    func actionSave() {
+//        let url = isCuted ? mergeExportURL : MBAAudio.url
+//        MBAAudioUtil.changceToMp3(of: url, mp3Name: "我")
+    }
+    
     /// 初始或重置后的状态
     func actionReset() {
         
@@ -111,6 +116,8 @@ class ViewController: UIViewController {
         MBAAudio.audioRecorder = nil
         stopTimer()
         initStates()
+        
+        MBACache.clearCache()
     }
 
     
@@ -128,6 +135,7 @@ class ViewController: UIViewController {
         cutCancelBtn.isHidden = isHidden
         cutYesBtn.isHidden = isHidden
         cutSlider.isHidden = isHidden
+        cutBtn.isSelected = !isHidden
     }
     
     /// 录音的隐藏
@@ -167,16 +175,6 @@ class ViewController: UIViewController {
             MBAAudio.audioRecorder == nil ? startRecord() : continueRecord()
         }else{
             pauseRecord()
-        }
-    }
-    
-    
-    func play(_ sender: UIButton){
-        sender.isSelected = !sender.isSelected
-        if sender.isSelected {
-            (player.currentTime == 0 || player.currentTime == player.duration) ? startPlaying() : continuePlaying()
-        }else{
-            pausePlaying()
         }
     }
     
@@ -227,7 +225,6 @@ class ViewController: UIViewController {
     //继续录音
     func continueRecord() {
         recoredHide(isHidden: true)
-        
         
         if isCuted {
             MBAAudio.stopRecord()
@@ -309,8 +306,8 @@ extension ViewController {
         
         guard let url = isCuted ? mergeExportURL : MBAAudio.url else{return}
         
-        let startCutTime = Double(cutSlider.value)
-        let stopCutTime = player.duration
+        let startCutTime = 0.0
+        let stopCutTime = Double(cutSlider.value)
         MBAAudioUtil.cutAudio(of: url, startTime: startCutTime, stopTime: stopCutTime) { (cutExportURL) in
             if let cutExportURL = cutExportURL {
                 self.isCuted = true
@@ -460,6 +457,7 @@ extension ViewController {
                     continuePlay()
                 }
             }else {
+                print(player.currentTime)
                 player.currentTime == 0 ? startPlay() : continuePlay()
             }
             
@@ -494,6 +492,12 @@ extension ViewController {
     func stopPlay() {
         pauseTimer()
         listenPlayBtn.isSelected = false
+        
+        if cutBtn.isSelected {
+            let playTime = TimeTool.getFormatTime(timerInval: Double(cutSlider.value))
+            let endTime = TimeTool.getFormatTime(timerInval: player.duration)
+            timeLabel.text = "\(playTime)\\\(endTime)"
+        }
     }
 }
 extension ViewController {
@@ -511,8 +515,7 @@ extension ViewController {
     
     
     func updateLabel() {
-        print((player.currentTime + 0.1) ,player.duration)
-        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime + 0.5))//player.currentTime  第一秒0.9几
+        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime + 0.2))//player.currentTime  第一秒0.9几
         let endTime = TimeTool.getFormatTime(timerInval: player.duration)
         timeLabel.text = "\(playTime)\\\(endTime)"
     }
