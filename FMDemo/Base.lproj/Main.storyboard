@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8J6-YO-J3a">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -51,7 +51,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sfm-Qo-ffG">
-                                <rect key="frame" x="0.0" y="42" width="375" height="128"/>
+                                <rect key="frame" x="0.0" y="86" width="375" height="128"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hQ-iN-Epk">
                                         <rect key="frame" x="8" y="93" width="31" height="30"/>
@@ -75,7 +75,7 @@
                                         <rect key="frame" x="6" y="28" width="363" height="31"/>
                                     </slider>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="CEM-7V-yuy" firstAttribute="trailing" secondItem="Pzg-S9-E10" secondAttribute="trailing" id="0z3-JI-tml"/>
                                     <constraint firstItem="BER-Jl-j0g" firstAttribute="centerY" secondItem="3hQ-iN-Epk" secondAttribute="centerY" id="8ZR-mL-tmE"/>
@@ -100,11 +100,11 @@
                                 <rect key="frame" x="284" y="318.5" width="31" height="30"/>
                                 <state key="normal" title="确定"/>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L0x-31-k7R" customClass="PlaySoundView" customModule="FMDemo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="412" width="375" height="128"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L0x-31-k7R">
+                                <rect key="frame" x="0.0" y="214" width="375" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="U3g-Fn-U5t"/>
+                                    <constraint firstAttribute="height" constant="60" id="U3g-Fn-U5t"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -114,22 +114,24 @@
                             <constraint firstItem="L0x-31-k7R" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7t1-6c-vmc"/>
                             <constraint firstItem="Qf6-Ab-3Pw" firstAttribute="centerY" secondItem="8pY-sB-nS9" secondAttribute="centerY" id="881-6U-NHZ"/>
                             <constraint firstAttribute="trailing" secondItem="L0x-31-k7R" secondAttribute="trailing" id="LKQ-0W-sLj"/>
+                            <constraint firstItem="L0x-31-k7R" firstAttribute="top" secondItem="Sfm-Qo-ffG" secondAttribute="bottom" id="MTl-RI-ztk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Qf6-Ab-3Pw" secondAttribute="trailing" constant="44" id="NzK-Ec-4Wb"/>
                             <constraint firstAttribute="trailing" secondItem="mjh-5y-jmD" secondAttribute="trailing" id="XGa-P5-O2f"/>
                             <constraint firstItem="Sfm-Qo-ffG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="YRg-Vs-k1Q"/>
                             <constraint firstAttribute="trailing" secondItem="Sfm-Qo-ffG" secondAttribute="trailing" id="b1v-hw-VeJ"/>
                             <constraint firstItem="8pY-sB-nS9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="eDg-SX-dSH"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mjh-5y-jmD" secondAttribute="bottom" id="gEf-5F-cjb"/>
-                            <constraint firstItem="mjh-5y-jmD" firstAttribute="top" secondItem="L0x-31-k7R" secondAttribute="bottom" constant="27" id="gbl-a3-GRj"/>
                             <constraint firstItem="mjh-5y-jmD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hW5-vZ-cJ6"/>
                             <constraint firstItem="Sfm-Qo-ffG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="22" id="s8Y-L4-ybr"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="ZcJ-zd-No0"/>
                     <connections>
                         <outlet property="cutBtn" destination="05U-Uh-g7x" id="YTr-ou-c1B"/>
                         <outlet property="cutCancelBtn" destination="8pY-sB-nS9" id="TBj-b2-cGV"/>
                         <outlet property="cutSlider" destination="CEM-7V-yuy" id="JU8-7t-c3A"/>
                         <outlet property="cutYesBtn" destination="Qf6-Ab-3Pw" id="OX7-Ib-2oQ"/>
+                        <outlet property="dubView" destination="L0x-31-k7R" id="RBI-6g-xkH"/>
                         <outlet property="listenPlayBtn" destination="3hQ-iN-Epk" id="0K1-q3-sNo"/>
                         <outlet property="pauseBtn" destination="QSL-SU-pJR" id="s3k-Jp-bPa"/>
                         <outlet property="reRecordBtn" destination="QSL-SU-pJR" id="Ez6-Rd-bRi"/>
@@ -140,6 +142,24 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="964" y="36.431784107946029"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="PXF-MV-38F">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8J6-YO-J3a" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Ki-TX-nZK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="TYt-3M-GYi"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="acu-R7-d6V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="24.800000000000001" y="36.431784107946029"/>
         </scene>

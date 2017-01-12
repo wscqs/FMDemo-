@@ -1,5 +1,5 @@
 //
-//  PlaySoundView.swift
+//  DubPlayView.swift
 //  ban
 //
 //  Created by mba on 16/7/21.
@@ -9,13 +9,13 @@
 import UIKit
 import AVFoundation
 
-protocol PlaySoundViewDelegate : NSObjectProtocol{
-    func playSoundViewClick(_ PlaySoundView: UIView)
+protocol DubPlayViewDelegate : NSObjectProtocol{
+    func playSoundViewClick(_ DubPlayView: UIView)
 }
 
-class PlaySoundView: UIView {
+class DubPlayView: UIView {
     
-    weak var delegate: PlaySoundViewDelegate?
+    weak var delegate: DubPlayViewDelegate?
     //申明一个媒体播放控件
     var audioPlayer: AVPlayer?
     var audioItem: AVPlayerItem?
@@ -29,6 +29,12 @@ class PlaySoundView: UIView {
         setUI()
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+    }
+    
+    
     deinit {
         deinitStatus()
     }
@@ -41,10 +47,10 @@ class PlaySoundView: UIView {
     }
     
      func setUI() {
-        Bundle.main.loadNibNamed("PlaySoundView", owner: self, options: nil)
+        Bundle.main.loadNibNamed("DubPlayView", owner: self, options: nil)
         
         self.addSubview(view)
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PlaySoundView.tapAction(_:)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DubPlayView.tapAction(_:)))
         self.addGestureRecognizer(tapGestureRecognizer)
         // 自动布局要写上这句
         view.frame = bounds
@@ -76,9 +82,6 @@ class PlaySoundView: UIView {
     // xcode8 xib读取（0，0，1000，1000） 的bug
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
-        view.layer.cornerRadius = self.bounds.size.height/2
-        view.layer.masksToBounds = true
     }
     
     
@@ -88,8 +91,11 @@ class PlaySoundView: UIView {
     @IBOutlet weak var playTimeLabel: UILabel!
     @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var cycleBtn: UIButton!
-//    @IBOutlet weak var playSlider: UISlider!
     @IBOutlet weak var playProgress: UIProgressView!
+    @IBOutlet weak var changceDubBtn: UIButton!
+    @IBOutlet weak var changceVolumeBtn: UIButton!
+    
+    
     
     func tapAction(_ sender: UITapGestureRecognizer) {
         delegate?.playSoundViewClick(self)
@@ -105,7 +111,7 @@ class PlaySoundView: UIView {
 }
 
 // MARK: - timer 一些控制
-extension PlaySoundView {
+extension DubPlayView {
     
     
     func timerInit(){
@@ -138,7 +144,7 @@ extension PlaySoundView {
 }
 
 // MARK: - 音频播放状态设置
-extension PlaySoundView {
+extension DubPlayView {
     // 播放完成
     @objc fileprivate func playbackFinished(notice: NSNotification) {
         // 恢复最开始的0状态

@@ -24,11 +24,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var cutCancelBtn: UIButton!
     @IBOutlet weak var cutYesBtn: UIButton!
     
+    /// 配音的容器
+    @IBOutlet weak var dubView: UIView!
+    
+    var addDubBtn: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("添加配音", for: .normal)
+        btn.setTitleColor(UIColor.lightGray, for: .normal)
+        btn.sizeToFit()
+        btn.addTarget(self, action: "actionAddDub", for: .touchUpInside)
+        return btn
+    }()
+    
+    
     
     var isCuted: Bool = false
-    
-
-//    var addBtn: UIButton = UIButton()
     
     var timer: Timer?
     var time:TimeInterval = 0
@@ -62,6 +72,9 @@ class ViewController: UIViewController {
 //        addBtn.sizeToFit()
 //        addBtn.addTarget(self, action: "trans", for: .touchUpInside)
         
+        
+        
+        
         recordBtn.addTarget(self, action: #selector(actionRecordClick), for: .touchUpInside)
         
         
@@ -83,8 +96,21 @@ class ViewController: UIViewController {
         
         cutCancelBtn.addTarget(self, action: #selector(actionStrokeCancel), for: .touchUpInside)
         cutYesBtn.addTarget(self, action: #selector(actionStrokeYes), for: .touchUpInside)
+        
+        dubView.addSubview(addDubBtn)
+        
 
         initStates()
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addDubBtn.frame = dubView.bounds
     }
     
     deinit {
@@ -99,8 +125,18 @@ class ViewController: UIViewController {
         cutSlider.value = 0
         initOraginTimeStatue(time:0)
         isCuted = false
+        
+        
+        
     }
     
+    
+    func actionAddDub() {
+//        navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
+        let dubPlayView = DubPlayView()
+        dubView.addSubview(dubPlayView)
+        dubPlayView.frame = dubView.bounds
+    }
     
     func actionSave() {
 //        let url = isCuted ? mergeExportURL : MBAAudio.url
