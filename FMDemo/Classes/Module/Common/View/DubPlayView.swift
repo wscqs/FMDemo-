@@ -10,7 +10,8 @@ import UIKit
 import AVFoundation
 
 protocol DubPlayViewDelegate : NSObjectProtocol{
-    func playSoundViewClick(_ DubPlayView: UIView)
+    func volumeBtnClick(_ dubPlayView: DubPlayView)
+    func changceDubClick(_ dubPlayView: DubPlayView)
 }
 
 class DubPlayView: UIView {
@@ -23,14 +24,38 @@ class DubPlayView: UIView {
     var timer: Timer?
     var audioTotalTime: TimeInterval!
     
+    var isCycle = false
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setUI()
+    var volume :Int? {
+        didSet{
+            guard let volume = volume else {
+                return
+            }
+            audioPlayer?.volume = (Float(volume) / 100)
+            changceVolumeBtn.setTitle("\(volume)%\n声音", for: .normal)
+        }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    class func dubPlayView() -> DubPlayView{
+        return Bundle.main.loadNibNamed("DubPlayView", owner: self, options: nil)?.last as! DubPlayView
+    }
+    
+//    required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        setUI()
+//    }
+    
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        setUI()
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
         setUI()
     }
     
@@ -46,23 +71,24 @@ class DubPlayView: UIView {
         audioPlayer = nil
     }
     
-     func setUI() {
-        Bundle.main.loadNibNamed("DubPlayView", owner: self, options: nil)
-        
-        self.addSubview(view)
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DubPlayView.tapAction(_:)))
-        self.addGestureRecognizer(tapGestureRecognizer)
-        // 自动布局要写上这句
-        view.frame = bounds
-        
-        view.superview?.backgroundColor = UIColor.clear
-
-        initAudio()
-        setStatusUI()
-        
-        playBtn.addTarget(self, action: #selector(actionPlay), for: .touchUpInside)
+    func initStatus(){
+        playBtn.isSelected = false
     }
     
+    func setUI() {
+        playBtn.addTarget(self, action: #selector(actionPlay), for: .touchUpInside)
+        changceVolumeBtn.addTarget(self, action: #selector(DubPlayView.actionChangceVolume), for: .touchUpInside)
+        changceDubBtn.addTarget(self, action: #selector(DubPlayView.actionChangceDub), for: .touchUpInside)
+        cycleBtn.addTarget(self, action: #selector(DubPlayView.actionCycle), for: .touchUpInside)
+        cycleBtn.setTitle("未循环", for: .normal)
+        cycleBtn.setTitle("循环", for: .selected)
+        timerInit()
+    }
+    
+    func actionCycle(sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        isCycle = sender.isSelected
+    }
     
     func actionPlay() {
         
@@ -78,6 +104,13 @@ class DubPlayView: UIView {
         
     }
     
+    func actionChangceVolume(sender: UIButton) {
+        delegate?.volumeBtnClick(self)
+    }
+    func actionChangceDub(sender: UIButton) {
+        delegate?.changceDubClick(self)
+    }
+    
     
     // xcode8 xib读取（0，0，1000，1000） 的bug
     override func draw(_ rect: CGRect) {
@@ -87,26 +120,13 @@ class DubPlayView: UIView {
     
     @IBOutlet var view: UIView!
     
-    @IBOutlet weak var playNameLabel: UILabel!
+    @IBOutlet weak var dubTitleLabel: UILabel!
     @IBOutlet weak var playTimeLabel: UILabel!
     @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var cycleBtn: UIButton!
     @IBOutlet weak var playProgress: UIProgressView!
     @IBOutlet weak var changceDubBtn: UIButton!
     @IBOutlet weak var changceVolumeBtn: UIButton!
-    
-    
-    
-    func tapAction(_ sender: UITapGestureRecognizer) {
-        delegate?.playSoundViewClick(self)
-    }
-    
-    
-    func setStatusUI() {
-        playNameLabel.text = "yijianji.caf"
-        audioTotalTime = CMTimeGetSeconds((audioPlayer?.currentItem?.asset.duration)!)
-        playTimeLabel.text = TimeTool.getFormatTime(timerInval: audioTotalTime)
-    }
  
 }
 
@@ -149,7 +169,12 @@ extension DubPlayView {
     @objc fileprivate func playbackFinished(notice: NSNotification) {
         // 恢复最开始的0状态
         audioPlayer?.currentItem?.seek(to: CMTime(value: 0, timescale: 1))
-        playBtn.isSelected = false
+
+        if isCycle {
+            audioPlayer?.play()
+        } else {
+            playBtn.isSelected = false
+        }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -172,20 +197,22 @@ extension DubPlayView {
 //            }
         }
     }
+
     
-    func initAudio() {
-        let path = Bundle.main.url(forResource: "yijianji", withExtension: "caf")
-        
-//        let a = path?.lastPathComponent // 获取文件名字
-//        let url = "http://i.111ttt.com:8282/97301815582.mp3"
-//        let audiourl = URL(string: url)
-        let audiourl = path
-        audioItem = AVPlayerItem(url: audiourl!)
+    func playItem(url: URL) {
+        deinitStatus()
+        initStatus()
+        audioItem = AVPlayerItem(url: url)
         audioPlayer = AVPlayer(playerItem: audioItem)
         
         audioItem?.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.new, context: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playbackFinished(notice:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: audioItem)
         
-        timerInit()
+        dubTitleLabel.text = url.lastPathComponent.components(separatedBy: ".").first
+        audioTotalTime = CMTimeGetSeconds((audioPlayer?.currentItem?.asset.duration)!)
+        playTimeLabel.text = TimeTool.getFormatTime(timerInval: audioTotalTime)
+ 
     }
+    
+    
 }

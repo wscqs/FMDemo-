@@ -25,7 +25,9 @@
 		2C94E8041E277C7A00D539DC /* TimeTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7F21E277C7A00D539DC /* TimeTool.swift */; };
 		2C94E8051E277C7A00D539DC /* Lame2mp3Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7F71E277C7A00D539DC /* Lame2mp3Tool.m */; };
 		2C94E8061E277C7A00D539DC /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C94E7F81E277C7A00D539DC /* libmp3lame.a */; };
-		2C94E8091E2780D100D539DC /* yijianji.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C94E8081E277CA200D539DC /* yijianji.caf */; };
+		2C94E80B1E2887CF00D539DC /* SeletceDubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E80A1E2887CF00D539DC /* SeletceDubViewController.swift */; };
+		2C94E80F1E28AC2700D539DC /* 节奏1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C94E80D1E28AC2700D539DC /* 节奏1.caf */; };
+		2C94E8101E28AC2700D539DC /* 节奏2.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C94E80E1E28AC2700D539DC /* 节奏2.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +54,9 @@
 		2C94E7F61E277C7A00D539DC /* Lame2mp3Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lame2mp3Tool.h; sourceTree = "<group>"; };
 		2C94E7F71E277C7A00D539DC /* Lame2mp3Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lame2mp3Tool.m; sourceTree = "<group>"; };
 		2C94E7F81E277C7A00D539DC /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
-		2C94E8081E277CA200D539DC /* yijianji.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = yijianji.caf; sourceTree = "<group>"; };
+		2C94E80A1E2887CF00D539DC /* SeletceDubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeletceDubViewController.swift; sourceTree = "<group>"; };
+		2C94E80D1E28AC2700D539DC /* 节奏1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "节奏1.caf"; sourceTree = "<group>"; };
+		2C94E80E1E28AC2700D539DC /* 节奏2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "节奏2.caf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +92,6 @@
 			children = (
 				2C94E7DC1E277C7A00D539DC /* Classes */,
 				2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */,
-				2C94E8081E277CA200D539DC /* yijianji.caf */,
 				2C7818C41DEEA0F4001E3594 /* Main.storyboard */,
 				2C7818C71DEEA0F4001E3594 /* Assets.xcassets */,
 				2C7818C91DEEA0F4001E3594 /* LaunchScreen.storyboard */,
@@ -101,6 +104,7 @@
 		2C94E7DC1E277C7A00D539DC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2C94E80C1E28AC2700D539DC /* Asset */,
 				2C94E7DD1E277C7A00D539DC /* Comment */,
 				2C94E7DE1E277C7A00D539DC /* Module */,
 				2C94E7E51E277C7A00D539DC /* Service */,
@@ -123,6 +127,7 @@
 				2C94E7DF1E277C7A00D539DC /* Base */,
 				2C94E7E01E277C7A00D539DC /* Common */,
 				2C94E7E41E277C7A00D539DC /* ViewController.swift */,
+				2C94E80A1E2887CF00D539DC /* SeletceDubViewController.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -217,6 +222,15 @@
 			path = lame;
 			sourceTree = "<group>";
 		};
+		2C94E80C1E28AC2700D539DC /* Asset */ = {
+			isa = PBXGroup;
+			children = (
+				2C94E80D1E28AC2700D539DC /* 节奏1.caf */,
+				2C94E80E1E28AC2700D539DC /* 节奏2.caf */,
+			);
+			path = Asset;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -278,8 +292,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C94E8091E2780D100D539DC /* yijianji.caf in Resources */,
+				2C94E8101E28AC2700D539DC /* 节奏2.caf in Resources */,
 				2C94E7FA1E277C7A00D539DC /* DubPlayView.xib in Resources */,
+				2C94E80F1E28AC2700D539DC /* 节奏1.caf in Resources */,
 				2C7818CB1DEEA0F4001E3594 /* LaunchScreen.storyboard in Resources */,
 				2C7818C81DEEA0F4001E3594 /* Assets.xcassets in Resources */,
 				2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */,
@@ -293,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C94E80B1E2887CF00D539DC /* SeletceDubViewController.swift in Sources */,
 				2C94E8011E277C7A00D539DC /* MBAAudioUtil.swift in Sources */,
 				2C94E7FC1E277C7A00D539DC /* DOFavoriteButton.swift in Sources */,
 				2C94E8031E277C7A00D539DC /* MBAPlayerHelper.swift in Sources */,

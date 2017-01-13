@@ -27,6 +27,9 @@ class ViewController: UIViewController {
     /// 配音的容器
     @IBOutlet weak var dubView: UIView!
     
+    
+    let seletctDubVC = SeletceDubViewController()
+    
     var addDubBtn: UIButton = {
         let btn = UIButton()
         btn.setTitle("添加配音", for: .normal)
@@ -99,7 +102,20 @@ class ViewController: UIViewController {
         
         dubView.addSubview(addDubBtn)
         
+        
 
+        let dubPlayView = DubPlayView.dubPlayView()
+        dubPlayView.delegate = self
+        dubView.addSubview(dubPlayView)
+        dubPlayView.frame = dubView.bounds
+        dubPlayView.isHidden = true
+        
+        /// 选择控制器选中后回调
+        seletctDubVC.selectDubURLBlock = { selectDubURL in
+            dubPlayView.isHidden = false
+            dubPlayView.playItem(url: selectDubURL)
+        }
+        
         initStates()
     }
     
@@ -109,8 +125,16 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillAppear(animated)        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         addDubBtn.frame = dubView.bounds
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
     deinit {
@@ -132,10 +156,7 @@ class ViewController: UIViewController {
     
     
     func actionAddDub() {
-//        navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
-        let dubPlayView = DubPlayView()
-        dubView.addSubview(dubPlayView)
-        dubPlayView.frame = dubView.bounds
+        navigationController?.pushViewController(seletctDubVC, animated: true)
     }
     
     func actionSave() {
@@ -331,6 +352,37 @@ class ViewController: UIViewController {
         }
         return bCanRecord
     }
+
+}
+
+
+
+extension ViewController: DubPlayViewDelegate {
+    
+    func volumeBtnClick(_ dubPlayView: DubPlayView) {
+        let alertController = UIAlertController(title: "音量", message: "", preferredStyle: .actionSheet)
+        volume(number: 0, alertController: alertController, dubPlayView: dubPlayView)
+        volume(number: 20, alertController: alertController, dubPlayView: dubPlayView)
+        volume(number: 40, alertController: alertController, dubPlayView: dubPlayView)
+        volume(number: 60, alertController: alertController, dubPlayView: dubPlayView)
+        volume(number: 80, alertController: alertController, dubPlayView: dubPlayView)
+        volume(number: 100, alertController: alertController, dubPlayView: dubPlayView)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    func volume(number: Int, alertController: UIAlertController,dubPlayView: DubPlayView) {
+        let perzenAction = UIAlertAction(title: "\(number)%", style: .default) { (action) in
+            dubPlayView.volume = number
+        }
+        alertController.addAction(perzenAction)
+    }
+    
+    
+    func changceDubClick(_ dubPlayView: DubPlayView) {
+        actionAddDub()
+    }
+    
 
 }
 
