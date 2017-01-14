@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     
     
     let seletctDubVC = SeletceDubViewController()
+    let dubPlayView = DubPlayView.dubPlayView()
     
     var addDubBtn: UIButton = {
         let btn = UIButton()
@@ -104,7 +105,7 @@ class ViewController: UIViewController {
         
         
 
-        let dubPlayView = DubPlayView.dubPlayView()
+        
         dubPlayView.delegate = self
         dubView.addSubview(dubPlayView)
         dubPlayView.frame = dubView.bounds
@@ -112,8 +113,8 @@ class ViewController: UIViewController {
         
         /// 选择控制器选中后回调
         seletctDubVC.selectDubURLBlock = { selectDubURL in
-            dubPlayView.isHidden = false
-            dubPlayView.playItem(url: selectDubURL)
+            self.dubPlayView.isHidden = false
+            self.dubPlayView.playItem(url: selectDubURL)
         }
         
         initStates()
@@ -150,7 +151,7 @@ class ViewController: UIViewController {
         initOraginTimeStatue(time:0)
         isCuted = false
         
-        
+        dubPlayView.isHidden = true
         
     }
     
@@ -257,6 +258,8 @@ class ViewController: UIViewController {
         
         MBAAudio.pauseRecord()
         timerPause()
+        
+        dubPlayView.playPause()
         
         if isCuted { // 如果裁剪过，就合并
 

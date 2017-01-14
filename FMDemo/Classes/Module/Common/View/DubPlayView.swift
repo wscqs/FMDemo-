@@ -93,15 +93,18 @@ class DubPlayView: UIView {
     func actionPlay() {
         
         if audioPlayer?.rate == 1 { // 在播放，点击后暂停
-            playBtn.isSelected = false
-            audioPlayer?.pause()
-            timerPause()
+            playPause()
         } else {
             audioPlayer?.play()
             playBtn.isSelected = true
             timerContinue()
         }
-        
+    }
+    
+    func playPause() {
+        playBtn.isSelected = false
+        audioPlayer?.pause()
+        timerPause()
     }
     
     func actionChangceVolume(sender: UIButton) {
