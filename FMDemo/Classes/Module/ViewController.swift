@@ -9,6 +9,9 @@
 import UIKit
 import AVFoundation
 
+import FDWaveformView
+
+
 class ViewController: UIViewController {
     
     @IBOutlet weak var slider: UISlider!
@@ -20,12 +23,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var savaBtn: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var recordLabel: UILabel!
     @IBOutlet weak var cutSlider: UISlider!
     @IBOutlet weak var cutCancelBtn: UIButton!
     @IBOutlet weak var cutYesBtn: UIButton!
     
     /// 配音的容器
     @IBOutlet weak var dubView: UIView!
+    
+    
+    @IBOutlet weak var waveformView: FDWaveformView!
     
     
     let seletctDubVC = SeletceDubViewController()
@@ -153,6 +160,8 @@ class ViewController: UIViewController {
         
         dubPlayView.isHidden = true
         
+        recordLabel.text = "点击开始录音\n最长「20分钟」哦"
+        
     }
     
     
@@ -163,10 +172,39 @@ class ViewController: UIViewController {
     func actionSave() {
 //        let url = isCuted ? mergeExportURL : MBAAudio.url
 //        MBAAudioUtil.changceToMp3(of: url, mp3Name: "我")
+        
+        let alertController = UIAlertController(title: nil, message: "给课程起个名字吧", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
+            print(alertController.textFields?.first?.text)
+        }
+        alertController.addAction(okAction)
+        alertController.addTextField { (textFiled) in
+            textFiled.clearButtonMode = .whileEditing
+        }
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func actionRecordClick(sender: UIButton) {
+        if !canRecord() {
+            let alertController = UIAlertController(title: "请求授权", message: "app需要访问您的麦克风。\n请启用麦克风-设置/隐私/麦克风", preferredStyle: .alert )
+            let alertAction = UIAlertAction(title: "确定", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected {
+            MBAAudio.audioRecorder == nil ? startRecord() : continueRecord()
+        }else{
+            pauseRecord()
+        }
     }
     
     /// 初始或重置后的状态
-    func actionReset() {
+    func resetStatus() {
         
         stopRecord()
         stopPlay()
@@ -188,58 +226,14 @@ class ViewController: UIViewController {
         cutEvent()
     }
     
-    /// 截取的隐藏
-    func cutHide(isHidden: Bool) {
-        cutCancelBtn.isHidden = isHidden
-        cutYesBtn.isHidden = isHidden
-        cutSlider.isHidden = isHidden
-        cutBtn.isSelected = !isHidden
-    }
-    
-    /// 录音的隐藏
-    func recoredHide(isHidden: Bool) {
-        listenPlayBtn.isHidden = isHidden
-        cutBtn.isHidden = isHidden
-        slider.isHidden = isHidden
-        cutHide(isHidden: true)
-        noRecordHide(isHidden: isHidden)
-    }
-    
-    func initStatusHide(isHidden: Bool) {
-        recoredHide(isHidden: true)
-        cutHide(isHidden: true)
-        recoredHide(isHidden: true)
-        noRecordHide(isHidden: true)
-    }
-    
-    /// 未录音时隐藏
-    func noRecordHide(isHidden: Bool) {
-        reRecordBtn.isHidden = isHidden
-        savaBtn.isHidden = isHidden
-    }
-    
 
-    func actionRecordClick(sender: UIButton) {
-        if !canRecord() {
-            let alertController = UIAlertController(title: "请求授权", message: "app需要访问您的麦克风。\n请启用麦克风-设置/隐私/麦克风", preferredStyle: .alert )
-            let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: nil)
-            alertController.addAction(alertAction)
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
-        
-        sender.isSelected = !sender.isSelected
-        if sender.isSelected {
-            MBAAudio.audioRecorder == nil ? startRecord() : continueRecord()
-        }else{
-            pauseRecord()
-        }
-    }
+    
     
     
     //开始录音
     func startRecord() {
         recoredHide(isHidden: true)
+        recordStatus(isPause: false)
         
         MBAAudio.initRecord()
         MBAAudio.startRecord()
@@ -247,13 +241,34 @@ class ViewController: UIViewController {
         // 代理设为本身
         MBAAudio.audioRecorder?.delegate = self
         recordBtn.setTitle("暂停", for: .normal)
-        
-        recoredHide(isHidden: true)
     }
     
 
+    /// 重录按钮与暂停按钮变化
+    func recordStatus(isPause:Bool) {
+
+        recordStatusBtn(isEnabel: isPause)
+        if isPause { // 暂停状态下，  右边显示重置
+            reRecordBtn.setTitle("重置", for: .normal)
+            reRecordBtn.removeTarget(self, action: "reRecordWithPause", for: .touchUpInside)
+            reRecordBtn.addTarget(self, action: "actionReRecord", for: .touchUpInside)
+            recordLabel.text = "点击继续录制"
+        } else {
+            reRecordBtn.setTitle("暂停", for: .normal)
+            reRecordBtn.removeTarget(self, action: "actionReRecord", for: .touchUpInside)
+            reRecordBtn.addTarget(self, action: "reRecordWithPause", for: .touchUpInside)
+            recordLabel.text = "麦克风已启动"
+        }
+    }
+    
+    
+    func reRecordWithPause() {
+        actionRecordClick(sender: recordBtn)
+    }
+    
     //暂停录音
     func pauseRecord() {
+        recordStatus(isPause: true)
         recoredHide(isHidden: false)
         
         MBAAudio.pauseRecord()
@@ -284,6 +299,7 @@ class ViewController: UIViewController {
     
     //继续录音
     func continueRecord() {
+        recordStatus(isPause: false)
         recoredHide(isHidden: true)
         
         if isCuted {
@@ -299,7 +315,7 @@ class ViewController: UIViewController {
         initOraginTimeStatue(time: time)
         timerContinue()
         
-        stopPlaying()
+        stopPlay()
         
     }
     
@@ -309,36 +325,14 @@ class ViewController: UIViewController {
         timerInvalidate()
     }
     
-    //开始播放
-    func startPlaying() {
-        recoredHide(isHidden: false)
-        startPlay()
-    }
-    
-    //暂停播放
-    func pausePlaying() {
-        pausePlay()
-    }
-    
-    //继续播放
-    func continuePlaying() {
-        continuePlay()
-    }
-    
-    //结束播放
-    func stopPlaying() {
-        stopPlay()
-    }
-    
   
-    
     /// 重新录制
     func actionReRecord() {
         let alertController = UIAlertController(title: "重新录制", message: "是否重新录制？", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .default, handler:nil)
         let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: { (action) in
             print("删除成功")
-            self.actionReset()
+            self.resetStatus()
         })
 
         alertController.addAction(cancelAction)
@@ -363,7 +357,7 @@ class ViewController: UIViewController {
 extension ViewController: DubPlayViewDelegate {
     
     func volumeBtnClick(_ dubPlayView: DubPlayView) {
-        let alertController = UIAlertController(title: "音量", message: "", preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: nil, message: "选择配乐音量", preferredStyle: .actionSheet)
         volume(number: 0, alertController: alertController, dubPlayView: dubPlayView)
         volume(number: 20, alertController: alertController, dubPlayView: dubPlayView)
         volume(number: 40, alertController: alertController, dubPlayView: dubPlayView)
@@ -389,6 +383,56 @@ extension ViewController: DubPlayViewDelegate {
 
 }
 
+// MARK: - 隐藏与按钮 状态
+extension ViewController {
+    /// 初始化的隐藏
+    func initStatusHide(isHidden: Bool) {
+        recoredHide(isHidden: true)
+        cutHide(isHidden: true)
+        recoredHide(isHidden: true)
+        noRecordHide(isHidden: true)
+    }
+    
+    /// 截取的隐藏
+    func cutHide(isHidden: Bool) {
+        cutCancelBtn.isHidden = isHidden
+        cutYesBtn.isHidden = isHidden
+        cutSlider.isHidden = isHidden
+        cutBtn.isSelected = !isHidden
+    }
+    
+    /// 录音的隐藏
+    func recoredHide(isHidden: Bool) {
+        listenPlayBtn.isHidden = isHidden
+        cutBtn.isHidden = isHidden
+        slider.isHidden = isHidden
+        cutHide(isHidden: true)
+        noRecordHide(isHidden: false)
+    }
+    
+    /// 未录音时隐藏
+    func noRecordHide(isHidden: Bool) {
+        reRecordBtn.isHidden = isHidden
+        savaBtn.isHidden = isHidden
+    }
+    
+    /// 播放状态 其余按钮是否能用
+    func playStatusBtn(isEnabel: Bool) {
+        cutBtn.isEnabled = isEnabel
+        recordBtn.isEnabled = isEnabel
+        reRecordBtn.isEnabled = isEnabel
+        savaBtn.isEnabled = isEnabel
+    }
+    
+    /// 录音状态 其余按钮是否能用
+    func recordStatusBtn(isEnabel: Bool) {
+//        cutBtn.isEnabled = isEnabel
+//        recordBtn.isEnabled = isEnabel
+//        reRecordBtn.isEnabled = isEnabel
+        savaBtn.isEnabled = isEnabel
+    }
+    
+}
 
 extension ViewController {
     
@@ -430,10 +474,10 @@ extension ViewController {
         timer = nil
     }
     
-    func actionTimer() { // 60分钟，3600 秒
+    func actionTimer() { // 20分钟，1200 秒
         time = time + 1
         initOraginTimeStatue(time:time)
-        if time == 3600 {
+        if time == 1200 {
 //            结束？
         }
     }
@@ -482,6 +526,13 @@ extension ViewController  {
         player = MBAAudioPlayer(contentsOf: url)
         player.player?.delegate = self
         initCutUI()
+        
+        
+        waveformView.isHidden = true
+//        waveformView.audioURL = url
+//        self.waveformView.doesAllowScrubbing = true
+//        self.waveformView.doesAllowStretch = true
+//        self.waveformView.doesAllowScroll = true
     }
     
     func initCutUI() {
@@ -522,7 +573,7 @@ extension ViewController {
     }
     
     func actionCut(sender: UIButton) {
-        pausePlaying()
+        pausePlay()
         sender.isSelected = !sender.isSelected
         if sender.isSelected { // 裁剪中
             cutHide(isHidden: false)
@@ -561,6 +612,7 @@ extension ViewController {
 
 extension ViewController {
     func startPlay() {
+        playStatusBtn(isEnabel: false)
         playTime = 0
         sliderTime = 0
         player?.currentTime = playTime
@@ -571,11 +623,13 @@ extension ViewController {
     }
     
     func pausePlay() {
+        playStatusBtn(isEnabel: true)
         player?.pausePlay()
         pauseTimer()
     }
     
     func continuePlay() {
+        playStatusBtn(isEnabel: false)
         player?.continuePlay()
         continueTimer()
     }
@@ -583,7 +637,7 @@ extension ViewController {
     func stopPlay() {
         pauseTimer()
         listenPlayBtn.isSelected = false
-        
+        playStatusBtn(isEnabel: true)
         if cutBtn.isSelected {
             let playTime = TimeTool.getFormatTime(timerInval: Double(cutSlider.value))
             let endTime = TimeTool.getFormatTime(timerInval: player.duration)

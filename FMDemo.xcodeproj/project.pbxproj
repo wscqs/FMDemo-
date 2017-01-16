@@ -28,6 +28,7 @@
 		2C94E80B1E2887CF00D539DC /* SeletceDubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E80A1E2887CF00D539DC /* SeletceDubViewController.swift */; };
 		2C94E80F1E28AC2700D539DC /* 节奏1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C94E80D1E28AC2700D539DC /* 节奏1.caf */; };
 		2C94E8101E28AC2700D539DC /* 节奏2.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C94E80E1E28AC2700D539DC /* 节奏2.caf */; };
+		993532958BBE045BD82BCE1D /* Pods_FMDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4E378304C0A729E333B5DE /* Pods_FMDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,9 @@
 		2C94E80A1E2887CF00D539DC /* SeletceDubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeletceDubViewController.swift; sourceTree = "<group>"; };
 		2C94E80D1E28AC2700D539DC /* 节奏1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "节奏1.caf"; sourceTree = "<group>"; };
 		2C94E80E1E28AC2700D539DC /* 节奏2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "节奏2.caf"; sourceTree = "<group>"; };
+		8AF07FFC73EC8A0F3B362031 /* Pods-FMDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-FMDemo/Pods-FMDemo.release.xcconfig"; sourceTree = "<group>"; };
+		B6E0B4A622EF8A5FB833D4A3 /* Pods-FMDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FMDemo/Pods-FMDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		CA4E378304C0A729E333B5DE /* Pods_FMDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FMDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,17 +69,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C94E8061E277C7A00D539DC /* libmp3lame.a in Frameworks */,
+				993532958BBE045BD82BCE1D /* Pods_FMDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1EC779B8C8D1617EF05BDB99 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CA4E378304C0A729E333B5DE /* Pods_FMDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2C7818B41DEEA0F4001E3594 = {
 			isa = PBXGroup;
 			children = (
 				2C7818BF1DEEA0F4001E3594 /* FMDemo */,
 				2C7818BE1DEEA0F4001E3594 /* Products */,
+				7D37E0E8D98BB1E8241D057E /* Pods */,
+				1EC779B8C8D1617EF05BDB99 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -231,6 +246,15 @@
 			path = Asset;
 			sourceTree = "<group>";
 		};
+		7D37E0E8D98BB1E8241D057E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B6E0B4A622EF8A5FB833D4A3 /* Pods-FMDemo.debug.xcconfig */,
+				8AF07FFC73EC8A0F3B362031 /* Pods-FMDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -238,9 +262,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2C7818CF1DEEA0F4001E3594 /* Build configuration list for PBXNativeTarget "FMDemo" */;
 			buildPhases = (
+				4D5362CD2730A6D307B44526 /* [CP] Check Pods Manifest.lock */,
 				2C7818B91DEEA0F4001E3594 /* Sources */,
 				2C7818BA1DEEA0F4001E3594 /* Frameworks */,
 				2C7818BB1DEEA0F4001E3594 /* Resources */,
+				92A803870F81852EA2694AF1 /* [CP] Embed Pods Frameworks */,
+				3C95E8DEE9F459DFF1ED11B7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -302,6 +329,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3C95E8DEE9F459DFF1ED11B7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FMDemo/Pods-FMDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4D5362CD2730A6D307B44526 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		92A803870F81852EA2694AF1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FMDemo/Pods-FMDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2C7818B91DEEA0F4001E3594 /* Sources */ = {
@@ -446,6 +521,7 @@
 		};
 		2C7818D01DEEA0F4001E3594 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6E0B4A622EF8A5FB833D4A3 /* Pods-FMDemo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -472,6 +548,7 @@
 		};
 		2C7818D11DEEA0F4001E3594 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8AF07FFC73EC8A0F3B362031 /* Pods-FMDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

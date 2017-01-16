@@ -26,27 +26,35 @@
                                 <rect key="frame" x="0.0" y="567" width="375" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bJ-32-MUC">
-                                        <rect key="frame" x="171.5" y="41" width="31" height="30"/>
+                                        <rect key="frame" x="172" y="24" width="31" height="30"/>
                                         <state key="normal" title="录音"/>
                                         <state key="selected" title="正录音"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L1g-J9-zeH">
-                                        <rect key="frame" x="297.5" y="41" width="31" height="30"/>
+                                        <rect key="frame" x="297.5" y="24" width="31" height="30"/>
                                         <state key="normal" title="保存"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSL-SU-pJR">
-                                        <rect key="frame" x="47.5" y="41" width="31" height="30"/>
+                                        <rect key="frame" x="47.5" y="24" width="31" height="30"/>
                                         <state key="normal" title="重录"/>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5X-Js-szO">
+                                        <rect key="frame" x="172" y="62" width="31" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="t5X-Js-szO" firstAttribute="centerX" secondItem="mjh-5y-jmD" secondAttribute="centerX" id="1mS-Sb-Abv"/>
                                     <constraint firstItem="6bJ-32-MUC" firstAttribute="centerY" secondItem="QSL-SU-pJR" secondAttribute="centerY" id="3iY-Oa-CiE"/>
-                                    <constraint firstAttribute="bottom" secondItem="6bJ-32-MUC" secondAttribute="bottom" constant="29" id="46g-G7-on0"/>
                                     <constraint firstAttribute="height" constant="100" id="81o-za-B6k"/>
                                     <constraint firstItem="6bJ-32-MUC" firstAttribute="centerX" secondItem="mjh-5y-jmD" secondAttribute="centerX" id="Ade-9r-OPb"/>
+                                    <constraint firstAttribute="bottom" secondItem="t5X-Js-szO" secondAttribute="bottom" constant="20" id="aTl-ir-xjo"/>
                                     <constraint firstItem="6bJ-32-MUC" firstAttribute="leading" secondItem="QSL-SU-pJR" secondAttribute="trailing" constant="93" id="fNJ-QF-INQ"/>
                                     <constraint firstItem="L1g-J9-zeH" firstAttribute="leading" secondItem="6bJ-32-MUC" secondAttribute="trailing" constant="95" id="fr4-RW-JT9"/>
+                                    <constraint firstItem="t5X-Js-szO" firstAttribute="top" secondItem="6bJ-32-MUC" secondAttribute="bottom" constant="8" id="lc8-Nh-xw0"/>
                                     <constraint firstItem="6bJ-32-MUC" firstAttribute="centerY" secondItem="L1g-J9-zeH" secondAttribute="centerY" id="wj9-1A-mlo"/>
                                 </constraints>
                             </view>
@@ -74,10 +82,18 @@
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="CEM-7V-yuy">
                                         <rect key="frame" x="6" y="28" width="363" height="31"/>
                                     </slider>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hjH-pJ-4jz" customClass="FDWaveformView" customModule="FDWaveformView">
+                                        <rect key="frame" x="8" y="0.0" width="359" height="26"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="ktj-hT-Shi"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="CEM-7V-yuy" firstAttribute="trailing" secondItem="Pzg-S9-E10" secondAttribute="trailing" id="0z3-JI-tml"/>
+                                    <constraint firstItem="hjH-pJ-4jz" firstAttribute="leading" secondItem="Sfm-Qo-ffG" secondAttribute="leading" constant="8" id="6KY-2F-YGT"/>
                                     <constraint firstItem="BER-Jl-j0g" firstAttribute="centerY" secondItem="3hQ-iN-Epk" secondAttribute="centerY" id="8ZR-mL-tmE"/>
                                     <constraint firstItem="3hQ-iN-Epk" firstAttribute="leading" secondItem="Sfm-Qo-ffG" secondAttribute="leading" constant="8" id="8oj-Kc-zdV"/>
                                     <constraint firstAttribute="trailing" secondItem="Pzg-S9-E10" secondAttribute="trailing" constant="8" id="AMK-xE-rQ2"/>
@@ -86,6 +102,7 @@
                                     <constraint firstAttribute="bottom" secondItem="BER-Jl-j0g" secondAttribute="bottom" constant="8" id="Xj0-YJ-MKF"/>
                                     <constraint firstItem="Pzg-S9-E10" firstAttribute="leading" secondItem="Sfm-Qo-ffG" secondAttribute="leading" constant="8" id="bGH-hI-S3v"/>
                                     <constraint firstItem="BER-Jl-j0g" firstAttribute="centerX" secondItem="Sfm-Qo-ffG" secondAttribute="centerX" id="eDW-dL-6QS"/>
+                                    <constraint firstAttribute="trailing" secondItem="hjH-pJ-4jz" secondAttribute="trailing" constant="8" id="eU3-2J-ose"/>
                                     <constraint firstItem="Pzg-S9-E10" firstAttribute="top" secondItem="CEM-7V-yuy" secondAttribute="bottom" constant="8" id="f7W-yT-rmw"/>
                                     <constraint firstItem="BER-Jl-j0g" firstAttribute="centerY" secondItem="05U-Uh-g7x" secondAttribute="centerY" id="idZ-53-85D"/>
                                     <constraint firstItem="CEM-7V-yuy" firstAttribute="leading" secondItem="Pzg-S9-E10" secondAttribute="leading" id="mEc-GS-U53"/>
@@ -122,6 +139,7 @@
                             <constraint firstItem="8pY-sB-nS9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="eDg-SX-dSH"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mjh-5y-jmD" secondAttribute="bottom" id="gEf-5F-cjb"/>
                             <constraint firstItem="mjh-5y-jmD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hW5-vZ-cJ6"/>
+                            <constraint firstItem="hjH-pJ-4jz" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="22" id="j4x-lN-z6N"/>
                             <constraint firstItem="Sfm-Qo-ffG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="22" id="s8Y-L4-ybr"/>
                         </constraints>
                     </view>
@@ -136,9 +154,11 @@
                         <outlet property="pauseBtn" destination="QSL-SU-pJR" id="s3k-Jp-bPa"/>
                         <outlet property="reRecordBtn" destination="QSL-SU-pJR" id="Ez6-Rd-bRi"/>
                         <outlet property="recordBtn" destination="6bJ-32-MUC" id="dvf-PW-aar"/>
+                        <outlet property="recordLabel" destination="t5X-Js-szO" id="44d-xB-SAP"/>
                         <outlet property="savaBtn" destination="L1g-J9-zeH" id="Wfb-PT-l4C"/>
                         <outlet property="slider" destination="Pzg-S9-E10" id="7jc-p2-Ahj"/>
                         <outlet property="timeLabel" destination="BER-Jl-j0g" id="Q6Y-9L-EL3"/>
+                        <outlet property="waveformView" destination="hjH-pJ-4jz" id="8eJ-tt-qCI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
