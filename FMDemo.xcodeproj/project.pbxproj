@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C3A59721E30625900EBAD70 /* BarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3A59711E30625900EBAD70 /* BarViewController.swift */; };
+		2C3A59751E30A23200EBAD70 /* BarWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3A59741E30A23200EBAD70 /* BarWaveView.swift */; };
 		2C7818C11DEEA0F4001E3594 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */; };
 		2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C41DEEA0F4001E3594 /* Main.storyboard */; };
 		2C7818C81DEEA0F4001E3594 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C71DEEA0F4001E3594 /* Assets.xcassets */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C3A59711E30625900EBAD70 /* BarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarViewController.swift; sourceTree = "<group>"; };
+		2C3A59741E30A23200EBAD70 /* BarWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarWaveView.swift; sourceTree = "<group>"; };
 		2C4CEA781E1DE6D000D0508C /* FMDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FMDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		2C7818BD1DEEA0F4001E3594 /* FMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 				2C94E7E01E277C7A00D539DC /* Common */,
 				2C94E7E41E277C7A00D539DC /* ViewController.swift */,
 				2C94E80A1E2887CF00D539DC /* SeletceDubViewController.swift */,
+				2C3A59711E30625900EBAD70 /* BarViewController.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -196,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				2C94E7E81E277C7A00D539DC /* FavoriteButton */,
+				2C3A59741E30A23200EBAD70 /* BarWaveView.swift */,
 			);
 			path = CommentView;
 			sourceTree = "<group>";
@@ -384,6 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C94E80B1E2887CF00D539DC /* SeletceDubViewController.swift in Sources */,
+				2C3A59721E30625900EBAD70 /* BarViewController.swift in Sources */,
 				2C94E8011E277C7A00D539DC /* MBAAudioUtil.swift in Sources */,
 				2C94E7FC1E277C7A00D539DC /* DOFavoriteButton.swift in Sources */,
 				2C94E8031E277C7A00D539DC /* MBAPlayerHelper.swift in Sources */,
@@ -397,6 +404,7 @@
 				2C94E8041E277C7A00D539DC /* TimeTool.swift in Sources */,
 				2C94E8051E277C7A00D539DC /* Lame2mp3Tool.m in Sources */,
 				2C94E7FE1E277C7A00D539DC /* Date+Extension.swift in Sources */,
+				2C3A59751E30A23200EBAD70 /* BarWaveView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

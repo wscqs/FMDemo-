@@ -32,8 +32,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var dubView: UIView!
     
     
-    @IBOutlet weak var waveformView: FDWaveformView!
-    
     
     let seletctDubVC = SeletceDubViewController()
     let dubPlayView = DubPlayView.dubPlayView()
@@ -43,7 +41,7 @@ class ViewController: UIViewController {
         btn.setTitle("添加配音", for: .normal)
         btn.setTitleColor(UIColor.lightGray, for: .normal)
         btn.sizeToFit()
-        btn.addTarget(self, action: "actionAddDub", for: .touchUpInside)
+        btn.addTarget(self, action: #selector(ViewController.actionAddDub), for: .touchUpInside)
         return btn
     }()
     
@@ -59,7 +57,6 @@ class ViewController: UIViewController {
     var playTime:TimeInterval = 0
     
     
-//    var playTime: TimeInterval!
     var sliderTime: TimeInterval = 0
     var sliderTimer: Timer?
     var tipTimer: Timer?
@@ -69,22 +66,24 @@ class ViewController: UIViewController {
     var cutExportURL: URL?
     var mergeExportURL: URL?
     
-    func trans() {
-//        MBAAudioUtil.changceToMp3(of: <#T##URL#>, mp3Name: <#T##String#>)
-    }
     
+    
+    var pointArray = Array<CGPoint>()
+    var barView =  BarWaveView(frame: CGRect(x: 30, y: 50, width: UIScreen.main.bounds.width - 60, height: 70))
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        view.addSubview(barView)
+            
 //        view.addSubview(addBtn)
 //        addBtn.setTitle("合并", for: .normal)
 //        addBtn.setTitleColor(UIColor.blue, for: .normal)
 //        addBtn.center = view.center
 //        addBtn.sizeToFit()
 //        addBtn.addTarget(self, action: "trans", for: .touchUpInside)
-        
-        
-        
+                
         
         recordBtn.addTarget(self, action: #selector(actionRecordClick), for: .touchUpInside)
         
@@ -250,13 +249,13 @@ class ViewController: UIViewController {
         recordStatusBtn(isEnabel: isPause)
         if isPause { // 暂停状态下，  右边显示重置
             reRecordBtn.setTitle("重置", for: .normal)
-            reRecordBtn.removeTarget(self, action: "reRecordWithPause", for: .touchUpInside)
-            reRecordBtn.addTarget(self, action: "actionReRecord", for: .touchUpInside)
+            reRecordBtn.removeTarget(self, action: #selector(ViewController.reRecordWithPause), for: .touchUpInside)
+            reRecordBtn.addTarget(self, action: #selector(ViewController.actionReRecord), for: .touchUpInside)
             recordLabel.text = "点击继续录制"
         } else {
             reRecordBtn.setTitle("暂停", for: .normal)
-            reRecordBtn.removeTarget(self, action: "actionReRecord", for: .touchUpInside)
-            reRecordBtn.addTarget(self, action: "reRecordWithPause", for: .touchUpInside)
+            reRecordBtn.removeTarget(self, action: #selector(ViewController.actionReRecord), for: .touchUpInside)
+            reRecordBtn.addTarget(self, action: #selector(ViewController.reRecordWithPause), for: .touchUpInside)
             recordLabel.text = "麦克风已启动"
         }
     }
@@ -461,6 +460,12 @@ extension ViewController {
 extension ViewController {
     
     func initOraginTimeStatue(time: TimeInterval){
+        
+        // FIXME: 
+        let point = CGPoint(x: barView.bounds.size.height, y: CGFloat(arc4random_uniform(80) + 20))
+        pointArray.insert(point, at: 0)
+        barView.pointArray = pointArray
+        
         self.time = time
         timeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(time))
     }
@@ -526,13 +531,7 @@ extension ViewController  {
         player = MBAAudioPlayer(contentsOf: url)
         player.player?.delegate = self
         initCutUI()
-        
-        
-        waveformView.isHidden = true
-//        waveformView.audioURL = url
-//        self.waveformView.doesAllowScrubbing = true
-//        self.waveformView.doesAllowStretch = true
-//        self.waveformView.doesAllowScroll = true
+
     }
     
     func initCutUI() {

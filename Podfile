@@ -9,6 +9,7 @@ target 'FMDemo' do
   pod 'AlamofireObjectMapper'
   pod 'FDWaveformView'
   pod 'SnapKit'
+  pod 'Charts'
 
 end
 

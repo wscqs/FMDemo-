@@ -78,7 +78,6 @@ class MBAAudioUtil {
         
         let mergeExportPath = (Date().formatDate + ".caf").tmpDir()
         let exportURL = URL(fileURLWithPath: mergeExportPath)
-        print(exportURL.absoluteURL)
         
         
         // 3.创建音频输出会话
@@ -89,7 +88,7 @@ class MBAAudioUtil {
         exportSession?.exportAsynchronously {
             if AVAssetExportSessionStatus.completed == exportSession?.status {
                 print("AVAssetExportSessionStatusCompleted")
-                
+                print(mergeExportPath)
                 DispatchQueue.main.async {
                     return handleComplet(exportURL)
                 }
