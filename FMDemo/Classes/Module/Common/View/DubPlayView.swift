@@ -9,8 +9,9 @@
 import UIKit
 import AVFoundation
 
+
 protocol DubPlayViewDelegate : NSObjectProtocol{
-    func volumeBtnClick(_ dubPlayView: DubPlayView)
+//    func volumeBtnClick(_ dubPlayView: DubPlayView)
     func changceDubClick(_ dubPlayView: DubPlayView)
 }
 
@@ -24,15 +25,14 @@ class DubPlayView: UIView {
     var timer: Timer?
     var audioTotalTime: TimeInterval!
     
-    var isCycle = false
-    
-    var volume :Int? {
+    var volume :Float? {
         didSet{
             guard let volume = volume else {
                 return
             }
-            audioPlayer?.volume = (Float(volume) / 100)
-            changceVolumeBtn.setTitle("\(volume)%\n声音", for: .normal)
+            volumeLabel.text = Int(volume).description
+            audioPlayer?.volume = volume / 100
+            volumeSlider.value = volume
         }
     }
     
@@ -72,22 +72,22 @@ class DubPlayView: UIView {
     }
     
     func initStatus(){
-        playBtn.isSelected = false
+        playSwitch.isOn = false
+        volume = 20.0
     }
     
     func setUI() {
-        playBtn.addTarget(self, action: #selector(actionPlay), for: .touchUpInside)
-        changceVolumeBtn.addTarget(self, action: #selector(DubPlayView.actionChangceVolume), for: .touchUpInside)
+        playSwitch.addTarget(self, action: #selector(actionPlay), for: .valueChanged)
+        volumeSlider.addTarget(self, action:#selector(DubPlayView.actionVolumeSlider), for: .valueChanged)
+        volumeSlider.minimumValue = 0.0
+        volumeSlider.maximumValue = 100.0
         changceDubBtn.addTarget(self, action: #selector(DubPlayView.actionChangceDub), for: .touchUpInside)
-        cycleBtn.addTarget(self, action: #selector(DubPlayView.actionCycle), for: .touchUpInside)
-        cycleBtn.setTitle("未循环", for: .normal)
-        cycleBtn.setTitle("循环", for: .selected)
         timerInit()
+        initStatus()
     }
     
-    func actionCycle(sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        isCycle = sender.isSelected
+    func actionVolumeSlider(sender: UISlider) {
+        volume = sender.value
     }
     
     func actionPlay() {
@@ -96,20 +96,17 @@ class DubPlayView: UIView {
             playPause()
         } else {
             audioPlayer?.play()
-            playBtn.isSelected = true
+            playSwitch.isOn = true
             timerContinue()
         }
     }
     
     func playPause() {
-        playBtn.isSelected = false
+        playSwitch.isOn = false
         audioPlayer?.pause()
         timerPause()
     }
-    
-    func actionChangceVolume(sender: UIButton) {
-        delegate?.volumeBtnClick(self)
-    }
+
     func actionChangceDub(sender: UIButton) {
         delegate?.changceDubClick(self)
     }
@@ -125,11 +122,18 @@ class DubPlayView: UIView {
     
     @IBOutlet weak var dubTitleLabel: UILabel!
     @IBOutlet weak var playTimeLabel: UILabel!
-    @IBOutlet weak var playBtn: UIButton!
-    @IBOutlet weak var cycleBtn: UIButton!
-    @IBOutlet weak var playProgress: UIProgressView!
+    @IBOutlet weak var playSwitch: UISwitch!
+//    @IBOutlet weak var playSwitch: Switch!
     @IBOutlet weak var changceDubBtn: UIButton!
-    @IBOutlet weak var changceVolumeBtn: UIButton!
+    
+    @IBOutlet weak var volumeSlider: UISlider!
+    @IBOutlet weak var volumeLabel: UILabel!
+    
+//    @IBOutlet weak var playBtn: UIButton!
+//    @IBOutlet weak var cycleBtn: UIButton!
+//    @IBOutlet weak var playProgress: UIProgressView!
+//    @IBOutlet weak var changceDubBtn: UIButton!
+//    @IBOutlet weak var changceVolumeBtn: UIButton!
  
 }
 
@@ -150,7 +154,7 @@ extension DubPlayView {
     func actionTimer() {
         let currentTime: Float = Float(CMTimeGetSeconds((audioPlayer?.currentTime())!))
         let totalTime: Float = Float(CMTimeGetSeconds((audioPlayer?.currentItem?.asset.duration)!))
-        playProgress.progress = currentTime / totalTime
+//        playProgress.progress = currentTime / totalTime
         let remainTime = totalTime - currentTime
         playTimeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(remainTime))
     }
@@ -172,12 +176,13 @@ extension DubPlayView {
     @objc fileprivate func playbackFinished(notice: NSNotification) {
         // 恢复最开始的0状态
         audioPlayer?.currentItem?.seek(to: CMTime(value: 0, timescale: 1))
+        audioPlayer?.play()
 
-        if isCycle {
-            audioPlayer?.play()
-        } else {
-            playBtn.isSelected = false
-        }
+//        if isCycle {
+//            audioPlayer?.play()
+//        } else {
+//            playSwitch.isOn = false
+//        }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

@@ -9,12 +9,9 @@
 import UIKit
 import AVFoundation
 
-import FDWaveformView
-
-
 class ViewController: UIViewController {
     
-    @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var slider: WaveformView!
     @IBOutlet weak var listenPlayBtn: UIButton!
     @IBOutlet weak var cutBtn: UIButton!
     @IBOutlet weak var pauseBtn: UIButton!
@@ -66,16 +63,9 @@ class ViewController: UIViewController {
     var cutExportURL: URL?
     var mergeExportURL: URL?
     
-    
-    
-    var pointArray = Array<CGPoint>()
-    var barView =  BarWaveView(frame: CGRect(x: 30, y: 50, width: UIScreen.main.bounds.width - 60, height: 70))
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        view.addSubview(barView)
             
 //        view.addSubview(addBtn)
 //        addBtn.setTitle("合并", for: .normal)
@@ -355,26 +345,6 @@ class ViewController: UIViewController {
 
 extension ViewController: DubPlayViewDelegate {
     
-    func volumeBtnClick(_ dubPlayView: DubPlayView) {
-        let alertController = UIAlertController(title: nil, message: "选择配乐音量", preferredStyle: .actionSheet)
-        volume(number: 0, alertController: alertController, dubPlayView: dubPlayView)
-        volume(number: 20, alertController: alertController, dubPlayView: dubPlayView)
-        volume(number: 40, alertController: alertController, dubPlayView: dubPlayView)
-        volume(number: 60, alertController: alertController, dubPlayView: dubPlayView)
-        volume(number: 80, alertController: alertController, dubPlayView: dubPlayView)
-        volume(number: 100, alertController: alertController, dubPlayView: dubPlayView)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    func volume(number: Int, alertController: UIAlertController,dubPlayView: DubPlayView) {
-        let perzenAction = UIAlertAction(title: "\(number)%", style: .default) { (action) in
-            dubPlayView.volume = number
-        }
-        alertController.addAction(perzenAction)
-    }
-    
-    
     func changceDubClick(_ dubPlayView: DubPlayView) {
         actionAddDub()
     }
@@ -462,9 +432,6 @@ extension ViewController {
     func initOraginTimeStatue(time: TimeInterval){
         
         // FIXME: 
-        let point = CGPoint(x: barView.bounds.size.height, y: CGFloat(arc4random_uniform(80) + 20))
-        pointArray.insert(point, at: 0)
-        barView.pointArray = pointArray
         
         self.time = time
         timeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(time))
@@ -531,6 +498,8 @@ extension ViewController  {
         player = MBAAudioPlayer(contentsOf: url)
         player.player?.delegate = self
         initCutUI()
+        
+        slider.asset = AVURLAsset(url: url)
 
     }
     

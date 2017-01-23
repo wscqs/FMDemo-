@@ -76,24 +76,16 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Pzg-S9-E10">
+                                    <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Pzg-S9-E10" customClass="WaveformView" customModule="FMDemo" customModuleProvider="target">
                                         <rect key="frame" x="6" y="66" width="363" height="31"/>
                                     </slider>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="CEM-7V-yuy">
                                         <rect key="frame" x="6" y="28" width="363" height="31"/>
                                     </slider>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hjH-pJ-4jz">
-                                        <rect key="frame" x="8" y="0.0" width="359" height="40"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="ktj-hT-Shi"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="CEM-7V-yuy" firstAttribute="trailing" secondItem="Pzg-S9-E10" secondAttribute="trailing" id="0z3-JI-tml"/>
-                                    <constraint firstItem="hjH-pJ-4jz" firstAttribute="leading" secondItem="Sfm-Qo-ffG" secondAttribute="leading" constant="8" id="6KY-2F-YGT"/>
                                     <constraint firstItem="BER-Jl-j0g" firstAttribute="centerY" secondItem="3hQ-iN-Epk" secondAttribute="centerY" id="8ZR-mL-tmE"/>
                                     <constraint firstItem="3hQ-iN-Epk" firstAttribute="leading" secondItem="Sfm-Qo-ffG" secondAttribute="leading" constant="8" id="8oj-Kc-zdV"/>
                                     <constraint firstAttribute="trailing" secondItem="Pzg-S9-E10" secondAttribute="trailing" constant="8" id="AMK-xE-rQ2"/>
@@ -102,7 +94,6 @@
                                     <constraint firstAttribute="bottom" secondItem="BER-Jl-j0g" secondAttribute="bottom" constant="8" id="Xj0-YJ-MKF"/>
                                     <constraint firstItem="Pzg-S9-E10" firstAttribute="leading" secondItem="Sfm-Qo-ffG" secondAttribute="leading" constant="8" id="bGH-hI-S3v"/>
                                     <constraint firstItem="BER-Jl-j0g" firstAttribute="centerX" secondItem="Sfm-Qo-ffG" secondAttribute="centerX" id="eDW-dL-6QS"/>
-                                    <constraint firstAttribute="trailing" secondItem="hjH-pJ-4jz" secondAttribute="trailing" constant="8" id="eU3-2J-ose"/>
                                     <constraint firstItem="Pzg-S9-E10" firstAttribute="top" secondItem="CEM-7V-yuy" secondAttribute="bottom" constant="8" id="f7W-yT-rmw"/>
                                     <constraint firstItem="BER-Jl-j0g" firstAttribute="centerY" secondItem="05U-Uh-g7x" secondAttribute="centerY" id="idZ-53-85D"/>
                                     <constraint firstItem="CEM-7V-yuy" firstAttribute="leading" secondItem="Pzg-S9-E10" secondAttribute="leading" id="mEc-GS-U53"/>
@@ -139,7 +130,6 @@
                             <constraint firstItem="8pY-sB-nS9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="eDg-SX-dSH"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mjh-5y-jmD" secondAttribute="bottom" id="gEf-5F-cjb"/>
                             <constraint firstItem="mjh-5y-jmD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hW5-vZ-cJ6"/>
-                            <constraint firstItem="hjH-pJ-4jz" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="22" id="j4x-lN-z6N"/>
                             <constraint firstItem="Sfm-Qo-ffG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="22" id="s8Y-L4-ybr"/>
                         </constraints>
                     </view>
