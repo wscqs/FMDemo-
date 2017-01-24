@@ -7,6 +7,7 @@ target 'FMDemo' do
 
   pod 'Kingfisher'
   pod 'AlamofireObjectMapper'
+  pod 'FDWaveformView'
   pod 'SnapKit'
 
 end

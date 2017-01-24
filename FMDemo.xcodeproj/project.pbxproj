@@ -36,6 +36,7 @@
 		2CF7913D1E35A2300085932C /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7913A1E35A2300085932C /* WaveformView.swift */; };
 		2CF7913F1E35F0610085932C /* BarWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7913E1E35F0610085932C /* BarWaveView.swift */; };
 		2CF791431E3610D80085932C /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF791421E3610D80085932C /* Switch.swift */; };
+		2CF791461E373A460085932C /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF791451E373A460085932C /* RecordViewController.swift */; };
 		993532958BBE045BD82BCE1D /* Pods_FMDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4E378304C0A729E333B5DE /* Pods_FMDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		2CF7913A1E35A2300085932C /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		2CF7913E1E35F0610085932C /* BarWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarWaveView.swift; sourceTree = "<group>"; };
 		2CF791421E3610D80085932C /* Switch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
+		2CF791451E373A460085932C /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		8AF07FFC73EC8A0F3B362031 /* Pods-FMDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-FMDemo/Pods-FMDemo.release.xcconfig"; sourceTree = "<group>"; };
 		B6E0B4A622EF8A5FB833D4A3 /* Pods-FMDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FMDemo/Pods-FMDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		CA4E378304C0A729E333B5DE /* Pods_FMDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FMDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +161,7 @@
 				2C94E7E01E277C7A00D539DC /* Common */,
 				2C94E7E41E277C7A00D539DC /* ViewController.swift */,
 				2C94E80A1E2887CF00D539DC /* SeletceDubViewController.swift */,
+				2CF791451E373A460085932C /* RecordViewController.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				2C94E8031E277C7A00D539DC /* MBAPlayerHelper.swift in Sources */,
 				2C94E8001E277C7A00D539DC /* MBAAudioHelper.swift in Sources */,
 				2C94E7FF1E277C7A00D539DC /* String+Extension.swift in Sources */,
+				2CF791461E373A460085932C /* RecordViewController.swift in Sources */,
 				2CF7913B1E35A2300085932C /* SampleDataFilter.swift in Sources */,
 				2C94E7FB1E277C7A00D539DC /* ViewController.swift in Sources */,
 				2C94E8021E277C7A00D539DC /* MBACache.swift in Sources */,
@@ -569,7 +573,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6BY5V9TZ5E;
 				INFOPLIST_FILE = FMDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -597,7 +601,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6BY5V9TZ5E;
 				INFOPLIST_FILE = FMDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

@@ -76,11 +76,9 @@ class ViewController: UIViewController {
                 
         
         recordBtn.addTarget(self, action: #selector(actionRecordClick), for: .touchUpInside)
-        
-        
-        listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
 
-        
+        listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
+  
         savaBtn.addTarget(self, action: #selector(actionSave), for: .touchUpInside)
         cutBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
         
@@ -98,15 +96,10 @@ class ViewController: UIViewController {
         cutYesBtn.addTarget(self, action: #selector(actionStrokeYes), for: .touchUpInside)
         
         dubView.addSubview(addDubBtn)
-        
-        
-
-        
         dubPlayView.delegate = self
         dubView.addSubview(dubPlayView)
         dubPlayView.frame = dubView.bounds
         dubPlayView.isHidden = true
-        
         /// 选择控制器选中后回调
         seletctDubVC.selectDubURLBlock = { selectDubURL in
             self.dubPlayView.isHidden = false
@@ -122,7 +115,14 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)        
+        super.viewWillAppear(animated)
+        if !canRecord() {
+            let alertController = UIAlertController(title: "请求授权", message: "app需要访问您的麦克风。\n请启用麦克风-设置/隐私/麦克风", preferredStyle: .alert )
+            let alertAction = UIAlertAction(title: "确定", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -176,13 +176,6 @@ class ViewController: UIViewController {
     }
     
     func actionRecordClick(sender: UIButton) {
-        if !canRecord() {
-            let alertController = UIAlertController(title: "请求授权", message: "app需要访问您的麦克风。\n请启用麦克风-设置/隐私/麦克风", preferredStyle: .alert )
-            let alertAction = UIAlertAction(title: "确定", style: .default, handler: nil)
-            alertController.addAction(alertAction)
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
         
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
@@ -348,8 +341,6 @@ extension ViewController: DubPlayViewDelegate {
     func changceDubClick(_ dubPlayView: DubPlayView) {
         actionAddDub()
     }
-    
-
 }
 
 // MARK: - 隐藏与按钮 状态
