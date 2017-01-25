@@ -11,7 +11,14 @@ import AVFoundation
 
 class WaveformView: UISlider {
 
-    open var asset: AVAsset? {
+    open var url: URL? {
+        didSet {
+            guard let url = url else { return }
+            asset = AVAsset(url: url)
+        }
+    }
+    
+    fileprivate var asset: AVAsset? {
         didSet {
             guard let asset = asset else { return }
             //从资源中获取到样本数据后进行绘制

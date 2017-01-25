@@ -37,6 +37,7 @@
 		2CF7913F1E35F0610085932C /* BarWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7913E1E35F0610085932C /* BarWaveView.swift */; };
 		2CF791431E3610D80085932C /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF791421E3610D80085932C /* Switch.swift */; };
 		2CF791461E373A460085932C /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF791451E373A460085932C /* RecordViewController.swift */; };
+		2CF791481E383D3B0085932C /* PlayRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF791471E383D3B0085932C /* PlayRecordViewController.swift */; };
 		993532958BBE045BD82BCE1D /* Pods_FMDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4E378304C0A729E333B5DE /* Pods_FMDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		2CF7913E1E35F0610085932C /* BarWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarWaveView.swift; sourceTree = "<group>"; };
 		2CF791421E3610D80085932C /* Switch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		2CF791451E373A460085932C /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		2CF791471E383D3B0085932C /* PlayRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayRecordViewController.swift; sourceTree = "<group>"; };
 		8AF07FFC73EC8A0F3B362031 /* Pods-FMDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-FMDemo/Pods-FMDemo.release.xcconfig"; sourceTree = "<group>"; };
 		B6E0B4A622EF8A5FB833D4A3 /* Pods-FMDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FMDemo/Pods-FMDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		CA4E378304C0A729E333B5DE /* Pods_FMDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FMDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +164,7 @@
 				2C94E7E41E277C7A00D539DC /* ViewController.swift */,
 				2C94E80A1E2887CF00D539DC /* SeletceDubViewController.swift */,
 				2CF791451E373A460085932C /* RecordViewController.swift */,
+				2CF791471E383D3B0085932C /* PlayRecordViewController.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C94E80B1E2887CF00D539DC /* SeletceDubViewController.swift in Sources */,
+				2CF791481E383D3B0085932C /* PlayRecordViewController.swift in Sources */,
 				2CF7913D1E35A2300085932C /* WaveformView.swift in Sources */,
 				2C94E8011E277C7A00D539DC /* MBAAudioUtil.swift in Sources */,
 				2C94E7FC1E277C7A00D539DC /* DOFavoriteButton.swift in Sources */,

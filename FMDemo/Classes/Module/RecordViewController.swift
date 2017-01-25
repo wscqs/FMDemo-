@@ -19,7 +19,6 @@ class RecordViewController: UIViewController {
     @IBOutlet weak var reRecordBtn: UIButton!
     @IBOutlet weak var cutBtn: UIButton!
     @IBOutlet weak var savaBtn: UIButton!
-
     @IBOutlet weak var stackView: UIStackView!
     let seletctDubVC = SeletceDubViewController()
     let dubPlayView = DubPlayView.dubPlayView()
@@ -28,18 +27,25 @@ class RecordViewController: UIViewController {
         btn.setTitle("添加配音", for: .normal)
         btn.setTitleColor(UIColor.lightGray, for: .normal)
         btn.sizeToFit()
-        btn.addTarget(self, action: #selector(ViewController.actionAddDub), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(RecordViewController.actionAddDub), for: .touchUpInside)
         return btn
     }()
     
     var timer: Timer?
     var time:TimeInterval = 0
+    var isCuted: Bool = false
     
-    var mergeExportURL: URL?
+    /// 跳到 播放或裁剪 的url
+    var voiceURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addDubBtn.frame = dubView.bounds
     }
 }
 
@@ -49,6 +55,7 @@ extension RecordViewController {
         listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
         savaBtn.addTarget(self, action: #selector(actionSave), for: .touchUpInside)
         cutBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
+        reRecordBtn.addTarget(self, action: #selector(actionReRecord), for: .touchUpInside)
         
         dubView.addSubview(addDubBtn)
         dubPlayView.delegate = self
@@ -60,6 +67,8 @@ extension RecordViewController {
             self.dubPlayView.isHidden = false
             self.dubPlayView.playItem(url: selectDubURL)
         }
+        
+        initStates()  
     }
     
     
@@ -72,14 +81,31 @@ extension RecordViewController {
         dubPlayView.isHidden = true
         
         recordLabel.text = "点击开始录音\n最长「20分钟」哦"
+        isCuted = false
     }
     
     func initStatusHide(isHidden: Bool) {
         stackView.isHidden = isHidden
     }
+    
+    /// 初始或重置后的状态
+    func resetStatus() {
+        
+        stopRecord()
+        MBAAudio.audioRecorder = nil
+        timerInvalidate()
+        
+        initStates()
+        MBACache.clearCache()
+    }
 }
 
 extension RecordViewController {
+    
+    func actionAddDub() {
+        navigationController?.pushViewController(seletctDubVC, animated: true)
+    }
+    
     func actionRecordClick(sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
@@ -88,10 +114,7 @@ extension RecordViewController {
             pauseRecord()
         }
     }
-    //MARK: 点击播放
-    func actionPlayClick(sender: UIButton) {
 
-    }
     
     func actionSave() {
         //        let url = isCuted ? mergeExportURL : MBAAudio.url
@@ -108,6 +131,25 @@ extension RecordViewController {
             textFiled.clearButtonMode = .whileEditing
         }
         present(alertController, animated: true, completion: nil)
+    }
+    
+    /// 重新录制
+    func actionReRecord() {
+        let alertController = UIAlertController(title: "重新录制", message: "是否重新录制？", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .default, handler:nil)
+        let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: { (action) in
+            print("删除成功")
+            self.resetStatus()
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    //MARK: 点击播放
+    func actionPlayClick(sender: UIButton) {
+        
     }
     
     func actionCut(sender: UIButton) {
@@ -137,9 +179,13 @@ extension RecordViewController {
     
     //继续录音
     func continueRecord() {
-        MBAAudio.stopRecord()
-        MBAAudio.initRecord()
-        MBAAudio.startRecord()
+        if isCuted {
+            MBAAudio.stopRecord()
+            MBAAudio.initRecord()
+            MBAAudio.startRecord()
+        } else {
+            MBAAudio.continueRecord()
+        }
         timerContinue()
     }
     
@@ -151,19 +197,24 @@ extension RecordViewController {
         
         dubPlayView.playPause()
         
-        guard let mergeExportURL = mergeExportURL,
-            let recodedVoiceURL = MBAAudio.url
-            else {
-                print("mergeExportURL error")
-                return
-        }
-        MBAAudioUtil.mergeAudio(url1: mergeExportURL, url2: recodedVoiceURL, handleComplet: { (mergeExportURL) in
-            if let mergeExportURL = mergeExportURL {
-                self.mergeExportURL = mergeExportURL
-//                self.loadPlay(url: mergeExportURL)
+        if isCuted { // 如果裁剪过，就合并
+            
+            guard let mergeExportURL = self.voiceURL,
+                let recodedVoiceURL = MBAAudio.url
+                else {
+                    print("mergeExportURL error")
+                    return
             }
-        })
-        
+            MBAAudioUtil.mergeAudio(url1: mergeExportURL, url2: recodedVoiceURL, handleComplet: { (mergeExportURL) in
+                if let mergeExportURL = mergeExportURL {
+//                    self.mergeExportURL = mergeExportURL
+                    self.voiceURL = mergeExportURL
+                }
+            })
+            
+        } else {
+            self.voiceURL = MBAAudio.url
+        }
     }
     
     //停止录音
@@ -227,6 +278,14 @@ extension RecordViewController: AVAudioRecorderDelegate{
             //            print(error)
         }
     }
-    
+}
+
+extension RecordViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if "PlayRecordViewController" == segue.identifier {
+            let playVC = segue.destination as? PlayRecordViewController
+            playVC?.url = self.voiceURL
+        }
+    }
 }
 

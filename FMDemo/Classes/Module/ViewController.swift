@@ -490,8 +490,7 @@ extension ViewController  {
         player.player?.delegate = self
         initCutUI()
         
-        slider.asset = AVURLAsset(url: url)
-
+        slider.url = url
     }
     
     func initCutUI() {
