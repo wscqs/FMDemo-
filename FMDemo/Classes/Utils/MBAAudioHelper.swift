@@ -59,6 +59,7 @@ class MBAAudioHelper: NSObject {
             try audioSession?.setCategory(AVAudioSessionCategoryPlayAndRecord)
             try audioSession?.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker) // 解决音频声音播放过小
             try audioRecorder = AVAudioRecorder(url: URL(string: cafAudioString)!,                                                settings: recordSettings)//初始化实例
+            audioRecorder?.isMeteringEnabled = true
 //            audioRecorder?.delegate = self
             audioRecorder?.prepareToRecord()//准备录音
         } catch {
@@ -73,6 +74,10 @@ extension MBAAudioHelper{
     // MARK: - 录音状态
     /// 开始录音
     func startRecord() {
+        
+        stopRecord()
+        initRecord()
+        
         do {
             try audioSession?.setActive(true)
             audioRecorder?.record()
@@ -121,8 +126,10 @@ extension MBAAudioHelper{
     
     func audioPowerChange() -> Float{
         audioRecorder?.updateMeters()//更新测量值
-        let power = audioRecorder?.averagePower(forChannel: 0)//取得第一个通道的音频，注意音频强度范围时-160到0
-        let progress = (1.0/160.0)*(power! + 160.0)
+//        let power = audioRecorder?.peakPower(forChannel: 0)
+        let peakPowerForChannel = audioRecorder?.averagePower(forChannel: 0)//取得第一个通道的音频，注意音频强度范围时-160到0
+//        let progress = (1.0/160.0)*(power! + 160.0)
+        let progress = pow(10, (0.05 * (peakPowerForChannel ?? 0)))
         return progress
     }
 

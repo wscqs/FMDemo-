@@ -11,6 +11,22 @@ import AVFoundation
 
 class PlayRecordViewController: UIViewController {
     var url: URL?
+//        {
+//        didSet{
+//            guard let url = url else {
+//                return
+//            }
+//            
+//            let url1 = Bundle.main.url(forResource: "luyingshort.caf", withExtension: nil)
+//            player = MBAAudioPlayer(contentsOf: url)
+//            player.player?.delegate = self
+//            slider.url = url1!
+//            
+//            initStatus()
+//            actionPlayClick(sender: listenPlayBtn)
+//        }
+//    }
+    
     @IBOutlet weak var slider: WaveformView!
     @IBOutlet weak var listenPlayBtn: UIButton!
     @IBOutlet weak var cutBtn: UIButton!
@@ -30,7 +46,7 @@ class PlayRecordViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        url = Bundle.main.url(forResource: "luyingshort.caf", withExtension: nil)
+//        url = Bundle.main.url(forResource: "luyingshort.caf", withExtension: nil)
         guard let url = url else {
             return
         }
@@ -40,9 +56,7 @@ class PlayRecordViewController: UIViewController {
         
         initStatus()
         actionPlayClick(sender: listenPlayBtn)
-        
-//        slider.url = Bundle.main.url(forResource: "luyingshort.caf", withExtension: nil)
-        
+                
     }
     
     func initStatus() {

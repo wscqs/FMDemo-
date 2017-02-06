@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -234,6 +233,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQG-F4-4W6">
                                                 <rect key="frame" x="142" y="0.0" width="31" height="30"/>
                                                 <state key="normal" title="裁剪"/>
+                                                <connections>
+                                                    <segue destination="fwe-AW-8V8" kind="push" id="JBk-cg-eCZ"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQO-10-yle">
                                                 <rect key="frame" x="213" y="0.0" width="31" height="30"/>
@@ -293,7 +295,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Owi-S6-Me9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1816.8" y="47.226386806596707"/>
+            <point key="canvasLocation" x="1815" y="46.478873239436624"/>
         </scene>
         <!--Play Record View Controller-->
         <scene sceneID="jNa-To-ZVe">
@@ -414,6 +416,108 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="acu-R7-d6V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="24.800000000000001" y="36.431784107946029"/>
+        </scene>
+        <!--Play Record View Controller-->
+        <scene sceneID="3jT-o0-z85">
+            <objects>
+                <viewController id="fwe-AW-8V8" customClass="PlayRecordViewController" customModule="FMDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="onY-Xp-DIn"/>
+                        <viewControllerLayoutGuide type="bottom" id="1l1-OU-9OE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yLO-Q4-Sm7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qC-Bm-1wg">
+                                <rect key="frame" x="0.0" y="100" width="320" height="150"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nes-Bv-xW2">
+                                        <rect key="frame" x="123" y="58" width="74" height="34"/>
+                                        <state key="normal" title="添加课件"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Eac-8f-JWX"/>
+                                    <constraint firstItem="nes-Bv-xW2" firstAttribute="centerX" secondItem="5qC-Bm-1wg" secondAttribute="centerX" id="h2o-Lg-h66"/>
+                                    <constraint firstItem="nes-Bv-xW2" firstAttribute="centerY" secondItem="5qC-Bm-1wg" secondAttribute="centerY" id="ps5-t0-lEA"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgg-JQ-us2">
+                                <rect key="frame" x="0.0" y="30" width="320" height="60"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ymb-lf-Sv2">
+                                        <rect key="frame" x="127" y="16" width="67" height="29"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEE-Wf-JxB">
+                                                <rect key="frame" x="0.0" y="0.0" width="67" height="29"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="GWd-Vf-8uK"/>
+                                    <constraint firstItem="ymb-lf-Sv2" firstAttribute="centerX" secondItem="vgg-JQ-us2" secondAttribute="centerX" id="Kh0-kj-RoZ"/>
+                                    <constraint firstItem="ymb-lf-Sv2" firstAttribute="centerY" secondItem="vgg-JQ-us2" secondAttribute="centerY" id="rgr-C5-Ppn"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xVT-Iq-X7K" customClass="WaveformView" customModule="FMDemo" customModuleProvider="target">
+                                <rect key="frame" x="10" y="260" width="300" height="68"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="68" id="UVY-oy-n8F"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="MbE-Jm-SBi">
+                                <rect key="frame" x="64" y="518" width="193" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="poT-Zg-8ZM">
+                                        <rect key="frame" x="0.0" y="0.0" width="31" height="30"/>
+                                        <state key="normal" title="裁剪"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IOR-oI-OHj">
+                                        <rect key="frame" x="81" y="0.0" width="31" height="30"/>
+                                        <state key="normal" title="试听"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0x-BQ-Pgx">
+                                        <rect key="frame" x="162" y="0.0" width="31" height="30"/>
+                                        <state key="normal" title="保存"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vgg-JQ-us2" firstAttribute="leading" secondItem="yLO-Q4-Sm7" secondAttribute="leading" id="7M8-zG-Ur5"/>
+                            <constraint firstItem="xVT-Iq-X7K" firstAttribute="top" secondItem="5qC-Bm-1wg" secondAttribute="bottom" constant="10" id="AZg-pE-Jnq"/>
+                            <constraint firstItem="xVT-Iq-X7K" firstAttribute="leading" secondItem="yLO-Q4-Sm7" secondAttribute="leading" constant="10" id="B4j-gn-zw2"/>
+                            <constraint firstItem="5qC-Bm-1wg" firstAttribute="leading" secondItem="yLO-Q4-Sm7" secondAttribute="leading" id="OHX-lO-Zi6"/>
+                            <constraint firstItem="MbE-Jm-SBi" firstAttribute="centerX" secondItem="yLO-Q4-Sm7" secondAttribute="centerX" id="UOW-zE-QXg"/>
+                            <constraint firstItem="vgg-JQ-us2" firstAttribute="top" secondItem="onY-Xp-DIn" secondAttribute="bottom" constant="10" id="Ue1-2O-ZfP"/>
+                            <constraint firstAttribute="trailing" secondItem="5qC-Bm-1wg" secondAttribute="trailing" id="Xue-Wj-kjh"/>
+                            <constraint firstItem="5qC-Bm-1wg" firstAttribute="top" secondItem="vgg-JQ-us2" secondAttribute="bottom" constant="10" id="dLq-hh-Ayu"/>
+                            <constraint firstItem="1l1-OU-9OE" firstAttribute="top" secondItem="MbE-Jm-SBi" secondAttribute="bottom" constant="20" id="qar-LJ-NKe"/>
+                            <constraint firstAttribute="trailing" secondItem="xVT-Iq-X7K" secondAttribute="trailing" constant="10" id="upv-xJ-Lqj"/>
+                            <constraint firstAttribute="trailing" secondItem="vgg-JQ-us2" secondAttribute="trailing" id="zeN-ba-U8U"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="6Cl-m2-DL5"/>
+                    <connections>
+                        <outlet property="cutBtn" destination="poT-Zg-8ZM" id="DzO-xK-d4F"/>
+                        <outlet property="listenPlayBtn" destination="IOR-oI-OHj" id="rfS-7Q-AUm"/>
+                        <outlet property="savaBtn" destination="A0x-BQ-Pgx" id="VOI-Hc-bkW"/>
+                        <outlet property="slider" destination="xVT-Iq-X7K" id="ZuN-Ur-QH6"/>
+                        <outlet property="timeLabel" destination="ZEE-Wf-JxB" id="CLa-7Q-iGN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EXS-TI-F43" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2282" y="762"/>
         </scene>
     </scenes>
 </document>

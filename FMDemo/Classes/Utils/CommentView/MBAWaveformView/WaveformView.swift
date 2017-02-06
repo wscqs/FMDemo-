@@ -125,6 +125,11 @@ class WaveformView: UISlider {
         setMaximumTrackImage(maxiTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         setMinimumTrackImage(minxTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         
+        // 透明图像
+//        UIGraphicsBeginImageContextWithOptions(CGSizeMake(1, 1), false, 0.0)
+//        let transparentImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+        
     }
     
     //    // 波纹风格

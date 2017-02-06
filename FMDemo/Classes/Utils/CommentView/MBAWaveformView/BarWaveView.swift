@@ -7,21 +7,29 @@
 //
 
 import UIKit
-import AVFoundation
 
 class BarWaveView: UIView {
     
-    var pointArray: Array<CGPoint>? {
+    var pointArray: Array<CGFloat>? {
         didSet{
             setNeedsDisplay()
         }
     }
     
-    var kLineWidth:CGFloat = 1.0
+    var kLineWidth:CGFloat = 2.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.clearsContextBeforeDrawing = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")      
+        super.init(coder: aDecoder)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
  
     override func draw(_ rect: CGRect) {
@@ -31,20 +39,20 @@ class BarWaveView: UIView {
         }
         if pointArray.count == 0 {return}
         
+        UIRectFill(bounds)
+        
         let cgContext = UIGraphicsGetCurrentContext()
         cgContext?.setLineWidth(kLineWidth)
         cgContext?.beginPath()
-        cgContext?.setStrokeColor(UIColor.orange.cgColor)
+        cgContext?.setStrokeColor(UIColor.lightGray.cgColor)
+        let height = self.bounds.size.height
         for i in 0 ..< pointArray.count {
-            cgContext?.move(to: CGPoint(x: self.bounds.size.width - CGFloat(i) * kLineWidth * 2, y: self.bounds.size.height))
-            cgContext?.addLine(to: CGPoint(x: self.bounds.size.width - CGFloat(i) * kLineWidth * 2, y: pointArray[i].y))
+            cgContext?.move(to: CGPoint(x: self.bounds.size.width - CGFloat(i) * kLineWidth * 2, y: height))
+            cgContext?.addLine(to: CGPoint(x: self.bounds.size.width - CGFloat(i) * kLineWidth * 2, y: height * (1 - pointArray[i])))
         }
         
         cgContext?.strokePath()
         
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }

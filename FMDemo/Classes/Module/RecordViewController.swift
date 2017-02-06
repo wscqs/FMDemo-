@@ -10,6 +10,15 @@ import AVFoundation
 
 class RecordViewController: UIViewController {
     
+    
+    var barWaveView: BarWaveView = {
+        let cgRect = CGRect(x: 0, y: 66, width: UIScreen.main.bounds.width, height: 80.0)
+        let barWaveView = BarWaveView(frame: cgRect)
+        return barWaveView
+    }()
+    
+    var pointArray = [CGFloat]()
+    
     @IBOutlet weak var timeLabel: UILabel!
     /// 配音的容器
     @IBOutlet weak var dubView: UIView!
@@ -38,6 +47,11 @@ class RecordViewController: UIViewController {
     /// 跳到 播放或裁剪 的url
     var voiceURL: URL?
     
+    
+    // 获取录音频率的计时器
+    var recordMetersTimer: Timer?
+    var recordMetersTime: TimeInterval = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -45,6 +59,10 @@ class RecordViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         addDubBtn.frame = dubView.bounds
     }
 }
@@ -68,7 +86,10 @@ extension RecordViewController {
             self.dubPlayView.playItem(url: selectDubURL)
         }
         
-        initStates()  
+        initStates()
+        
+        
+        view.addSubview(barWaveView)
     }
     
     
@@ -82,6 +103,10 @@ extension RecordViewController {
         
         recordLabel.text = "点击开始录音\n最长「20分钟」哦"
         isCuted = false
+        
+        time = 0
+        initOraginTimeStatue(time:time)
+        
     }
     
     func initStatusHide(isHidden: Bool) {
@@ -90,7 +115,6 @@ extension RecordViewController {
     
     /// 初始或重置后的状态
     func resetStatus() {
-        
         stopRecord()
         MBAAudio.audioRecorder = nil
         timerInvalidate()
@@ -169,8 +193,8 @@ extension RecordViewController {
     func startRecord() {
         initStatusHide(isHidden: false)
 
-        MBAAudio.initRecord()
         MBAAudio.startRecord()
+        
         timerInit()
         // 代理设为本身
         MBAAudio.audioRecorder?.delegate = self
@@ -180,8 +204,6 @@ extension RecordViewController {
     //继续录音
     func continueRecord() {
         if isCuted {
-            MBAAudio.stopRecord()
-            MBAAudio.initRecord()
             MBAAudio.startRecord()
         } else {
             MBAAudio.continueRecord()
@@ -236,15 +258,29 @@ extension RecordViewController {
     }
     
     func timerInit(){
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(actionTimer), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerEvent), userInfo: nil, repeats: true)
+        
+        recordMetersTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(recordMetersTimerEvent), userInfo: nil, repeats: true)
+    }
+    
+    func timerPause() {
+        timer?.fireDate = Date.distantFuture
+        recordMetersTimer?.fireDate = Date.distantFuture
+    }
+    
+    func timerContinue() {
+        timer?.fireDate = Date()
+        recordMetersTimer?.fireDate = Date()
     }
     
     func timerInvalidate(){
         timer?.invalidate()
         timer = nil
+        recordMetersTimer?.invalidate()
+        recordMetersTimer = nil
     }
     
-    func actionTimer() { // 20分钟，1200 秒
+    func timerEvent() { // 20分钟，1200 秒
         time = time + 1
         initOraginTimeStatue(time:time)
         if time == 1200 {
@@ -252,13 +288,12 @@ extension RecordViewController {
         }
     }
     
-    
-    func timerPause() {
-        timer?.fireDate = Date.distantFuture
-    }
-    
-    func timerContinue() {
-        timer?.fireDate = Date()
+    func recordMetersTimerEvent() {
+        recordMetersTime = recordMetersTime + 0.2
+        let recordMeters = MBAAudio.audioPowerChange()
+        pointArray.insert(CGFloat(recordMeters), at: 0)
+        print(pointArray.description)
+        barWaveView.pointArray = pointArray
     }
     
 }

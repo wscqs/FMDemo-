@@ -13,6 +13,7 @@ import AVFoundation
 protocol DubPlayViewDelegate : NSObjectProtocol{
 //    func volumeBtnClick(_ dubPlayView: DubPlayView)
     func changceDubClick(_ dubPlayView: DubPlayView)
+//    func playDubClick(_ dubPlayView: DubPlayView)
 }
 
 class DubPlayView: UIView {
@@ -91,7 +92,6 @@ class DubPlayView: UIView {
     }
     
     func actionPlay() {
-        
         if audioPlayer?.rate == 1 { // 在播放，点击后暂停
             playPause()
         } else {
@@ -221,6 +221,9 @@ extension DubPlayView {
         playTimeLabel.text = TimeTool.getFormatTime(timerInval: audioTotalTime)
  
     }
+    
+    
+    
     
     
 }

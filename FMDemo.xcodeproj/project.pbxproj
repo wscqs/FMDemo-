@@ -14,6 +14,8 @@
 		2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C41DEEA0F4001E3594 /* Main.storyboard */; };
 		2C7818C81DEEA0F4001E3594 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C71DEEA0F4001E3594 /* Assets.xcassets */; };
 		2C7818CB1DEEA0F4001E3594 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C91DEEA0F4001E3594 /* LaunchScreen.storyboard */; };
+		2C8574421E4826E200D4119C /* CutRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8574411E4826E200D4119C /* CutRecordViewController.swift */; };
+		2C8574451E488A9500D4119C /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8574441E488A9500D4119C /* TestViewController.swift */; };
 		2C94E7F91E277C7A00D539DC /* DubPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7E21E277C7A00D539DC /* DubPlayView.swift */; };
 		2C94E7FA1E277C7A00D539DC /* DubPlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C94E7E31E277C7A00D539DC /* DubPlayView.xib */; };
 		2C94E7FB1E277C7A00D539DC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7E41E277C7A00D539DC /* ViewController.swift */; };
@@ -52,6 +54,8 @@
 		2C7818C71DEEA0F4001E3594 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C7818CA1DEEA0F4001E3594 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C7818CC1DEEA0F4001E3594 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C8574411E4826E200D4119C /* CutRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutRecordViewController.swift; sourceTree = "<group>"; };
+		2C8574441E488A9500D4119C /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		2C94E7E21E277C7A00D539DC /* DubPlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DubPlayView.swift; sourceTree = "<group>"; };
 		2C94E7E31E277C7A00D539DC /* DubPlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DubPlayView.xib; sourceTree = "<group>"; };
 		2C94E7E41E277C7A00D539DC /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -136,9 +140,18 @@
 			path = FMDemo;
 			sourceTree = "<group>";
 		};
+		2C8574431E488A8B00D4119C /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				2C8574441E488A9500D4119C /* TestViewController.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 		2C94E7DC1E277C7A00D539DC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2C8574431E488A8B00D4119C /* Test */,
 				2C94E80C1E28AC2700D539DC /* Asset */,
 				2C94E7DD1E277C7A00D539DC /* Comment */,
 				2C94E7DE1E277C7A00D539DC /* Module */,
@@ -165,6 +178,7 @@
 				2C94E80A1E2887CF00D539DC /* SeletceDubViewController.swift */,
 				2CF791451E373A460085932C /* RecordViewController.swift */,
 				2CF791471E383D3B0085932C /* PlayRecordViewController.swift */,
+				2C8574411E4826E200D4119C /* CutRecordViewController.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -426,6 +440,7 @@
 			files = (
 				2C94E80B1E2887CF00D539DC /* SeletceDubViewController.swift in Sources */,
 				2CF791481E383D3B0085932C /* PlayRecordViewController.swift in Sources */,
+				2C8574451E488A9500D4119C /* TestViewController.swift in Sources */,
 				2CF7913D1E35A2300085932C /* WaveformView.swift in Sources */,
 				2C94E8011E277C7A00D539DC /* MBAAudioUtil.swift in Sources */,
 				2C94E7FC1E277C7A00D539DC /* DOFavoriteButton.swift in Sources */,
@@ -434,6 +449,7 @@
 				2C94E7FF1E277C7A00D539DC /* String+Extension.swift in Sources */,
 				2CF791461E373A460085932C /* RecordViewController.swift in Sources */,
 				2CF7913B1E35A2300085932C /* SampleDataFilter.swift in Sources */,
+				2C8574421E4826E200D4119C /* CutRecordViewController.swift in Sources */,
 				2C94E7FB1E277C7A00D539DC /* ViewController.swift in Sources */,
 				2C94E8021E277C7A00D539DC /* MBACache.swift in Sources */,
 				2C94E7F91E277C7A00D539DC /* DubPlayView.swift in Sources */,
