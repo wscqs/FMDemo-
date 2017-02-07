@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BarWaveView: UIView {
+class BarWaveView1: UIView {
     
     var pointArray: Array<CGFloat>? {
         didSet{
@@ -20,6 +20,7 @@ class BarWaveView: UIView {
     }
     
     var slider: UISlider = UISlider()
+    var scrollView = UIScrollView()
     
     /// 边框及底部颜色
     var waveBackgroundColor = UIColor.black {
@@ -73,7 +74,13 @@ class BarWaveView: UIView {
         layer.cornerRadius = 2.0
         layer.masksToBounds = true
         
-        addSubview(slider)
+        addSubview(scrollView)
+        scrollView.frame = bounds
+        scrollView.bounces = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        
+        scrollView.addSubview(slider)
         slider.setThumbImage(UIImage(named: "line"), for: .normal)
         
     }
@@ -96,6 +103,7 @@ class BarWaveView: UIView {
             widthScaling = boundsW / CGFloat(pointArray.count * 4)
         }
         
+        widthScaling = 1
         
         //3. 设置画布的缩放和上下左右间距
 //        context.scaleBy(x: widthScaling, y: heightScaling)
@@ -113,6 +121,7 @@ class BarWaveView: UIView {
         }
 
         slider.frame = CGRect(x: 0, y: 0, width: CGFloat(pointArray.count) * spaceW , height: boundsH)
+        scrollView.contentSize = slider.bounds.size
         
         let numberOfSteps = pointArray.count
         slider.maximumValue = Float(numberOfSteps)

@@ -72,13 +72,14 @@ class TestViewController: UIViewController {
     func actionRecord() {
         initRecord()
         audioRecorder?.record()
-        timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(timerEvent), userInfo: nil, repeats: true)
+        // 画音波的计时器
+//        timer = Timer.scheduledTimer(timeInterval: kWaveTime, target: self, selector: #selector(timerEvent), userInfo: nil, repeats: true)
         
     }
     
-    func timerEvent() {
-        print(audioPowerChange())
-    }
+//    func timerEvent() {
+//        print(audioPowerChange())
+//    }
     
     
     func audioPowerChange() -> Float{

@@ -338,6 +338,9 @@ class ViewController: UIViewController {
 
 extension ViewController: DubPlayViewDelegate {
     
+    func playBtnClick(_ dubPlayView: DubPlayView, playBtn: UIButton) {
+        
+    }
     func changceDubClick(_ dubPlayView: DubPlayView) {
         actionAddDub()
     }

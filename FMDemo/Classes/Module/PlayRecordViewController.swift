@@ -11,29 +11,21 @@ import AVFoundation
 
 class PlayRecordViewController: UIViewController {
     var url: URL?
-//        {
-//        didSet{
-//            guard let url = url else {
-//                return
-//            }
-//            
-//            let url1 = Bundle.main.url(forResource: "luyingshort.caf", withExtension: nil)
-//            player = MBAAudioPlayer(contentsOf: url)
-//            player.player?.delegate = self
-//            slider.url = url1!
-//            
-//            initStatus()
-//            actionPlayClick(sender: listenPlayBtn)
-//        }
-//    }
+    var pointArray: [CGFloat]?
     
-    @IBOutlet weak var slider: WaveformView!
+    @IBOutlet weak var slider: BarWaveView!
     @IBOutlet weak var listenPlayBtn: UIButton!
     @IBOutlet weak var cutBtn: UIButton!
     @IBOutlet weak var savaBtn: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
     
-    var sliderTime: TimeInterval = 0
+    var sliderTime: TimeInterval = 0 {
+        didSet{
+            player?.currentTime = sliderTime
+            updateTime()
+        }
+    }
+    
     var sliderTimer: Timer?
     var tipTimer: Timer?
     var player: MBAAudioPlayer!
@@ -46,13 +38,14 @@ class PlayRecordViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        url = Bundle.main.url(forResource: "luyingshort.caf", withExtension: nil)
         guard let url = url else {
             return
         }
         player = MBAAudioPlayer(contentsOf: url)
         player.player?.delegate = self
-        slider.url = url
+        
+        slider.pointArray = pointArray
+
         
         initStatus()
         actionPlayClick(sender: listenPlayBtn)
@@ -60,40 +53,36 @@ class PlayRecordViewController: UIViewController {
     }
     
     func initStatus() {
-        slider.minimumValue = 0
-        slider.maximumValue = Float(player.duration)
-        slider.value = 0
+//        slider.slider.minimumValue = 0
+//        slider.slider.maximumValue = Float(player.duration)
+//        slider.slider.value = 0
     }
     
-    func updateLabel() {
-        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime + 0.2))//player.currentTime  第一秒0.9几
+    func updateTime() {
+        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime))//player.currentTime  第一秒0.9几
         let endTime = TimeTool.getFormatTime(timerInval: player.duration)
         timeLabel.text = "\(playTime)\\\(endTime)"
+        slider.slider.setValue(Float(player.currentTime / player.duration * Double(pointArray?.count ?? 0)), animated: true)
     }
     
     func sliderTimerEvent() {
-        sliderTime = sliderTime + 0.01
-        slider.value = Float(sliderTime)
-        if sliderTime >= player.duration {
+//        let sliderTime = player.currentTime
+        updateTime()
+        if player.currentTime >= player.duration {
             stopPlay()
         }
     }
-    
-    func tipTimerEvent() {
-        updateLabel()
-    }
+
 }
 
 extension PlayRecordViewController {
     func setup() {
         listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
-        
         savaBtn.addTarget(self, action: #selector(actionSave), for: .touchUpInside)
         cutBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
+        slider.slider.addTarget(self, action: #selector(actionSlider), for: .valueChanged)
         
-        slider.addTarget(self, action: #selector(actionSlider), for: .valueChanged)
-        
-        slider.isContinuous = false // 滑动结束 才会执行valueChanged 事件
+        slider.slider.isContinuous = false // 滑动结束 才会执行valueChanged 事件
     }
 }
 
@@ -135,9 +124,9 @@ extension PlayRecordViewController {
     
     func actionSlider(sender: UISlider) {
         pausePlay()
-        player.currentTime = TimeInterval(sender.value)
+        let progress = Double(sender.value) / Double(pointArray?.count ?? 0)
+        player.currentTime = TimeInterval(progress * player.duration)
         sliderTime = player.currentTime
-        updateLabel()
         if listenPlayBtn.isSelected {// 在播放中
             continuePlay()
         } else {
@@ -149,8 +138,8 @@ extension PlayRecordViewController {
 
 extension PlayRecordViewController {
     func initTimer() {
-        tipTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(tipTimerEvent), userInfo: nil, repeats: true)
-        sliderTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(sliderTimerEvent), userInfo: nil, repeats: true)
+//        tipTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(tipTimerEvent), userInfo: nil, repeats: true)
+        sliderTimer = Timer.scheduledTimer(timeInterval: kWaveTime, target: self, selector: #selector(sliderTimerEvent), userInfo: nil, repeats: true)
     }
     
     func pauseTimer() {
@@ -168,17 +157,18 @@ extension PlayRecordViewController {
         sliderTimer = nil
         tipTimer?.invalidate()
         tipTimer = nil
-        
     }
 }
 
 extension PlayRecordViewController {
+    
+//    func initPlay() {
+//        sliderTime = 0
+//    }
+    
     func startPlay() {
-        sliderTime = 0
-        player?.currentTime = 0
-        updateLabel()
+        sliderTime = kWaveTime
         player?.startPlay()
-        
         initTimer()
     }
     
@@ -204,7 +194,8 @@ extension PlayRecordViewController: AVAudioPlayerDelegate{
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if flag {
             print("finishS")
-            tipTimer?.fireDate = Date.distantFuture
+//            tipTimer?.fireDate = Date.distantFuture
+            stopPlay()
         } else {
             print("finishError")
         }

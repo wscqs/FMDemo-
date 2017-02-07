@@ -11,17 +11,15 @@ import AVFoundation
 
 
 protocol DubPlayViewDelegate : NSObjectProtocol{
-//    func volumeBtnClick(_ dubPlayView: DubPlayView)
+    func playBtnClick(_ dubPlayView: DubPlayView, playBtn: UIButton)
     func changceDubClick(_ dubPlayView: DubPlayView)
-//    func playDubClick(_ dubPlayView: DubPlayView)
 }
 
 class DubPlayView: UIView {
     
     weak var delegate: DubPlayViewDelegate?
     //申明一个媒体播放控件
-    var audioPlayer: AVPlayer?
-    var audioItem: AVPlayerItem?
+    var audioPlayer: MBAAudioPlayer?
     
     var timer: Timer?
     var audioTotalTime: TimeInterval!
@@ -35,6 +33,10 @@ class DubPlayView: UIView {
             audioPlayer?.volume = volume / 100
             volumeSlider.value = volume
         }
+    }
+    
+    var audioPower: Float {
+        return audioPlayer?.audioPowerChange() ?? 0
     }
     
     class func dubPlayView() -> DubPlayView{
@@ -66,19 +68,16 @@ class DubPlayView: UIView {
     }
     
     func deinitStatus() {
-        audioItem?.removeObserver(self, forKeyPath: "status")
-        NotificationCenter.default.removeObserver(self)
-        audioItem = nil
         audioPlayer = nil
     }
     
     func initStatus(){
-        playSwitch.isOn = false
+        playSwitch.isSelected = false
         volume = 20.0
     }
     
     func setUI() {
-        playSwitch.addTarget(self, action: #selector(actionPlay), for: .valueChanged)
+        playSwitch.addTarget(self, action: #selector(actionPlay), for: .touchUpInside)
         volumeSlider.addTarget(self, action:#selector(DubPlayView.actionVolumeSlider), for: .valueChanged)
         volumeSlider.minimumValue = 0.0
         volumeSlider.maximumValue = 100.0
@@ -91,19 +90,21 @@ class DubPlayView: UIView {
         volume = sender.value
     }
     
-    func actionPlay() {
-        if audioPlayer?.rate == 1 { // 在播放，点击后暂停
+    func actionPlay(btn: UIButton) {
+        if (audioPlayer?.isPlaying)! { // 在播放，点击后暂停
             playPause()
+            playSwitch.isSelected = false
         } else {
-            audioPlayer?.play()
-            playSwitch.isOn = true
+            audioPlayer?.startPlay()
+            playSwitch.isSelected = true
             timerContinue()
         }
+        delegate?.playBtnClick(self, playBtn: btn)
     }
     
     func playPause() {
-        playSwitch.isOn = false
-        audioPlayer?.pause()
+        playSwitch.isSelected = false
+        audioPlayer?.pausePlay()
         timerPause()
     }
 
@@ -122,7 +123,7 @@ class DubPlayView: UIView {
     
     @IBOutlet weak var dubTitleLabel: UILabel!
     @IBOutlet weak var playTimeLabel: UILabel!
-    @IBOutlet weak var playSwitch: UISwitch!
+    @IBOutlet weak var playSwitch: UIButton!
 //    @IBOutlet weak var playSwitch: Switch!
     @IBOutlet weak var changceDubBtn: UIButton!
     
@@ -152,10 +153,7 @@ extension DubPlayView {
     }
     
     func actionTimer() {
-        let currentTime: Float = Float(CMTimeGetSeconds((audioPlayer?.currentTime())!))
-        let totalTime: Float = Float(CMTimeGetSeconds((audioPlayer?.currentItem?.asset.duration)!))
-//        playProgress.progress = currentTime / totalTime
-        let remainTime = totalTime - currentTime
+        let remainTime = (audioPlayer?.duration)! - (audioPlayer?.currentTime)!
         playTimeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(remainTime))
     }
     
@@ -172,58 +170,12 @@ extension DubPlayView {
 
 // MARK: - 音频播放状态设置
 extension DubPlayView {
-    // 播放完成
-    @objc fileprivate func playbackFinished(notice: NSNotification) {
-        // 恢复最开始的0状态
-        audioPlayer?.currentItem?.seek(to: CMTime(value: 0, timescale: 1))
-        audioPlayer?.play()
 
-//        if isCycle {
-//            audioPlayer?.play()
-//        } else {
-//            playSwitch.isOn = false
-//        }
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
-        if "status" == keyPath{
-//            guard let status = audioPlayer?.status else {
-//                return
-//            }
-//            switch status as AVPlayerStatus{
-//            case .unknown:
-////                MBAProgressHUD.dismiss()
-//            //                MBAToast.show(text: "未知状态，此时不能播放")
-//            case .readyToPlay:
-////                MBAProgressHUD.dismiss()
-//                //                MBAToast.show(text: "准备完毕，可以播放")
-//                break
-//            case .failed:
-////                MBAProgressHUD.dismiss()
-////                MBAToast.show(text: "加载失败，网络或者服务器出现问题")
-//            }
-        }
-    }
-
-    
     func playItem(url: URL) {
-        deinitStatus()
-        initStatus()
-        audioItem = AVPlayerItem(url: url)
-        audioPlayer = AVPlayer(playerItem: audioItem)
-        
-        audioItem?.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.new, context: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(playbackFinished(notice:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: audioItem)
-        
+        audioPlayer = MBAAudioPlayer(contentsOf: url)
+        audioPlayer?.numberOfLoops = -1
         dubTitleLabel.text = url.lastPathComponent.components(separatedBy: ".").first
-        audioTotalTime = CMTimeGetSeconds((audioPlayer?.currentItem?.asset.duration)!)
-        playTimeLabel.text = TimeTool.getFormatTime(timerInval: audioTotalTime)
- 
+        playTimeLabel.text = TimeTool.getFormatTime(timerInval: (audioPlayer?.duration ?? 0))
     }
-    
-    
-    
-    
-    
+
 }

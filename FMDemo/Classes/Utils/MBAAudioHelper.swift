@@ -126,8 +126,8 @@ extension MBAAudioHelper{
     
     func audioPowerChange() -> Float{
         audioRecorder?.updateMeters()//更新测量值
-//        let power = audioRecorder?.peakPower(forChannel: 0)
-        let peakPowerForChannel = audioRecorder?.averagePower(forChannel: 0)//取得第一个通道的音频，注意音频强度范围时-160到0
+        let peakPowerForChannel = audioRecorder?.peakPower(forChannel: 0)
+//        let peakPowerForChannel = audioRecorder?.averagePower(forChannel: 0)//取得第一个通道的音频，注意音频强度范围时-160到0
 //        let progress = (1.0/160.0)*(power! + 160.0)
         let progress = pow(10, (0.05 * (peakPowerForChannel ?? 0)))
         return progress

@@ -19,13 +19,29 @@ class MBAAudioPlayer {
         return player?.duration ?? 0
     }
     
-    var currentTime: TimeInterval{
+    var currentTime: TimeInterval {
         set{
             player?.currentTime = newValue
         }
         get{
             return player?.currentTime ?? 0
         }        
+    }
+    
+    var volume: Float {
+        set{
+            player?.volume = newValue
+        }
+        get{
+            return player?.volume ?? 0
+        }
+    }
+    
+    // -1 为循环
+    var numberOfLoops: Int = 0 {
+        didSet{
+            player?.numberOfLoops = numberOfLoops
+        }
     }
     
     /// 是否播放
@@ -37,6 +53,7 @@ class MBAAudioPlayer {
         self.init()
         do {
             try player = AVAudioPlayer(contentsOf: url)
+            player?.isMeteringEnabled = true
             player?.prepareToPlay()
             print("initPlayer!!")
         } catch {
@@ -82,5 +99,17 @@ extension MBAAudioPlayer{
         player?.currentTime = atTime
         player?.play()
     }
+    
+    
+    func audioPowerChange() -> Float{
+        player?.updateMeters()//更新测量值
+        let peakPowerForChannel = player?.peakPower(forChannel: 0)
+        //        let peakPowerForChannel = audioRecorder?.averagePower(forChannel: 0)//取得第一个通道的音频，注意音频强度范围时-160到0
+        //        let progress = (1.0/160.0)*(power! + 160.0)
+        let progress = pow(10, (0.05 * (peakPowerForChannel ?? 0)))
+        return progress
+    }
    
 }
+
+

@@ -234,7 +234,7 @@
                                                 <rect key="frame" x="142" y="0.0" width="31" height="30"/>
                                                 <state key="normal" title="裁剪"/>
                                                 <connections>
-                                                    <segue destination="fwe-AW-8V8" kind="push" id="JBk-cg-eCZ"/>
+                                                    <segue destination="fwe-AW-8V8" kind="push" identifier="CutRecordViewController" id="JBk-cg-eCZ"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQO-10-yle">
@@ -346,7 +346,7 @@
                                     <constraint firstItem="8qo-DU-Zbg" firstAttribute="centerX" secondItem="SqS-4L-6TQ" secondAttribute="centerX" id="i36-i5-jSz"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JPd-zh-9fe" customClass="WaveformView" customModule="FMDemo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JPd-zh-9fe" customClass="BarWaveView" customModule="FMDemo" customModuleProvider="target">
                                 <rect key="frame" x="10" y="304" width="300" height="68"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -391,7 +391,7 @@
                         <outlet property="cutBtn" destination="ea1-Se-cx3" id="fxP-xE-RaA"/>
                         <outlet property="listenPlayBtn" destination="rKF-I0-kPj" id="TyF-L6-Kug"/>
                         <outlet property="savaBtn" destination="EcR-ut-HfJ" id="6MU-d4-6dG"/>
-                        <outlet property="slider" destination="JPd-zh-9fe" id="N1k-9Y-h0W"/>
+                        <outlet property="slider" destination="JPd-zh-9fe" id="OBD-jh-2RA"/>
                         <outlet property="timeLabel" destination="wIn-uq-roi" id="XzH-Cy-9Sb"/>
                     </connections>
                 </viewController>
@@ -417,10 +417,10 @@
             </objects>
             <point key="canvasLocation" x="24.800000000000001" y="36.431784107946029"/>
         </scene>
-        <!--Play Record View Controller-->
+        <!--Cut Record View Controller-->
         <scene sceneID="3jT-o0-z85">
             <objects>
-                <viewController id="fwe-AW-8V8" customClass="PlayRecordViewController" customModule="FMDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fwe-AW-8V8" customClass="CutRecordViewController" customModule="FMDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="onY-Xp-DIn"/>
                         <viewControllerLayoutGuide type="bottom" id="1l1-OU-9OE"/>
@@ -430,7 +430,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qC-Bm-1wg">
-                                <rect key="frame" x="0.0" y="100" width="320" height="150"/>
+                                <rect key="frame" x="0.0" y="144" width="320" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nes-Bv-xW2">
                                         <rect key="frame" x="123" y="58" width="74" height="34"/>
@@ -445,13 +445,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgg-JQ-us2">
-                                <rect key="frame" x="0.0" y="30" width="320" height="60"/>
+                                <rect key="frame" x="0.0" y="74" width="320" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ymb-lf-Sv2">
-                                        <rect key="frame" x="127" y="16" width="67" height="29"/>
+                                        <rect key="frame" x="127.5" y="16" width="66.5" height="29"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEE-Wf-JxB">
-                                                <rect key="frame" x="0.0" y="0.0" width="67" height="29"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="29"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -466,8 +466,8 @@
                                     <constraint firstItem="ymb-lf-Sv2" firstAttribute="centerY" secondItem="vgg-JQ-us2" secondAttribute="centerY" id="rgr-C5-Ppn"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xVT-Iq-X7K" customClass="WaveformView" customModule="FMDemo" customModuleProvider="target">
-                                <rect key="frame" x="10" y="260" width="300" height="68"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xVT-Iq-X7K" customClass="BarWaveView1" customModule="FMDemo" customModuleProvider="target">
+                                <rect key="frame" x="10" y="304" width="300" height="68"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="68" id="UVY-oy-n8F"/>

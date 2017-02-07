@@ -10,12 +10,14 @@
 		2C3A597B1E319CD800EBAD70 /* luyingshort.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C3A59781E319CBC00EBAD70 /* luyingshort.caf */; };
 		2C3A597C1E319CD800EBAD70 /* yicailong.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C3A59791E319CBC00EBAD70 /* yicailong.caf */; };
 		2C3A597D1E319CD800EBAD70 /* yicaishort.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C3A597A1E319CBC00EBAD70 /* yicaishort.caf */; };
+		2C71BE221E49E782005217D4 /* BarWaveView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71BE211E49E782005217D4 /* BarWaveView1.swift */; };
 		2C7818C11DEEA0F4001E3594 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */; };
 		2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C41DEEA0F4001E3594 /* Main.storyboard */; };
 		2C7818C81DEEA0F4001E3594 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C71DEEA0F4001E3594 /* Assets.xcassets */; };
 		2C7818CB1DEEA0F4001E3594 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C91DEEA0F4001E3594 /* LaunchScreen.storyboard */; };
 		2C8574421E4826E200D4119C /* CutRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8574411E4826E200D4119C /* CutRecordViewController.swift */; };
 		2C8574451E488A9500D4119C /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8574441E488A9500D4119C /* TestViewController.swift */; };
+		2C8574471E4967D700D4119C /* CommentLet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8574461E4967D700D4119C /* CommentLet.swift */; };
 		2C94E7F91E277C7A00D539DC /* DubPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7E21E277C7A00D539DC /* DubPlayView.swift */; };
 		2C94E7FA1E277C7A00D539DC /* DubPlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C94E7E31E277C7A00D539DC /* DubPlayView.xib */; };
 		2C94E7FB1E277C7A00D539DC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7E41E277C7A00D539DC /* ViewController.swift */; };
@@ -48,6 +50,7 @@
 		2C3A59791E319CBC00EBAD70 /* yicailong.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = yicailong.caf; sourceTree = "<group>"; };
 		2C3A597A1E319CBC00EBAD70 /* yicaishort.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = yicaishort.caf; sourceTree = "<group>"; };
 		2C4CEA781E1DE6D000D0508C /* FMDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FMDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		2C71BE211E49E782005217D4 /* BarWaveView1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarWaveView1.swift; sourceTree = "<group>"; };
 		2C7818BD1DEEA0F4001E3594 /* FMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C7818C51DEEA0F4001E3594 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -56,6 +59,7 @@
 		2C7818CC1DEEA0F4001E3594 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C8574411E4826E200D4119C /* CutRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutRecordViewController.swift; sourceTree = "<group>"; };
 		2C8574441E488A9500D4119C /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		2C8574461E4967D700D4119C /* CommentLet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentLet.swift; sourceTree = "<group>"; };
 		2C94E7E21E277C7A00D539DC /* DubPlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DubPlayView.swift; sourceTree = "<group>"; };
 		2C94E7E31E277C7A00D539DC /* DubPlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DubPlayView.xib; sourceTree = "<group>"; };
 		2C94E7E41E277C7A00D539DC /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +169,7 @@
 		2C94E7DD1E277C7A00D539DC /* Comment */ = {
 			isa = PBXGroup;
 			children = (
+				2C8574461E4967D700D4119C /* CommentLet.swift */,
 			);
 			path = Comment;
 			sourceTree = "<group>";
@@ -290,10 +295,11 @@
 		2CF791371E35A2300085932C /* MBAWaveformView */ = {
 			isa = PBXGroup;
 			children = (
-				2CF7913E1E35F0610085932C /* BarWaveView.swift */,
 				2CF791381E35A2300085932C /* SampleDataFilter.swift */,
 				2CF791391E35A2300085932C /* SampleDataProvider.swift */,
 				2CF7913A1E35A2300085932C /* WaveformView.swift */,
+				2CF7913E1E35F0610085932C /* BarWaveView.swift */,
+				2C71BE211E49E782005217D4 /* BarWaveView1.swift */,
 			);
 			path = MBAWaveformView;
 			sourceTree = "<group>";
@@ -444,7 +450,9 @@
 				2CF7913D1E35A2300085932C /* WaveformView.swift in Sources */,
 				2C94E8011E277C7A00D539DC /* MBAAudioUtil.swift in Sources */,
 				2C94E7FC1E277C7A00D539DC /* DOFavoriteButton.swift in Sources */,
+				2C8574471E4967D700D4119C /* CommentLet.swift in Sources */,
 				2C94E8031E277C7A00D539DC /* MBAPlayerHelper.swift in Sources */,
+				2C71BE221E49E782005217D4 /* BarWaveView1.swift in Sources */,
 				2C94E8001E277C7A00D539DC /* MBAAudioHelper.swift in Sources */,
 				2C94E7FF1E277C7A00D539DC /* String+Extension.swift in Sources */,
 				2CF791461E373A460085932C /* RecordViewController.swift in Sources */,

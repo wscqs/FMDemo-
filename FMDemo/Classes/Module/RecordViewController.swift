@@ -8,6 +8,10 @@
 import UIKit
 import AVFoundation
 
+enum RecordType{
+    case onlyRecord,dub,recordAndDub
+}
+
 class RecordViewController: UIViewController {
     
     
@@ -18,6 +22,10 @@ class RecordViewController: UIViewController {
     }()
     
     var pointArray = [CGFloat]()
+    
+    var recordType = RecordType.onlyRecord
+    
+    
     
     @IBOutlet weak var timeLabel: UILabel!
     /// 配音的容器
@@ -106,7 +114,7 @@ extension RecordViewController {
         
         time = 0
         initOraginTimeStatue(time:time)
-        
+        pointArray.removeAll()
     }
     
     func initStatusHide(isHidden: Bool) {
@@ -178,13 +186,6 @@ extension RecordViewController {
     
     func actionCut(sender: UIButton) {
 
-    }
-}
-
-extension RecordViewController: DubPlayViewDelegate {
-    
-    func changceDubClick(_ dubPlayView: DubPlayView) {
-        navigationController?.pushViewController(seletctDubVC, animated: true)
     }
 }
 
@@ -260,7 +261,7 @@ extension RecordViewController {
     func timerInit(){
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerEvent), userInfo: nil, repeats: true)
         
-        recordMetersTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(recordMetersTimerEvent), userInfo: nil, repeats: true)
+        recordMetersTimer = Timer.scheduledTimer(timeInterval: TimeInterval(kWaveTime), target: self, selector: #selector(recordMetersTimerEvent), userInfo: nil, repeats: true)
     }
     
     func timerPause() {
@@ -281,17 +282,27 @@ extension RecordViewController {
     }
     
     func timerEvent() { // 20分钟，1200 秒
-        time = time + 1
-        initOraginTimeStatue(time:time)
-        if time == 1200 {
-            //            结束？
-        }
+//        time = time + 1
+//        initOraginTimeStatue(time:time)
+//        if time == 1200 {
+//            //            结束？
+//        }
     }
     
     func recordMetersTimerEvent() {
-        recordMetersTime = recordMetersTime + 0.2
-        let recordMeters = MBAAudio.audioPowerChange()
-        pointArray.insert(CGFloat(recordMeters), at: 0)
+        recordMetersTime = recordMetersTime + kWaveTime
+        initOraginTimeStatue(time: recordMetersTime)
+        var recordMeters:Float = 0.0
+        switch recordType {
+        case .onlyRecord:
+            recordMeters = MBAAudio.audioPowerChange()
+        case .dub:
+            recordMeters = dubPlayView.audioPower
+        case .recordAndDub:
+            recordMeters = 0
+        }
+        
+        pointArray.append(CGFloat(recordMeters))
         print(pointArray.description)
         barWaveView.pointArray = pointArray
     }
@@ -320,7 +331,29 @@ extension RecordViewController {
         if "PlayRecordViewController" == segue.identifier {
             let playVC = segue.destination as? PlayRecordViewController
             playVC?.url = self.voiceURL
+            playVC?.pointArray = self.pointArray
+        }else if "CutRecordViewController" == segue.identifier {
+            let playVC = segue.destination as? CutRecordViewController
+            playVC?.url = self.voiceURL
+            playVC?.pointArray = self.pointArray
         }
+        
+        
+    }
+}
+
+extension RecordViewController: DubPlayViewDelegate {    
+    func changceDubClick(_ dubPlayView: DubPlayView) {
+        navigationController?.pushViewController(seletctDubVC, animated: true)
+    }
+    
+    func playBtnClick(_ dubPlayView: DubPlayView, playBtn: UIButton) {
+//        if playBtn.isSelected {
+//            timerContinue()
+//            recordType = .dub
+//        } else {
+//            timerPause()
+//        }
     }
 }
 
