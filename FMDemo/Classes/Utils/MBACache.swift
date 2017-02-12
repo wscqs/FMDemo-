@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Haneke
 
 class MBACache {
     
@@ -92,4 +93,101 @@ class MBACache {
             }
         }
     }
+    
+}
+
+
+extension MBACache {
+    /// 删除haneke 所有缓存
+    class func clearHanekeAllCache() {
+        Haneke.Shared.imageCache.removeAll()
+        Haneke.Shared.dataCache.removeAll()
+        Haneke.Shared.stringCache.removeAll()
+        Haneke.Shared.JSONCache.removeAll()
+    }
+    
+    // MARK: - JSON
+    class func fetchJson(key: String,
+                         compledHandle: @escaping (([String: Any]?) -> () )){
+        let cache = Haneke.Shared.JSONCache
+        cache.fetch(key: key).onSuccess({ (data) in
+            compledHandle(data.dictionary)
+        }).onFailure { (error) in
+            return compledHandle(nil)
+        }
+    }
+    
+    class func setJson(value:[String: Any], key: String) {
+        let cache = Haneke.Shared.JSONCache
+        cache.set(value: Haneke.JSON.Dictionary(value as [String : AnyObject]), key: key)
+    }
+    
+    class func removeJson(key: String) {
+        let cache = Haneke.Shared.JSONCache
+        cache.remove(key: key)
+    }
+    
+    // MARK: - String
+    class func fetchString(key: String,
+                           compledHandle: @escaping ((String?) -> () )){
+        let cache = Haneke.Shared.stringCache
+        cache.fetch(key: key).onSuccess({ (data) in
+            compledHandle(data)
+        }).onFailure { (error) in
+            compledHandle(nil)
+        }
+    }
+    
+    class func setString(value:String, key: String) {
+        let cache = Haneke.Shared.stringCache
+        cache.set(value: value, key: key)
+    }
+    
+    class func removeString(key: String) {
+        let cache = Haneke.Shared.stringCache
+        cache.remove(key: key)
+    }
+    
+    // MARK: - Data
+    class func fetchData(key: String,
+                         compledHandle: @escaping ((Data?) -> () )){
+        let cache = Haneke.Shared.dataCache
+        cache.fetch(key: key).onSuccess({ (data) in
+            compledHandle(data)
+        }).onFailure { (error) in
+            return compledHandle(nil)
+        }
+    }
+    
+    class func setData(value:Data, key: String) {
+        let cache = Haneke.Shared.dataCache
+        cache.set(value: value, key: key)
+    }
+    
+    class func removeData(key: String) {
+        let cache = Haneke.Shared.dataCache
+        cache.remove(key: key)
+    }
+    
+    // MARK: - UIImage
+    class func fetchUIImage(key: String,
+                            compledHandle: @escaping ((UIImage?) -> () )){
+        let cache = Haneke.Shared.imageCache
+        cache.fetch(key: key).onSuccess({ (data) in
+            compledHandle(data)
+        }).onFailure { (error) in
+            return compledHandle(nil)
+        }
+    }
+    
+    class func setUIImage(value:UIImage, key: String) {
+        let cache = Haneke.Shared.imageCache
+        cache.set(value: value, key: key)
+    }
+    
+    class func removeUIImage(key: String) {
+        let cache = Haneke.Shared.imageCache
+        cache.remove(key: key)
+    }
+
 }

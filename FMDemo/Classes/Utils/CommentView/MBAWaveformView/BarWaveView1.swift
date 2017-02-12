@@ -20,7 +20,12 @@ class BarWaveView1: UIView {
     }
     
     var slider: UISlider = UISlider()
-    var scrollView = UIScrollView()
+    fileprivate var scrollView = UIScrollView()
+    
+    fileprivate var maxiBarTrackImage: UIImageView = UIImageView()
+    fileprivate var miniBarTrackImage: UIImageView = UIImageView()
+    fileprivate var thumbBarImage: UIImageView = UIImageView()
+    var minSecond: CGFloat = 3.0
     
     /// 边框及底部颜色
     var waveBackgroundColor = UIColor.black {
@@ -33,13 +38,13 @@ class BarWaveView1: UIView {
     }
     
     /// 声波的颜色
-    var waveStrokeColor = UIColor.gray {
+    var waveStrokeColor = UIColor.orange {
         didSet {
             
         }
     }
     
-    var waveHightStrokeColor = UIColor.orange {
+    var waveHightStrokeColor = UIColor.lightGray {
         didSet {
             
         }
@@ -79,10 +84,15 @@ class BarWaveView1: UIView {
         scrollView.bounces = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
+        scrollView.delegate = self
         
-        scrollView.addSubview(slider)
-        slider.setThumbImage(UIImage(named: "line"), for: .normal)
+//        scrollView.addSubview(slider)
+//        slider.setThumbImage(UIImage(named: "line"), for: .normal)
         
+        scrollView.addSubview(maxiBarTrackImage)
+        scrollView.addSubview(miniBarTrackImage)
+        addSubview(thumbBarImage)
+        thumbBarImage.image = UIImage(named: "line")
     }
     
     override func draw(_ rect: CGRect) {
@@ -105,11 +115,6 @@ class BarWaveView1: UIView {
         
         widthScaling = 1
         
-        //3. 设置画布的缩放和上下左右间距
-//        context.scaleBy(x: widthScaling, y: heightScaling)
-//        let xOffset = bounds.size.width - (bounds.size.width * widthScaling)
-//        let yOffset = bounds.size.height - (bounds.size.height * heightScaling)
-//        context.translateBy(x: boundsW / 2, y: boundsH / 2) 
         
         kLineWidth = kLineWidth * widthScaling
         context.setLineWidth(kLineWidth)
@@ -120,13 +125,32 @@ class BarWaveView1: UIView {
             context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointArray[i])))
         }
 
-        slider.frame = CGRect(x: 0, y: 0, width: CGFloat(pointArray.count) * spaceW , height: boundsH)
-        scrollView.contentSize = slider.bounds.size
+        let maxiBarTrackImageW = CGFloat(pointArray.count) * spaceW
+        let maxiBarTrackImageX = maxiBarTrackImageW < boundsW ? boundsW - maxiBarTrackImageW : 0
         
-        let numberOfSteps = pointArray.count
-        slider.maximumValue = Float(numberOfSteps)
-        slider.minimumValue = 0
-        slider.value = 0
+        maxiBarTrackImage.frame = CGRect(x: maxiBarTrackImageX, y: 0, width: maxiBarTrackImageW, height: boundsH)
+//        miniBarTrackImage.frame = maxiBarTrackImage.frame
+        scrollView.contentOffset = CGPoint(x: 1000000, y: 0)
+        scrollView.contentSize = maxiBarTrackImage.frame.size
+        
+        // 初始位置 在结束前3秒
+        minSecond = 3
+        thumbBarImage.frame = CGRect(x: boundsW - spaceW * 5 * minSecond, y: 0, width: 5, height: bounds.height)
+        
+//        let miniBarTrackImageW = thumbBarImage.center.x + -scrollView.contentOffset.x
+        let miniBarTrackImageW = maxiBarTrackImageW - (boundsW - thumbBarImage.center.x)
+        var minicgRect = maxiBarTrackImage.frame
+        minicgRect.size.width = miniBarTrackImageW
+        
+        miniBarTrackImage.frame = minicgRect
+        
+//        slider.frame = CGRect(x: 0, y: 0, width: CGFloat(pointArray.count) * spaceW , height: boundsH)
+//        scrollView.contentSize = slider.bounds.size
+        
+//        let numberOfSteps = pointArray.count
+//        slider.maximumValue = Float(numberOfSteps)
+//        slider.minimumValue = 0
+//        slider.value = 0
 
         context.setAlpha(1.0)
         context.setShouldAntialias(true) // 去除锯齿
@@ -142,8 +166,11 @@ class BarWaveView1: UIView {
         let minxTrackImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        slider.setMaximumTrackImage(maxiTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
-        slider.setMinimumTrackImage(minxTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
+//        slider.setMaximumTrackImage(maxiTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
+//        slider.setMinimumTrackImage(minxTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
+        maxiBarTrackImage.image = maxiTrackImage?.resizableImage(withCapInsets: .zero)
+        miniBarTrackImage.image = minxTrackImage?.resizableImage(withCapInsets: .zero)
+        
         
         // 透明图像
         //        UIGraphicsBeginImageContextWithOptions(CGSizeMake(1, 1), false, 0.0)
@@ -152,5 +179,20 @@ class BarWaveView1: UIView {
         
     }
     
+    var scrollViewOffsetX:CGFloat = 0.0
+}
+
+extension BarWaveView1: UIScrollViewDelegate {
+    
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        scrollViewOffsetX = scrollView.contentOffset.x
+//    }
+//    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let transX = scrollView.contentOffset.x - scrollViewOffsetX
+//        minSecond = minSecond + transX / (kLineWidth * 2)
+////        slider.value = slider.value + slider.maximumValue * Float(transX / scrollView.frame.width)
+//        setNeedsDisplay()
+//    }
 }
 

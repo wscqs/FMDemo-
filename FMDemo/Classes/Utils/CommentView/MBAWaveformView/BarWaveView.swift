@@ -32,7 +32,7 @@ class BarWaveView: UIView {
     }
     
     /// 声波的颜色
-    var waveStrokeColor = UIColor.gray {
+    var waveStrokeColor = UIColor.lightGray {
         didSet {
             
         }
