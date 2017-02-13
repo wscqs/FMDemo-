@@ -35,7 +35,7 @@ class DubPlayView: UIView {
     @IBOutlet weak var volumeSlider: UISlider!
     @IBOutlet weak var volumeLabel: UILabel!
     
-    var volume :Float? {
+    var volume :Float? = 20{
         didSet{
             guard let volume = volume else {
                 return
@@ -180,6 +180,8 @@ extension DubPlayView {
         audioPlayer?.numberOfLoops = -1
         dubTitleLabel.text = url.lastPathComponent.components(separatedBy: ".").first
         playTimeLabel.text = TimeTool.getFormatTime(timerInval: (audioPlayer?.duration ?? 0))
+        audioPlayer?.volume = volume! / 100
+        playSwitch.isSelected = false
     }
 
 }
