@@ -175,15 +175,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YoO-Fk-b4f">
                                 <rect key="frame" x="10" y="74" width="300" height="150"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="record_bannerBg" translatesAutoresizingMaskIntoConstraints="NO" id="ZE5-iR-HOr">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGP-fh-6vI">
-                                        <rect key="frame" x="117" y="113" width="67" height="29"/>
+                                        <rect key="frame" x="117.5" y="113" width="66.5" height="29"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZE5-iR-HOr">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
-                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -197,17 +197,103 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UdO-Mc-o9I">
-                                <rect key="frame" x="10" y="232" width="300" height="60"/>
+                                <rect key="frame" x="10" y="232" width="300" height="50"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bmd-3w-H4U" customClass="RecordImgCollectionView" customModule="FMDemo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                        <color key="backgroundColor" red="0.94117647059999998" green="0.95294117649999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PQJ-Tt-1na">
+                                            <size key="itemSize" width="80" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="70" height="50"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionId" id="NAo-Fu-xwd" customClass="RecordImgCollectionCell" customModule="FMDemo" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="new_feature_1" translatesAutoresizingMaskIntoConstraints="NO" id="Qdc-Nz-iSG">
+                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
+                                                        </imageView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PP3-HW-7b9">
+                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
+                                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.35002693969999998" colorSpace="calibratedRGB"/>
+                                                        </view>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z5k-Gb-oxa">
+                                                            <rect key="frame" x="58" y="0.0" width="22" height="22"/>
+                                                            <state key="normal" image="record_del-ico"/>
+                                                        </button>
+                                                    </subviews>
+                                                </view>
+                                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="PP3-HW-7b9" firstAttribute="top" secondItem="Qdc-Nz-iSG" secondAttribute="top" id="Dcw-LN-6Uy"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Qdc-Nz-iSG" secondAttribute="trailing" id="K7z-hs-Hmt"/>
+                                                    <constraint firstItem="Z5k-Gb-oxa" firstAttribute="top" secondItem="Qdc-Nz-iSG" secondAttribute="top" id="cgH-Ns-FBV"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Qdc-Nz-iSG" secondAttribute="bottom" id="kRK-x4-TCZ"/>
+                                                    <constraint firstItem="PP3-HW-7b9" firstAttribute="width" secondItem="Qdc-Nz-iSG" secondAttribute="width" id="kZH-Q7-nc7"/>
+                                                    <constraint firstItem="PP3-HW-7b9" firstAttribute="leading" secondItem="Qdc-Nz-iSG" secondAttribute="leading" id="lxJ-UJ-Z34"/>
+                                                    <constraint firstItem="Z5k-Gb-oxa" firstAttribute="trailing" secondItem="Qdc-Nz-iSG" secondAttribute="trailing" id="pCd-Hx-jmU"/>
+                                                    <constraint firstItem="PP3-HW-7b9" firstAttribute="height" secondItem="Qdc-Nz-iSG" secondAttribute="height" id="qXG-xK-1dg"/>
+                                                    <constraint firstItem="Qdc-Nz-iSG" firstAttribute="leading" secondItem="NAo-Fu-xwd" secondAttribute="leading" id="vAl-EU-LlC"/>
+                                                    <constraint firstItem="Qdc-Nz-iSG" firstAttribute="top" secondItem="NAo-Fu-xwd" secondAttribute="top" id="yS4-JO-XAr"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="delBtn" destination="Z5k-Gb-oxa" id="F27-5w-FSp"/>
+                                                    <outlet property="grayMaskView" destination="PP3-HW-7b9" id="TP5-a2-l9l"/>
+                                                    <outlet property="imgView" destination="Qdc-Nz-iSG" id="ZyB-Sg-Bhz"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="colleFootId" reuseIdentifier="colleFootId" id="V5X-16-4rq">
+                                            <rect key="frame" x="80" y="0.0" width="70" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jYT-0k-JdK">
+                                                    <rect key="frame" x="10.5" y="-1" width="50" height="52"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="52" id="bHB-Q8-CrW"/>
+                                                        <constraint firstAttribute="width" constant="50" id="uOq-aw-x3c"/>
+                                                    </constraints>
+                                                    <state key="normal" image="record_image_add_ico"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                            <integer key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColorFromUIColor">
+                                                            <color key="value" red="0.92156862750000001" green="0.90588235289999997" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="actionChoseImg:" destination="bmd-3w-H4U" eventType="touchUpInside" id="t9T-yF-O9e"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="jYT-0k-JdK" firstAttribute="centerX" secondItem="V5X-16-4rq" secondAttribute="centerX" id="GpU-Pj-6m2"/>
+                                                <constraint firstItem="jYT-0k-JdK" firstAttribute="centerY" secondItem="V5X-16-4rq" secondAttribute="centerY" id="syc-e4-bPJ"/>
+                                            </constraints>
+                                        </collectionReusableView>
+                                    </collectionView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="ANQ-Pr-A4S"/>
+                                    <constraint firstAttribute="height" constant="50" id="ANQ-Pr-A4S"/>
+                                    <constraint firstAttribute="trailing" secondItem="bmd-3w-H4U" secondAttribute="trailing" id="AcA-e2-xIv"/>
+                                    <constraint firstAttribute="bottom" secondItem="bmd-3w-H4U" secondAttribute="bottom" id="VMi-yq-n1J"/>
+                                    <constraint firstItem="bmd-3w-H4U" firstAttribute="top" secondItem="UdO-Mc-o9I" secondAttribute="top" id="nFB-rV-btS"/>
+                                    <constraint firstItem="bmd-3w-H4U" firstAttribute="leading" secondItem="UdO-Mc-o9I" secondAttribute="leading" id="qIP-GI-dtd"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAY-eS-dnT">
                                 <rect key="frame" x="0.0" y="388" width="320" height="180"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfa-Qn-z4F">
-                                        <rect key="frame" x="138" y="59" width="46" height="30"/>
+                                        <rect key="frame" x="138" y="58.5" width="46" height="30"/>
                                         <state key="normal" title="未录音"/>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="ZPg-Pw-baQ">
@@ -238,7 +324,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoB-Gr-ZPw">
-                                        <rect key="frame" x="143" y="30" width="35" height="21"/>
+                                        <rect key="frame" x="143" y="30" width="35" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -247,13 +333,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="record_tips_box" translatesAutoresizingMaskIntoConstraints="NO" id="fJf-t1-wmF">
-                                                <rect key="frame" x="73" y="110" width="175" height="30"/>
+                                                <rect key="frame" x="64" y="110" width="192" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="NGS-61-d5p"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a4w-Th-bsV">
-                                                <rect key="frame" x="73" y="115" width="175" height="27"/>
+                                                <rect key="frame" x="64" y="115" width="192" height="27"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <state key="normal" title="使用耳机录音可以提高音质哦  X">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -267,7 +353,7 @@
                                                 <state key="normal" image="record_ico"/>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击启动麦克风" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cn3-BC-Ljc">
-                                                <rect key="frame" x="111" y="18" width="100" height="17"/>
+                                                <rect key="frame" x="110" y="18" width="100" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -305,7 +391,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvw-0L-A1c">
-                                <rect key="frame" x="15" y="307" width="290" height="68"/>
+                                <rect key="frame" x="15" y="297" width="290" height="68"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="497-2h-799">
                                         <rect key="frame" x="0.0" y="0.0" width="290" height="41"/>
@@ -313,7 +399,9 @@
                                             <constraint firstAttribute="height" constant="41" id="qx9-XA-Xbv"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="  添加配乐" image="record_volume2_ico"/>
+                                        <state key="normal" title="  添加配乐" image="record_volume2_ico">
+                                            <color key="titleColor" red="0.32156862745098036" green="0.73333333333333328" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -346,8 +434,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="课程录制" id="XGW-jW-Uku"/>
                     <connections>
+                        <outlet property="bannerImg" destination="ZE5-iR-HOr" id="eM4-DG-G3x"/>
                         <outlet property="cutBtn" destination="uQG-F4-4W6" id="7Kc-3G-7Dc"/>
                         <outlet property="dubView" destination="lvw-0L-A1c" id="u5p-qF-3C4"/>
+                        <outlet property="imgCollectionView" destination="bmd-3w-H4U" id="pSG-2y-uVd"/>
                         <outlet property="listenPlayBtn" destination="HeN-E7-dkV" id="IQk-nR-K3i"/>
                         <outlet property="reRecordBtn" destination="vbZ-5t-MWf" id="OJY-M4-IlQ"/>
                         <outlet property="recordBtn" destination="kfa-Qn-z4F" id="zzd-bN-OoR"/>
@@ -374,7 +464,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6bk-Ty-3Mv">
-                                <rect key="frame" x="0.0" y="100" width="320" height="150"/>
+                                <rect key="frame" x="0.0" y="144" width="320" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZ8-H1-Jra">
                                         <rect key="frame" x="123" y="58" width="74" height="34"/>
@@ -389,7 +479,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SqS-4L-6TQ">
-                                <rect key="frame" x="0.0" y="30" width="320" height="60"/>
+                                <rect key="frame" x="0.0" y="74" width="320" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8qo-DU-Zbg">
                                         <rect key="frame" x="127.5" y="16" width="66.5" height="29"/>
@@ -411,7 +501,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JPd-zh-9fe" customClass="BarWaveView" customModule="FMDemo" customModuleProvider="target">
-                                <rect key="frame" x="10" y="260" width="300" height="68"/>
+                                <rect key="frame" x="10" y="304" width="300" height="68"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="68" id="Ajq-QS-bYy"/>
@@ -529,7 +619,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z8w-uC-hvP" customClass="BorderBackgroundView" customModule="FMDemo" customModuleProvider="target">
-                                <rect key="frame" x="10" y="74" width="300" height="80"/>
+                                <rect key="frame" x="10" y="30" width="300" height="80"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="course_chapt-add-ico" translatesAutoresizingMaskIntoConstraints="NO" id="kND-6M-n2L">
                                         <rect key="frame" x="20" y="17.5" width="45" height="45"/>
@@ -562,7 +652,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PJC-ko-fb6">
-                                <rect key="frame" x="10" y="184" width="300" height="35"/>
+                                <rect key="frame" x="10" y="140" width="300" height="35"/>
                                 <color key="backgroundColor" red="0.25490196079999999" green="0.62745098040000002" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="lSa-k3-MZ8"/>
@@ -753,7 +843,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qC-Bm-1wg">
-                                <rect key="frame" x="0.0" y="100" width="320" height="150"/>
+                                <rect key="frame" x="0.0" y="144" width="320" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nes-Bv-xW2">
                                         <rect key="frame" x="123" y="58" width="74" height="34"/>
@@ -768,7 +858,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgg-JQ-us2">
-                                <rect key="frame" x="0.0" y="30" width="320" height="60"/>
+                                <rect key="frame" x="0.0" y="74" width="320" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ymb-lf-Sv2">
                                         <rect key="frame" x="127.5" y="16" width="66.5" height="29"/>
@@ -790,7 +880,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xVT-Iq-X7K" customClass="BarWaveView1" customModule="FMDemo" customModuleProvider="target">
-                                <rect key="frame" x="10" y="260" width="300" height="68"/>
+                                <rect key="frame" x="10" y="304" width="300" height="68"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="68" id="UVY-oy-n8F"/>
@@ -846,9 +936,13 @@
     <resources>
         <image name="course_chapt-add-ico" width="100" height="100"/>
         <image name="launch" width="320" height="568"/>
-        <image name="nav_details_top_setting" width="55" height="40"/>
+        <image name="nav_details_top_setting" width="21" height="21"/>
+        <image name="new_feature_1" width="300" height="280"/>
+        <image name="record_bannerBg" width="355" height="177"/>
+        <image name="record_del-ico" width="22" height="22"/>
         <image name="record_ico" width="55" height="55"/>
-        <image name="record_tips_box" width="170" height="25"/>
+        <image name="record_image_add_ico" width="23" height="23"/>
+        <image name="record_tips_box" width="192" height="25"/>
         <image name="record_volume2_ico" width="18" height="18"/>
         <image name="wxbtn" width="180" height="50"/>
     </resources>

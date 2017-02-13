@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="testColl" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gcF-qc-jdi" customClass="RecordImgCollectionView" customModule="testColl" customModuleProvider="target">
+                                <rect key="frame" x="10" y="136" width="355" height="60"/>
+                                <color key="backgroundColor" red="0.94117647058823528" green="0.95294117647058818" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="vco-7q-4kr"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Tnt-ua-7sH">
+                                    <size key="itemSize" width="80" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="70" height="50"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionId" id="d1R-2A-9ry" customClass="RecordImgCollectionCell" customModule="testColl" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="5" width="80" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="new_feature_1" translatesAutoresizingMaskIntoConstraints="NO" id="8aJ-14-XBZ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
+                                                </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yFZ-ER-iw3">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.3500269396551724" colorSpace="calibratedRGB"/>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2hC-cd-BR2">
+                                                    <rect key="frame" x="58" y="0.0" width="22" height="22"/>
+                                                    <state key="normal" image="record_del-ico"/>
+                                                </button>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="8aJ-14-XBZ" firstAttribute="leading" secondItem="d1R-2A-9ry" secondAttribute="leading" id="38B-9i-D5v"/>
+                                            <constraint firstItem="yFZ-ER-iw3" firstAttribute="top" secondItem="8aJ-14-XBZ" secondAttribute="top" id="G6m-AU-E5d"/>
+                                            <constraint firstItem="yFZ-ER-iw3" firstAttribute="leading" secondItem="8aJ-14-XBZ" secondAttribute="leading" id="H8U-Cj-a83"/>
+                                            <constraint firstAttribute="trailing" secondItem="8aJ-14-XBZ" secondAttribute="trailing" id="MWM-cK-Ne3"/>
+                                            <constraint firstAttribute="bottom" secondItem="8aJ-14-XBZ" secondAttribute="bottom" id="eEb-pa-8HM"/>
+                                            <constraint firstItem="yFZ-ER-iw3" firstAttribute="height" secondItem="8aJ-14-XBZ" secondAttribute="height" id="fCq-2Z-q5z"/>
+                                            <constraint firstItem="2hC-cd-BR2" firstAttribute="top" secondItem="8aJ-14-XBZ" secondAttribute="top" id="fUt-AZ-mlU"/>
+                                            <constraint firstItem="8aJ-14-XBZ" firstAttribute="top" secondItem="d1R-2A-9ry" secondAttribute="top" id="lBo-oE-3uH"/>
+                                            <constraint firstItem="2hC-cd-BR2" firstAttribute="trailing" secondItem="8aJ-14-XBZ" secondAttribute="trailing" id="pa4-Xe-gQs"/>
+                                            <constraint firstItem="yFZ-ER-iw3" firstAttribute="width" secondItem="8aJ-14-XBZ" secondAttribute="width" id="xaf-eA-XGj"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="delBtn" destination="2hC-cd-BR2" id="eVx-qL-e21"/>
+                                            <outlet property="grayMaskView" destination="yFZ-ER-iw3" id="CMj-wB-4V9"/>
+                                            <outlet property="imgView" destination="8aJ-14-XBZ" id="Qky-Ut-OYI"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="colleFootId" reuseIdentifier="colleFootId" id="JML-Ob-j85">
+                                    <rect key="frame" x="80" y="0.0" width="70" height="60"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUx-Lc-zP0">
+                                            <rect key="frame" x="10.5" y="4.5" width="50" height="52"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="IkY-wy-ALf"/>
+                                                <constraint firstAttribute="height" constant="52" id="dWg-eo-amP"/>
+                                            </constraints>
+                                            <state key="normal" image="record_image_add_ico"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                    <integer key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColorFromUIColor">
+                                                    <color key="value" red="0.92156862745098034" green="0.90588235294117647" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="actionChoseImg:" destination="gcF-qc-jdi" eventType="touchUpInside" id="VY1-R1-dlb"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="lUx-Lc-zP0" firstAttribute="centerY" secondItem="JML-Ob-j85" secondAttribute="centerY" id="Pf4-f2-ZcX"/>
+                                        <constraint firstItem="lUx-Lc-zP0" firstAttribute="centerX" secondItem="JML-Ob-j85" secondAttribute="centerX" id="cfT-tg-l2d"/>
+                                    </constraints>
+                                </collectionReusableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="AQ1-Sy-r9Y"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="bAk-ba-sfK"/>
+                                </connections>
+                            </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GT5-v3-Mz9">
+                                <rect key="frame" x="67" y="269" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="6kg-Cg-mr8"/>
+                                    <constraint firstAttribute="height" constant="128" id="zkw-G5-DIa"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="gcF-qc-jdi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="6ef-og-bx3"/>
+                            <constraint firstItem="gcF-qc-jdi" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="116" id="Gsb-wX-aJv"/>
+                            <constraint firstItem="GT5-v3-Mz9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WNM-Ts-vfz"/>
+                            <constraint firstAttribute="trailing" secondItem="gcF-qc-jdi" secondAttribute="trailing" constant="10" id="Xm3-FD-vcM"/>
+                            <constraint firstItem="GT5-v3-Mz9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="fJE-7y-yIV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="gcF-qc-jdi" id="tgc-QO-53H"/>
+                        <outlet property="showImgView" destination="GT5-v3-Mz9" id="bNS-4D-8nX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="123.68815592203899"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="new_feature_1" width="300" height="280"/>
+        <image name="record_del-ico" width="22" height="22"/>
+        <image name="record_image_add_ico" width="23" height="23"/>
+    </resources>
+</document>

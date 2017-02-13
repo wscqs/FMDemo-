@@ -24,6 +24,17 @@ class DubPlayView: UIView {
     var timer: Timer?
     var audioTotalTime: TimeInterval!
     
+    @IBOutlet var view: UIView!
+    
+    @IBOutlet weak var dubTitleLabel: UILabel!
+    @IBOutlet weak var playTimeLabel: UILabel!
+    @IBOutlet weak var playSwitch: UIButton!
+    //    @IBOutlet weak var playSwitch: Switch!
+    @IBOutlet weak var changceDubBtn: UIButton!
+    
+    @IBOutlet weak var volumeSlider: UISlider!
+    @IBOutlet weak var volumeLabel: UILabel!
+    
     var volume :Float? {
         didSet{
             guard let volume = volume else {
@@ -77,10 +88,12 @@ class DubPlayView: UIView {
     }
     
     func setUI() {
+        playSwitch.adjustsImageWhenHighlighted = false
         playSwitch.addTarget(self, action: #selector(actionPlay), for: .touchUpInside)
         volumeSlider.addTarget(self, action:#selector(DubPlayView.actionVolumeSlider), for: .valueChanged)
         volumeSlider.minimumValue = 0.0
         volumeSlider.maximumValue = 100.0
+        volumeSlider.setThumbImage(#imageLiteral(resourceName: "record_dub_volumecircle_ico"), for: .normal)
         changceDubBtn.addTarget(self, action: #selector(DubPlayView.actionChangceDub), for: .touchUpInside)
         timerInit()
         initStatus()
@@ -119,16 +132,7 @@ class DubPlayView: UIView {
     }
     
     
-    @IBOutlet var view: UIView!
-    
-    @IBOutlet weak var dubTitleLabel: UILabel!
-    @IBOutlet weak var playTimeLabel: UILabel!
-    @IBOutlet weak var playSwitch: UIButton!
-//    @IBOutlet weak var playSwitch: Switch!
-    @IBOutlet weak var changceDubBtn: UIButton!
-    
-    @IBOutlet weak var volumeSlider: UISlider!
-    @IBOutlet weak var volumeLabel: UILabel!
+
     
 //    @IBOutlet weak var playBtn: UIButton!
 //    @IBOutlet weak var cycleBtn: UIButton!

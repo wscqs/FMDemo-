@@ -27,6 +27,9 @@ class RecordViewController: UIViewController {
     
     
     
+    @IBOutlet weak var bannerImg: UIImageView!
+    @IBOutlet weak var imgCollectionView: RecordImgCollectionView!
+    
     @IBOutlet weak var timeLabel: UILabel!
     /// 配音的容器
     @IBOutlet weak var dubView: UIView!
@@ -77,6 +80,8 @@ class RecordViewController: UIViewController {
 
 extension RecordViewController {
     func setup() {
+        imgCollectionView.parentVC = self
+        
         recordBtn.addTarget(self, action: #selector(actionRecordClick), for: .touchUpInside)
         listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
         savaBtn.addTarget(self, action: #selector(actionSave), for: .touchUpInside)

@@ -22,7 +22,7 @@ class QSNavigationController: UINavigationController, UIGestureRecognizerDelegat
 //        navigationBar.tintColor = UIColor.white
     }
     
-    lazy var backBtn: UIButton = UIButton(imageName:"back", backTarget: self, action: #selector(QSNavigationController.backBtnAction))
+    lazy var backBtn: UIButton = UIButton(imageName:"nav_details_top_left", backTarget: self, action: #selector(QSNavigationController.backBtnAction))
 //    lazy var homeBtn: UIButton = UIButton(imageName:"nav_home", backTarget: self, action: #selector(QSNavigationController.popToRootAction))
     
     func backBtnAction() {
