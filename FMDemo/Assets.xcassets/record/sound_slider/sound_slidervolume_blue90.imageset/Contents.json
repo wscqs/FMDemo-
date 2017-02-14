@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "new_feature_2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "sound_slidervolume_blue90@2x.png",
       "scale" : "2x"
     },
     {

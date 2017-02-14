@@ -17,6 +17,9 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HTa-cv-Dxg">
                     <rect key="frame" x="0.0" y="0.0" width="445" height="89"/>
                     <subviews>
+                        <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="record_dub_music_btn" translatesAutoresizingMaskIntoConstraints="NO" id="fjx-XL-JSy">
+                            <rect key="frame" x="0.0" y="0.0" width="445" height="89"/>
+                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歌曲" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aF-vE-vel">
                             <rect key="frame" x="53" y="15.5" width="27" height="16"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -87,8 +90,12 @@
                         <constraint firstItem="ivN-bE-Bx6" firstAttribute="top" secondItem="HTa-cv-Dxg" secondAttribute="top" constant="11" id="eQ6-1G-NdJ"/>
                         <constraint firstItem="qCY-yW-tDw" firstAttribute="centerY" secondItem="MbN-ZB-IhB" secondAttribute="centerY" id="eiz-MU-AaV"/>
                         <constraint firstItem="ivN-bE-Bx6" firstAttribute="leading" secondItem="HTa-cv-Dxg" secondAttribute="leading" constant="10" id="ekV-HP-Uib"/>
+                        <constraint firstItem="fjx-XL-JSy" firstAttribute="leading" secondItem="HTa-cv-Dxg" secondAttribute="leading" id="ggm-68-uO4"/>
+                        <constraint firstItem="fjx-XL-JSy" firstAttribute="top" secondItem="HTa-cv-Dxg" secondAttribute="top" id="i51-bR-bSK"/>
                         <constraint firstItem="9aF-vE-vel" firstAttribute="leading" secondItem="ivN-bE-Bx6" secondAttribute="trailing" constant="8" id="jXt-ij-Wuy"/>
                         <constraint firstAttribute="bottom" secondItem="5Yq-ce-aVV" secondAttribute="bottom" constant="5" id="jmn-LJ-5kq"/>
+                        <constraint firstAttribute="bottom" secondItem="fjx-XL-JSy" secondAttribute="bottom" id="q1t-Vm-WnK"/>
+                        <constraint firstAttribute="trailing" secondItem="fjx-XL-JSy" secondAttribute="trailing" id="tdq-GL-Je6"/>
                     </constraints>
                 </view>
             </subviews>
@@ -114,6 +121,7 @@
         </view>
     </objects>
     <resources>
+        <image name="record_dub_music_btn" width="91" height="60"/>
         <image name="record_dub_off_btn" width="35" height="25"/>
         <image name="record_dub_on_btn" width="35" height="25"/>
         <image name="record_dub_volume_ico" width="18" height="18"/>

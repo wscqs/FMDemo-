@@ -165,38 +165,94 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKa-GW-xph">
-                                <rect key="frame" x="0.0" y="64" width="320" height="60"/>
-                                <color key="backgroundColor" red="0.25490196079999999" green="0.62745098040000002" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKa-GW-xph" userLabel="topBlueBg">
+                                <rect key="frame" x="0.0" y="64" width="320" height="90"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner-bg" translatesAutoresizingMaskIntoConstraints="NO" id="x6M-aU-Fwm">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+                                    </imageView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="3Wr-AI-Jdp"/>
+                                    <constraint firstAttribute="height" constant="90" id="3Wr-AI-Jdp"/>
+                                    <constraint firstItem="x6M-aU-Fwm" firstAttribute="leading" secondItem="dKa-GW-xph" secondAttribute="leading" id="Als-M5-3lc"/>
+                                    <constraint firstAttribute="bottom" secondItem="x6M-aU-Fwm" secondAttribute="bottom" id="EqX-5S-gUB"/>
+                                    <constraint firstItem="x6M-aU-Fwm" firstAttribute="top" secondItem="dKa-GW-xph" secondAttribute="top" id="J8k-rE-EWv"/>
+                                    <constraint firstAttribute="trailing" secondItem="x6M-aU-Fwm" secondAttribute="trailing" id="SaL-tS-55c"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YoO-Fk-b4f">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YoO-Fk-b4f" userLabel="top">
                                 <rect key="frame" x="10" y="74" width="300" height="150"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="record_bannerBg" translatesAutoresizingMaskIntoConstraints="NO" id="ZE5-iR-HOr">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGP-fh-6vI">
-                                        <rect key="frame" x="117.5" y="113" width="66.5" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vil-cV-zRl" userLabel="soundBgView">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGP-fh-6vI">
+                                                <rect key="frame" x="116" y="113" width="66.5" height="29"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sound1_ico" translatesAutoresizingMaskIntoConstraints="NO" id="JEs-Ga-gUR">
+                                                <rect key="frame" x="5" y="23" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="fTX-D5-06h"/>
+                                                    <constraint firstAttribute="height" constant="20" id="l5x-HU-SyZ"/>
+                                                </constraints>
+                                            </imageView>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="BJ7-9f-doM" customClass="RecordSoundSliderView" customModule="FMDemo" customModuleProvider="target">
+                                                <rect key="frame" x="-22" y="78" width="74" height="11"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="10" id="WdW-gm-r9M"/>
+                                                    <constraint firstAttribute="width" constant="70" id="eDv-DA-ID4"/>
+                                                </constraints>
+                                            </slider>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sound2_ico" translatesAutoresizingMaskIntoConstraints="NO" id="Z2G-dh-EPk">
+                                                <rect key="frame" x="275" y="23" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="G2y-Gu-tmv"/>
+                                                    <constraint firstAttribute="height" constant="20" id="pl1-S4-xR7"/>
+                                                </constraints>
+                                            </imageView>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="VYG-fO-2tK" customClass="RecordSoundSliderView" customModule="FMDemo" customModuleProvider="target">
+                                                <rect key="frame" x="248" y="78" width="74" height="11"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="4Xx-6W-vuf"/>
+                                                    <constraint firstAttribute="height" constant="10" id="C6b-9M-mEd"/>
+                                                </constraints>
+                                            </slider>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="VYG-fO-2tK" firstAttribute="centerY" secondItem="BJ7-9f-doM" secondAttribute="centerY" id="2fq-91-sL4"/>
+                                            <constraint firstItem="JEs-Ga-gUR" firstAttribute="top" secondItem="Vil-cV-zRl" secondAttribute="top" constant="23" id="94F-8B-U9N"/>
+                                            <constraint firstItem="VYG-fO-2tK" firstAttribute="centerX" secondItem="Z2G-dh-EPk" secondAttribute="centerX" id="Kag-iO-yOF"/>
+                                            <constraint firstAttribute="bottom" secondItem="rGP-fh-6vI" secondAttribute="bottom" constant="8" id="NqC-Ja-IpB"/>
+                                            <constraint firstItem="rGP-fh-6vI" firstAttribute="centerX" secondItem="Vil-cV-zRl" secondAttribute="centerX" id="SvT-fq-GP3"/>
+                                            <constraint firstAttribute="trailing" secondItem="Z2G-dh-EPk" secondAttribute="trailing" constant="5" id="TDd-da-roi"/>
+                                            <constraint firstItem="BJ7-9f-doM" firstAttribute="centerX" secondItem="JEs-Ga-gUR" secondAttribute="centerX" id="UMc-Ei-E6W"/>
+                                            <constraint firstItem="JEs-Ga-gUR" firstAttribute="leading" secondItem="Vil-cV-zRl" secondAttribute="leading" constant="5" id="Xe8-EA-Oqk"/>
+                                            <constraint firstItem="Z2G-dh-EPk" firstAttribute="centerY" secondItem="JEs-Ga-gUR" secondAttribute="centerY" id="bca-ra-SCa"/>
+                                            <constraint firstItem="BJ7-9f-doM" firstAttribute="top" secondItem="JEs-Ga-gUR" secondAttribute="bottom" constant="35" id="fW1-8z-gAq"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="Vil-cV-zRl" firstAttribute="leading" secondItem="YoO-Fk-b4f" secondAttribute="leading" id="2qp-iQ-OLF"/>
+                                    <constraint firstAttribute="bottom" secondItem="Vil-cV-zRl" secondAttribute="bottom" id="4Q0-RK-A8U"/>
                                     <constraint firstAttribute="trailing" secondItem="ZE5-iR-HOr" secondAttribute="trailing" id="5US-GC-cBY"/>
-                                    <constraint firstItem="rGP-fh-6vI" firstAttribute="centerX" secondItem="YoO-Fk-b4f" secondAttribute="centerX" id="C5G-HQ-zo1"/>
-                                    <constraint firstAttribute="bottom" secondItem="rGP-fh-6vI" secondAttribute="bottom" constant="8" id="N7C-S8-nmZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="Vil-cV-zRl" secondAttribute="trailing" id="BOA-M6-hsv"/>
+                                    <constraint firstItem="Vil-cV-zRl" firstAttribute="top" secondItem="YoO-Fk-b4f" secondAttribute="top" id="H64-Fv-YP7"/>
                                     <constraint firstAttribute="height" constant="150" id="PnW-cH-z1Q"/>
                                     <constraint firstAttribute="bottom" secondItem="ZE5-iR-HOr" secondAttribute="bottom" id="fyT-Ir-yCe"/>
                                     <constraint firstItem="ZE5-iR-HOr" firstAttribute="leading" secondItem="YoO-Fk-b4f" secondAttribute="leading" id="qK1-wP-q9N"/>
                                     <constraint firstItem="ZE5-iR-HOr" firstAttribute="top" secondItem="YoO-Fk-b4f" secondAttribute="top" id="rDO-Z1-ze2"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UdO-Mc-o9I">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UdO-Mc-o9I" userLabel="collectionView">
                                 <rect key="frame" x="10" y="232" width="300" height="50"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bmd-3w-H4U" customClass="RecordImgCollectionView" customModule="FMDemo" customModuleProvider="target">
@@ -289,47 +345,83 @@
                                     <constraint firstItem="bmd-3w-H4U" firstAttribute="leading" secondItem="UdO-Mc-o9I" secondAttribute="leading" id="qIP-GI-dtd"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvw-0L-A1c">
+                                <rect key="frame" x="15" y="297" width="290" height="68"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="497-2h-799">
+                                        <rect key="frame" x="0.0" y="0.0" width="290" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="qx9-XA-Xbv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="  添加配乐" image="record_volume2_ico" backgroundImage="record_dub_music_btn">
+                                            <color key="titleColor" red="0.32156862745098036" green="0.73333333333333328" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="497-2h-799" secondAttribute="trailing" id="5Ua-Rg-ZwM"/>
+                                    <constraint firstAttribute="height" constant="68" id="FbV-oC-zvu"/>
+                                    <constraint firstItem="497-2h-799" firstAttribute="leading" secondItem="lvw-0L-A1c" secondAttribute="leading" id="QTm-Jn-dxi"/>
+                                    <constraint firstItem="497-2h-799" firstAttribute="top" secondItem="lvw-0L-A1c" secondAttribute="top" id="ufP-w2-P8F"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAY-eS-dnT">
                                 <rect key="frame" x="0.0" y="388" width="320" height="180"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfa-Qn-z4F">
-                                        <rect key="frame" x="138" y="58.5" width="46" height="30"/>
-                                        <state key="normal" title="未录音"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfa-Qn-z4F">
+                                        <rect key="frame" x="133.5" y="45" width="55" height="55"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="2AR-ZI-Ceg"/>
+                                            <constraint firstAttribute="width" constant="55" id="N61-WO-0Rw"/>
+                                        </constraints>
+                                        <state key="normal" image="recording_ico"/>
+                                        <state key="selected" image="record_halt_ico"/>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="ZPg-Pw-baQ">
-                                        <rect key="frame" x="38" y="122" width="244" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ZPg-Pw-baQ">
+                                        <rect key="frame" x="-34" y="110" width="348" height="35"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HeN-E7-dkV">
-                                                <rect key="frame" x="0.0" y="0.0" width="31" height="30"/>
-                                                <state key="normal" title="试听"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HeN-E7-dkV" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="35"/>
+                                                <state key="normal" title="试听" image="record_tool1_ico">
+                                                    <color key="titleColor" red="0.32156862749999998" green="0.73333333329999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                                 <connections>
                                                     <segue destination="hKV-i9-e2Y" kind="push" identifier="PlayRecordViewController" id="y7d-2P-5Hj"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbZ-5t-MWf">
-                                                <rect key="frame" x="71" y="0.0" width="31" height="30"/>
-                                                <state key="normal" title="重录"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbZ-5t-MWf" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
+                                                <rect key="frame" x="92" y="0.0" width="72" height="35"/>
+                                                <state key="normal" title="重录" image="record_tool2_ico">
+                                                    <color key="titleColor" red="0.32156862749999998" green="0.73333333329999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQG-F4-4W6">
-                                                <rect key="frame" x="142" y="0.0" width="31" height="30"/>
-                                                <state key="normal" title="裁剪"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQG-F4-4W6" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
+                                                <rect key="frame" x="184" y="0.0" width="72" height="35"/>
+                                                <state key="normal" title="裁剪" image="record_tool3_ico">
+                                                    <color key="titleColor" red="0.32156862749999998" green="0.73333333329999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                                 <connections>
                                                     <segue destination="fwe-AW-8V8" kind="push" identifier="CutRecordViewController" id="JBk-cg-eCZ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQO-10-yle">
-                                                <rect key="frame" x="213" y="0.0" width="31" height="30"/>
-                                                <state key="normal" title="保存"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQO-10-yle" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
+                                                <rect key="frame" x="276" y="0.0" width="72" height="35"/>
+                                                <state key="normal" title="保存" image="record_tool4_ico">
+                                                    <color key="titleColor" red="0.32156862749999998" green="0.73333333329999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                             </button>
                                         </subviews>
+                                        <color key="backgroundColor" red="0.32156862749999998" green="0.73333333329999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoB-Gr-ZPw">
-                                        <rect key="frame" x="143" y="30" width="35" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在通过麦克风录制" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoB-Gr-ZPw">
+                                        <rect key="frame" x="96" y="20" width="129" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.70196078429999997" green="0.69411764710000001" blue="0.69411764710000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9L9-ei-M3y">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9L9-ei-M3y" customClass="RecordInitBottomView" customModule="FMDemo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="record_tips_box" translatesAutoresizingMaskIntoConstraints="NO" id="fJf-t1-wmF">
@@ -351,6 +443,9 @@
                                                     <constraint firstAttribute="height" constant="55" id="poL-gJ-Rb1"/>
                                                 </constraints>
                                                 <state key="normal" image="record_ico"/>
+                                                <connections>
+                                                    <action selector="actionStartRecord:" destination="26a-zz-pYy" eventType="touchUpInside" id="DJD-BX-ZFo"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击启动麦克风" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cn3-BC-Ljc">
                                                 <rect key="frame" x="110" y="18" width="100" height="17"/>
@@ -359,7 +454,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="vhm-um-ae0" firstAttribute="centerX" secondItem="9L9-ei-M3y" secondAttribute="centerX" id="27y-X2-Ww0"/>
                                             <constraint firstItem="vhm-um-ae0" firstAttribute="top" secondItem="cn3-BC-Ljc" secondAttribute="bottom" constant="15" id="6RA-yP-GUj"/>
@@ -373,10 +468,10 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="ZPg-Pw-baQ" secondAttribute="bottom" constant="28" id="2dV-oc-82N"/>
-                                    <constraint firstItem="ZPg-Pw-baQ" firstAttribute="centerX" secondItem="BAY-eS-dnT" secondAttribute="centerX" id="4lQ-t2-TyI"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZPg-Pw-baQ" secondAttribute="bottom" constant="35" id="2dV-oc-82N"/>
+                                    <constraint firstItem="ZPg-Pw-baQ" firstAttribute="centerX" secondItem="BAY-eS-dnT" secondAttribute="centerX" constant="-20" id="4lQ-t2-TyI"/>
                                     <constraint firstItem="kfa-Qn-z4F" firstAttribute="centerX" secondItem="hoB-Gr-ZPw" secondAttribute="centerX" id="5Sa-fy-xuH"/>
                                     <constraint firstItem="hoB-Gr-ZPw" firstAttribute="centerX" secondItem="BAY-eS-dnT" secondAttribute="centerX" id="HHB-ZA-XXJ"/>
                                     <constraint firstItem="9L9-ei-M3y" firstAttribute="top" secondItem="BAY-eS-dnT" secondAttribute="top" id="RCl-Ba-stC"/>
@@ -385,31 +480,9 @@
                                     <constraint firstAttribute="height" constant="240" id="lxk-xx-6K8">
                                         <variation key="heightClass=regular-widthClass=compact" constant="180"/>
                                     </constraint>
-                                    <constraint firstItem="hoB-Gr-ZPw" firstAttribute="top" secondItem="BAY-eS-dnT" secondAttribute="top" constant="30" id="pp3-hD-RlW"/>
+                                    <constraint firstItem="hoB-Gr-ZPw" firstAttribute="top" secondItem="BAY-eS-dnT" secondAttribute="top" constant="20" id="pp3-hD-RlW"/>
                                     <constraint firstAttribute="trailing" secondItem="9L9-ei-M3y" secondAttribute="trailing" id="umd-WB-7vD"/>
                                     <constraint firstAttribute="bottom" secondItem="9L9-ei-M3y" secondAttribute="bottom" id="xXj-Br-kFM"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvw-0L-A1c">
-                                <rect key="frame" x="15" y="297" width="290" height="68"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="497-2h-799">
-                                        <rect key="frame" x="0.0" y="0.0" width="290" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="41" id="qx9-XA-Xbv"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="  添加配乐" image="record_volume2_ico">
-                                            <color key="titleColor" red="0.32156862745098036" green="0.73333333333333328" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="497-2h-799" secondAttribute="trailing" id="5Ua-Rg-ZwM"/>
-                                    <constraint firstAttribute="height" constant="68" id="FbV-oC-zvu"/>
-                                    <constraint firstItem="497-2h-799" firstAttribute="leading" secondItem="lvw-0L-A1c" secondAttribute="leading" id="QTm-Jn-dxi"/>
-                                    <constraint firstItem="497-2h-799" firstAttribute="top" secondItem="lvw-0L-A1c" secondAttribute="top" id="ufP-w2-P8F"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -434,7 +507,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="课程录制" id="XGW-jW-Uku"/>
                     <connections>
+                        <outlet property="addDubBtn" destination="497-2h-799" id="EIP-3H-hCr"/>
                         <outlet property="bannerImg" destination="ZE5-iR-HOr" id="eM4-DG-G3x"/>
+                        <outlet property="bottomInitView" destination="9L9-ei-M3y" id="AdR-9A-zWJ"/>
                         <outlet property="cutBtn" destination="uQG-F4-4W6" id="7Kc-3G-7Dc"/>
                         <outlet property="dubView" destination="lvw-0L-A1c" id="u5p-qF-3C4"/>
                         <outlet property="imgCollectionView" destination="bmd-3w-H4U" id="pSG-2y-uVd"/>
@@ -445,6 +520,9 @@
                         <outlet property="savaBtn" destination="GQO-10-yle" id="u6e-DG-r2M"/>
                         <outlet property="stackView" destination="ZPg-Pw-baQ" id="EfA-kP-taX"/>
                         <outlet property="timeLabel" destination="rGP-fh-6vI" id="eV7-Vn-tQr"/>
+                        <outlet property="topMusicPower" destination="VYG-fO-2tK" id="0OQ-FE-nj3"/>
+                        <outlet property="topRecordPower" destination="BJ7-9f-doM" id="eur-QS-0Lg"/>
+                        <outlet property="topStatusView" destination="Vil-cV-zRl" id="MZ6-85-44H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Owi-S6-Me9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -934,16 +1012,26 @@
         </scene>
     </scenes>
     <resources>
+        <image name="banner-bg" width="375" height="80"/>
         <image name="course_chapt-add-ico" width="100" height="100"/>
         <image name="launch" width="320" height="568"/>
         <image name="nav_details_top_setting" width="21" height="21"/>
         <image name="new_feature_1" width="300" height="280"/>
         <image name="record_bannerBg" width="355" height="177"/>
         <image name="record_del-ico" width="22" height="22"/>
+        <image name="record_dub_music_btn" width="91" height="60"/>
+        <image name="record_halt_ico" width="55" height="55"/>
         <image name="record_ico" width="55" height="55"/>
         <image name="record_image_add_ico" width="23" height="23"/>
         <image name="record_tips_box" width="192" height="25"/>
+        <image name="record_tool1_ico" width="35" height="35"/>
+        <image name="record_tool2_ico" width="35" height="35"/>
+        <image name="record_tool3_ico" width="35" height="35"/>
+        <image name="record_tool4_ico" width="35" height="35"/>
         <image name="record_volume2_ico" width="18" height="18"/>
+        <image name="recording_ico" width="55" height="55"/>
+        <image name="sound1_ico" width="18" height="18"/>
+        <image name="sound2_ico" width="18" height="18"/>
         <image name="wxbtn" width="180" height="50"/>
     </resources>
 </document>

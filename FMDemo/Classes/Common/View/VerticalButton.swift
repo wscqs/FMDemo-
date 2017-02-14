@@ -13,41 +13,31 @@ import UIKit
 class VerticalButton: UIButton {
     
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUI()
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUI()
+        layoutIfNeeded()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setUI()
+        layoutIfNeeded()
     }
     
     func setUI() {
-        titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        self.frame = bounds
+        titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         titleLabel?.textColor = UIColor.lightGray
-        layoutIfNeeded()
+        adjustsImageWhenHighlighted = false
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        titleLabel?.frame.origin.x = 0
-//        imageView?.frame.origin.x = titleLabel!.frame.size.width
-//        imageView?.center.x = center.x
-//        imageView?.snp_makeConstraints(closure: { (make) in
-//            let sizeWH = 20
-//            make.size.equalTo(CGSize(width: sizeWH, height: sizeWH))
-//            make.centerX.equalTo(self)
-//        })
-        let sizeWH: CGFloat = 30
+        
+        let sizeWH: CGFloat = 40
         imageView?.frame = CGRect(x: 0, y: 2, width: sizeWH, height: sizeWH)
         imageView?.center = (titleLabel?.center)!
-        titleLabel?.frame.origin.y = imageView!.frame.size.height + 5
+        titleLabel?.frame.origin.y = imageView!.frame.size.height + 0
     }
-    
 }

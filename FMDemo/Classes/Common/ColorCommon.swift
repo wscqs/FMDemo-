@@ -8,7 +8,7 @@
 
 import Foundation
 
-let kGlobalNavBgColor = "41a0fd"
+let kGlobalNavBgColor = "3298fd"
 let kGlobalBgColor = "f3f7fa"
 
 
