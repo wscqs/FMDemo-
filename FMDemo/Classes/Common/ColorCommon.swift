@@ -8,7 +8,7 @@
 
 import Foundation
 
-let kGlobalNavBgColor = "3298fd"
+let kGlobalNavBgColor = "3297fd"  // "2981FC" StoryBoard值 Bug
 let kGlobalBgColor = "f3f7fa"
 
 

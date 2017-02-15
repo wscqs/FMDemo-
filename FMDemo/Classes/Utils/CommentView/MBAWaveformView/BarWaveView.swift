@@ -19,10 +19,16 @@ class BarWaveView: UIView {
         }
     }
     
-    var slider: UISlider = UISlider()
+    var value: Float = 0 {
+        didSet {
+            slider.setValue(value, animated: true)
+        }
+    }
+    
+    var slider: UISlider = NoGapSlider()
     
     /// 边框及底部颜色
-    var waveBackgroundColor = UIColor.black {
+    var waveBackgroundColor = UIColor.colorWithHexString("2b95ff") {
         didSet {
             layer.borderWidth = 3.0
             layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
@@ -32,13 +38,13 @@ class BarWaveView: UIView {
     }
     
     /// 声波的颜色
-    var waveStrokeColor = UIColor.lightGray {
+    var waveStrokeColor = UIColor.darkGray {
         didSet {
             
         }
     }
     
-    var waveHightStrokeColor = UIColor.orange {
+    var waveHightStrokeColor = UIColor.white {
         didSet {
             
         }
@@ -53,13 +59,13 @@ class BarWaveView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.clearsContextBeforeDrawing = true
         setupView()
     }
     
     required init?(coder aDecoder: NSCoder) {
 //        fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
+        setupView()
     }
     
     override func awakeFromNib() {
@@ -68,14 +74,16 @@ class BarWaveView: UIView {
     }
     
     func setupView() {
+        self.clearsContextBeforeDrawing = true
         frame = bounds
         backgroundColor = waveBackgroundColor
-        layer.cornerRadius = 2.0
+        layer.cornerRadius = 3.0
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor.lightGray.cgColor
         layer.masksToBounds = true
         
         addSubview(slider)
-        slider.setThumbImage(UIImage(named: "line"), for: .normal)
-        
+        slider.setThumbImage(#imageLiteral(resourceName: "record_volume_control_ico"), for: .normal)        
     }
     
     override func draw(_ rect: CGRect) {
@@ -135,6 +143,8 @@ class BarWaveView: UIView {
         
         slider.setMaximumTrackImage(maxiTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         slider.setMinimumTrackImage(minxTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
+        
+        
         
         // 透明图像
         //        UIGraphicsBeginImageContextWithOptions(CGSizeMake(1, 1), false, 0.0)

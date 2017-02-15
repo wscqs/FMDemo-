@@ -28,6 +28,7 @@ class RecordSoundSliderView: UISlider {
         setMaximumTrackImage(#imageLiteral(resourceName: "sound_slidervolume_gray90").resizableImage(withCapInsets: .zero), for: .normal)
         setMinimumTrackImage(#imageLiteral(resourceName: "sound_slidervolume_blue90").resizableImage(withCapInsets: .zero), for: .normal)
         setThumbImage(#imageLiteral(resourceName: "sound_slider_thum"), for: .normal)
+        isUserInteractionEnabled = false
         value = 0
         transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_2))
     }

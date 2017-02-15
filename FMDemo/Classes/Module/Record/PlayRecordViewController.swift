@@ -12,12 +12,16 @@ import AVFoundation
 class PlayRecordViewController: UIViewController {
     var url: URL?
     var pointArray: [CGFloat]?
-    
+
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var bannerImg: UIImageView!
+    @IBOutlet weak var totalTimeLabel: UILabel!
     @IBOutlet weak var slider: BarWaveView!
+    
     @IBOutlet weak var listenPlayBtn: UIButton!
     @IBOutlet weak var cutBtn: UIButton!
     @IBOutlet weak var savaBtn: UIButton!
-    @IBOutlet weak var timeLabel: UILabel!
+
     
     var sliderTime: TimeInterval = 0 {
         didSet{
@@ -43,13 +47,11 @@ class PlayRecordViewController: UIViewController {
         }
         player = MBAAudioPlayer(contentsOf: url)
         player.player?.delegate = self
-        
         slider.pointArray = pointArray
-
-        
         initStatus()
         actionPlayClick(sender: listenPlayBtn)
-                
+        
+        totalTimeLabel.text = TimeTool.getFormatTime(timerInval: player.duration)
     }
     
     func initStatus() {
@@ -60,13 +62,12 @@ class PlayRecordViewController: UIViewController {
     
     func updateTime() {
         let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime))//player.currentTime  第一秒0.9几
-        let endTime = TimeTool.getFormatTime(timerInval: player.duration)
-        timeLabel.text = "\(playTime)\\\(endTime)"
-        slider.slider.setValue(Float(player.currentTime / player.duration * Double(pointArray?.count ?? 0)), animated: true)
+//        let endTime = TimeTool.getFormatTime(timerInval: player.duration)
+        timeLabel.text = "\(playTime)"
+        slider.value = Float(player.currentTime / player.duration * Double(pointArray?.count ?? 0))
     }
     
     func sliderTimerEvent() {
-//        let sliderTime = player.currentTime
         updateTime()
         if player.currentTime >= player.duration {
             stopPlay()
@@ -194,7 +195,6 @@ extension PlayRecordViewController: AVAudioPlayerDelegate{
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if flag {
             print("finishS")
-//            tipTimer?.fireDate = Date.distantFuture
             stopPlay()
         } else {
             print("finishError")

@@ -16,6 +16,7 @@
 		2C435C2B1E51D0D200FDD1E7 /* RecordImgCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C291E51D0D200FDD1E7 /* RecordImgCollectionView.swift */; };
 		2C435C2D1E529D7600FDD1E7 /* RecordInitBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C2C1E529D7600FDD1E7 /* RecordInitBottomView.swift */; };
 		2C435C2F1E52B4B300FDD1E7 /* RecordSoundSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C2E1E52B4B300FDD1E7 /* RecordSoundSliderView.swift */; };
+		2C435C361E54341C00FDD1E7 /* NoGapSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C351E54341C00FDD1E7 /* NoGapSlider.swift */; };
 		2C71BE221E49E782005217D4 /* BarWaveView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71BE211E49E782005217D4 /* BarWaveView1.swift */; };
 		2C7818C11DEEA0F4001E3594 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */; };
 		2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C41DEEA0F4001E3594 /* Main.storyboard */; };
@@ -105,6 +106,7 @@
 		2C435C291E51D0D200FDD1E7 /* RecordImgCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordImgCollectionView.swift; sourceTree = "<group>"; };
 		2C435C2C1E529D7600FDD1E7 /* RecordInitBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordInitBottomView.swift; sourceTree = "<group>"; };
 		2C435C2E1E52B4B300FDD1E7 /* RecordSoundSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSoundSliderView.swift; sourceTree = "<group>"; };
+		2C435C351E54341C00FDD1E7 /* NoGapSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoGapSlider.swift; sourceTree = "<group>"; };
 		2C4CEA781E1DE6D000D0508C /* FMDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FMDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		2C71BE211E49E782005217D4 /* BarWaveView1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarWaveView1.swift; sourceTree = "<group>"; };
 		2C7818BD1DEEA0F4001E3594 /* FMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -493,6 +495,7 @@
 				2C97D7E81E4D5B0700FB407F /* BorderBackgroundView.swift */,
 				2C97D7F01E4D71B000FB407F /* VerticalButton.swift */,
 				2C97D7F41E50288700FB407F /* AvatorView.swift */,
+				2C435C351E54341C00FDD1E7 /* NoGapSlider.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -680,6 +683,7 @@
 				2C94E8001E277C7A00D539DC /* MBAAudioHelper.swift in Sources */,
 				2C97D7751E4B13D100FB407F /* BaseTableView.swift in Sources */,
 				2C97D7BE1E4C441C00FB407F /* UIBarButtonItem+Extensions.swift in Sources */,
+				2C435C361E54341C00FDD1E7 /* NoGapSlider.swift in Sources */,
 				2CF7913B1E35A2300085932C /* SampleDataFilter.swift in Sources */,
 				2C97D7C41E4C441C00FB407F /* UISearchBar+Extension.swift in Sources */,
 				2C97D7CA1E4C450F00FB407F /* String+Extension.swift in Sources */,

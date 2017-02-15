@@ -90,7 +90,6 @@ extension AppDelegate {
     fileprivate func setupGlobalNav() {
         //因为外观一旦设置全局有效, 所以应该在程序一进来就设置
         let appearance = UINavigationBar.appearance()
-        appearance.isTranslucent = false
         appearance.setBackgroundImage(UIImage.imageWithColor(UIColor.colorWithHexString(kGlobalNavBgColor), size: CGSize(width: 0, height: 0)), for: UIBarMetrics.default)
         appearance.shadowImage = UIImage()
         var textAttrs: [String : AnyObject] = Dictionary()
@@ -98,6 +97,8 @@ extension AppDelegate {
         textAttrs[NSFontAttributeName] = UIFont.systemFont(ofSize: 20)
         appearance.titleTextAttributes = textAttrs
         appearance.tintColor = UIColor.white
+        
+        appearance.isTranslucent = false
         
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
     }
