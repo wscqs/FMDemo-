@@ -14,7 +14,7 @@ pod 'SVProgressHUD' #https://github.com/SVProgressHUD/SVProgressHUD
 #  pod 'AlamofireObjectMapper'
 #pod 'FDWaveformView'
   pod 'SnapKit'
-  pod 'WechatKit'
+  #pod 'WechatKit'
   #-Networking
   pod 'Alamofire', '~> 4.0' #https://github.com/Alamofire/Alamofire
   #pod 'SwiftyJSON'

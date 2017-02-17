@@ -49,7 +49,7 @@ class TestViewController: UIViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "ddMMyyyyHHmmss"
         let recordingName = formatter.string(from: currentDateTime)+".caf"
-        cafAudioString = recordingName.tmpDir()
+        cafAudioString = recordingName.docRecordDir()
         //        print(cafAudioString)
         //        mp3AudioString = (formatter.string(from: currentDateTime) + ".mp3").docRecordDir()
         

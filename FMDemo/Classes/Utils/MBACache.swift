@@ -63,33 +63,12 @@ class MBACache {
     
     //删除录音缓存文件
     class func clearRecordCache() {
-        
         let docPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
-        
         let path = (docPath)! + "/record"
         if FileManager.default.fileExists(atPath: path) {
-            
             do {
                 try FileManager.default.removeItem(atPath: path)
             } catch {
-                
-            }
-        }
-    }
-    
-    
-    //删除录音缓存文件
-    class func clearCutCache() {
-        
-        let docPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
-        
-        let path = (docPath)! + "/cut"
-        if FileManager.default.fileExists(atPath: path) {
-            
-            do {
-                try FileManager.default.removeItem(atPath: path)
-            } catch {
-                
             }
         }
     }

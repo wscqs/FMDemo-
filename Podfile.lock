@@ -8,7 +8,6 @@ PODS:
   - SnapKit (3.1.2)
   - SVProgressHUD (2.1.2)
   - Toaster (2.0.1)
-  - WechatKit (0.2.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
@@ -20,7 +19,6 @@ DEPENDENCIES:
   - SnapKit
   - SVProgressHUD
   - Toaster (~> 2.0)
-  - WechatKit
 
 EXTERNAL SOURCES:
   HanekeSwift:
@@ -42,8 +40,7 @@ SPEC CHECKSUMS:
   SnapKit: 12b24f569cb7c143acc9c22b9d91b23e7b1c84a2
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   Toaster: be65cd48e93a525b2a9cc4bd25a2bfc900e02d9f
-  WechatKit: da5fc0ef622f2292a0e74eb56a4d63b585a3509e
 
-PODFILE CHECKSUM: df4f50b856fbd6cc4a3566e773a5a76968e2aa95
+PODFILE CHECKSUM: 803a6303747b748f34456062b1c8de9dc329138f
 
 COCOAPODS: 1.2.0.beta.1

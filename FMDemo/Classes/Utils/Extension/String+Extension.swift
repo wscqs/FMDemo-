@@ -45,55 +45,21 @@ extension String{
         return (recordPath as NSString).appendingPathComponent((self as NSString).lastPathComponent)
     }
     
-    func docCutDir() -> String {
-        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).last!  as NSString
-        let recordPath = path.appendingPathComponent("cut")
-        if !FileManager.default.fileExists(atPath: recordPath) {
-            do{
-                try FileManager.default.createDirectory(atPath: recordPath, withIntermediateDirectories: false, attributes: nil)
-            }catch {
-            }
-            
-        }
-        return (recordPath as NSString).appendingPathComponent((self as NSString).lastPathComponent)
-    }
-    
-    func docMergeDir() -> String {
-        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).last!  as NSString
-        let recordPath = path.appendingPathComponent("merge")
-        if !FileManager.default.fileExists(atPath: recordPath) {
-            do{
-                try FileManager.default.createDirectory(atPath: recordPath, withIntermediateDirectories: false, attributes: nil)
-            }catch {
-            }
-            
-        }
-        return (recordPath as NSString).appendingPathComponent((self as NSString).lastPathComponent)
-    }
-    
-    func docRecordMP3Dir() -> String {
-        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).last!  as NSString
-        let recordPath = path.appendingPathComponent("recordMP3")
-        if !FileManager.default.fileExists(atPath: recordPath) {
-            do{
-                try FileManager.default.createDirectory(atPath: recordPath, withIntermediateDirectories: false, attributes: nil)
-            }catch {
-            }
-            
-        }
-        return (recordPath as NSString).appendingPathComponent((self as NSString).lastPathComponent)
-    }
-    
-    
     /**
-    将当前字符串拼接到tmp目录后面
-    */
-    func tmpDir() -> String
-    {
-        let path = NSTemporaryDirectory() as NSString
-        return path.appendingPathComponent((self as NSString).lastPathComponent)
+     将当前字符串拼接到doc目录后面
+     */
+    func docSaveRecordDir() -> String {
+        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).last!  as NSString
+        let recordPath = path.appendingPathComponent("saveRecord")
+        if !FileManager.default.fileExists(atPath: recordPath) {
+            do{
+                try FileManager.default.createDirectory(atPath: recordPath, withIntermediateDirectories: false, attributes: nil)
+            }catch {
+            }
+            
+        }
+        return (recordPath as NSString).appendingPathComponent((self as NSString).lastPathComponent)
     }
-    
     
     // MARK: 时间处理
     /**

@@ -22,7 +22,7 @@ class MBAAudioUtil {
                   stopTime: TimeInterval,
                   handleComplet: @escaping (_ exportURL: URL?)->Void){
         
-        let cutExportPath = (Date().formatDate + ".caf").tmpDir()
+        let cutExportPath = (Date().formatDate + ".caf").docRecordDir()
         let exportURL = URL(fileURLWithPath: cutExportPath)
         print(exportURL)
         
@@ -76,7 +76,7 @@ class MBAAudioUtil {
         
         
         
-        let mergeExportPath = (Date().formatDate + ".caf").tmpDir()
+        let mergeExportPath = (Date().formatDate + ".caf").docRecordDir()
         let exportURL = URL(fileURLWithPath: mergeExportPath)
         
         
@@ -108,7 +108,7 @@ class MBAAudioUtil {
         }
         let cafURL1 = URL(string: cafURL.path)
         let mp3Name1 = mp3Name.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        let path2 = (mp3Name1! + ".mp3").docRecordMP3Dir()
+        let path2 = (mp3Name1! + ".mp3").docSaveRecordDir()
         let mp3URL = URL(fileURLWithPath: path2)
         
         Lame2mp3Tool.transformCAFPath(cafURL1, toMP3: mp3URL)

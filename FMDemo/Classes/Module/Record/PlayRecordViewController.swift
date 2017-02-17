@@ -120,7 +120,6 @@ extension PlayRecordViewController {
     
     func actionCut(sender: UIButton) {
         pausePlay()
-
     }
     
     func actionSlider(sender: UISlider) {

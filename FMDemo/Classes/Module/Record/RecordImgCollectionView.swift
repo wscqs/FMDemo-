@@ -9,14 +9,20 @@
 import UIKit
 
 class RecordImgCollectionView: UICollectionView {
+
+    var recordImgArray: [RecordImgModel]? {
+        didSet{
+            reloadData()
+        }
+    }
     
-    var recordImgArray: [RecordImgModel]? = {
+    let recordImg1Array: [RecordImgModel] = {
         let recordImg1 = RecordImgModel(img: #imageLiteral(resourceName: "new_feature_1"), isTapStatus: false, isEditStatus: false)
         let recordImg2 = RecordImgModel(img: #imageLiteral(resourceName: "new_feature_2"), isTapStatus: false, isEditStatus: false)
         let recordImg3 = RecordImgModel(img: #imageLiteral(resourceName: "new_feature_3"), isTapStatus: false, isEditStatus: false)
         return [recordImg1, recordImg2, recordImg3]
     }()
-    
+
     var isEidtStatus: Bool = false {
         didSet {
             var newArray = [RecordImgModel]()
@@ -36,6 +42,8 @@ class RecordImgCollectionView: UICollectionView {
         dataSource = self
         showsHorizontalScrollIndicator = false
         bounces = false
+        
+        recordImgArray = recordImg1Array
     }
     
 

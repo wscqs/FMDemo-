@@ -14,39 +14,34 @@ enum RecordType{
 
 class RecordViewController: UIViewController {
     
-    
-    var barWaveView: BarWaveView = {
-        let cgRect = CGRect(x: 0, y: 66, width: UIScreen.main.bounds.width, height: 80.0)
-        let barWaveView = BarWaveView(frame: cgRect)
-        return barWaveView
-    }()
-    
     var pointArray = [CGFloat]()
-    
-    var recordType = RecordType.onlyRecord
-    
-    
+    // 录音的计时器
+//    var recordTimer: Timer?
+//    var time:TimeInterval = 0
+    var isCuted: Bool = false
+    /// 跳到 播放或裁剪 的url
+    var voiceURL: URL?
+    // 获取录音频率的计时器 // 0.2
+    var recordMetersTimer: Timer?
+    var recordMetersTime: TimeInterval = 0.0
+    // 获取录音强度动画的计时器
+    var recordPowerTimer: Timer?
+    var recordPowerTime: TimeInterval = 0.0
+
     // 顶层图片
     @IBOutlet weak var bannerImg: UIImageView!
-    
     // 顶部状态view（包含: 音波，时间）
     @IBOutlet weak var topStatusView: UIView!
     @IBOutlet weak var topRecordPower: RecordSoundSliderView!
     @IBOutlet weak var topMusicPower: RecordSoundSliderView!
     @IBOutlet weak var timeLabel: UILabel!
-    
-    
     // 图片选择collectionView
     @IBOutlet weak var imgCollectionView: RecordImgCollectionView!
-    
-
     /// 配音的容器
     @IBOutlet weak var dubView: UIView!
     @IBOutlet weak var addDubBtn: UIButton!
-    
     // 底部初始状态
     @IBOutlet weak var bottomInitView: RecordInitBottomView!
-    
     // 录音的操作按钮
     @IBOutlet weak var recordLabel: UILabel!
     @IBOutlet weak var recordBtn: UIButton!
@@ -58,23 +53,6 @@ class RecordViewController: UIViewController {
     let seletctDubVC = SeletceDubViewController()
     let dubPlayView = DubPlayView.dubPlayView()
 
-    
-    // 录音的计时器
-    var timer: Timer?
-    var time:TimeInterval = 0
-    var isCuted: Bool = false
-    
-    /// 跳到 播放或裁剪 的url
-    var voiceURL: URL?
-    
-    
-    // 获取录音频率的计时器
-    var recordMetersTimer: Timer?
-    var recordMetersTime: TimeInterval = 0.0
-    // 获取录音强度动画的计时器
-    var recordPowerTimer: Timer?
-    var recordPowerTime: TimeInterval = 0.0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -96,6 +74,8 @@ class RecordViewController: UIViewController {
         startRecord()
     }
     
+    @IBAction func popRecordVC(_ sender: UIStoryboardSegue) {
+    }
     
 }
 
@@ -123,17 +103,21 @@ extension RecordViewController {
     
     
     func initStates() {
+        pointArray.removeAll()
+        isCuted = false
+        voiceURL = nil
+        recordMetersTime = 0
+        recordPowerTime = 0
+        
+        bannerImg.image = #imageLiteral(resourceName: "record_bannerBg")
+        imgCollectionView.recordImgArray?.removeAll()
+        topStatusView.isHidden = true
+        bottomInitView.isHidden = false
+        initOraginTimeStatue(time:recordMetersTime)
         recordBtn.isSelected = false
         dubPlayView.isHidden = true
         recordLabel.text = "正在通过麦克风录制"
-        isCuted = false
         
-        time = 0
-        initOraginTimeStatue(time:time)
-        pointArray.removeAll()
-        
-        bottomInitView.isHidden = false
-        topStatusView.isHidden = true
     }
     
     
@@ -144,7 +128,7 @@ extension RecordViewController {
         timerInvalidate()
         
         initStates()
-        MBACache.clearCache()
+        MBACache.clearRecordCache()
     }
 }
 
@@ -169,12 +153,23 @@ extension RecordViewController {
     func actionSave() {
         //        let url = isCuted ? mergeExportURL : MBAAudio.url
         //        MBAAudioUtil.changceToMp3(of: url, mp3Name: "我")
-        
+
         let alertController = UIAlertController(title: nil, message: "给课程起个名字吧", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
-//            print(alertController.textFields?.first?.text)
+            guard let saveName = alertController.textFields?.first?.text else {return}
+            //        let url = isCuted ? mergeExportURL : MBAAudio.url
+            //        MBAAudioUtil.changceToMp3(of: url, mp3Name: "我")
+            
+            //FIXME:
+            let url =  MBAAudio.url!
+            let fileManager = FileManager.default
+            let saveURL = URL(fileURLWithPath: "\(saveName).caf".docSaveRecordDir())
+            do {
+                try fileManager.moveItem(at: url, to: saveURL)
+            } catch {}
+            
         }
         alertController.addAction(okAction)
         alertController.addTextField { (textFiled) in
@@ -271,12 +266,12 @@ extension RecordViewController {
     
     func initOraginTimeStatue(time: TimeInterval){
         
-        self.time = time
+//        self.time = time
         timeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(time))
     }
     
     func timerInit(){
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerEvent), userInfo: nil, repeats: true)
+//        recordTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(recordTimerEvent), userInfo: nil, repeats: true)
         
         recordMetersTimer = Timer.scheduledTimer(timeInterval: TimeInterval(kWaveTime), target: self, selector: #selector(recordMetersTimerEvent), userInfo: nil, repeats: true)
         
@@ -284,27 +279,27 @@ extension RecordViewController {
     }
     
     func timerPause() {
-        timer?.fireDate = Date.distantFuture
+//        recordTimer?.fireDate = Date.distantFuture
         recordMetersTimer?.fireDate = Date.distantFuture
         recordPowerTimer?.fireDate = Date.distantFuture
     }
     
     func timerContinue() {
-        timer?.fireDate = Date()
+//        recordTimer?.fireDate = Date()
         recordMetersTimer?.fireDate = Date()
         recordPowerTimer?.fireDate = Date()
     }
     
     func timerInvalidate(){
-        timer?.invalidate()
-        timer = nil
+//        recordTimer?.invalidate()
+//        recordTimer = nil
         recordMetersTimer?.invalidate()
         recordMetersTimer = nil
         recordPowerTimer?.invalidate()
         recordPowerTimer = nil
     }
     
-    func timerEvent() { // 20分钟，1200 秒
+    func recordTimerEvent() { // 20分钟，1200 秒
 //        time = time + 1
 //        initOraginTimeStatue(time:time)
 //        if time == 1200 {
@@ -316,18 +311,7 @@ extension RecordViewController {
         recordMetersTime = recordMetersTime + kWaveTime
         initOraginTimeStatue(time: recordMetersTime)
         
-//        var recordMeters:Float = 0.0
-//        switch recordType {
-//        case .onlyRecord:
-//            recordMeters = MBAAudio.audioPowerChange()
-//        case .dub:
-//            recordMeters = dubPlayView.audioPower
-//        case .recordAndDub:
-//            recordMeters = 0
-//        }
-        
         pointArray.append(CGFloat(MBAAudio.audioPowerChange()))
-        barWaveView.pointArray = pointArray
     }
     
     func updatePower() {

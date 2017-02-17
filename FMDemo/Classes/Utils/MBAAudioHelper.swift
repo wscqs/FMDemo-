@@ -15,8 +15,6 @@ let MBAAudio = MBAAudioHelper.shared
 
 class MBAAudioHelper: NSObject {
     
-    /// 转化后路径
-    public var mp3AudioString: String!
     public var cafAudioString: String!
     
     var url:URL? {
@@ -51,9 +49,8 @@ class MBAAudioHelper: NSObject {
         let formatter = DateFormatter()
         formatter.dateFormat = "ddMMyyyyHHmmss"
         let recordingName = formatter.string(from: currentDateTime)+".caf"
-        cafAudioString = recordingName.tmpDir()
-//        print(cafAudioString)
-//        mp3AudioString = (formatter.string(from: currentDateTime) + ".mp3").docRecordDir()
+        cafAudioString = recordingName.docRecordDir()
+        print(cafAudioString)
         
         do {
             try audioSession?.setCategory(AVAudioSessionCategoryPlayAndRecord)
