@@ -16,6 +16,4 @@ class CourceMainViewController: BaseViewController {
     override func setupUI() {
         mainTb.parentVC = self
     }
-    
-    
 }

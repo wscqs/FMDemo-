@@ -41,6 +41,8 @@ class CourceMainTableView: BaseTableView {
         footAddBtn.frame = CGRect(x: 10, y: 5, width: tbFootView.frame.size.width - 20, height: 35)
         tableFooterView = tbFootView
         
+        estimatedRowHeight = 80
+        rowHeight = 80
     }
 }
 

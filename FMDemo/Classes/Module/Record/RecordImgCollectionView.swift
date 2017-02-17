@@ -10,21 +10,24 @@ import UIKit
 
 class RecordImgCollectionView: UICollectionView {
 
-    var recordImgArray: [RecordImgModel]? {
+    var recordImgArray: [RecordImgModel]? = [RecordImgModel](){
         didSet{
             reloadData()
         }
     }
     
-    let recordImg1Array: [RecordImgModel] = {
-        let recordImg1 = RecordImgModel(img: #imageLiteral(resourceName: "new_feature_1"), isTapStatus: false, isEditStatus: false)
-        let recordImg2 = RecordImgModel(img: #imageLiteral(resourceName: "new_feature_2"), isTapStatus: false, isEditStatus: false)
-        let recordImg3 = RecordImgModel(img: #imageLiteral(resourceName: "new_feature_3"), isTapStatus: false, isEditStatus: false)
-        return [recordImg1, recordImg2, recordImg3]
-    }()
+//    let recordImg1Array: [RecordImgModel] = {
+//        let recordImg1 = RecordImgModel(img: #imageLiteral(resourceName: "new_feature_1"), isTapStatus: false, isEditStatus: false)
+//        let recordImg2 = RecordImgModel(img: #imageLiteral(resourceName: "new_feature_2"), isTapStatus: false, isEditStatus: false)
+//        let recordImg3 = RecordImgModel(img: #imageLiteral(resourceName: "new_feature_3"), isTapStatus: false, isEditStatus: false)
+//        return [recordImg1, recordImg2, recordImg3]
+//    }()
 
     var isEidtStatus: Bool = false {
         didSet {
+            if (recordImgArray?.count ?? 0) <= 0 {
+                return
+            }
             var newArray = [RecordImgModel]()
             for model in recordImgArray! {
                 model.isEditStatus = isEidtStatus
@@ -42,8 +45,6 @@ class RecordImgCollectionView: UICollectionView {
         dataSource = self
         showsHorizontalScrollIndicator = false
         bounces = false
-        
-        recordImgArray = recordImg1Array
     }
     
 
@@ -88,7 +89,8 @@ extension RecordImgCollectionView: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = recordImgArray?[indexPath.row]
-        parentVC?.bannerImg.image = model?.img
+        // 保存图片点击状态
+        parentVC?.saveImgClick(image: (model?.img)!)
         model?.isTapStatus = true
         let cell = collectionView.cellForItem(at: indexPath) as! RecordImgCollectionCell
         cell.recordImgModel = model
@@ -112,14 +114,13 @@ extension RecordImgCollectionView {
 
 extension RecordImgCollectionView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    //选择头像
+    //选择图片
     func choseImg() {
         isEidtStatus = false
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = self
         picker.allowsEditing = true
-        print(self.parentVC)
         self.parentVC?.present(picker, animated: true, completion: nil)
     }
 

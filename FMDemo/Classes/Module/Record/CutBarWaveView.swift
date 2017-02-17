@@ -106,6 +106,7 @@ class CutBarWaveView: UIView {
         
         scrollView.addSubview(slider)
         slider.setThumbImage(#imageLiteral(resourceName: "sound_slider_thum"), for: .normal)
+        slider.isUserInteractionEnabled = false
         
     }
     

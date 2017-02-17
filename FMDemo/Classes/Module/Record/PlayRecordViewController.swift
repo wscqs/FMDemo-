@@ -22,6 +22,21 @@ class PlayRecordViewController: UIViewController {
     @IBOutlet weak var cutBtn: UIButton!
     @IBOutlet weak var savaBtn: UIButton!
 
+    /// 保存点击图片
+    var imgDictArray: [[Int:UIImage]] = [[Int:UIImage]]()
+    var thumbPointXIndex: Int = 0
+    func setSpannerImg() {
+        for imgDict in imgDictArray {
+            guard let image = imgDict[thumbPointXIndex] else { continue }
+            bannerImg.image = image
+            let transition = CATransition()
+            transition.duration = 0.5
+            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+            transition.type = kCATransitionFade
+            bannerImg.layer.add(transition, forKey: nil)
+            break
+        }
+    }
     
     var sliderTime: TimeInterval = 0 {
         didSet{

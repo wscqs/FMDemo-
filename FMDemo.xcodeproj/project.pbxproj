@@ -14,7 +14,6 @@
 		2C3A597D1E319CD800EBAD70 /* yicaishort.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C3A597A1E319CBC00EBAD70 /* yicaishort.caf */; };
 		2C435C2A1E51D0D200FDD1E7 /* RecordImgCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C281E51D0D200FDD1E7 /* RecordImgCollectionCell.swift */; };
 		2C435C2B1E51D0D200FDD1E7 /* RecordImgCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C291E51D0D200FDD1E7 /* RecordImgCollectionView.swift */; };
-		2C435C2D1E529D7600FDD1E7 /* RecordInitBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C2C1E529D7600FDD1E7 /* RecordInitBottomView.swift */; };
 		2C435C2F1E52B4B300FDD1E7 /* RecordSoundSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C2E1E52B4B300FDD1E7 /* RecordSoundSliderView.swift */; };
 		2C435C361E54341C00FDD1E7 /* NoGapSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C351E54341C00FDD1E7 /* NoGapSlider.swift */; };
 		2C58C0981E56ADEE00310C1C /* CutBarWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C58C0971E56ADEE00310C1C /* CutBarWaveView.swift */; };
@@ -105,7 +104,6 @@
 		2C3A597A1E319CBC00EBAD70 /* yicaishort.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = yicaishort.caf; sourceTree = "<group>"; };
 		2C435C281E51D0D200FDD1E7 /* RecordImgCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordImgCollectionCell.swift; sourceTree = "<group>"; };
 		2C435C291E51D0D200FDD1E7 /* RecordImgCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordImgCollectionView.swift; sourceTree = "<group>"; };
-		2C435C2C1E529D7600FDD1E7 /* RecordInitBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordInitBottomView.swift; sourceTree = "<group>"; };
 		2C435C2E1E52B4B300FDD1E7 /* RecordSoundSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSoundSliderView.swift; sourceTree = "<group>"; };
 		2C435C351E54341C00FDD1E7 /* NoGapSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoGapSlider.swift; sourceTree = "<group>"; };
 		2C4CEA781E1DE6D000D0508C /* FMDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FMDemo-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -230,9 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				2C97D7A01E4C1B9300FB407F /* RecordViewController.swift */,
-				2C435C2C1E529D7600FDD1E7 /* RecordInitBottomView.swift */,
-				2C435C281E51D0D200FDD1E7 /* RecordImgCollectionCell.swift */,
 				2C435C291E51D0D200FDD1E7 /* RecordImgCollectionView.swift */,
+				2C435C281E51D0D200FDD1E7 /* RecordImgCollectionCell.swift */,
 				2C435C2E1E52B4B300FDD1E7 /* RecordSoundSliderView.swift */,
 				2C97D7F81E513F7000FB407F /* DubPlayView.swift */,
 				2C97D7FC1E51427700FB407F /* DubPlayView.xib */,
@@ -298,8 +295,8 @@
 		2C94E7DE1E277C7A00D539DC /* Module */ = {
 			isa = PBXGroup;
 			children = (
-				2C97D7D11E4C5E1900FB407F /* Course */,
 				2C0239B61E4B06FC00CD6008 /* Base */,
+				2C97D7D11E4C5E1900FB407F /* Course */,
 				2C97D7A61E4C1B9A00FB407F /* Main */,
 				2C97D79D1E4C1B9300FB407F /* Record */,
 				2C97D7981E4C1B6A00FB407F /* Login */,
@@ -662,7 +659,6 @@
 				2C97D7741E4B13D100FB407F /* BaseSrollView.swift in Sources */,
 				2C97D7A21E4C1B9300FB407F /* CutRecordViewController.swift in Sources */,
 				2C97D7A41E4C1B9300FB407F /* RecordViewController.swift in Sources */,
-				2C435C2D1E529D7600FDD1E7 /* RecordInitBottomView.swift in Sources */,
 				2C97D7761E4B13D100FB407F /* RefreshBaseTableView.swift in Sources */,
 				2C97D7871E4B163500FB407F /* MBAProgressHUD.swift in Sources */,
 				2C435C2F1E52B4B300FDD1E7 /* RecordSoundSliderView.swift in Sources */,

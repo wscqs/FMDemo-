@@ -422,7 +422,7 @@
                                         <color key="textColor" red="0.70196078429999997" green="0.69411764710000001" blue="0.69411764710000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9L9-ei-M3y" customClass="RecordInitBottomView" customModule="FMDemo" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9L9-ei-M3y">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="record_tips_box" translatesAutoresizingMaskIntoConstraints="NO" id="fJf-t1-wmF">
@@ -819,7 +819,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="26a-zz-pYy" kind="relationship" relationship="rootViewController" id="HQo-Jk-4Wj"/>
+                        <segue destination="26a-zz-pYy" kind="relationship" relationship="rootViewController" id="TPK-UR-Tov"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="acu-R7-d6V" userLabel="First Responder" sceneMemberID="firstResponder"/>

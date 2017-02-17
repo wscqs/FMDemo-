@@ -21,9 +21,18 @@ class RecordViewController: UIViewController {
     var isCuted: Bool = false
     /// 跳到 播放或裁剪 的url
     var voiceURL: URL?
-    // 获取录音频率的计时器 // 0.2
+    // 获取录音频率的计时器 // 0.2 也是录音的时间
     var recordMetersTimer: Timer?
-    var recordMetersTime: TimeInterval = 0.0
+    var recordMetersTime: TimeInterval = 0.0 {
+        didSet{
+            thumbPointXIndex = Int(recordMetersTime / 0.2)
+        }
+    }
+    
+    /// 保存点击图片
+    var imgDictArray: [[Int:UIImage]] = [[Int:UIImage]]()
+    var thumbPointXIndex: Int = 0
+    
     // 获取录音强度动画的计时器
     var recordPowerTimer: Timer?
     var recordPowerTime: TimeInterval = 0.0
@@ -41,7 +50,7 @@ class RecordViewController: UIViewController {
     @IBOutlet weak var dubView: UIView!
     @IBOutlet weak var addDubBtn: UIButton!
     // 底部初始状态
-    @IBOutlet weak var bottomInitView: RecordInitBottomView!
+    @IBOutlet weak var bottomInitView: UIView!
     // 录音的操作按钮
     @IBOutlet weak var recordLabel: UILabel!
     @IBOutlet weak var recordBtn: UIButton!
@@ -66,6 +75,11 @@ class RecordViewController: UIViewController {
         super.viewDidAppear(animated)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        pauseRecord()
+    }
+    
     
     // MARK: - StroyBoard action
     @IBAction func actionStartRecord(_ sender: UIButton) {
@@ -77,6 +91,19 @@ class RecordViewController: UIViewController {
     @IBAction func popRecordVC(_ sender: UIStoryboardSegue) {
     }
     
+}
+
+extension RecordViewController {
+    func saveImgClick(image: UIImage) {
+//        let isRecord = true
+//        if !isRecord {
+//            return
+//        }
+        // FIXME:
+        bannerImg.image = image
+        let imgDict = [thumbPointXIndex: image]
+        imgDictArray.append(imgDict)
+    }
 }
 
 extension RecordViewController {
@@ -118,6 +145,8 @@ extension RecordViewController {
         dubPlayView.isHidden = true
         recordLabel.text = "正在通过麦克风录制"
         
+        imgDictArray.removeAll()
+        thumbPointXIndex = 0
     }
     
     
@@ -131,6 +160,8 @@ extension RecordViewController {
         MBACache.clearRecordCache()
     }
 }
+
+
 
 
 // MARK: - action
@@ -318,7 +349,21 @@ extension RecordViewController {
         topRecordPower.setValue(MBAAudio.audioPowerChange(), animated: true)
         topMusicPower.setValue(dubPlayView.audioPower, animated: true)
     }
-    
+}
+
+extension RecordViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if "PlayRecordViewController" == segue.identifier {
+            let playVC = segue.destination as? PlayRecordViewController
+            playVC?.url = self.voiceURL
+            playVC?.pointArray = self.pointArray
+        }else if "CutRecordViewController" == segue.identifier {
+            let playVC = segue.destination as? CutRecordViewController
+            playVC?.url = self.voiceURL
+            playVC?.pointArray = self.pointArray
+        }
+        
+    }
 }
 
 // MARK: - AVAudioRecorderDelegate
@@ -335,21 +380,6 @@ extension RecordViewController: AVAudioRecorderDelegate{
         if error != nil {
             //            print(error)
         }
-    }
-}
-
-extension RecordViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if "PlayRecordViewController" == segue.identifier {
-            let playVC = segue.destination as? PlayRecordViewController
-            playVC?.url = self.voiceURL
-            playVC?.pointArray = self.pointArray
-        }else if "CutRecordViewController" == segue.identifier {
-            let playVC = segue.destination as? CutRecordViewController
-            playVC?.url = self.voiceURL
-            playVC?.pointArray = self.pointArray
-        }
-  
     }
 }
 
