@@ -16,15 +16,20 @@ class PlayRecordViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var bannerImg: UIImageView!
     @IBOutlet weak var totalTimeLabel: UILabel!
-    @IBOutlet weak var slider: BarWaveView!
+    @IBOutlet weak var slider: PlayBarWaveView!
     
     @IBOutlet weak var listenPlayBtn: UIButton!
+    @IBOutlet weak var listenStatusLabel: UILabel!
     @IBOutlet weak var cutBtn: UIButton!
     @IBOutlet weak var savaBtn: UIButton!
 
     /// 保存点击图片
     var imgDictArray: [[Int:UIImage]] = [[Int:UIImage]]()
     var thumbPointXIndex: Int = 0
+    var totalTime: TimeInterval {
+        return Double(pointArray?.count ?? 0) * 0.2
+    }
+    
     func setSpannerImg() {
         for imgDict in imgDictArray {
             guard let image = imgDict[thumbPointXIndex] else { continue }
@@ -63,30 +68,36 @@ class PlayRecordViewController: UIViewController {
         player = MBAAudioPlayer(contentsOf: url)
         player.player?.delegate = self
         slider.pointArray = pointArray
-        initStatus()
         actionPlayClick(sender: listenPlayBtn)
-        
-        totalTimeLabel.text = TimeTool.getFormatTime(timerInval: player.duration)
+        totalTimeLabel.text = TimeTool.getFormatTime(timerInval: totalTime)
     }
     
-    func initStatus() {
-//        slider.slider.minimumValue = 0
-//        slider.slider.maximumValue = Float(player.duration)
-//        slider.slider.value = 0
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        pausePlay()
     }
     
     func updateTime() {
-        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime))//player.currentTime  第一秒0.9几
-//        let endTime = TimeTool.getFormatTime(timerInval: player.duration)
-        timeLabel.text = "\(playTime)"
-        slider.value = Float(player.currentTime / player.duration * Double(pointArray?.count ?? 0))
+//        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime))//player.currentTime  第一秒0.9几
+////        let endTime = TimeTool.getFormatTime(timerInval: player.duration)
+//        timeLabel.text = "\(playTime)"
+//        slider.value = Float(player.currentTime / player.duration * Double(pointArray?.count ?? 0))
+        
+        if thumbPointXIndex >= (pointArray?.count ?? 0) - 1 {
+            stopPlay()
+            thumbPointXIndex = 0
+            bannerImg.image = #imageLiteral(resourceName: "record_bannerBg")
+            return
+        }
+        
+        thumbPointXIndex = thumbPointXIndex + 1
+        slider.setPlayProgress(thumbPointXIndex: thumbPointXIndex)
+        timeLabel.text = TimeTool.getFormatTime(timerInval:(Double(thumbPointXIndex) * 0.2))
+        setSpannerImg()
     }
     
     func sliderTimerEvent() {
         updateTime()
-        if player.currentTime >= player.duration {
-            stopPlay()
-        }
     }
 
 }
@@ -94,11 +105,10 @@ class PlayRecordViewController: UIViewController {
 extension PlayRecordViewController {
     func setup() {
         listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
+        listenPlayBtn.adjustsImageWhenHighlighted = false
         savaBtn.addTarget(self, action: #selector(actionSave), for: .touchUpInside)
         cutBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
-        slider.slider.addTarget(self, action: #selector(actionSlider), for: .valueChanged)
-        
-        slider.slider.isContinuous = false // 滑动结束 才会执行valueChanged 事件
+        slider.slider.addTarget(self, action: #selector(actionSlider), for: .valueChanged)        
     }
 }
 
@@ -107,38 +117,27 @@ extension PlayRecordViewController {
     func actionPlayClick(sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected { // 播放状态
-            
-            player.currentTime == 0 ? startPlay() : continuePlay()
+            listenStatusLabel.text = "暂停"
+            thumbPointXIndex == 0 ? startPlay() : continuePlay()
             
         } else {
+            listenStatusLabel.text = "播放"
             pausePlay()
         }
     }
     
     func actionSave() {
-        //        let url = isCuted ? mergeExportURL : MBAAudio.url
-        //        MBAAudioUtil.changceToMp3(of: url, mp3Name: "我")
-        
-        let alertController = UIAlertController(title: nil, message: "给课程起个名字吧", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
-//            print(alertController.textFields?.first?.text)
-        }
-        alertController.addAction(okAction)
-        alertController.addTextField { (textFiled) in
-            textFiled.clearButtonMode = .whileEditing
-        }
-        present(alertController, animated: true, completion: nil)
+
     }
     
     
     func actionCut(sender: UIButton) {
-        pausePlay()
+//        pausePlay()
     }
     
     func actionSlider(sender: UISlider) {
         pausePlay()
+        thumbPointXIndex = Int(sender.value)
         let progress = Double(sender.value) / Double(pointArray?.count ?? 0)
         player.currentTime = TimeInterval(progress * player.duration)
         sliderTime = player.currentTime
@@ -177,10 +176,6 @@ extension PlayRecordViewController {
 
 extension PlayRecordViewController {
     
-//    func initPlay() {
-//        sliderTime = 0
-//    }
-    
     func startPlay() {
         sliderTime = kWaveTime
         player?.startPlay()
@@ -200,18 +195,19 @@ extension PlayRecordViewController {
     func stopPlay() {
         pauseTimer()
         listenPlayBtn.isSelected = false
+        listenStatusLabel.text = "播放"
     }
 }
 
 
 extension PlayRecordViewController: AVAudioPlayerDelegate{
     
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        if flag {
-            print("finishS")
-            stopPlay()
-        } else {
-            print("finishError")
-        }
-    }
+//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//        if flag {
+//            print("finishS")
+//            stopPlay()
+//        } else {
+//            print("finishError")
+//        }
+//    }
 }

@@ -357,6 +357,7 @@ extension RecordViewController {
             let playVC = segue.destination as? PlayRecordViewController
             playVC?.url = self.voiceURL
             playVC?.pointArray = self.pointArray
+            playVC?.imgDictArray = self.imgDictArray
         }else if "CutRecordViewController" == segue.identifier {
             let playVC = segue.destination as? CutRecordViewController
             playVC?.url = self.voiceURL

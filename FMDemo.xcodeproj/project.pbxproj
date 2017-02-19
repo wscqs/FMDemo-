@@ -17,7 +17,6 @@
 		2C435C2F1E52B4B300FDD1E7 /* RecordSoundSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C2E1E52B4B300FDD1E7 /* RecordSoundSliderView.swift */; };
 		2C435C361E54341C00FDD1E7 /* NoGapSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C351E54341C00FDD1E7 /* NoGapSlider.swift */; };
 		2C58C0981E56ADEE00310C1C /* CutBarWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C58C0971E56ADEE00310C1C /* CutBarWaveView.swift */; };
-		2C71BE221E49E782005217D4 /* BarWaveView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71BE211E49E782005217D4 /* BarWaveView1.swift */; };
 		2C7818C11DEEA0F4001E3594 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */; };
 		2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C41DEEA0F4001E3594 /* Main.storyboard */; };
 		2C7818C81DEEA0F4001E3594 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C71DEEA0F4001E3594 /* Assets.xcassets */; };
@@ -89,9 +88,9 @@
 		2CF7913B1E35A2300085932C /* SampleDataFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF791381E35A2300085932C /* SampleDataFilter.swift */; };
 		2CF7913C1E35A2300085932C /* SampleDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF791391E35A2300085932C /* SampleDataProvider.swift */; };
 		2CF7913D1E35A2300085932C /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7913A1E35A2300085932C /* WaveformView.swift */; };
-		2CF7913F1E35F0610085932C /* BarWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7913E1E35F0610085932C /* BarWaveView.swift */; };
 		2CF791431E3610D80085932C /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF791421E3610D80085932C /* Switch.swift */; };
 		2CFA62CC1E5198F700583622 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA62CB1E5198F700583622 /* CALayer+Extension.swift */; };
+		47E9246E1E59E3FC00A4C325 /* PlayBarWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E9246D1E59E3FC00A4C325 /* PlayBarWaveView.swift */; };
 		993532958BBE045BD82BCE1D /* Pods_FMDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4E378304C0A729E333B5DE /* Pods_FMDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -108,7 +107,6 @@
 		2C435C351E54341C00FDD1E7 /* NoGapSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoGapSlider.swift; sourceTree = "<group>"; };
 		2C4CEA781E1DE6D000D0508C /* FMDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FMDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		2C58C0971E56ADEE00310C1C /* CutBarWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutBarWaveView.swift; sourceTree = "<group>"; };
-		2C71BE211E49E782005217D4 /* BarWaveView1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarWaveView1.swift; sourceTree = "<group>"; };
 		2C7818BD1DEEA0F4001E3594 /* FMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C7818C51DEEA0F4001E3594 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -184,9 +182,9 @@
 		2CF791381E35A2300085932C /* SampleDataFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleDataFilter.swift; sourceTree = "<group>"; };
 		2CF791391E35A2300085932C /* SampleDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleDataProvider.swift; sourceTree = "<group>"; };
 		2CF7913A1E35A2300085932C /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
-		2CF7913E1E35F0610085932C /* BarWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarWaveView.swift; sourceTree = "<group>"; };
 		2CF791421E3610D80085932C /* Switch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		2CFA62CB1E5198F700583622 /* CALayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		47E9246D1E59E3FC00A4C325 /* PlayBarWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayBarWaveView.swift; sourceTree = "<group>"; };
 		8AF07FFC73EC8A0F3B362031 /* Pods-FMDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-FMDemo/Pods-FMDemo.release.xcconfig"; sourceTree = "<group>"; };
 		B6E0B4A622EF8A5FB833D4A3 /* Pods-FMDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FMDemo/Pods-FMDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		CA4E378304C0A729E333B5DE /* Pods_FMDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FMDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -426,6 +424,7 @@
 				2C97D79E1E4C1B9300FB407F /* CutRecordViewController.swift */,
 				2C58C0971E56ADEE00310C1C /* CutBarWaveView.swift */,
 				2C97D79F1E4C1B9300FB407F /* PlayRecordViewController.swift */,
+				47E9246D1E59E3FC00A4C325 /* PlayBarWaveView.swift */,
 				2C97D7A11E4C1B9300FB407F /* SeletceDubViewController.swift */,
 			);
 			path = Record;
@@ -506,8 +505,6 @@
 				2CF791381E35A2300085932C /* SampleDataFilter.swift */,
 				2CF791391E35A2300085932C /* SampleDataProvider.swift */,
 				2CF7913A1E35A2300085932C /* WaveformView.swift */,
-				2CF7913E1E35F0610085932C /* BarWaveView.swift */,
-				2C71BE211E49E782005217D4 /* BarWaveView1.swift */,
 			);
 			path = MBAWaveformView;
 			sourceTree = "<group>";
@@ -675,7 +672,6 @@
 				2C97D7AF1E4C3F3700FB407F /* QSNavigationController.swift in Sources */,
 				2C94E8031E277C7A00D539DC /* MBAPlayerHelper.swift in Sources */,
 				2C97D78F1E4B257500FB407F /* KeService.swift in Sources */,
-				2C71BE221E49E782005217D4 /* BarWaveView1.swift in Sources */,
 				2C97D7C21E4C441C00FB407F /* UIImageView+Extension.swift in Sources */,
 				2C97D7CC1E4C4BA500FB407F /* MainTableView.swift in Sources */,
 				2C97D7D51E4C625700FB407F /* CourceMainTableView.swift in Sources */,
@@ -690,6 +686,7 @@
 				2C97D7791E4B13D100FB407F /* BaseTableViewController.swift in Sources */,
 				2C97D7EB1E4D5B4D00FB407F /* BorderTextView.swift in Sources */,
 				2C97D7BF1E4C441C00FB407F /* UIButton+Extension.swift in Sources */,
+				47E9246E1E59E3FC00A4C325 /* PlayBarWaveView.swift in Sources */,
 				2C97D7E91E4D5B0700FB407F /* BorderBackgroundView.swift in Sources */,
 				2C94E7FB1E277C7A00D539DC /* ViewController.swift in Sources */,
 				2C97D7A31E4C1B9300FB407F /* PlayRecordViewController.swift in Sources */,
@@ -722,7 +719,6 @@
 				2C94E8051E277C7A00D539DC /* Lame2mp3Tool.m in Sources */,
 				2C97D7911E4B2AC500FB407F /* LoginModel.swift in Sources */,
 				2C97D7771E4B13D100FB407F /* RefreshBaseTableViewCell.swift in Sources */,
-				2CF7913F1E35F0610085932C /* BarWaveView.swift in Sources */,
 				2CF791431E3610D80085932C /* Switch.swift in Sources */,
 				2C97D7FA1E513F7000FB407F /* DubPlayView.swift in Sources */,
 				2CFA62CC1E5198F700583622 /* CALayer+Extension.swift in Sources */,

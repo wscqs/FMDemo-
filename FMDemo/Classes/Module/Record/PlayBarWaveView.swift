@@ -8,22 +8,23 @@
 
 import UIKit
 
-class BarWaveView: UIView {
+class PlayBarWaveView: UIView {
     
     var pointArray: Array<CGFloat>? {
         didSet{
             guard let pointArray = pointArray else {
                 return
             }
+            slider.maximumValue = Float(pointArray.count)
             setNeedsDisplay()
         }
     }
     
-    var value: Float = 0 {
-        didSet {
-            slider.setValue(value, animated: true)
-        }
-    }
+//    var value: Float = 0 {
+//        didSet {
+//            slider.setValue(value, animated: true)
+//        }
+//    }
     
     var slider: UISlider = NoGapSlider()
     
@@ -83,7 +84,8 @@ class BarWaveView: UIView {
         layer.masksToBounds = true
         
         addSubview(slider)
-        slider.setThumbImage(#imageLiteral(resourceName: "record_volume_control_ico"), for: .normal)        
+        slider.setThumbImage(#imageLiteral(resourceName: "record_volume_control_ico"), for: .normal)
+        slider.minimumValue = 0
     }
     
     override func draw(_ rect: CGRect) {
@@ -144,14 +146,15 @@ class BarWaveView: UIView {
         slider.setMaximumTrackImage(maxiTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         slider.setMinimumTrackImage(minxTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         
-        
-        
-        // 透明图像
-        //        UIGraphicsBeginImageContextWithOptions(CGSizeMake(1, 1), false, 0.0)
-        //        let transparentImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
-        //        UIGraphicsEndImageContext()
-        
     }
-    
+}
+
+// MARK: - open API
+extension PlayBarWaveView {
+    /// 传入播放的进度
+    func setPlayProgress(thumbPointXIndex :Int) {
+//        self.thumbPointXIndex = thumbPointXIndex
+        slider.setValue(Float(thumbPointXIndex), animated: true)
+    }
 }
 

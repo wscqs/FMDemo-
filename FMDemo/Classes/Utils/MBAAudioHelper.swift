@@ -15,7 +15,7 @@ let MBAAudio = MBAAudioHelper.shared
 
 class MBAAudioHelper: NSObject {
     
-    public var cafAudioString: String!
+    public var cafAudioString: String = ""
     
     var url:URL? {
         return URL(fileURLWithPath: cafAudioString)
