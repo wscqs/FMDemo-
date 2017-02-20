@@ -44,7 +44,7 @@ class CutBarWaveView: UIView {
     var scrollViewContenW: CGFloat = 0
     
     /// 边框及底部颜色
-    fileprivate var waveBackgroundColor = UIColor.blue {
+    var waveBackgroundColor = UIColor.colorWithHexString("2b95ff") {
         didSet {
             layer.borderWidth = 3.0
             layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
@@ -52,18 +52,20 @@ class CutBarWaveView: UIView {
             setNeedsDisplay()
         }
     }
+    
     /// 声波的颜色
-    fileprivate var waveStrokeColor = UIColor.orange {
+    var waveStrokeColor = UIColor.darkGray {
         didSet {
             
         }
     }
-    fileprivate var waveHightStrokeColor = UIColor.lightGray {
+    
+    var waveHightStrokeColor = UIColor.white {
         didSet {
             
         }
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()

@@ -37,7 +37,8 @@ class SeletceDubViewController: UITableViewController {
         title = "增加配乐"
         tableView.delegate = self
         tableView.dataSource = self
-        
+        tableView.rowHeight = 60
+        tableView.tableFooterView = UIView()
         for dubURL in dubURLArray {
             titleNameArray.append(dubURL.lastPathComponent.components(separatedBy: ".").first!)
         }
@@ -47,8 +48,14 @@ class SeletceDubViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillAppear(animated)        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+        player?.pause()
+        oldBtn?.isSelected = false
     }
     
     
@@ -67,9 +74,10 @@ extension SeletceDubViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SeletceDubTabelViewCell", for: indexPath)
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "SeletceDubTabelViewCell")
         cell.textLabel?.text = titleNameArray[indexPath.row]
         cell.detailTextLabel?.text = "00:30"
+        cell.imageView?.image = #imageLiteral(resourceName: "select_dub_add-music1")
         btn = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         btn.setImage(#imageLiteral(resourceName: "select_dub_add-music3"), for: .normal)
         btn.setTitle("试听", for: .normal)
@@ -115,11 +123,20 @@ extension SeletceDubViewController {
     }
     
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "推荐配乐"
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return "推荐配乐"
+//    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "      推荐配乐"
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = UIColor.gray
+        label.sizeToFit()
+        return label
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return 40
     }
 }

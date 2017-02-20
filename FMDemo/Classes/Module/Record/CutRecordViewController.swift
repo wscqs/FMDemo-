@@ -33,7 +33,7 @@ class CutRecordViewController: UIViewController {
     var thumbPointXIndex: Int = 0 {
         didSet {
             playTime = Double(thumbPointXIndex) * 0.2
-            player.currentTime = playTime
+//            player.currentTime = playTime
         }
     }
     var totalTime: TimeInterval = 0
@@ -125,7 +125,9 @@ extension CutRecordViewController {
         if sender.isSelected { // 播放状态
             listenStatusLabel.text = "暂停"
             listenShowTimeLabel.isHidden = false
-            thumbPointXIndex == 0 ? startPlay() : continuePlay()
+            
+            player.currentTime = playTime
+            continuePlay()
             
         } else {
             listenShowTimeLabel.isHidden = true
@@ -167,13 +169,6 @@ extension CutRecordViewController {
 
 extension CutRecordViewController {
     
-    func startPlay() {
-//        sliderTime = kWaveTime
-        thumbPointXIndex = 0
-        player?.startPlay()
-        continueTimer()
-    }
-    
     func pausePlay() {
         player?.pausePlay()
         pauseTimer()
@@ -202,6 +197,7 @@ extension CutRecordViewController: CutBarWaveViewDelegate {
 
         self.thumbPointXIndex = thumbPointXIndex
         self.cutTime = Double(thumbPointXIndex) * 0.2
+        player.currentTime = playTime
         timeLabel.text = "\(cutTime.getFormatTime())-\(totalTime.getFormatTime())"
         setSpannerImg()
     }
