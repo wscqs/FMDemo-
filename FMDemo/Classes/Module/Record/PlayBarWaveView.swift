@@ -10,21 +10,15 @@ import UIKit
 
 class PlayBarWaveView: UIView {
     
-    var pointArray: Array<CGFloat>? {
+    var pointXArray: Array<CGFloat>? {
         didSet{
-            guard let pointArray = pointArray else {
+            guard let pointXArray = pointXArray else {
                 return
             }
-            slider.maximumValue = Float(pointArray.count)
+            slider.maximumValue = Float(pointXArray.count)
             setNeedsDisplay()
         }
     }
-    
-//    var value: Float = 0 {
-//        didSet {
-//            slider.setValue(value, animated: true)
-//        }
-//    }
     
     var slider: UISlider = NoGapSlider()
     
@@ -90,10 +84,10 @@ class PlayBarWaveView: UIView {
     
     override func draw(_ rect: CGRect) {
         
-        guard let pointArray = pointArray  else {
+        guard let pointXArray = pointXArray  else {
             return
         }
-        if pointArray.count == 0 {return}
+        if pointXArray.count == 0 {return}
 
         // 下面方法，第一个参数表示区域大小。第二个参数表示是否是非透明的。如果需要显示半透明效果，需要传NO，否则传YES。第三个参数就是屏幕密度了
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
@@ -102,8 +96,8 @@ class PlayBarWaveView: UIView {
         let boundsH = self.bounds.size.height
         let boundsW = self.bounds.size.width
         
-        if CGFloat(pointArray.count * 4) > boundsW {
-            widthScaling = boundsW / CGFloat(pointArray.count * 4)
+        if CGFloat(pointXArray.count * 4) > boundsW {
+            widthScaling = boundsW / CGFloat(pointXArray.count * 4)
         }
         
         
@@ -116,15 +110,15 @@ class PlayBarWaveView: UIView {
         kLineWidth = kLineWidth * widthScaling
         context.setLineWidth(kLineWidth)
         let spaceW = kLineWidth * 2
-        for i in 0 ..< pointArray.count {
+        for i in 0 ..< pointXArray.count {
             let x = CGFloat(i) * spaceW
             context.move(to: CGPoint(x: x, y: boundsH))
-            context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointArray[i])))
+            context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
         }
 
-        slider.frame = CGRect(x: 0, y: 0, width: CGFloat(pointArray.count) * spaceW , height: boundsH)
+        slider.frame = CGRect(x: 0, y: 0, width: CGFloat(pointXArray.count) * spaceW , height: boundsH)
         
-        let numberOfSteps = pointArray.count
+        let numberOfSteps = pointXArray.count
         slider.maximumValue = Float(numberOfSteps)
         slider.minimumValue = 0
         slider.value = 0

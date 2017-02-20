@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8J6-YO-J3a">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8J6-YO-J3a">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -404,7 +404,7 @@
                                                     <color key="titleColor" red="0.32156862749999998" green="0.73333333329999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="1Ch-eJ-mbS" kind="push" id="aHA-SP-mhF"/>
+                                                    <segue destination="1Ch-eJ-mbS" kind="push" identifier="CutRecordViewController" id="aHA-SP-mhF"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQO-10-yle" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
@@ -716,7 +716,7 @@
                                     <constraint firstItem="rym-An-Y0N" firstAttribute="centerX" secondItem="F6o-qw-T5b" secondAttribute="centerX" id="qhc-Mb-CHj"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QBm-44-7uX" customClass="BarWaveView" customModule="FMDemo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QBm-44-7uX" customClass="CutBarWaveView" customModule="FMDemo" customModuleProvider="target">
                                 <rect key="frame" x="10" y="370" width="300" height="68"/>
                                 <color key="backgroundColor" red="0.1960784314" green="0.59607843140000005" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -786,13 +786,21 @@
                                     <constraint firstAttribute="height" constant="20" id="uIc-X9-N63"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在试听00:05/00:10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UdN-xx-WH2">
+                                <rect key="frame" x="78" y="446" width="164" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QBm-44-7uX" firstAttribute="top" secondItem="SqG-fO-6Up" secondAttribute="bottom" constant="8" id="1fb-QA-Zal"/>
                             <constraint firstAttribute="trailing" secondItem="QBm-44-7uX" secondAttribute="trailing" constant="10" id="3ib-fy-59o"/>
+                            <constraint firstItem="UdN-xx-WH2" firstAttribute="centerX" secondItem="QBm-44-7uX" secondAttribute="centerX" id="6Qc-fz-Itl"/>
                             <constraint firstItem="SqG-fO-6Up" firstAttribute="trailing" secondItem="QBm-44-7uX" secondAttribute="trailing" id="IbK-AV-hDr"/>
                             <constraint firstAttribute="trailing" secondItem="Cc6-y2-B46" secondAttribute="trailing" id="K0i-GL-URe"/>
+                            <constraint firstItem="UdN-xx-WH2" firstAttribute="top" secondItem="QBm-44-7uX" secondAttribute="bottom" constant="8" id="M5n-s5-Aag"/>
                             <constraint firstItem="bpt-hs-0YN" firstAttribute="leading" secondItem="PqG-V7-B03" secondAttribute="leading" id="P5g-8d-emU"/>
                             <constraint firstItem="QBm-44-7uX" firstAttribute="leading" secondItem="PqG-V7-B03" secondAttribute="leading" constant="10" id="PUL-dj-V8w"/>
                             <constraint firstItem="Cc6-y2-B46" firstAttribute="leading" secondItem="PqG-V7-B03" secondAttribute="leading" id="hbQ-3D-Fmi"/>
@@ -804,6 +812,16 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="课程裁剪" id="YUv-KX-hH6"/>
+                    <connections>
+                        <outlet property="bannerImg" destination="fb9-xh-W8W" id="C89-wq-chR"/>
+                        <outlet property="cutBtn" destination="Ttc-eT-P0s" id="rsZ-cs-lrL"/>
+                        <outlet property="listenPlayBtn" destination="bRn-Q6-Qbj" id="heu-t1-THk"/>
+                        <outlet property="listenShowTimeLabel" destination="UdN-xx-WH2" id="ehj-6k-Edc"/>
+                        <outlet property="listenStatusLabel" destination="CDC-sX-hgV" id="4f6-if-IKw"/>
+                        <outlet property="slider" destination="QBm-44-7uX" id="hPb-c4-iMo"/>
+                        <outlet property="sliderTimeLabel" destination="bW9-xg-cLt" id="w52-eX-DQ3"/>
+                        <outlet property="timeLabel" destination="F6o-qw-T5b" id="8PK-u0-2HR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hZD-bF-eAs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1112,6 +1130,6 @@
         <image name="wxbtn" width="180" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="H7j-cN-nGS"/>
+        <segue reference="aHA-SP-mhF"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -29,7 +29,6 @@ class CutBarWaveView: UIView {
     fileprivate var scrollView = UIScrollView()
     fileprivate var thumbBarImage: UIImageView = UIImageView()
     fileprivate var thumbPointXIndex: Int = 0
-    fileprivate var thumbCenterX: CGFloat = 0
 //    fileprivate var playMaxiBarTrackImage: UIImage = UIImage()
 //    fileprivate var playMiniBarTrackImage: UIImage = UIImage()
     
@@ -98,7 +97,7 @@ class CutBarWaveView: UIView {
 
         
         addSubview(thumbBarImage)
-        thumbBarImage.image = UIImage(named: "line")
+        thumbBarImage.image = #imageLiteral(resourceName: "record_volume_control_ico")
         
         thumbBarImage.isUserInteractionEnabled = true
         let panGes = UIPanGestureRecognizer(target: self, action: #selector(actionPan(sender:)))
@@ -120,7 +119,6 @@ class CutBarWaveView: UIView {
         newCenter.x = max(space, newCenter.x)
         newCenter.x = min(min(scrollViewContenW - space, boundsW - space), newCenter.x)
         sender.view?.center = newCenter
-        thumbCenterX = newCenter.x
         sender.setTranslation(CGPoint.zero, in: self)
         updateCutView()
     }
@@ -188,15 +186,16 @@ class CutBarWaveView: UIView {
         } else {
             thumbBarX = scrollView.contentSize.width - spaceW * 5 * minSecond
         }
-        thumbBarImage.frame = CGRect(x: thumbBarX, y: 0, width: 5, height: bounds.height)
+        thumbBarImage.frame = CGRect(x: thumbBarX, y: 0, width: 20, height: bounds.height)
     }
     
     fileprivate func updateCutView() {
         let point = thumbBarImage.convert(CGPoint(x: 0, y: 0), from: scrollView)
         thumbPointXIndex = Int(-point.x / spaceW)
         slider.value = Float(thumbPointXIndex)
-
-        delegate?.changceTimeLabel(cutBarWaveView: self, centerX: thumbCenterX, thumbPointXIndex: thumbPointXIndex)
+        
+        let transPoint = thumbBarImage.convert(CGPoint(x: 0, y: 0), from: self)
+        delegate?.changceTimeLabel(cutBarWaveView: self, centerX: -transPoint.x + thumbBarImage.bounds.size.width/2, thumbPointXIndex: thumbPointXIndex)
     }
 }
 

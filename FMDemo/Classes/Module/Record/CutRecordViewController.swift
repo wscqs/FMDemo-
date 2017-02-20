@@ -2,7 +2,7 @@
 //  CutRecordViewController.swift
 //  FMDemo
 //
-//  Created by mba on 17/2/6.
+//  Created by mba on 17/1/25.
 //  Copyright © 2017年 mbalib. All rights reserved.
 //
 
@@ -10,31 +10,65 @@ import UIKit
 import AVFoundation
 
 class CutRecordViewController: UIViewController {
-    
     var url: URL?
-    var pointArray: [CGFloat]? = [0.696240305900574, 0.696240305900574, 0.696240305900574, 0.696240305900574, 0.696240305900574, 0.44433605670929, 0.249422714114189, 0.149287849664688, 0.120376735925674, 0.120376735925674, 0.120376735925674, 0.205947756767273, 0.261922419071198, 0.261922419071198, 0.261922419071198, 0.261922419071198, 0.261922419071198, 0.147027000784874, 0.0880005806684494, 0.0493980683386326, 0.029566403478384, 0.00566995795816183, 0.0097912959754467, 0.0097912959754467, 0.0116009945049882, 0.0250983666628599, 0.0250983666628599, 0.135464236140251, 0.135464236140251, 0.135464236140251, 0.135464236140251, 0.135464236140251, 0.081079863011837, 0.0455132201313972, 0.0322628356516361, 0.0322628356516361, 0.064118854701519, 0.064118854701519, 0.064118854701519, 0.064118854701519, 0.06013423204422, 0.0668420121073723, 0.0668420121073723, 0.0668420121073723, 0.0668420121073723, 0.055138848721981, 0.030951539054513, 0.0340068563818932, 0.039409264922142, 0.039409264922142, 0.039409264922142, 0.039409264922142, 0.039409264922142, 0.0235877744853497, 0.0132407136261463, 0.0128546329215169, 0.0128546329215169, 0.0128546329215169, 0.0128546329215169, 0.0106039550155401, 0.00939829740673304, 0.0107546709477901, 0.0107546709477901, 0.0121961031109095, 0.0130802737548947, 0.0130802737548947, 0.0130802737548947, 0.0130802737548947, 0.0130802737548947, 0.00900998059660196, 0.00900998059660196, 0.0149638624861836, 0.02615518681705, 0.0372387617826462, 0.0372387617826462, 0.0464773364365101, 0.0464773364365101, 0.0464773364365101, 0.0464773364365101, 0.0464773364365101, 0.0359571613371372, 0.021521570160985, 0.0120808742940426, 0.016248544678092, 0.016248544678092, 0.016248544678092, 0.016248544678092, 0.0142917903140187, 0.00802252721041441, 0.00884392485022545, 0.0107653513550758, 0.0107653513550758, 0.0107653513550758, 0.0107653513550758, 0.0100963488221169, 0.010274974629283, 0.0105596892535686, 0.0105596892535686, 0.0105596892535686, 0.0105596892535686, 0.0111185926944017, 0.0111185926944017, 0.0111185926944017, 0.0111185926944017, 0.0111185926944017, 0.00881586782634258, 0.00922708492726088, 0.00922708492726088, 0.111367024481297, 0.111367024481297, 0.111367024481297, 0.111367024481297, 0.111367024481297, 0.0710737109184265, 0.0398963838815689, 0.0238793194293976, 0.0134043730795383, 0.00802296306937933, 0.00841098092496395, 0.00853606034070253, 0.00933864712715149, 0.0247261859476566, 0.0247261859476566]
-    
-    @IBOutlet weak var slider: CutBarWaveView!
-    @IBOutlet weak var listenPlayBtn: UIButton!
-    @IBOutlet weak var cutBtn: UIButton!
-    @IBOutlet weak var savaBtn: UIButton!
-    @IBOutlet weak var timeLabel: UILabel!
-    
-    var sliderTime: TimeInterval = 0 {
-        didSet{
-            player?.currentTime = sliderTime
-            updateTime()
+    var pointXArray: [CGFloat]?{
+        didSet {
+            totalTime = Double(pointXArray?.count ?? 0) * 0.2
         }
     }
     
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var bannerImg: UIImageView!
+    @IBOutlet weak var sliderTimeLabel: UILabel!
+    @IBOutlet weak var slider: CutBarWaveView!
+    @IBOutlet weak var listenShowTimeLabel: UILabel!
+    
+    @IBOutlet weak var listenPlayBtn: UIButton!
+    @IBOutlet weak var listenStatusLabel: UILabel!
+    @IBOutlet weak var cutBtn: UIButton!
+//    @IBOutlet weak var savaBtn: UIButton!
+    
+    /// 保存点击图片
+    var imgDictArray: [[Int:UIImage]] = [[Int:UIImage]]()
+    var thumbPointXIndex: Int = 0 {
+        didSet {
+            playTime = Double(thumbPointXIndex) * 0.2
+            player.currentTime = playTime
+        }
+    }
+    var totalTime: TimeInterval = 0
+    var playTime: TimeInterval = 0
+    var cutTime: TimeInterval = 0
+    
+    func setSpannerImg() {
+        for imgDict in imgDictArray {
+            guard let image = imgDict[thumbPointXIndex] else { continue }
+            bannerImg.image = image
+            let transition = CATransition()
+            transition.duration = 0.5
+            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+            transition.type = kCATransitionFade
+            bannerImg.layer.add(transition, forKey: nil)
+            break
+        }
+    }
+    
+//    var sliderTime: TimeInterval = 0 {
+//        didSet{
+//            player?.currentTime = sliderTime
+//            updateTime()
+//        }
+//    }
+    
+    /// 播放的计时器
     var sliderTimer: Timer?
-    var tipTimer: Timer?
+//    var tipTimer: Timer?
     var player: MBAAudioPlayer!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setup()
+        setup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,36 +77,35 @@ class CutRecordViewController: UIViewController {
             return
         }
         player = MBAAudioPlayer(contentsOf: url)
-        player.player?.delegate = self
-        
-        slider.pointXArray = pointArray
-        
-        
-        initStatus()
-        actionPlayClick(sender: listenPlayBtn)
-        
+        slider.pointXArray = pointXArray
+        slider.delegate = self
+        timeLabel.text = "00:00-\(TimeTool.getFormatTime(timerInval: totalTime))"
+        initTimer()
+        pauseTimer()
     }
     
-    func initStatus() {
-        //        slider.slider.minimumValue = 0
-        //        slider.slider.maximumValue = Float(player.duration)
-        //        slider.slider.value = 0
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        pausePlay()
     }
     
-    func updateTime() {
-        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime))//player.currentTime  第一秒0.9几
-        let endTime = TimeTool.getFormatTime(timerInval: player.duration)
-        timeLabel.text = "\(playTime)\\\(endTime)"
-//        slider.slider.setValue(Float(player.currentTime / player.duration * Double(pointArray?.count ?? 0)), animated: true)
-//        slider.setPlayProgress(thumbPointXIndex: <#T##Int#>)
+    func updateTime() {        
+        if thumbPointXIndex >= (pointXArray?.count ?? 0){
+            stopPlay()
+            thumbPointXIndex = Int(self.cutTime / 0.2)
+            bannerImg.image = #imageLiteral(resourceName: "record_bannerBg")
+            listenShowTimeLabel.isHidden = true
+            return
+        }
+        
+        thumbPointXIndex = thumbPointXIndex + 1
+        slider.setPlayProgress(thumbPointXIndex: thumbPointXIndex)
+        listenShowTimeLabel.text = "\(playTime.getFormatTime())-\(totalTime.getFormatTime())"
+        setSpannerImg()
     }
     
     func sliderTimerEvent() {
-        //        let sliderTime = player.currentTime
         updateTime()
-        if player.currentTime >= player.duration {
-            stopPlay()
-        }
     }
     
 }
@@ -80,7 +113,7 @@ class CutRecordViewController: UIViewController {
 extension CutRecordViewController {
     func setup() {
         listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
-        savaBtn.addTarget(self, action: #selector(actionSave), for: .touchUpInside)
+        listenPlayBtn.adjustsImageWhenHighlighted = false
         cutBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
     }
 }
@@ -90,49 +123,22 @@ extension CutRecordViewController {
     func actionPlayClick(sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected { // 播放状态
-            
-            player.currentTime == 0 ? startPlay() : continuePlay()
+            listenStatusLabel.text = "暂停"
+            listenShowTimeLabel.isHidden = false
+            thumbPointXIndex == 0 ? startPlay() : continuePlay()
             
         } else {
+            listenShowTimeLabel.isHidden = true
+            listenStatusLabel.text = "播放"
             pausePlay()
         }
     }
     
-    func actionSave() {
-        //        let url = isCuted ? mergeExportURL : MBAAudio.url
-        //        MBAAudioUtil.changceToMp3(of: url, mp3Name: "我")
-        
-        let alertController = UIAlertController(title: nil, message: "给课程起个名字吧", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
-            //            print(alertController.textFields?.first?.text)
-        }
-        alertController.addAction(okAction)
-        alertController.addTextField { (textFiled) in
-            textFiled.clearButtonMode = .whileEditing
-        }
-        present(alertController, animated: true, completion: nil)
-    }
-    
     
     func actionCut(sender: UIButton) {
-        pausePlay()
-        
+        //        pausePlay()
     }
     
-    func actionSlider(sender: UISlider) {
-        pausePlay()
-        let progress = Double(sender.value) / Double(pointArray?.count ?? 0)
-        player.currentTime = TimeInterval(progress * player.duration)
-        sliderTime = player.currentTime
-        if listenPlayBtn.isSelected {// 在播放中
-            continuePlay()
-        } else {
-            
-        }
-        
-    }
 }
 
 extension CutRecordViewController {
@@ -142,33 +148,30 @@ extension CutRecordViewController {
     }
     
     func pauseTimer() {
-        tipTimer?.fireDate = Date.distantFuture
+//        tipTimer?.fireDate = Date.distantFuture
         sliderTimer?.fireDate = Date.distantFuture
     }
     
     func continueTimer() {
-        tipTimer?.fireDate = Date()
+//        tipTimer?.fireDate = Date()
         sliderTimer?.fireDate = Date()
     }
     
     func stopTimer() {
         sliderTimer?.invalidate()
         sliderTimer = nil
-        tipTimer?.invalidate()
-        tipTimer = nil
+//        tipTimer?.invalidate()
+//        tipTimer = nil
     }
 }
 
 extension CutRecordViewController {
     
-    //    func initPlay() {
-    //        sliderTime = 0
-    //    }
-    
     func startPlay() {
-        sliderTime = kWaveTime
+//        sliderTime = kWaveTime
+        thumbPointXIndex = 0
         player?.startPlay()
-        initTimer()
+        continueTimer()
     }
     
     func pausePlay() {
@@ -184,19 +187,34 @@ extension CutRecordViewController {
     func stopPlay() {
         pauseTimer()
         listenPlayBtn.isSelected = false
+        listenStatusLabel.text = "播放"
     }
 }
 
+extension CutRecordViewController: CutBarWaveViewDelegate {
+    func changceTimeLabel(cutBarWaveView: CutBarWaveView, centerX: CGFloat, thumbPointXIndex: Int) {
+        
+        let sliderTime = Double(thumbPointXIndex) * 0.2
+        sliderTimeLabel.text = sliderTime.getFormatTime()
+        sliderTimeLabel.sizeToFit()
+        sliderTimeLabel.textAlignment = .center
+        sliderTimeLabel.center = CGPoint(x: centerX, y: 12)
+
+        self.thumbPointXIndex = thumbPointXIndex
+        self.cutTime = Double(thumbPointXIndex) * 0.2
+        timeLabel.text = "\(cutTime.getFormatTime())-\(totalTime.getFormatTime())"
+        setSpannerImg()
+    }
+}
 
 extension CutRecordViewController: AVAudioPlayerDelegate{
     
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        if flag {
-            print("finishS")
-            //            tipTimer?.fireDate = Date.distantFuture
-            stopPlay()
-        } else {
-            print("finishError")
-        }
-    }
+    //    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+    //        if flag {
+    //            print("finishS")
+    //            stopPlay()
+    //        } else {
+    //            print("finishError")
+    //        }
+    //    }
 }

@@ -14,7 +14,7 @@ enum RecordType{
 
 class RecordViewController: UIViewController {
     
-    var pointArray = [CGFloat]()
+    var pointXArray = [CGFloat]()
     // 录音的计时器
 //    var recordTimer: Timer?
 //    var time:TimeInterval = 0
@@ -130,7 +130,7 @@ extension RecordViewController {
     
     
     func initStates() {
-        pointArray.removeAll()
+        pointXArray.removeAll()
         isCuted = false
         voiceURL = nil
         recordMetersTime = 0
@@ -342,7 +342,7 @@ extension RecordViewController {
         recordMetersTime = recordMetersTime + kWaveTime
         initOraginTimeStatue(time: recordMetersTime)
         
-        pointArray.append(CGFloat(MBAAudio.audioPowerChange()))
+        pointXArray.append(CGFloat(MBAAudio.audioPowerChange()))
     }
     
     func updatePower() {
@@ -356,12 +356,13 @@ extension RecordViewController {
         if "PlayRecordViewController" == segue.identifier {
             let playVC = segue.destination as? PlayRecordViewController
             playVC?.url = self.voiceURL
-            playVC?.pointArray = self.pointArray
+            playVC?.pointXArray = self.pointXArray
             playVC?.imgDictArray = self.imgDictArray
         }else if "CutRecordViewController" == segue.identifier {
             let playVC = segue.destination as? CutRecordViewController
             playVC?.url = self.voiceURL
-            playVC?.pointArray = self.pointArray
+            playVC?.pointXArray = self.pointXArray
+            playVC?.imgDictArray = self.imgDictArray
         }
         
     }

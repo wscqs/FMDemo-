@@ -11,7 +11,7 @@ import AVFoundation
 
 class PlayRecordViewController: UIViewController {
     var url: URL?
-    var pointArray: [CGFloat]?
+    var pointXArray: [CGFloat]?
 
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var bannerImg: UIImageView!
@@ -27,7 +27,7 @@ class PlayRecordViewController: UIViewController {
     var imgDictArray: [[Int:UIImage]] = [[Int:UIImage]]()
     var thumbPointXIndex: Int = 0
     var totalTime: TimeInterval {
-        return Double(pointArray?.count ?? 0) * 0.2
+        return Double(pointXArray?.count ?? 0) * 0.2
     }
     
     func setSpannerImg() {
@@ -67,7 +67,7 @@ class PlayRecordViewController: UIViewController {
         }
         player = MBAAudioPlayer(contentsOf: url)
         player.player?.delegate = self
-        slider.pointArray = pointArray
+        slider.pointXArray = pointXArray
         actionPlayClick(sender: listenPlayBtn)
         totalTimeLabel.text = TimeTool.getFormatTime(timerInval: totalTime)
     }
@@ -81,9 +81,9 @@ class PlayRecordViewController: UIViewController {
 //        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime))//player.currentTime  第一秒0.9几
 ////        let endTime = TimeTool.getFormatTime(timerInval: player.duration)
 //        timeLabel.text = "\(playTime)"
-//        slider.value = Float(player.currentTime / player.duration * Double(pointArray?.count ?? 0))
+//        slider.value = Float(player.currentTime / player.duration * Double(pointXArray?.count ?? 0))
         
-        if thumbPointXIndex >= (pointArray?.count ?? 0) - 1 {
+        if thumbPointXIndex >= (pointXArray?.count ?? 0){
             stopPlay()
             thumbPointXIndex = 0
             bannerImg.image = #imageLiteral(resourceName: "record_bannerBg")
@@ -138,9 +138,9 @@ extension PlayRecordViewController {
     func actionSlider(sender: UISlider) {
         pausePlay()
         thumbPointXIndex = Int(sender.value)
-        let progress = Double(sender.value) / Double(pointArray?.count ?? 0)
-        player.currentTime = TimeInterval(progress * player.duration)
-        sliderTime = player.currentTime
+//        let progress = Double(sender.value) / Double(pointXArray?.count ?? 0)
+//        player.currentTime = TimeInterval(progress * player.duration)
+        sliderTime = Double(thumbPointXIndex) * 0.2
         if listenPlayBtn.isSelected {// 在播放中
             continuePlay()
         } else {
