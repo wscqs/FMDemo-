@@ -40,6 +40,7 @@ class QSNavigationController: UINavigationController, UIGestureRecognizerDelegat
 
         if childViewControllers.count > 0 {
             backBtn.contentEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
+            backBtn.adjustsImageWhenHighlighted = false
             
             viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
             viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)

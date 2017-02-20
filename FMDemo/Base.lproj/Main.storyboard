@@ -358,6 +358,9 @@
                                         <state key="normal" title="  添加配乐" image="record_volume2_ico" backgroundImage="record_dub_music_btn">
                                             <color key="titleColor" red="0.32156862745098036" green="0.73333333333333328" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="D0Y-kt-VCy" kind="push" id="iC9-Yz-m7T"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -531,6 +534,55 @@
                 <exit id="URt-GB-L1L" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1895.625" y="36.971830985915496"/>
+        </scene>
+        <!--添加配乐-->
+        <scene sceneID="0af-Ub-6ia">
+            <objects>
+                <tableViewController id="D0Y-kt-VCy" customClass="SeletceDubViewController" customModule="FMDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="63" sectionHeaderHeight="18" sectionFooterHeight="18" id="vcE-8X-xut">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SeletceDubTabelViewCell" textLabel="eSH-vB-CSI" detailTextLabel="tkD-9B-rPw" imageView="RJH-J1-EUT" rowHeight="63" style="IBUITableViewCellStyleSubtitle" id="pMd-3G-vHr">
+                                <rect key="frame" x="0.0" y="56" width="320" height="63"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pMd-3G-vHr" id="uIh-tF-pJC">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eSH-vB-CSI">
+                                            <rect key="frame" x="65" y="13" width="34" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.16078431372549018" green="0.16078431372549018" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="select_dub_add-music1" id="RJH-J1-EUT">
+                                            <rect key="frame" x="15" y="13" width="35" height="35"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tkD-9B-rPw">
+                                            <rect key="frame" x="65" y="34" width="44" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="D0Y-kt-VCy" id="M35-8n-C7Q"/>
+                            <outlet property="delegate" destination="D0Y-kt-VCy" id="3Vw-mi-6D3"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="添加配乐" id="1Pz-Mh-8Gw"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pta-Ar-Xdk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2124" y="-621"/>
         </scene>
         <!--课程试听-->
         <scene sceneID="jNa-To-ZVe">
@@ -1125,6 +1177,7 @@
         <image name="record_tool4_ico" width="35" height="35"/>
         <image name="record_volume2_ico" width="18" height="18"/>
         <image name="recording_ico" width="55" height="55"/>
+        <image name="select_dub_add-music1" width="35" height="35"/>
         <image name="sound1_ico" width="18" height="18"/>
         <image name="sound2_ico" width="18" height="18"/>
         <image name="wxbtn" width="180" height="50"/>

@@ -109,7 +109,7 @@ extension RecordViewController {
 extension RecordViewController {
     func setup() {
         imgCollectionView.parentVC = self
-        addDubBtn.addTarget(self, action: #selector(actionAddDub), for: .touchUpInside)
+//        addDubBtn.addTarget(self, action: #selector(actionAddDub), for: .touchUpInside)
         recordBtn.addTarget(self, action: #selector(actionRecordClick), for: .touchUpInside)
         listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
         savaBtn.addTarget(self, action: #selector(actionSave), for: .touchUpInside)
@@ -167,9 +167,9 @@ extension RecordViewController {
 // MARK: - action
 extension RecordViewController {
     
-    func actionAddDub() {
-        navigationController?.pushViewController(seletctDubVC, animated: true)
-    }
+//    func actionAddDub() {
+//        navigationController?.pushViewController(seletctDubVC, animated: true)
+//    }
     
     func actionRecordClick(sender: UIButton) {
         sender.isSelected = !sender.isSelected

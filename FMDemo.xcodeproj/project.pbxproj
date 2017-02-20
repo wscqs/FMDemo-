@@ -18,6 +18,7 @@
 		2C435C361E54341C00FDD1E7 /* NoGapSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C351E54341C00FDD1E7 /* NoGapSlider.swift */; };
 		2C58C0981E56ADEE00310C1C /* CutBarWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C58C0971E56ADEE00310C1C /* CutBarWaveView.swift */; };
 		2C664D841E5A897100D9F4BA /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C664D831E5A897100D9F4BA /* TimeInterval+Extension.swift */; };
+		2C664D971E5B10B300D9F4BA /* SeletceDubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C664D961E5B10B300D9F4BA /* SeletceDubViewController.swift */; };
 		2C7818C11DEEA0F4001E3594 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */; };
 		2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C41DEEA0F4001E3594 /* Main.storyboard */; };
 		2C7818C81DEEA0F4001E3594 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C71DEEA0F4001E3594 /* Assets.xcassets */; };
@@ -52,7 +53,6 @@
 		2C97D7A21E4C1B9300FB407F /* CutRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D79E1E4C1B9300FB407F /* CutRecordViewController.swift */; };
 		2C97D7A31E4C1B9300FB407F /* PlayRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D79F1E4C1B9300FB407F /* PlayRecordViewController.swift */; };
 		2C97D7A41E4C1B9300FB407F /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7A01E4C1B9300FB407F /* RecordViewController.swift */; };
-		2C97D7A51E4C1B9300FB407F /* SeletceDubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7A11E4C1B9300FB407F /* SeletceDubViewController.swift */; };
 		2C97D7A81E4C1BBD00FB407F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7A71E4C1BBD00FB407F /* MainViewController.swift */; };
 		2C97D7AF1E4C3F3700FB407F /* QSNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7AE1E4C3F3700FB407F /* QSNavigationController.swift */; };
 		2C97D7BE1E4C441C00FB407F /* UIBarButtonItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7B31E4C441C00FB407F /* UIBarButtonItem+Extensions.swift */; };
@@ -109,6 +109,7 @@
 		2C4CEA781E1DE6D000D0508C /* FMDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FMDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		2C58C0971E56ADEE00310C1C /* CutBarWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutBarWaveView.swift; sourceTree = "<group>"; };
 		2C664D831E5A897100D9F4BA /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
+		2C664D961E5B10B300D9F4BA /* SeletceDubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeletceDubViewController.swift; sourceTree = "<group>"; };
 		2C7818BD1DEEA0F4001E3594 /* FMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C7818C51DEEA0F4001E3594 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -147,7 +148,6 @@
 		2C97D79E1E4C1B9300FB407F /* CutRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutRecordViewController.swift; sourceTree = "<group>"; };
 		2C97D79F1E4C1B9300FB407F /* PlayRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayRecordViewController.swift; sourceTree = "<group>"; };
 		2C97D7A01E4C1B9300FB407F /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
-		2C97D7A11E4C1B9300FB407F /* SeletceDubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeletceDubViewController.swift; sourceTree = "<group>"; };
 		2C97D7A71E4C1BBD00FB407F /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2C97D7AE1E4C3F3700FB407F /* QSNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QSNavigationController.swift; sourceTree = "<group>"; };
 		2C97D7B31E4C441C00FB407F /* UIBarButtonItem+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extensions.swift"; sourceTree = "<group>"; };
@@ -427,7 +427,7 @@
 				2C58C0971E56ADEE00310C1C /* CutBarWaveView.swift */,
 				2C97D79F1E4C1B9300FB407F /* PlayRecordViewController.swift */,
 				47E9246D1E59E3FC00A4C325 /* PlayBarWaveView.swift */,
-				2C97D7A11E4C1B9300FB407F /* SeletceDubViewController.swift */,
+				2C664D961E5B10B300D9F4BA /* SeletceDubViewController.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -696,6 +696,7 @@
 				2C97D7D31E4C5E3100FB407F /* CourceMainViewController.swift in Sources */,
 				2C94E8021E277C7A00D539DC /* MBACache.swift in Sources */,
 				2C97D7A81E4C1BBD00FB407F /* MainViewController.swift in Sources */,
+				2C664D971E5B10B300D9F4BA /* SeletceDubViewController.swift in Sources */,
 				2C0239C11E4B06FC00CD6008 /* BaseModel.swift in Sources */,
 				2C435C2B1E51D0D200FDD1E7 /* RecordImgCollectionView.swift in Sources */,
 				2C97D7C11E4C441C00FB407F /* UIImage+Extension.swift in Sources */,
@@ -713,7 +714,6 @@
 				2C97D7CF1E4C586900FB407F /* MainTableViewCell.swift in Sources */,
 				2C97D79B1E4C1B6A00FB407F /* LoginViewController.swift in Sources */,
 				2C435C2A1E51D0D200FDD1E7 /* RecordImgCollectionCell.swift in Sources */,
-				2C97D7A51E4C1B9300FB407F /* SeletceDubViewController.swift in Sources */,
 				2C97D7F71E502B3F00FB407F /* SettingViewController.swift in Sources */,
 				2C664D841E5A897100D9F4BA /* TimeInterval+Extension.swift in Sources */,
 				2C97D7E61E4D5AE700FB407F /* ColorCommon.swift in Sources */,
