@@ -24,9 +24,8 @@ class RecordSoundSliderView: UISlider {
     
     func setUI() {
         self.frame = bounds
-        
-        setMaximumTrackImage(#imageLiteral(resourceName: "sound_slidervolume_gray90").resizableImage(withCapInsets: .zero), for: .normal)
-        setMinimumTrackImage(#imageLiteral(resourceName: "sound_slidervolume_blue90").resizableImage(withCapInsets: .zero), for: .normal)
+        setMinimumTrackImage(#imageLiteral(resourceName: "sound_slidervolume_gray90").resizableImage(withCapInsets: .zero), for: .normal)
+        setMaximumTrackImage(#imageLiteral(resourceName: "sound_slidervolume_blue90").resizableImage(withCapInsets: .zero), for: .normal)
         setThumbImage(#imageLiteral(resourceName: "sound_slider_thum"), for: .normal)
         isUserInteractionEnabled = false
         value = 0

@@ -132,7 +132,21 @@ extension PlayRecordViewController {
     
     
     func actionCut(sender: UIButton) {
-//        pausePlay()
+        pausePlay()
+        
+        
+        let cutVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CutRecordViewController") as? CutRecordViewController
+        cutVC?.url = self.url
+        cutVC?.pointXArray = self.pointXArray
+        cutVC?.imgDictArray = self.imgDictArray
+        
+        navigationController?.pushViewController(cutVC!, animated: true)
+        for i in 0 ..< (navigationController?.viewControllers.count ?? 0){
+            if navigationController?.viewControllers[i] is PlayRecordViewController {
+                navigationController?.viewControllers.remove(at: i)
+                break
+            }
+        }
     }
     
     func actionSlider(sender: UISlider) {
@@ -199,6 +213,23 @@ extension PlayRecordViewController {
     }
 }
 
+
+extension PlayRecordViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if "CutRecordViewController1" == segue.identifier {
+            let playVC = segue.destination as? CutRecordViewController
+            playVC?.url = self.url
+            playVC?.pointXArray = self.pointXArray
+            playVC?.imgDictArray = self.imgDictArray
+            for i in 0 ..< (navigationController?.viewControllers.count ?? 0){
+                if navigationController?.viewControllers[i] is PlayRecordViewController {
+                    navigationController?.viewControllers.remove(at: i)
+                    break
+                }
+            }
+        }
+    }
+}
 
 extension PlayRecordViewController: AVAudioPlayerDelegate{
     

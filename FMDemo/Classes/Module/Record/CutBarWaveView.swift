@@ -25,7 +25,7 @@ class CutBarWaveView: UIView {
     }
     var minSecond: CGFloat = 3.0
     
-    fileprivate var slider: UISlider = UISlider()
+    fileprivate var slider = UISlider()
     fileprivate var scrollView = UIScrollView()
     fileprivate var thumbBarImage: UIImageView = UIImageView()
     fileprivate var thumbPointXIndex: Int = 0

@@ -60,7 +60,6 @@ extension RecordImgCollectionView: RecordImgCollectionCellDelegate {
             return
         }
         self.recordImgArray?.remove(at: row)
-        deleteItems(at: [indexPath!])
     }
 }
 
@@ -88,6 +87,11 @@ extension RecordImgCollectionView: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if (parentVC?.recordBtn.isSelected ?? true) {
+            return
+        }
+        
         let model = recordImgArray?[indexPath.row]
         // 保存图片点击状态
         parentVC?.saveImgClick(image: (model?.img)!)
@@ -136,7 +140,6 @@ extension RecordImgCollectionView: UIImagePickerControllerDelegate, UINavigation
             picker.dismiss(animated: true, completion: nil)
             let model = RecordImgModel(img: image, isTapStatus: false, isEditStatus: false)
             recordImgArray?.append(model)
-            reloadData()
           
             //先把图片转成NSData
             //            let data = UIImageJPEGRepresentation(image, 0.5)

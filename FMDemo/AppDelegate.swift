@@ -9,6 +9,7 @@
 import UIKit
 //import WechatKit
 import UserNotifications
+//import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupGlobalStyle()        // 配置全局样式
         setupGlobalData()         // 配置全局数据
         setupRootViewController() // 配置控制器
-        
+//        setupKeyBoardManager() //配置全局键盘
         return true
     }
     
@@ -102,5 +103,12 @@ extension AppDelegate {
         
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
     }
+    
+//    /**
+//     配置键盘管理者
+//     */
+//    fileprivate func setupKeyBoardManager() {
+//        IQKeyboardManager.sharedManager().enable = true
+//    }
 }
 

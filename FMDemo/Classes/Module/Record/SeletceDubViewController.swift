@@ -15,7 +15,7 @@ class SeletceDubViewController: UITableViewController {
     var oldBtn:UIButton?
     var btn = UIButton()
     
-    var dubURLArray = [Bundle.main.url(forResource: "节奏2", withExtension: "caf")!,
+    var dubURLArray = [Bundle.main.url(forResource: "配乐1", withExtension: "mp3")!,
                        Bundle.main.url(forResource: "节奏2", withExtension: "caf")!]
     var titleNameArray = [String]()
     
@@ -34,11 +34,14 @@ class SeletceDubViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.backgroundColor = UIColor.colorWithHexString(kGlobalBgColor)
         title = "增加配乐"
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 60
         tableView.tableFooterView = UIView()
+        tableView.separatorStyle = .none
+        
         for dubURL in dubURLArray {
             titleNameArray.append(dubURL.lastPathComponent.components(separatedBy: ".").first!)
         }
@@ -129,7 +132,7 @@ extension SeletceDubViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-        label.text = "      推荐配乐"
+        label.text = "     推荐配乐"
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.gray
         label.sizeToFit()

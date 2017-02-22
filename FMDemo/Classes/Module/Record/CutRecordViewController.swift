@@ -16,6 +16,12 @@ class CutRecordViewController: UIViewController {
             totalTime = Double(pointXArray?.count ?? 0) * 0.2
         }
     }
+    /// 保存点击图片
+    var imgDictArray: [[Int:UIImage]] = [[Int:UIImage]]()
+    
+    
+    /// 剪切后生成的url
+    var cutExportURL: URL?
     
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var bannerImg: UIImageView!
@@ -28,8 +34,7 @@ class CutRecordViewController: UIViewController {
     @IBOutlet weak var cutBtn: UIButton!
 //    @IBOutlet weak var savaBtn: UIButton!
     
-    /// 保存点击图片
-    var imgDictArray: [[Int:UIImage]] = [[Int:UIImage]]()
+
     var thumbPointXIndex: Int = 0 {
         didSet {
             playTime = Double(thumbPointXIndex) * 0.2
@@ -53,13 +58,6 @@ class CutRecordViewController: UIViewController {
         }
     }
     
-//    var sliderTime: TimeInterval = 0 {
-//        didSet{
-//            player?.currentTime = sliderTime
-//            updateTime()
-//        }
-//    }
-    
     /// 播放的计时器
     var sliderTimer: Timer?
 //    var tipTimer: Timer?
@@ -73,6 +71,11 @@ class CutRecordViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if (pointXArray?.count ?? 0 ) < 15 {
+            _ = navigationController?.popViewController(animated: true)
+            MBAToast.show(text: "时间太短，不能剪切")
+            return
+        }
         guard let url = url else {
             return
         }
@@ -138,7 +141,39 @@ extension CutRecordViewController {
     
     
     func actionCut(sender: UIButton) {
-        //        pausePlay()
+         pausePlay()
+        
+        let startCutTime = 0.0
+        let stopCutTime = cutTime
+        
+        MBAAudioUtil.cutAudio(of: url!, startTime: startCutTime, stopTime: stopCutTime) { (cutExportURL) in
+            if let cutExportURL = cutExportURL {
+//                self.mergeExportURL = cutExportURL
+//                self.loadPlay(url: cutExportURL)
+                
+
+                if self.imgDictArray.count > 0 {
+                    
+                    for (index,imgDict) in self.imgDictArray.enumerated() {
+                        for i in self.thumbPointXIndex ..< (self.pointXArray?.count)! {
+                            guard imgDict[i] != nil else { continue }
+                            self.imgDictArray.removeSubrange(Range(uncheckedBounds: (lower: index, upper: self.imgDictArray.count)))
+                            break
+                        }
+                    }
+                }
+                self.pointXArray?.removeSubrange(Range(uncheckedBounds: (lower: self.thumbPointXIndex, upper: (self.pointXArray?.count)!)))
+
+                
+                let notification = Notification(name: Notification.Name(rawValue: "cutComplet"), object: nil, userInfo: ["cutComplet":[cutExportURL,self.pointXArray ?? [],self.imgDictArray]])
+                NotificationCenter.default.post(notification)
+                
+                _ = self.navigationController?.popViewController(animated: true)
+                print(cutExportURL)
+            } else {
+                print("剪切失败")
+            }
+        }
     }
     
 }
@@ -201,16 +236,4 @@ extension CutRecordViewController: CutBarWaveViewDelegate {
         timeLabel.text = "\(cutTime.getFormatTime())-\(totalTime.getFormatTime())"
         setSpannerImg()
     }
-}
-
-extension CutRecordViewController: AVAudioPlayerDelegate{
-    
-    //    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-    //        if flag {
-    //            print("finishS")
-    //            stopPlay()
-    //        } else {
-    //            print("finishError")
-    //        }
-    //    }
 }

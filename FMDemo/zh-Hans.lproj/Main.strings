@@ -1,0 +1,57 @@
+
+/* Class = "UIButton"; normalTitle = "裁剪"; ObjectID = "05U-Uh-g7x"; */
+"05U-Uh-g7x.normalTitle" = "裁剪";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "13H-Fr-YGg"; */
+"13H-Fr-YGg.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UIButton"; normalTitle = "试听"; ObjectID = "3hQ-iN-Epk"; */
+"3hQ-iN-Epk.normalTitle" = "试听";
+
+/* Class = "UIButton"; selectedTitle = "暂停"; ObjectID = "3hQ-iN-Epk"; */
+"3hQ-iN-Epk.selectedTitle" = "暂停";
+
+/* Class = "UINavigationItem"; title = "课程主页"; ObjectID = "5zL-33-Uba"; */
+"5zL-33-Uba.title" = "课程主页";
+
+/* Class = "UIButton"; normalTitle = "录音"; ObjectID = "6bJ-32-MUC"; */
+"6bJ-32-MUC.normalTitle" = "录音";
+
+/* Class = "UIButton"; selectedTitle = "正录音"; ObjectID = "6bJ-32-MUC"; */
+"6bJ-32-MUC.selectedTitle" = "正录音";
+
+/* Class = "UIButton"; normalTitle = "取消"; ObjectID = "8pY-sB-nS9"; */
+"8pY-sB-nS9.normalTitle" = "取消";
+
+/* Class = "UILabel"; text = "00:00"; ObjectID = "BER-Jl-j0g"; */
+"BER-Jl-j0g.text" = "00:00";
+
+/* Class = "UIButton"; normalTitle = "下一步"; ObjectID = "Dze-NH-v2C"; */
+"Dze-NH-v2C.normalTitle" = "下一步";
+
+/* Class = "UINavigationItem"; title = "创建课程"; ObjectID = "ENN-eV-mWd"; */
+"ENN-eV-mWd.title" = "创建课程";
+
+/* Class = "UILabel"; text = "阿斯顿发送到发送到发打发的所发生的"; ObjectID = "JsB-CY-7rG"; */
+"JsB-CY-7rG.text" = "阿斯顿发送到发送到发打发的所发生的";
+
+/* Class = "UIButton"; normalTitle = "保存"; ObjectID = "L1g-J9-zeH"; */
+"L1g-J9-zeH.normalTitle" = "保存";
+
+/* Class = "UIButton"; normalTitle = "退出登录"; ObjectID = "PJC-ko-fb6"; */
+"PJC-ko-fb6.normalTitle" = "退出登录";
+
+/* Class = "UIButton"; normalTitle = "重录"; ObjectID = "QSL-SU-pJR"; */
+"QSL-SU-pJR.normalTitle" = "重录";
+
+/* Class = "UIButton"; normalTitle = "确定"; ObjectID = "Qf6-Ab-3Pw"; */
+"Qf6-Ab-3Pw.normalTitle" = "确定";
+
+/* Class = "UINavigationItem"; title = "智库课堂导师版"; ObjectID = "Svt-Xd-2z4"; */
+"Svt-Xd-2z4.title" = "智库课堂导师版";
+
+/* Class = "UINavigationItem"; title = "设置"; ObjectID = "j1P-6F-p3G"; */
+"j1P-6F-p3G.title" = "设置";
+
+/* Class = "UILabel"; text = "点击"; ObjectID = "t5X-Js-szO"; */
+"t5X-Js-szO.text" = "点击";

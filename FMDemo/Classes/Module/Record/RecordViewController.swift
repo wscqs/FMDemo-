@@ -19,8 +19,13 @@ class RecordViewController: UIViewController {
 //    var recordTimer: Timer?
 //    var time:TimeInterval = 0
     var isCuted: Bool = false
+    var mergeExportURL: URL?
+    
+    /// 上次录音的url
+    var lastRecordURL: URL?
+    
     /// 跳到 播放或裁剪 的url
-    var voiceURL: URL?
+//    var voiceURL: URL?
     // 获取录音频率的计时器 // 0.2 也是录音的时间
     var recordMetersTimer: Timer?
     var recordMetersTime: TimeInterval = 0.0 {
@@ -59,12 +64,29 @@ class RecordViewController: UIViewController {
     @IBOutlet weak var cutBtn: UIButton!
     @IBOutlet weak var savaBtn: UIButton!
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var recordTipsImg: UIImageView!
     let seletctDubVC = SeletceDubViewController()
     let dubPlayView = DubPlayView.dubPlayView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(cutComple(notification:)), name: Notification.Name(rawValue: "cutComplet"), object: nil)
+    }
+    
+    func cutComple(notification: Notification) {
+
+        guard let cutCompleArray = notification.userInfo?["cutComplet"] as? Array<Any> else {
+            return
+        }
+        isCuted = true
+        mergeExportURL = cutCompleArray.first as? URL
+        pointXArray = (cutCompleArray[1] as? [CGFloat])!
+        imgDictArray = (cutCompleArray.last as? [[Int:UIImage]])!
+        recordMetersTime = Double(pointXArray.count) * 0.2
+        initOraginTimeStatue(time: recordMetersTime)
+        lastRecordURL = MBAAudio.url
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,6 +111,11 @@ class RecordViewController: UIViewController {
         startRecord()
     }
     
+    @IBAction func actionCloseTip(_ sender: UIButton) {
+        sender.isHidden = true
+        recordTipsImg.isHidden = true
+    }
+    
     @IBAction func popRecordVC(_ sender: UIStoryboardSegue) {
     }
     
@@ -96,11 +123,6 @@ class RecordViewController: UIViewController {
 
 extension RecordViewController {
     func saveImgClick(image: UIImage) {
-//        let isRecord = true
-//        if !isRecord {
-//            return
-//        }
-        // FIXME:
         bannerImg.image = image
         let imgDict = [thumbPointXIndex: image]
         imgDictArray.append(imgDict)
@@ -113,9 +135,9 @@ extension RecordViewController {
         addDubBtn.adjustsImageWhenHighlighted = false
         addDubBtn.addTarget(self, action: #selector(actionAddDub), for: .touchUpInside)
         recordBtn.addTarget(self, action: #selector(actionRecordClick), for: .touchUpInside)
-        listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
+//        listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
         savaBtn.addTarget(self, action: #selector(actionSave), for: .touchUpInside)
-        cutBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
+//        cutBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
         reRecordBtn.addTarget(self, action: #selector(actionReRecord), for: .touchUpInside)
         
         dubPlayView.delegate = self
@@ -134,7 +156,7 @@ extension RecordViewController {
     func initStates() {
         pointXArray.removeAll()
         isCuted = false
-        voiceURL = nil
+        mergeExportURL = nil
         recordMetersTime = 0
         recordPowerTime = 0
         
@@ -184,38 +206,39 @@ extension RecordViewController {
 
     
     func actionSave() {
-        //        let url = isCuted ? mergeExportURL : MBAAudio.url
-        //        MBAAudioUtil.changceToMp3(of: url, mp3Name: "我")
+        
+        let url = isCuted ? mergeExportURL : MBAAudio.url
+        let mp3url = MBAAudioUtil.changceToMp3(of: url, mp3Name: "cafTomp3")
+        print(mp3url)
 
         let alertController = UIAlertController(title: nil, message: "给课程起个名字吧", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
             guard let saveName = alertController.textFields?.first?.text else {return}
-            //        let url = isCuted ? mergeExportURL : MBAAudio.url
-            //        MBAAudioUtil.changceToMp3(of: url, mp3Name: "我")
             
-            //FIXME:
-            let url =  MBAAudio.url!
             let fileManager = FileManager.default
-            let saveURL = URL(fileURLWithPath: "\(saveName).caf".docSaveRecordDir())
+            let saveURL = URL(fileURLWithPath: "\(saveName).mp3".docSaveRecordDir())
             do {
-                try fileManager.moveItem(at: url, to: saveURL)
+                try fileManager.moveItem(at: mp3url!, to: saveURL)
+                print(saveURL)
             } catch {}
-            
         }
+        
         alertController.addAction(okAction)
         alertController.addTextField { (textFiled) in
             textFiled.clearButtonMode = .whileEditing
         }
         present(alertController, animated: true, completion: nil)
+
     }
+
     
     /// 重新录制
     func actionReRecord() {
-        let alertController = UIAlertController(title: "重新录制", message: "是否重新录制？", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "取消", style: .default, handler:nil)
-        let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: { (action) in
+        let alertController = UIAlertController(title: nil, message: "确定要重录吗？", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler:nil)
+        let alertAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
             print("删除成功")
             self.resetStatus()
         })
@@ -223,15 +246,6 @@ extension RecordViewController {
         alertController.addAction(cancelAction)
         alertController.addAction(alertAction)
         self.present(alertController, animated: true, completion: nil)
-    }
-    
-    //MARK: 点击播放
-    func actionPlayClick(sender: UIButton) {
-        
-    }
-    
-    func actionCut(sender: UIButton) {
-
     }
 }
 
@@ -242,7 +256,7 @@ extension RecordViewController {
         timerInit()
         // 代理设为本身
         MBAAudio.audioRecorder?.delegate = self
-        recordLabel.text = "正在通过麦克风录制"
+        recordBtnShow(isRecord: true)
     }
     
     //继续录音
@@ -253,22 +267,32 @@ extension RecordViewController {
             MBAAudio.continueRecord()
         }
         timerContinue()
-        recordLabel.text = "正在通过麦克风录制"
+        recordBtnShow(isRecord: true)
+    }
+    
+    func recordBtnShow(isRecord: Bool) {
+        if isRecord {
+            recordLabel.text = "正在通过麦克风录制"
+            recordBtn.isSelected = false
+        } else {
+            recordLabel.text = "暂停麦克风录制"
+            recordBtn.isSelected = true
+        }
     }
     
     
     //暂停录音
     func pauseRecord() {
-        recordLabel.text = "暂停麦克风录制"
-        recordBtn.isSelected = true
+        recordBtnShow(isRecord: false)
         MBAAudio.pauseRecord()
         timerPause()
         
         dubPlayView.playPause()
         
         if isCuted { // 如果裁剪过，就合并
-            
-            guard let mergeExportURL = self.voiceURL,
+            if lastRecordURL == MBAAudio.url { return}
+            lastRecordURL = MBAAudio.url
+            guard let mergeExportURL = self.mergeExportURL,
                 let recodedVoiceURL = MBAAudio.url
                 else {
                     print("mergeExportURL error")
@@ -276,13 +300,12 @@ extension RecordViewController {
             }
             MBAAudioUtil.mergeAudio(url1: mergeExportURL, url2: recodedVoiceURL, handleComplet: { (mergeExportURL) in
                 if let mergeExportURL = mergeExportURL {
-//                    self.mergeExportURL = mergeExportURL
-                    self.voiceURL = mergeExportURL
+                    self.mergeExportURL = mergeExportURL
                 }
             })
             
         } else {
-            self.voiceURL = MBAAudio.url
+            self.mergeExportURL = MBAAudio.url
         }
     }
     
@@ -349,8 +372,8 @@ extension RecordViewController {
     }
     
     func updatePower() {
-        topRecordPower.setValue(MBAAudio.audioPowerChange(), animated: true)
-        topMusicPower.setValue(dubPlayView.audioPower, animated: true)
+        topRecordPower.setValue(1 - MBAAudio.audioPowerChange(), animated: true)
+        topMusicPower.setValue(1 - dubPlayView.audioPower, animated: true)
     }
 }
 
@@ -358,12 +381,12 @@ extension RecordViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if "PlayRecordViewController" == segue.identifier {
             let playVC = segue.destination as? PlayRecordViewController
-            playVC?.url = self.voiceURL
+            playVC?.url = self.mergeExportURL
             playVC?.pointXArray = self.pointXArray
             playVC?.imgDictArray = self.imgDictArray
         }else if "CutRecordViewController" == segue.identifier {
             let playVC = segue.destination as? CutRecordViewController
-            playVC?.url = self.voiceURL
+            playVC?.url = self.mergeExportURL
             playVC?.pointXArray = self.pointXArray
             playVC?.imgDictArray = self.imgDictArray
         }
@@ -390,7 +413,18 @@ extension RecordViewController: AVAudioRecorderDelegate{
 
 extension RecordViewController: DubPlayViewDelegate {    
     func changceDubClick(_ dubPlayView: DubPlayView) {
-        navigationController?.pushViewController(seletctDubVC, animated: true)
+        let sheetVc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let canAction = UIAlertAction(title: "关闭", style: .cancel, handler: nil)
+        let changceAction = UIAlertAction(title: "更换配乐", style: .destructive) { (action) in
+            self.navigationController?.pushViewController(self.seletctDubVC, animated: true)
+        }
+        let removeAction = UIAlertAction(title: "移除配乐", style: .default) { (action) in
+            self.dubPlayView.isHidden = true
+        }
+        sheetVc.addAction(canAction)
+        sheetVc.addAction(changceAction)
+        sheetVc.addAction(removeAction)        
+        navigationController?.present(sheetVc, animated: true, completion: nil)
     }
     
     func playBtnClick(_ dubPlayView: DubPlayView, playBtn: UIButton) {

@@ -43,9 +43,50 @@ class CourceMainTableView: BaseTableView {
         
         estimatedRowHeight = 80
         rowHeight = 80
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    fileprivate var alert: UIAlertController?
 }
 
+extension CourceMainTableView {
+    //键盘的出现
+    func keyBoardWillShow(_ notification: Notification){
+        //获取userInfo
+        let kbInfo = notification.userInfo
+        //获取键盘的size
+        let kbRect = (kbInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        //键盘的y偏移量
+        let changeY = kbRect.origin.y - UIScreen.main.bounds.height
+        //键盘弹出的时间
+        let duration = kbInfo?[UIKeyboardAnimationDurationUserInfoKey] as! Double
+        
+        //界面偏移动画
+        UIView.animate(withDuration: duration) {
+            self.alert?.view.transform = CGAffineTransform(translationX: 0, y: changeY/2)
+        }
+    }
+    
+    //键盘的隐藏
+    func keyBoardWillHide(_ notification: Notification){
+        
+//        let kbInfo = notification.userInfo
+//        let kbRect = (kbInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+//        let changeY = kbRect.origin.y
+//        let duration = kbInfo?[UIKeyboardAnimationDurationUserInfoKey] as! Double
+//        
+//        UIView.animate(withDuration: duration) {
+//            self.view.transform = CGAffineTransform.identity
+//        }
+    }
+    
+}
 extension CourceMainTableView {
     func actionAdd(sender: UIButton) {
         let alert = UIAlertController(title: "\n\n", message: "", preferredStyle: .alert)
@@ -57,11 +98,7 @@ extension CourceMainTableView {
             if textView.text.isEmpty { return }
             self.dataArray.append(textView.text)
             let indexPath = IndexPath(row: self.dataArray.count - 1, section: 0)
-            DispatchQueue.main.async {
-                self.insertRows(at: [indexPath], with: .right)
-                self.scrollViewToBottom()
-            }
-            
+            self.insertRows(at: [indexPath], with: .right)            
         })
         alert.addAction(cancelAction)
         alert.addAction(okAction)
@@ -69,15 +106,6 @@ extension CourceMainTableView {
         self.parentVC?.present(alert, animated: true, completion: {
             
         })
-    }
-    
-    func scrollViewToBottom() {
-//        if (self.contentSize.height > self.bounds.size.height) {
-//            let offset = CGPoint(x: 0, y: self.contentSize.height - self.bounds.size.height)
-//            self.setContentOffset(offset, animated: false)
-//        }
-//        let offset = CGPoint(x: CGFloat(0), y: CGFloat(MAXFLOAT))
-//        self.setContentOffset(offset, animated: false)
     }
 }
 
@@ -101,7 +129,6 @@ extension CourceMainTableView: UITableViewDelegate, UITableViewDataSource{
         return view
     }
     
-    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -120,27 +147,30 @@ extension CourceMainTableView: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
+        
         let reNameAction = UITableViewRowAction(style: .normal, title: "编辑") { (action, index) in
 
             let sourceIndex = indexPath.row
             let object = self.dataArray[sourceIndex]
 
-            let alert = UIAlertController(title: "\n\n\n", message: "", preferredStyle: .alert)
-            let textView = BorderTextView(frame: CGRect(x: 5, y: 5, width: 270 - 10, height: 100), textContainer: nil)
+            self.alert = UIAlertController(title: "\n\n", message: "", preferredStyle: .alert)
+            let textView = BorderTextView(frame: CGRect(x: 5, y: 5, width: 270 - 10, height: 80), textContainer: nil)
             textView.setPlaceholder(kCreatTitleString, maxTip: 50)
-            alert.view.addSubview(textView)
+            self.alert?.view.addSubview(textView)
             textView.text = "\(object)"
             let cancelAction = UIAlertAction(title: "取消", style: .default, handler: { (action) in
+                self.endEditing(true)
                 tableView.setEditing(false, animated: false)
             })
             let okAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
+                self.endEditing(true)
                 self.dataArray[sourceIndex] = textView.text
                 tableView.reloadRows(at: [index], with: .right)
             })
-            alert.addAction(cancelAction)
-            alert.addAction(okAction)
-  
-            self.parentVC?.present(alert, animated: true, completion: {
+            self.alert?.addAction(cancelAction)
+            self.alert?.addAction(okAction)
+
+            self.parentVC?.navigationController?.present(self.alert!, animated: true, completion: {
                 
             })
         }
@@ -173,13 +203,14 @@ extension CourceMainTableView: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: CourceMainTableViewCell = dequeueReusableCell(withIdentifier: kMainCellId, for: indexPath) as! CourceMainTableViewCell
+        let cell: CourceMainTableViewCell = tableView.dequeueReusableCell(withIdentifier: kMainCellId, for: indexPath) as! CourceMainTableViewCell
         cell.titleLable.text = dataArray[indexPath.row]
+        cell.selectionStyle = .none
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        parentVC?.pushCourseDetailVC()
+        parentVC?.pushToRecordViewController()
     }
     
 }

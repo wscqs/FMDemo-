@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		2C0239B51E4B02EF00CD6008 /* MBAToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0239B41E4B02EF00CD6008 /* MBAToast.swift */; };
 		2C0239C11E4B06FC00CD6008 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0239B71E4B06FC00CD6008 /* BaseModel.swift */; };
-		2C3A597B1E319CD800EBAD70 /* luyingshort.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C3A59781E319CBC00EBAD70 /* luyingshort.caf */; };
-		2C3A597C1E319CD800EBAD70 /* yicailong.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C3A59791E319CBC00EBAD70 /* yicailong.caf */; };
-		2C3A597D1E319CD800EBAD70 /* yicaishort.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C3A597A1E319CBC00EBAD70 /* yicaishort.caf */; };
 		2C435C2A1E51D0D200FDD1E7 /* RecordImgCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C281E51D0D200FDD1E7 /* RecordImgCollectionCell.swift */; };
 		2C435C2B1E51D0D200FDD1E7 /* RecordImgCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C291E51D0D200FDD1E7 /* RecordImgCollectionView.swift */; };
 		2C435C2F1E52B4B300FDD1E7 /* RecordSoundSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C435C2E1E52B4B300FDD1E7 /* RecordSoundSliderView.swift */; };
@@ -19,6 +16,8 @@
 		2C58C0981E56ADEE00310C1C /* CutBarWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C58C0971E56ADEE00310C1C /* CutBarWaveView.swift */; };
 		2C664D841E5A897100D9F4BA /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C664D831E5A897100D9F4BA /* TimeInterval+Extension.swift */; };
 		2C664D971E5B10B300D9F4BA /* SeletceDubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C664D961E5B10B300D9F4BA /* SeletceDubViewController.swift */; };
+		2C664D991E5D38F900D9F4BA /* 配乐1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C664D981E5D38F900D9F4BA /* 配乐1.mp3 */; };
+		2C664D9C1E5D3DDE00D9F4BA /* Record.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C664D9A1E5D3DDE00D9F4BA /* Record.storyboard */; };
 		2C7818C11DEEA0F4001E3594 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */; };
 		2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C41DEEA0F4001E3594 /* Main.storyboard */; };
 		2C7818C81DEEA0F4001E3594 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C71DEEA0F4001E3594 /* Assets.xcassets */; };
@@ -34,7 +33,6 @@
 		2C94E8041E277C7A00D539DC /* TimeTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7F21E277C7A00D539DC /* TimeTool.swift */; };
 		2C94E8051E277C7A00D539DC /* Lame2mp3Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7F71E277C7A00D539DC /* Lame2mp3Tool.m */; };
 		2C94E8061E277C7A00D539DC /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C94E7F81E277C7A00D539DC /* libmp3lame.a */; };
-		2C94E80F1E28AC2700D539DC /* 节奏1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C94E80D1E28AC2700D539DC /* 节奏1.caf */; };
 		2C94E8101E28AC2700D539DC /* 节奏2.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C94E80E1E28AC2700D539DC /* 节奏2.caf */; };
 		2C97D7741E4B13D100FB407F /* BaseSrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D76C1E4B13D100FB407F /* BaseSrollView.swift */; };
 		2C97D7751E4B13D100FB407F /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D76D1E4B13D100FB407F /* BaseTableView.swift */; };
@@ -99,9 +97,6 @@
 		2C0239A81E4AF95200CD6008 /* WechatKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WechatKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/FMDemo-bdpyshxpnqfwlxcogyqvkscidlck/Build/Products/Debug-iphonesimulator/WechatKit/WechatKit.framework"; sourceTree = "<group>"; };
 		2C0239B41E4B02EF00CD6008 /* MBAToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBAToast.swift; sourceTree = "<group>"; };
 		2C0239B71E4B06FC00CD6008 /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
-		2C3A59781E319CBC00EBAD70 /* luyingshort.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = luyingshort.caf; sourceTree = "<group>"; };
-		2C3A59791E319CBC00EBAD70 /* yicailong.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = yicailong.caf; sourceTree = "<group>"; };
-		2C3A597A1E319CBC00EBAD70 /* yicaishort.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = yicaishort.caf; sourceTree = "<group>"; };
 		2C435C281E51D0D200FDD1E7 /* RecordImgCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordImgCollectionCell.swift; sourceTree = "<group>"; };
 		2C435C291E51D0D200FDD1E7 /* RecordImgCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordImgCollectionView.swift; sourceTree = "<group>"; };
 		2C435C2E1E52B4B300FDD1E7 /* RecordSoundSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordSoundSliderView.swift; sourceTree = "<group>"; };
@@ -110,6 +105,11 @@
 		2C58C0971E56ADEE00310C1C /* CutBarWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutBarWaveView.swift; sourceTree = "<group>"; };
 		2C664D831E5A897100D9F4BA /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
 		2C664D961E5B10B300D9F4BA /* SeletceDubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeletceDubViewController.swift; sourceTree = "<group>"; };
+		2C664D981E5D38F900D9F4BA /* 配乐1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "配乐1.mp3"; sourceTree = "<group>"; };
+		2C664D9B1E5D3DDE00D9F4BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Record.storyboard; sourceTree = "<group>"; };
+		2C664D9D1E5D64CB00D9F4BA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		2C664D9E1E5D64CB00D9F4BA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Record.strings"; sourceTree = "<group>"; };
+		2C664D9F1E5D64CB00D9F4BA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		2C7818BD1DEEA0F4001E3594 /* FMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C7818C51DEEA0F4001E3594 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -129,7 +129,6 @@
 		2C94E7F61E277C7A00D539DC /* Lame2mp3Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lame2mp3Tool.h; sourceTree = "<group>"; };
 		2C94E7F71E277C7A00D539DC /* Lame2mp3Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lame2mp3Tool.m; sourceTree = "<group>"; };
 		2C94E7F81E277C7A00D539DC /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
-		2C94E80D1E28AC2700D539DC /* 节奏1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "节奏1.caf"; sourceTree = "<group>"; };
 		2C94E80E1E28AC2700D539DC /* 节奏2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "节奏2.caf"; sourceTree = "<group>"; };
 		2C97D76C1E4B13D100FB407F /* BaseSrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseSrollView.swift; sourceTree = "<group>"; };
 		2C97D76D1E4B13D100FB407F /* BaseTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableView.swift; sourceTree = "<group>"; };
@@ -261,6 +260,7 @@
 				2C94E7DC1E277C7A00D539DC /* Classes */,
 				2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */,
 				2C7818C41DEEA0F4001E3594 /* Main.storyboard */,
+				2C664D9A1E5D3DDE00D9F4BA /* Record.storyboard */,
 				2C7818C71DEEA0F4001E3594 /* Assets.xcassets */,
 				2C7818C91DEEA0F4001E3594 /* LaunchScreen.storyboard */,
 				2C7818CC1DEEA0F4001E3594 /* Info.plist */,
@@ -371,10 +371,7 @@
 		2C94E80C1E28AC2700D539DC /* Asset */ = {
 			isa = PBXGroup;
 			children = (
-				2C3A59781E319CBC00EBAD70 /* luyingshort.caf */,
-				2C3A59791E319CBC00EBAD70 /* yicailong.caf */,
-				2C3A597A1E319CBC00EBAD70 /* yicaishort.caf */,
-				2C94E80D1E28AC2700D539DC /* 节奏1.caf */,
+				2C664D981E5D38F900D9F4BA /* 配乐1.mp3 */,
 				2C94E80E1E28AC2700D539DC /* 节奏2.caf */,
 			);
 			path = Asset;
@@ -588,16 +585,14 @@
 				2C97D7FD1E51427700FB407F /* DubPlayView.xib in Resources */,
 				2C97D79C1E4C1B6A00FB407F /* LoginViewController.xib in Resources */,
 				2C97D7DD1E4C810900FB407F /* CourceMainTableViewCell.xib in Resources */,
-				2C3A597B1E319CD800EBAD70 /* luyingshort.caf in Resources */,
-				2C3A597C1E319CD800EBAD70 /* yicailong.caf in Resources */,
-				2C3A597D1E319CD800EBAD70 /* yicaishort.caf in Resources */,
 				2C97D7F31E4DB60800FB407F /* CourceHeadTbView.xib in Resources */,
 				2C94E8101E28AC2700D539DC /* 节奏2.caf in Resources */,
 				2C97D7D01E4C586900FB407F /* MainTableViewCell.xib in Resources */,
-				2C94E80F1E28AC2700D539DC /* 节奏1.caf in Resources */,
 				2C7818CB1DEEA0F4001E3594 /* LaunchScreen.storyboard in Resources */,
+				2C664D991E5D38F900D9F4BA /* 配乐1.mp3 in Resources */,
 				2C7818C81DEEA0F4001E3594 /* Assets.xcassets in Resources */,
 				2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */,
+				2C664D9C1E5D3DDE00D9F4BA /* Record.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,10 +728,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		2C664D9A1E5D3DDE00D9F4BA /* Record.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C664D9B1E5D3DDE00D9F4BA /* Base */,
+				2C664D9E1E5D64CB00D9F4BA /* zh-Hans */,
+			);
+			name = Record.storyboard;
+			sourceTree = "<group>";
+		};
 		2C7818C41DEEA0F4001E3594 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				2C7818C51DEEA0F4001E3594 /* Base */,
+				2C664D9D1E5D64CB00D9F4BA /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -745,6 +750,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2C7818CA1DEEA0F4001E3594 /* Base */,
+				2C664D9F1E5D64CB00D9F4BA /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -756,6 +762,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -808,6 +815,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

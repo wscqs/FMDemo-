@@ -12,7 +12,6 @@ pod 'SVProgressHUD' #https://github.com/SVProgressHUD/SVProgressHUD
 
   pod 'Kingfisher'
 #  pod 'AlamofireObjectMapper'
-#pod 'FDWaveformView'
   pod 'SnapKit'
   #pod 'WechatKit'
   #-Networking
@@ -22,6 +21,8 @@ pod 'SVProgressHUD' #https://github.com/SVProgressHUD/SVProgressHUD
   pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift', :branch => 'feature/swift-3'
   #-UI
   pod 'Toaster', '~> 2.0' #https://github.com/devxoul/Toaster
+  #Tool
+#  pod 'IQKeyboardManagerSwift' #https://github.com/hackiftekhar/IQKeyboardManager
 
 end
 

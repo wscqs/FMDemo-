@@ -16,9 +16,20 @@ class CreatCourceViewController: UIViewController {
     }
     
     @IBAction func actionNext(_ sender: UIButton) {
-        
-        print(creatCourceTextView.text)
+        if creatCourceTextView.text.isEmpty {
+            MBAProgressHUD.showInfoWithStatus("创建课程标题不能为空")
+            return
+        }
+        self.performSegue(withIdentifier: "pushToCourceMainVC", sender: self)
     }
+}
 
-    
+extension CreatCourceViewController {
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if "pushToCourceMainVC" == segue.identifier {
+            let courceMainVC = segue.destination as? CourceMainViewController
+            courceMainVC?.creatTitle = creatCourceTextView.text
+        }
+    }
 }

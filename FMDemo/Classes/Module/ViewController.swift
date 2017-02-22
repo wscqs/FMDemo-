@@ -424,9 +424,6 @@ extension ViewController {
 extension ViewController {
     
     func initOraginTimeStatue(time: TimeInterval){
-        
-        // FIXME: 
-        
         self.time = time
         timeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(time))
     }

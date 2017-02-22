@@ -1,0 +1,75 @@
+
+/* Class = "UIButton"; normalTitle = "  添加配乐"; ObjectID = "497-2h-799"; */
+"497-2h-799.normalTitle" = "  添加配乐";
+
+/* Class = "UINavigationItem"; title = "课程试听"; ObjectID = "555-Cs-zMc"; */
+"555-Cs-zMc.title" = "课程试听";
+
+/* Class = "UILabel"; text = "试听"; ObjectID = "CDC-sX-hgV"; */
+"CDC-sX-hgV.text" = "试听";
+
+/* Class = "UILabel"; text = "0:00"; ObjectID = "DFT-XP-HhV"; */
+"DFT-XP-HhV.text" = "0:00";
+
+/* Class = "UIButton"; normalTitle = "保存"; ObjectID = "EcR-ut-HfJ"; */
+"EcR-ut-HfJ.normalTitle" = "保存";
+
+/* Class = "UILabel"; text = "00:00-00:00"; ObjectID = "F6o-qw-T5b"; */
+"F6o-qw-T5b.text" = "00:00-00:00";
+
+/* Class = "UIButton"; normalTitle = "保存"; ObjectID = "GQO-10-yle"; */
+"GQO-10-yle.normalTitle" = "保存";
+
+/* Class = "UIButton"; normalTitle = "试听"; ObjectID = "HeN-E7-dkV"; */
+"HeN-E7-dkV.normalTitle" = "试听";
+
+/* Class = "UILabel"; text = "10:00"; ObjectID = "MXy-Qi-hc1"; */
+"MXy-Qi-hc1.text" = "10:00";
+
+/* Class = "UIButton"; normalTitle = "剪掉"; ObjectID = "Ttc-eT-P0s"; */
+"Ttc-eT-P0s.normalTitle" = "剪掉";
+
+/* Class = "UILabel"; text = "正在试听00:05/00:10"; ObjectID = "UdN-xx-WH2"; */
+"UdN-xx-WH2.text" = "正在试听00:05/00:10";
+
+/* Class = "UINavigationItem"; title = "课程录制"; ObjectID = "XGW-jW-Uku"; */
+"XGW-jW-Uku.title" = "课程录制";
+
+/* Class = "UINavigationItem"; title = "课程裁剪"; ObjectID = "YUv-KX-hH6"; */
+"YUv-KX-hH6.title" = "课程裁剪";
+
+/* Class = "UIButton"; normalTitle = "使用耳机录音可以提高音质哦  X"; ObjectID = "a4w-Th-bsV"; */
+"a4w-Th-bsV.normalTitle" = "使用耳机录音可以提高音质哦  X";
+
+/* Class = "UILabel"; text = "0:00"; ObjectID = "bW9-xg-cLt"; */
+"bW9-xg-cLt.text" = "0:00";
+
+/* Class = "UILabel"; text = "点击启动麦克风"; ObjectID = "cn3-BC-Ljc"; */
+"cn3-BC-Ljc.text" = "点击启动麦克风";
+
+/* Class = "UIButton"; normalTitle = "裁剪"; ObjectID = "ea1-Se-cx3"; */
+"ea1-Se-cx3.normalTitle" = "裁剪";
+
+/* Class = "UILabel"; text = "正在通过麦克风录制"; ObjectID = "hoB-Gr-ZPw"; */
+"hoB-Gr-ZPw.text" = "正在通过麦克风录制";
+
+/* Class = "UILabel"; text = "试听"; ObjectID = "qrj-0E-ghm"; */
+"qrj-0E-ghm.text" = "试听";
+
+/* Class = "UILabel"; text = "00:00"; ObjectID = "rGP-fh-6vI"; */
+"rGP-fh-6vI.text" = "00:00";
+
+/* Class = "UILabel"; text = "选中时间至结尾之间的内容会被剪掉"; ObjectID = "rym-An-Y0N"; */
+"rym-An-Y0N.text" = "选中时间至结尾之间的内容会被剪掉";
+
+/* Class = "UIButton"; normalTitle = "裁剪"; ObjectID = "uQG-F4-4W6"; */
+"uQG-F4-4W6.normalTitle" = "裁剪";
+
+/* Class = "UIButton"; normalTitle = "重录"; ObjectID = "vbZ-5t-MWf"; */
+"vbZ-5t-MWf.normalTitle" = "重录";
+
+/* Class = "UIButton"; normalTitle = "取消"; ObjectID = "vtX-9i-aFd"; */
+"vtX-9i-aFd.normalTitle" = "取消";
+
+/* Class = "UILabel"; text = "00:00"; ObjectID = "wIn-uq-roi"; */
+"wIn-uq-roi.text" = "00:00";
