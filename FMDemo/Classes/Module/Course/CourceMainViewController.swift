@@ -16,9 +16,23 @@ class CourceMainViewController: BaseViewController {
     
     override func setupUI() {
         
+//        NotificationCenter.default.addObserver(self, selector: #selector(userLogin(n:)), name: NSNotification.Name(rawValue: kUserShouldLoginNotification), object: nil)
         
+        
+
     }
+//    deinit {
+//        NotificationCenter.default.removeObserver(self)
+//    }
     
+//    // MARK: - 监听方法
+//    @objc private func userLogin(n: Notification) {
+//        //清除账号
+//        KeUserAccount.cleanAccount()
+//        let loginVC = LoginViewController()
+//        self.present(loginVC, animated: true, completion: nil)
+//    }
+//    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mainTb.parentVC = self

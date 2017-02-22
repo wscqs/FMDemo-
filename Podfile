@@ -13,7 +13,7 @@ pod 'SVProgressHUD' #https://github.com/SVProgressHUD/SVProgressHUD
   pod 'Kingfisher'
 #  pod 'AlamofireObjectMapper'
   pod 'SnapKit'
-  #pod 'WechatKit'
+  pod 'WechatKit'
   #-Networking
   pod 'Alamofire', '~> 4.0' #https://github.com/Alamofire/Alamofire
   #pod 'SwiftyJSON'

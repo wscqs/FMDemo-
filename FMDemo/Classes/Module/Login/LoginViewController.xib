@@ -18,29 +18,30 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oAX-Rg-wxL">
-                    <rect key="frame" x="156" y="318.5" width="62" height="30"/>
-                    <color key="backgroundColor" red="0.50196081400000003" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="微信登录"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="sOc-wQ-Zop">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Prc-b1-Tq7">
+                    <rect key="frame" x="97" y="537" width="180" height="50"/>
+                    <state key="normal" image="wxbtn"/>
                     <connections>
-                        <action selector="actionWechatLogin:" destination="-1" eventType="touchUpInside" id="ThW-95-CN3"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deN-Fc-ecQ">
-                    <rect key="frame" x="171.5" y="374" width="31" height="30"/>
-                    <state key="normal" title="退出"/>
-                    <connections>
-                        <action selector="actionExit:" destination="-1" eventType="touchUpInside" id="JU8-LO-IBk"/>
+                        <action selector="actionWechatLogin:" destination="-1" eventType="touchUpInside" id="WNQ-wy-AWP"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.12549019607843137" green="0.43137254901960786" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="oAX-Rg-wxL" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="RYO-yf-MHh"/>
-                <constraint firstItem="oAX-Rg-wxL" firstAttribute="centerX" secondItem="deN-Fc-ecQ" secondAttribute="centerX" id="TWd-cN-8jb"/>
-                <constraint firstItem="deN-Fc-ecQ" firstAttribute="top" secondItem="oAX-Rg-wxL" secondAttribute="bottom" constant="25.5" id="d0H-Rx-y5X"/>
-                <constraint firstItem="oAX-Rg-wxL" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="gxN-pv-aea"/>
+                <constraint firstItem="Prc-b1-Tq7" firstAttribute="top" secondItem="sOc-wQ-Zop" secondAttribute="bottom" constant="-130" id="3an-fJ-udZ"/>
+                <constraint firstItem="Prc-b1-Tq7" firstAttribute="centerX" secondItem="sOc-wQ-Zop" secondAttribute="centerX" id="Nqq-Di-9fF"/>
+                <constraint firstAttribute="trailing" secondItem="sOc-wQ-Zop" secondAttribute="trailing" id="OU7-6f-LYO"/>
+                <constraint firstAttribute="bottom" secondItem="sOc-wQ-Zop" secondAttribute="bottom" id="YTJ-ht-zTM"/>
+                <constraint firstItem="sOc-wQ-Zop" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="axB-3T-Omn"/>
+                <constraint firstItem="sOc-wQ-Zop" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="zgm-Wx-7Ov"/>
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="launch" width="320" height="568"/>
+        <image name="wxbtn" width="180" height="50"/>
+    </resources>
 </document>

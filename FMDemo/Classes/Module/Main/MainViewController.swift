@@ -19,6 +19,21 @@ class MainViewController: BaseViewController {
     override func setupUI() {
         setNav()
         mainTb.parentVC = self
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(userLogin(n:)), name: NSNotification.Name(rawValue: kUserShouldLoginNotification), object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // MARK: - 监听方法
+    func userLogin(n: Notification) {
+        //清除账号
+        KeUserAccount.cleanAccount()
+        let loginVC = LoginViewController()
+        self.present(loginVC, animated: true, completion: nil)
     }
 }
 

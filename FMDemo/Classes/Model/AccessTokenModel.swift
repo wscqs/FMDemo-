@@ -7,6 +7,7 @@
 
 import Foundation
 import ObjectMapper
+import WechatKit
 
 open class AccessTokenModel: BaseModel, NSCoding {
     
@@ -15,6 +16,13 @@ open class AccessTokenModel: BaseModel, NSCoding {
     static func storeBean(_ bean: AccessTokenModel) {
         let data = NSKeyedArchiver.archivedData(withRootObject: bean)
         UserDefaults.standard.set(data, forKey: "AccessTokenModel")
+    }
+    
+    static func clearBean() {
+        UserDefaults.standard.removeObject(forKey: "AccessTokenModel")
+        MBACache.removeString(key: kBangAccessToken)
+        MBACache.removeString(key: kBangLoginToken)
+        WechatManager.sharedInstance.logout()
     }
 
     static var shared: AccessTokenModel? {

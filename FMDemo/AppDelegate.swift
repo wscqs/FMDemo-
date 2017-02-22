@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import WechatKit
+import WechatKit
 import UserNotifications
 //import IQKeyboardManagerSwift
 
@@ -19,22 +19,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        
         setupGlobalStyle()        // 配置全局样式
         setupGlobalData()         // 配置全局数据
         setupRootViewController() // 配置控制器
 //        setupKeyBoardManager() //配置全局键盘
+        
+        
         return true
     }
     
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
-//        return WechatManager.sharedInstance.handleOpenURL(url)
+        return WechatManager.sharedInstance.handleOpenURL(url)
         
         // 如需要使用其他第三方可以 使用 || 连接 其他第三方库的handleOpenURL
         // return WechatManager.sharedInstance.handleOpenURL(url) || TencentOAuth.HandleOpenURL(url) || WeiboSDK.handleOpenURL(url, delegate: SinaWeiboManager.sharedInstance) ......
         
-        return true
+//        return true
     }
 }
 
@@ -46,19 +49,15 @@ extension AppDelegate {
     // MARK: - rootVC
     fileprivate func setupRootViewController() {
         
-//        window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
-        //      let vc = UIStoryboard.init(name: "EditUserViewController", bundle: nil).instantiateInitialViewController()
-        //
-        //   window?.rootViewController = defaultController()
-        
-        //        let vc = MainViewController()
-        //        window?.rootViewController = vc
-        
-//        let nav = QSNavigationController()
-//        nav.addChildViewController(CourceMainViewController())
-//        window?.rootViewController = nav
-        
+//
+//        if AccessTokenModel.shared?.accessToken?.isEmpty ?? true{
+//            window?.rootViewController = LoginViewController()
+//        } else {
+//            let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController()
+//            window?.rootViewController = mainVC
+//        }
+//        
         window?.makeKeyAndVisible()
     }
     
@@ -83,8 +82,8 @@ extension AppDelegate {
     }
     
     fileprivate func setupGlobalData() {
-//        WechatManager.appid = kAppKeyWXID
-//        WechatManager.appSecret = kAppKeyWXAppSecret
+        WechatManager.appid = kAppKeyWXID
+        WechatManager.appSecret = kAppKeyWXAppSecret
     }
     
     /// 设置导航条和工具条的外观

@@ -135,7 +135,7 @@ extension PlayRecordViewController {
         pausePlay()
         
         
-        let cutVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CutRecordViewController") as? CutRecordViewController
+        let cutVC = UIStoryboard.init(name: "Record", bundle: nil).instantiateViewController(withIdentifier: "CutRecordViewController") as? CutRecordViewController
         cutVC?.url = self.url
         cutVC?.pointXArray = self.pointXArray
         cutVC?.imgDictArray = self.imgDictArray
