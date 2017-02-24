@@ -54,6 +54,8 @@ class LoginViewController: UIViewController {
                         wechatUser.unionid = unionid
                         wechatUser.headimgurl = headimgurl
                         wechatUser.nickname = nickname
+//                        MBACache.setString(value: headimgurl, key: kUserAvator)
+//                        MBACache.setString(value: nickname, key: kUserName)
                         
                         self.login(wechatUser: wechatUser)
                     }
@@ -76,7 +78,9 @@ class LoginViewController: UIViewController {
 //            }
             KeService.actionLoginToken(openid: wechatUser.openid ?? "", unionid: wechatUser.unionid ?? "", refresh_token: wechatUser.refresh_token ?? "", { (isSuccess) in
                 if isSuccess {
-                    print("成功")
+                    self.dismiss(animated: true, completion: {
+                        
+                    })
                 }
             }, failure: { (error) in
                 
@@ -94,17 +98,17 @@ struct WechatUser {
     var headimgurl: String?
     
     //MARK:-
-    static func storeBean(_ bean: WechatUser) {
-        UserDefaults.standard.set(bean, forKey: "WechatUser")
-        UserDefaults.standard.synchronize()
-    }
-    
-    static var shared: WechatUser? {
-        let bean = UserDefaults.standard.object(forKey: "WechatUser") as? WechatUser
-        if let bean = bean {
-            return bean
-        }else {
-            return nil
-        }
-    }
+//    static func storeBean(_ bean: WechatUser) {
+//        UserDefaults.standard.set(bean, forKey: "WechatUser")
+//        UserDefaults.standard.synchronize()
+//    }
+//    
+//    static var shared: WechatUser? {
+//        let bean = UserDefaults.standard.object(forKey: "WechatUser") as? WechatUser
+//        if let bean = bean {
+//            return bean
+//        }else {
+//            return nil
+//        }
+//    }
 }

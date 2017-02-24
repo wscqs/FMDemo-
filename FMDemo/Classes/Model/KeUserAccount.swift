@@ -8,11 +8,16 @@
 
 import Foundation
 import ObjectMapper
+import WechatKit
 
 fileprivate let userAccountKey = "userAccount"
 
 class KeUserAccount {
     
+    /// 判断是否登录
+    class var hasAccessToken: Bool {
+        return !(KeUserAccount.shared?.accessToken?.isEmpty ?? true)
+    }
     
     /**
      1. 偏好设置(小) - Xcode 8 beta 无效！
@@ -31,8 +36,11 @@ class KeUserAccount {
     class func cleanAccount() {
         
         UserDefaults.standard.removeObject(forKey: userAccountKey)
-        MBACache.removeString(key: kBangAccessToken)
-        MBACache.removeString(key: kBangLoginToken)
+        MBACache.removeString(key: kUserLoginToken)
+        MBACache.removeString(key: kUserAccessToken)
+//        MBACache.removeString(key: kUserName)
+//        MBACache.removeString(key: kUserAvator)
+        WechatManager.sharedInstance.logout()
     }
     
     

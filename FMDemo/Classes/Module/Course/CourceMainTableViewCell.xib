@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CourceMainTableViewCell" rowHeight="105" id="n8i-XY-fhl" customClass="CourceMainTableViewCell" customModule="FMDemo" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="105" id="n8i-XY-fhl" customClass="CourceMainTableViewCell" customModule="FMDemo" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n8i-XY-fhl" id="V2X-bw-eeG">
@@ -23,15 +23,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FIv-pb-9CJ" customClass="BorderBackgroundView" customModule="FMDemo" customModuleProvider="target">
                                 <rect key="frame" x="10" y="10" width="355" height="89"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="课程未完善" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogM-F2-Okk">
-                                        <rect key="frame" x="10" y="70" width="62" height="11"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="11" id="Mf8-fg-YgK"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" red="0.08983641262" green="0.52783448310000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fch-Wa-hKG">
                                         <rect key="frame" x="295" y="0.0" width="60" height="89"/>
                                         <subviews>
@@ -59,8 +50,8 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="牙科路就拉倒就发生的理发师大法师打发" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xVK-xR-R6x">
-                                        <rect key="frame" x="10" y="10" width="285" height="52"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="10" y="10" width="285" height="69"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -71,11 +62,9 @@
                                     <constraint firstAttribute="bottom" secondItem="fch-Wa-hKG" secondAttribute="bottom" id="GTs-vS-Fxy"/>
                                     <constraint firstAttribute="trailing" secondItem="fch-Wa-hKG" secondAttribute="trailing" id="Gsb-Fw-n3E"/>
                                     <constraint firstItem="xVK-xR-R6x" firstAttribute="leading" secondItem="FIv-pb-9CJ" secondAttribute="leading" constant="10" id="Y4k-Od-YsS"/>
-                                    <constraint firstItem="ogM-F2-Okk" firstAttribute="top" secondItem="xVK-xR-R6x" secondAttribute="bottom" constant="8" id="bFY-dS-hqm"/>
+                                    <constraint firstAttribute="bottom" secondItem="xVK-xR-R6x" secondAttribute="bottom" constant="10" id="a6b-qR-e35"/>
                                     <constraint firstItem="fch-Wa-hKG" firstAttribute="top" secondItem="FIv-pb-9CJ" secondAttribute="top" id="bO5-EQ-Q3T"/>
-                                    <constraint firstAttribute="bottom" secondItem="ogM-F2-Okk" secondAttribute="bottom" constant="8.5" id="d9x-qS-Rkb"/>
                                     <constraint firstItem="xVK-xR-R6x" firstAttribute="top" secondItem="FIv-pb-9CJ" secondAttribute="top" constant="10" id="pvo-c3-tsX"/>
-                                    <constraint firstItem="ogM-F2-Okk" firstAttribute="leading" secondItem="xVK-xR-R6x" secondAttribute="leading" id="zBX-78-Hek"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -96,12 +85,11 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="leftbottomLabel" destination="ogM-F2-Okk" id="lDR-ak-08O"/>
                 <outlet property="statusImg" destination="nwq-NI-m0J" id="38V-uy-KbQ"/>
                 <outlet property="statusLabel" destination="OJE-bb-Z7T" id="dMX-sr-cKb"/>
                 <outlet property="titleLable" destination="xVK-xR-R6x" id="hJa-nZ-z3p"/>
             </connections>
-            <point key="canvasLocation" x="25" y="82.5"/>
+            <point key="canvasLocation" x="24.5" y="82"/>
         </tableViewCell>
     </objects>
     <resources>

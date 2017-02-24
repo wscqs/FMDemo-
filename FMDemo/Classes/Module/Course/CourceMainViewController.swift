@@ -11,39 +11,36 @@ import UIKit
 
 class CourceMainViewController: BaseViewController {
     
-    @IBOutlet weak var mainTb: CourceMainTableView!
+    var mainTb = CourceMainTableView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT - NAVIGATION_AND_STATUSBAR_HEIGHT))
     var creatTitle: String!
+    var cid: String!
     
     override func setupUI() {
+        title = "课程主页"
+        view.addSubview(mainTb)
+        mainTb.parentVC = self
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(userLogin(n:)), name: NSNotification.Name(rawValue: kUserShouldLoginNotification), object: nil)
-        
-        
-
+        mainTb.initWithParams("CourceMainTableViewCell", heightForRowAtIndexPath: 80, canLoadRefresh: true, canLoadMore: false)
     }
-//    deinit {
-//        NotificationCenter.default.removeObserver(self)
-//    }
-    
-//    // MARK: - 监听方法
-//    @objc private func userLogin(n: Notification) {
-//        //清除账号
-//        KeUserAccount.cleanAccount()
-//        let loginVC = LoginViewController()
-//        self.present(loginVC, animated: true, completion: nil)
-//    }
-//    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mainTb.parentVC = self
+
+        if creatTitle.isEmpty && cid.isEmpty {
+            print("CourceMainViewController ，cid或标题为空！")
+        }
+        
         mainTb.tbHeadView.titleLabel.text = creatTitle
+        mainTb.setcid(cid: cid)
+        mainTb.start(true)
     }
 }
 
 
 extension CourceMainViewController {
-    func pushToRecordViewController() {
-        let recordVC = UIStoryboard(name: "Record", bundle: nil).instantiateInitialViewController()
+    func pushToRecordViewController(mid: String) {
+        let recordVC = UIStoryboard(name: "Record", bundle: nil).instantiateInitialViewController() as? RecordViewController
+        recordVC?.mid = mid
         self.navigationController?.pushViewController(recordVC!, animated: true)
     }
 }

@@ -10,11 +10,14 @@ import UIKit
 
 let kWaveTime = 0.2
 let kUserShouldLoginNotification = "kUserShouldLoginNotification"
-let kBangAccessToken = "kBangAccessToken"
-let kBangLoginToken = "kBangLoginToken"
+let kUserAccessToken = "kUserAccessToken"
+let kUserLoginToken = "kUserLoginToken"
+let kUserName = "kUserName"
+let kUserAvator = "kUserAvator"
 
 
-let kCreatTitleString = "请输入课程标题，不要超过50个中文字符"
+let kCreatCourceTitleString = "请输入课程标题，不要超过50个中文字符"
+let kCreatMaterialTitleString = "请输入章节标题，不要超过50个中文字符"
 
 // MARK: UI
 /// 屏幕bounds

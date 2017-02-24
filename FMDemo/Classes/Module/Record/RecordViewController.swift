@@ -14,6 +14,7 @@ enum RecordType{
 
 class RecordViewController: UIViewController {
     
+    var mid: String!
     var pointXArray = [CGFloat]()
     // 录音的计时器
 //    var recordTimer: Timer?
@@ -42,6 +43,9 @@ class RecordViewController: UIViewController {
     var recordPowerTimer: Timer?
     var recordPowerTime: TimeInterval = 0.0
 
+    /// 是否已经有录制
+    var isRecorded: Bool? = false
+    
     // 顶层图片
     @IBOutlet weak var bannerImg: UIImageView!
     // 顶部状态view（包含: 音波，时间）
@@ -73,6 +77,28 @@ class RecordViewController: UIViewController {
         setup()
         
         NotificationCenter.default.addObserver(self, selector: #selector(cutComple(notification:)), name: Notification.Name(rawValue: "cutComplet"), object: nil)
+        
+        // 后退处理
+        let backBtn: UIButton = UIButton(imageName:"nav_details_top_left", backTarget: self, action: #selector(actionNavBackBtnClick))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+        
+    }
+    
+    func actionNavBackBtnClick() {
+        pauseRecord()
+        if isRecorded ?? false {
+            let alertController = UIAlertController(title: nil, message: "录制未保存，确定放弃吗？", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler:nil)
+            let alertAction = UIAlertAction(title: "放弃录制", style: .default, handler: { (action) in
+                _ = self.navigationController?.popViewController(animated: true)
+            })
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+        } else {
+            _ = self.navigationController?.popViewController(animated: true)
+        }
     }
     
     func cutComple(notification: Notification) {
@@ -100,12 +126,12 @@ class RecordViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         pauseRecord()
-        
     }
     
     
     // MARK: - StroyBoard action
     @IBAction func actionStartRecord(_ sender: UIButton) {
+        isRecorded = true
         bottomInitView.isHidden = true
         topStatusView.isHidden = false
         startRecord()
@@ -154,6 +180,7 @@ extension RecordViewController {
     
     
     func initStates() {
+        isRecorded = false
         pointXArray.removeAll()
         isCuted = false
         mergeExportURL = nil
@@ -206,29 +233,35 @@ extension RecordViewController {
 
     
     func actionSave() {
-        
+        pauseRecord()
         let url = isCuted ? mergeExportURL : MBAAudio.url
         let mp3url = MBAAudioUtil.changceToMp3(of: url, mp3Name: "cafTomp3")
-        print(mp3url)
-
-        let alertController = UIAlertController(title: nil, message: "给课程起个名字吧", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
-            guard let saveName = alertController.textFields?.first?.text else {return}
-            
-            let fileManager = FileManager.default
-            let saveURL = URL(fileURLWithPath: "\(saveName).mp3".docSaveRecordDir())
-            do {
-                try fileManager.moveItem(at: mp3url!, to: saveURL)
-                print(saveURL)
-            } catch {}
-        }
         
-        alertController.addAction(okAction)
-        alertController.addTextField { (textFiled) in
-            textFiled.clearButtonMode = .whileEditing
+        let alertController = UIAlertController(title: "是否保存章节录音", message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
+            guard let saveURL = mp3url else {
+                MBAProgressHUD.showWithStatus("上传失败，请重试")
+                return
+            }
+            let mp3Data = try? Data(contentsOf: saveURL)
+            KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: String(self.recordMetersTime), success: { (bean) in
+                print(bean.audio)
+                
+                for vc in (self.navigationController?.viewControllers)! {
+                    if vc is CourceMainViewController {
+                         _ = self.navigationController?.popToViewController(vc, animated: true)
+                        break
+                    }
+                }
+               
+            }, failure: { (error) in
+                
+            })
         }
+
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
 
     }
@@ -236,6 +269,7 @@ extension RecordViewController {
     
     /// 重新录制
     func actionReRecord() {
+        pauseRecord()
         let alertController = UIAlertController(title: nil, message: "确定要重录吗？", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler:nil)
         let alertAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
@@ -379,6 +413,7 @@ extension RecordViewController {
 
 extension RecordViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        pauseRecord()
         if "PlayRecordViewController" == segue.identifier {
             let playVC = segue.destination as? PlayRecordViewController
             playVC?.url = self.mergeExportURL

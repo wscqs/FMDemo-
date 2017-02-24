@@ -9,32 +9,62 @@
 import UIKit
 
 fileprivate var kMainCellId = "MainTableViewCell"
-class MainTableView: BaseTableView {
+class MainTableView: RefreshBaseTableView {
     var parentVC: MainViewController?
-    override func setUI() {
-        let nib = UINib(nibName: kMainCellId, bundle: nil)
-        register(nib, forCellReuseIdentifier: kMainCellId)
-        delegate = self
-        dataSource = self
-        separatorStyle = .none
+
+    override func loadData() {
+        KeService.actionGetCourses(start: start, num: num, success: { (bean) in
+            if self.action == .loadNew {
+                self.dataList?.removeAll()
+            }
+            if let datas = bean.data {
+//                if self.start == 1 {
+//                    if datas.count < 10 {
+//                        self.mj_footer.isHidden = true
+//                    }
+//                }else {
+//                    if datas.count < 10 {
+//                        self.mj_footer.resetNoMoreData()
+//                    }
+//                }
+                
+                for data in datas {
+                    self.dataList?.append(data)
+                }
+            }
+            // 缓存就更新数据，服务端数据结束刷新
+            //                        (bean.isCache) ? self.reloadData() : self.loadCompleted()
+            self.loadCompleted()
+        }) { (error) in
+            self.loadError(error)
+        }
     }
 }
 
-extension MainTableView: UITableViewDelegate, UITableViewDataSource{
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return 3
-    }
+//extension MainTableView: UITableViewDelegate, UITableViewDataSource{
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//         return 3
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = dequeueReusableCell(withIdentifier: kMainCellId, for: indexPath)
+//        return cell
+//    }
+//    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        parentVC?.pushCourseDetailVC()
+//    }
+//
+//}
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = dequeueReusableCell(withIdentifier: kMainCellId, for: indexPath)
-        return cell
-    }
-    
+extension MainTableView{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        parentVC?.pushCourseDetailVC()
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let bean = self.dataList?[indexPath.row] as? GetCoursesData {
+            parentVC?.pushCourseDetailVC(cid: bean.cid ?? "",title: bean.title ?? "")
+        }        
     }
-
 }
 
 
@@ -44,7 +74,7 @@ extension MainTableView {
         return #imageLiteral(resourceName: "course_emptyBgimg")
     }
     
-     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let attributes = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 15.0), NSForegroundColorAttributeName: UIColor.colorWithHexString("5bacff")]
         let text = "当前无任何课程"
         return NSAttributedString(string: text, attributes: attributes)

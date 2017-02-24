@@ -268,10 +268,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uVd-3u-am4" customClass="MainTableView" customModule="FMDemo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Adh-2O-cbV">
                                 <rect key="frame" x="110" y="428" width="100" height="100"/>
                                 <state key="normal" image="course_chapt-add-ico"/>
@@ -283,11 +279,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Adh-2O-cbV" firstAttribute="centerX" secondItem="FZx-Ex-P32" secondAttribute="centerX" id="4Wn-aX-lZi"/>
-                            <constraint firstAttribute="trailing" secondItem="uVd-3u-am4" secondAttribute="trailing" id="8ML-JY-90f"/>
-                            <constraint firstItem="aga-7o-qRS" firstAttribute="top" secondItem="uVd-3u-am4" secondAttribute="bottom" id="98F-tl-0lt"/>
-                            <constraint firstItem="uVd-3u-am4" firstAttribute="leading" secondItem="FZx-Ex-P32" secondAttribute="leading" id="Go5-gA-ttz"/>
                             <constraint firstAttribute="bottom" secondItem="Adh-2O-cbV" secondAttribute="bottom" constant="40" id="W13-hV-ywP"/>
-                            <constraint firstItem="uVd-3u-am4" firstAttribute="top" secondItem="FZx-Ex-P32" secondAttribute="top" id="ekQ-QU-ibP"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="智库课堂导师版" id="Svt-Xd-2z4">
@@ -297,9 +289,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="mainTb" destination="uVd-3u-am4" id="Ncd-BF-2VY"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I1R-Fk-ejf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -359,46 +348,11 @@
                     <navigationItem key="navigationItem" title="创建课程" id="ENN-eV-mWd"/>
                     <connections>
                         <outlet property="creatCourceTextView" destination="13H-Fr-YGg" id="6L7-pc-hd8"/>
-                        <segue destination="GXt-cB-MyE" kind="push" identifier="pushToCourceMainVC" id="j7O-YB-gv8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v6h-m9-TSD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="176" y="132"/>
-        </scene>
-        <!--课程主页-->
-        <scene sceneID="O6O-fS-FyE">
-            <objects>
-                <viewController id="GXt-cB-MyE" customClass="CourceMainViewController" customModule="FMDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dRk-9L-EDK"/>
-                        <viewControllerLayoutGuide type="bottom" id="MB3-Mm-c1m"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="4gk-3P-gBh">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="NNe-f5-jh6" customClass="CourceMainTableView" customModule="FMDemo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="NNe-f5-jh6" firstAttribute="leading" secondItem="4gk-3P-gBh" secondAttribute="leading" id="7xy-Mb-y2c"/>
-                            <constraint firstAttribute="trailing" secondItem="NNe-f5-jh6" secondAttribute="trailing" id="HA5-Cv-PEn"/>
-                            <constraint firstItem="NNe-f5-jh6" firstAttribute="top" secondItem="4gk-3P-gBh" secondAttribute="top" id="J7g-uz-dzd"/>
-                            <constraint firstItem="MB3-Mm-c1m" firstAttribute="top" secondItem="NNe-f5-jh6" secondAttribute="bottom" id="Zcd-Pk-aLH"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="课程主页" id="5zL-33-Uba"/>
-                    <connections>
-                        <outlet property="mainTb" destination="NNe-f5-jh6" id="d7i-AB-UWE"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gHo-7t-BT9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="901.875" y="150"/>
         </scene>
     </scenes>
     <resources>

@@ -9,10 +9,10 @@
 import UIKit
 
 fileprivate var kMainCellId = "CourceMainTableViewCell"
-class CourceMainTableView: BaseTableView {
+class CourceMainTableView: RefreshBaseTableView {
  
     var parentVC: CourceMainViewController?
-    var dataArray = ["1","2","3","4","5"]
+    var cid: String!
     var tbHeadView = CourceHeadTbView.courceHeadTbView()
     var footAddBtn: UIButton = {
         let footAddBtn = UIButton()
@@ -26,7 +26,7 @@ class CourceMainTableView: BaseTableView {
         return footAddBtn
     }()
     
-    var tbFootView = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 60))
+    var tbFootView = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 80))
 
     override func setUI() {
         let nib = UINib(nibName: kMainCellId, bundle: nil)
@@ -38,14 +38,29 @@ class CourceMainTableView: BaseTableView {
         tableHeaderView = tbHeadView
         tbFootView.backgroundColor = UIColor.clear
         tbFootView.addSubview(footAddBtn)
-        footAddBtn.frame = CGRect(x: 10, y: 5, width: tbFootView.frame.size.width - 20, height: 35)
+        footAddBtn.frame = CGRect(x: 10, y: 20, width: tbFootView.frame.size.width - 20, height: 40)
         tableFooterView = tbFootView
         
-        estimatedRowHeight = 80
-        rowHeight = 80
+        estimatedRowHeight = 90
+        rowHeight = 90
+        mj_footer.isHidden = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func setcid(cid: String) {
+        self.cid = cid
+        tbHeadView.cid = cid
+    }
+    
+    override func loadData() {
+        KeService.actionGetMaterials(cid: cid, success: { (bean) in
+            self.dataList = bean.data
+            self.loadCompleted()
+        }) { (error) in
+            self.loadError(error)
+        }
     }
     
     deinit {
@@ -53,6 +68,189 @@ class CourceMainTableView: BaseTableView {
     }
     
     fileprivate var alert: UIAlertController?
+}
+
+
+
+
+// MARK: - Net
+extension CourceMainTableView {
+    
+}
+
+extension CourceMainTableView {
+    func actionAdd(sender: UIButton) {
+        self.alert = UIAlertController(title: "\n\n", message: "", preferredStyle: .alert)
+        let textView = BorderTextView(frame: CGRect(x: 5, y: 5, width: 270 - 10, height: 80), textContainer: nil)
+        textView.setPlaceholder(kCreatMaterialTitleString, maxTip: 50)
+        alert?.view.addSubview(textView)
+        let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
+            if textView.text.isEmpty {
+                MBAProgressHUD.showInfoWithStatus("增加章节失败，章节标题不能为空")
+                return
+            }
+            KeService.actionMaterial(cid: self.cid, title: textView.text, success: { (bean) in
+                
+                let object = GetMaterialsData(JSON: ["time":"0", "mid": bean.mid ?? "", "title": textView.text])
+                self.dataList?.append(object!)
+                let indexPath = IndexPath(row: (self.dataList?.count)!-1, section: 0)
+                self.insertRows(at: [indexPath], with: .right)
+            }, failure: { (error) in
+            })
+
+        })
+        alert?.addAction(cancelAction)
+        alert?.addAction(okAction)
+        
+        self.parentVC?.present(alert!, animated: true, completion: {
+            
+        })
+    }
+}
+
+extension CourceMainTableView {
+
+    // 有headTitle 就设置高度
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let titleHeadLabel = UILabel()
+        titleHeadLabel.text = "章节（课程不分章节时，默认为单一章节课程）"
+        let titleH:CGFloat = 30
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: titleH))
+        titleHeadLabel.frame = CGRect(x: 10, y: 5, width: view.size.width, height: titleH)
+        titleHeadLabel.font = UIFont.systemFont(ofSize: 11)
+        view.addSubview(titleHeadLabel)
+        titleHeadLabel.textColor = UIColor.gray
+        view.backgroundColor = UIColor.colorWithHexString(kGlobalBgColor)
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+//    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+//        let sourceIndex = sourceIndexPath.row
+//        let destinationIndex = destinationIndexPath.row
+//        let object = dataList?[sourceIndex]
+//        self.dataList?.remove(at: sourceIndex)
+//        self.dataList?.insert(object!, at: destinationIndex)
+//    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+
+        
+        let reNameAction = UITableViewRowAction(style: .normal, title: "编辑") { (action, index) in
+
+            let sourceIndex = indexPath.row
+            let object = self.dataList?[sourceIndex] as? GetMaterialsData
+            
+
+            self.alert = UIAlertController(title: "\n\n", message: "", preferredStyle: .alert)
+            let textView = BorderTextView(frame: CGRect(x: 5, y: 5, width: 270 - 10, height: 80), textContainer: nil)
+            textView.setPlaceholder(kCreatMaterialTitleString, maxTip: 50)
+            self.alert?.view.addSubview(textView)
+            textView.text = "\(object?.title ?? "")"
+            let cancelAction = UIAlertAction(title: "取消", style: .default, handler: { (action) in
+                self.endEditing(true)
+                tableView.setEditing(false, animated: false)
+            })
+            let okAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
+                self.endEditing(true)
+                
+                if textView.text.isEmpty {
+                    MBAProgressHUD.showInfoWithStatus("修改章节标题失败，章节标题不能为空")
+                    return
+                }
+                if textView.text != object?.title! {
+                    let oldText = object?.title!
+                    KeService.actionMaterial(mid: object?.mid!, cid: self.cid, title: textView.text, success: { (bean) in
+                        
+                    }, failure: { (error) in
+                        object?.title = oldText
+                        self.dataList?[sourceIndex] = object!
+                        tableView.reloadRows(at: [index], with: .right)
+                    })
+                }
+                object?.title = textView.text
+                self.dataList?[sourceIndex] = object!
+                tableView.reloadRows(at: [index], with: .right)
+            })
+            self.alert?.addAction(cancelAction)
+            self.alert?.addAction(okAction)
+
+            self.parentVC?.navigationController?.present(self.alert!, animated: true, completion: {
+                
+            })
+        }
+        
+        let moveAction = UITableViewRowAction(style: .normal, title: "向上") { (action, index) in
+            let sourceIndex = indexPath.row
+            if sourceIndex == 0 { return }
+            let destinationIndex = sourceIndex - 1
+            let object = self.dataList?[sourceIndex]
+            self.dataList?.remove(at: sourceIndex)
+            self.dataList?.insert(object!, at: destinationIndex)
+            let toIndexPath = IndexPath(row: destinationIndex, section: 0)
+            tableView.moveRow(at: indexPath, to: toIndexPath)
+            tableView.setEditing(false, animated: true)
+            
+            var sort = [String]()
+            for bean in self.dataList! {
+                guard let object = bean as? GetMaterialsData else { return}
+                sort.append(object.mid ?? "")
+            }
+            
+            
+            KeService.actionMaterialSort(sort: sort, success: { (bean) in
+                
+            }, failure: { (error) in
+                self.dataList?.remove(at: destinationIndex)
+                self.dataList?.insert(object!, at: sourceIndex)
+                tableView.moveRow(at: indexPath, to: toIndexPath)
+            })
+        }
+        
+        let deleteAction = UITableViewRowAction(style: .normal, title: "删除") { (action, index) in
+            let object = self.dataList?[index.row] as? GetMaterialsData
+            KeService.actionMaterialDelete(mid: object?.mid ?? "", success: { (bean) in
+                
+            }, failure: { (error) in
+                self.dataList?.append(object!)
+                tableView.insertRows(at: [index], with: .fade)
+                MBAProgressHUD.showInfoWithStatus("删除失败")
+            })
+            
+            self.dataList?.remove(at: index.row)
+            tableView.deleteRows(at: [index], with: .fade)
+        }
+        
+        reNameAction.backgroundColor = UIColor.colorWithHexString("62d9a0")
+        moveAction.backgroundColor = UIColor.colorWithHexString("feba6a")
+        deleteAction.backgroundColor = UIColor.colorWithHexString("f45e5e")
+        return [deleteAction, moveAction, reNameAction]
+    }
+
+    
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell: CourceMainTableViewCell = tableView.dequeueReusableCell(withIdentifier: kMainCellId, for: indexPath) as! CourceMainTableViewCell
+//        cell.titleLable.text = dataList[indexPath.row]
+//        cell.selectionStyle = .none
+//        return cell
+//    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let mid = (self.dataList?[indexPath.row] as? GetMaterialsData)?.mid else { return }
+        parentVC?.pushToRecordViewController(mid: mid)
+    }
 }
 
 extension CourceMainTableView {
@@ -75,142 +273,5 @@ extension CourceMainTableView {
     
     //键盘的隐藏
     func keyBoardWillHide(_ notification: Notification){
-        
-//        let kbInfo = notification.userInfo
-//        let kbRect = (kbInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-//        let changeY = kbRect.origin.y
-//        let duration = kbInfo?[UIKeyboardAnimationDurationUserInfoKey] as! Double
-//        
-//        UIView.animate(withDuration: duration) {
-//            self.view.transform = CGAffineTransform.identity
-//        }
     }
-    
-}
-extension CourceMainTableView {
-    func actionAdd(sender: UIButton) {
-        let alert = UIAlertController(title: "\n\n", message: "", preferredStyle: .alert)
-        let textView = BorderTextView(frame: CGRect(x: 5, y: 5, width: 270 - 10, height: 80), textContainer: nil)
-        textView.setPlaceholder(kCreatTitleString, maxTip: 50)
-        alert.view.addSubview(textView)
-        let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
-        let okAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
-            if textView.text.isEmpty { return }
-            self.dataArray.append(textView.text)
-            let indexPath = IndexPath(row: self.dataArray.count - 1, section: 0)
-            self.insertRows(at: [indexPath], with: .right)            
-        })
-        alert.addAction(cancelAction)
-        alert.addAction(okAction)
-        
-        self.parentVC?.present(alert, animated: true, completion: {
-            
-        })
-    }
-}
-
-extension CourceMainTableView: UITableViewDelegate, UITableViewDataSource{
-
-    // 有headTitle 就设置高度
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let titleHeadLabel = UILabel()
-        titleHeadLabel.text = "章节（课程不分章节时，默认为单一章节课程）"
-        let titleH:CGFloat = 30
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: titleH))
-        titleHeadLabel.frame = CGRect(x: 10, y: 5, width: view.size.width, height: titleH)
-        titleHeadLabel.font = UIFont.systemFont(ofSize: 11)
-        view.addSubview(titleHeadLabel)
-        titleHeadLabel.textColor = UIColor.gray
-        view.backgroundColor = UIColor.colorWithHexString(kGlobalBgColor)
-        return view
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let sourceIndex = sourceIndexPath.row
-        let destinationIndex = destinationIndexPath.row
-        let object = dataArray[sourceIndex]
-        self.dataArray.remove(at: sourceIndex)
-        self.dataArray.insert(object, at: destinationIndex)
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-
-        
-        let reNameAction = UITableViewRowAction(style: .normal, title: "编辑") { (action, index) in
-
-            let sourceIndex = indexPath.row
-            let object = self.dataArray[sourceIndex]
-
-            self.alert = UIAlertController(title: "\n\n", message: "", preferredStyle: .alert)
-            let textView = BorderTextView(frame: CGRect(x: 5, y: 5, width: 270 - 10, height: 80), textContainer: nil)
-            textView.setPlaceholder(kCreatTitleString, maxTip: 50)
-            self.alert?.view.addSubview(textView)
-            textView.text = "\(object)"
-            let cancelAction = UIAlertAction(title: "取消", style: .default, handler: { (action) in
-                self.endEditing(true)
-                tableView.setEditing(false, animated: false)
-            })
-            let okAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
-                self.endEditing(true)
-                self.dataArray[sourceIndex] = textView.text
-                tableView.reloadRows(at: [index], with: .right)
-            })
-            self.alert?.addAction(cancelAction)
-            self.alert?.addAction(okAction)
-
-            self.parentVC?.navigationController?.present(self.alert!, animated: true, completion: {
-                
-            })
-        }
-        
-        let moveAction = UITableViewRowAction(style: .normal, title: "向上") { (action, index) in
-            let sourceIndex = indexPath.row
-            if sourceIndex == 0 { return }
-            let destinationIndex = sourceIndex - 1
-            let object = self.dataArray[sourceIndex]
-            self.dataArray.remove(at: sourceIndex)
-            self.dataArray.insert(object, at: destinationIndex)
-            let toIndexPath = IndexPath(row: destinationIndex, section: 0)
-            tableView.moveRow(at: indexPath, to: toIndexPath)
-            tableView.setEditing(false, animated: true)
-        }
-        
-        let deleteAction = UITableViewRowAction(style: .normal, title: "删除") { (action, index) in
-            self.dataArray.remove(at: index.row)
-            tableView.deleteRows(at: [index], with: .fade)
-        }
-        
-        reNameAction.backgroundColor = UIColor.colorWithHexString("62d9a0")
-        moveAction.backgroundColor = UIColor.colorWithHexString("feba6a")
-        deleteAction.backgroundColor = UIColor.colorWithHexString("f45e5e")
-        return [deleteAction, moveAction, reNameAction]
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: CourceMainTableViewCell = tableView.dequeueReusableCell(withIdentifier: kMainCellId, for: indexPath) as! CourceMainTableViewCell
-        cell.titleLable.text = dataArray[indexPath.row]
-        cell.selectionStyle = .none
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        parentVC?.pushToRecordViewController()
-    }
-    
 }

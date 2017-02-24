@@ -7,58 +7,62 @@
 
 import Foundation
 import ObjectMapper
-import WechatKit
 
-open class AccessTokenModel: BaseModel, NSCoding {
+open class AccessTokenModel: BaseModel {
     
-    
-//    MARK:-
-    static func storeBean(_ bean: AccessTokenModel) {
-        let data = NSKeyedArchiver.archivedData(withRootObject: bean)
-        UserDefaults.standard.set(data, forKey: "AccessTokenModel")
-    }
-    
-    static func clearBean() {
-        UserDefaults.standard.removeObject(forKey: "AccessTokenModel")
-        MBACache.removeString(key: kBangAccessToken)
-        MBACache.removeString(key: kBangLoginToken)
-        WechatManager.sharedInstance.logout()
-    }
-
-    static var shared: AccessTokenModel? {
-        let bean = UserDefaults.standard.object(forKey: "AccessTokenModel") as? Data
-        if let bean = bean {
-            return NSKeyedUnarchiver.unarchiveObject(with: bean) as? AccessTokenModel ?? nil
-        }else {
-            return nil
-        }
-    }
-    
-    public func encode(with aCoder: NSCoder) {
-        aCoder.encode(loginToken, forKey: kAccessTokenModelLoginTokenKey)
-        aCoder.encode(accessToken, forKey: kAccessTokenModelAccessTokenKey)
-        aCoder.encode(uid, forKey: kAccessTokenModelUidKey)
-    }
-    
-
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init()
-        loginToken = aDecoder.decodeObject(forKey: kAccessTokenModelLoginTokenKey) as? String
-        accessToken = aDecoder.decodeObject(forKey: kAccessTokenModelAccessTokenKey) as? String
-        uid = aDecoder.decodeObject(forKey: kAccessTokenModelUidKey) as? String
-    }
+////    MARK:-
+//    static func storeBean(_ bean: AccessTokenModel) {
+//        let data = NSKeyedArchiver.archivedData(withRootObject: bean)
+//        UserDefaults.standard.set(data, forKey: "AccessTokenModel")
+//    }
+//    
+//    static func clearAccout() {
+//        UserDefaults.standard.removeObject(forKey: "AccessTokenModel")
+//        MBACache.removeString(key: kUserLoginToken)
+//        MBACache.removeString(key: kUserAccessToken)
+//        MBACache.removeString(key: kUserName)
+//        MBACache.removeString(key: kUserAvator)
+//        WechatManager.sharedInstance.logout()
+//    }
+//
+//    static var shared: AccessTokenModel? {
+//        let bean = UserDefaults.standard.object(forKey: "AccessTokenModel") as? Data
+//        if let bean = bean {
+//            return NSKeyedUnarchiver.unarchiveObject(with: bean) as? AccessTokenModel ?? nil
+//        }else {
+//            return nil
+//        }
+//    }
+//    
+//    public func encode(with aCoder: NSCoder) {
+//        aCoder.encode(loginToken, forKey: kAccessTokenModelLoginTokenKey)
+//        aCoder.encode(accessToken, forKey: kAccessTokenModelAccessTokenKey)
+//        aCoder.encode(uid, forKey: kAccessTokenModelUidKey)
+//    }
+//    
+//
+//    
+//    public required init?(coder aDecoder: NSCoder) {
+//        super.init()
+//        loginToken = aDecoder.decodeObject(forKey: kAccessTokenModelLoginTokenKey) as? String
+//        accessToken = aDecoder.decodeObject(forKey: kAccessTokenModelAccessTokenKey) as? String
+//        uid = aDecoder.decodeObject(forKey: kAccessTokenModelUidKey) as? String
+//    }
 
     // MARK: Declaration for string constants to be used to decode and also serialize.
 	internal let kAccessTokenModelLoginTokenKey: String = "login_token"
 	internal let kAccessTokenModelAccessTokenKey: String = "access_token"
 	internal let kAccessTokenModelUidKey: String = "uid"
+    internal let kAccessTokenModelNicknameKey: String = "nickname"
+    internal let kAccessTokenModelAvatarKey: String = "avatar"
 
 
     // MARK: Properties
 	open var loginToken: String?
 	open var accessToken: String?
 	open var uid: String?
+    open var nickname: String?
+    open var avatar: String?
 
 
 
@@ -82,6 +86,8 @@ open class AccessTokenModel: BaseModel, NSCoding {
 		loginToken <- map[kAccessTokenModelLoginTokenKey]
 		accessToken <- map[kAccessTokenModelAccessTokenKey]
 		uid <- map[kAccessTokenModelUidKey]
+        nickname <- map[kAccessTokenModelNicknameKey]
+        avatar <- map[kAccessTokenModelAvatarKey]
 
     }
 
@@ -101,6 +107,12 @@ open class AccessTokenModel: BaseModel, NSCoding {
 		if uid != nil {
 			dictionary.updateValue(uid! as AnyObject, forKey: kAccessTokenModelUidKey)
 		}
+        if nickname != nil {
+            dictionary.updateValue(nickname! as AnyObject, forKey: kAccessTokenModelNicknameKey)
+        }
+        if avatar != nil {
+            dictionary.updateValue(avatar! as AnyObject, forKey: kAccessTokenModelAvatarKey)
+        }
 
         return dictionary
     }

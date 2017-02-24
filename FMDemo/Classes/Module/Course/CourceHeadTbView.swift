@@ -8,15 +8,20 @@
 
 import UIKit
 
+//protocol CourceHeadTbViewDelegate: NSObjectProtocol{
+//    func clickOKChangceTitle(courceHeadTbView: CourceHeadTbView, title: String)
+//}
+
 class CourceHeadTbView: UIView {
+    
+//    weak var delegate: CourceHeadTbViewDelegate?
+    var cid: String!
     
     @IBOutlet weak var tbHeadNormalView: BorderBackgroundView!
     @IBOutlet weak var tbHeadChangceView: BorderBackgroundView!
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var courceStatusLabel: UILabel!
     @IBOutlet weak var changceBtn: UIView!
-
     @IBOutlet weak var textView: BorderTextView!
     @IBOutlet weak var okBtn: UIButton!
     
@@ -42,7 +47,7 @@ class CourceHeadTbView: UIView {
         
         tbHeadChangceView.isHidden = true
 //        setupUI()
-        textView.setPlaceholder(kCreatTitleString, maxTip: 50)
+        textView.setPlaceholder(kCreatCourceTitleString, maxTip: 50)
         
         changceBtn.isUserInteractionEnabled = true
         let tapGes = UITapGestureRecognizer(target: self, action: #selector(actionChangce(_:)))
@@ -56,15 +61,24 @@ class CourceHeadTbView: UIView {
     }
     
     @IBAction func actionOk(_ sender: UIButton) {
-        tbHeadChangceView.isHidden = true
-        titleLabel.text = textView.text
+        
+        if textView.text.isEmpty {
+            MBAProgressHUD.showInfoWithStatus("课程标题不能为空")
+            return
+        }
+        if titleLabel.text != textView.text {
+            KeService.actionSaveCourse(title: textView.text, cid: cid, success: { (bean) in
+                self.titleLabel.text = self.textView.text
+                self.tbHeadChangceView.isHidden = true
+            }) { (error) in
+                MBAProgressHUD.showInfoWithStatus("课程标题修改失败，请重试")
+                self.tbHeadChangceView.isHidden = true
+            }
+        } else {
+            self.tbHeadChangceView.isHidden = true
+        }
         endEditing(true)
     }
 
-
-
 }
 
-extension CourceHeadTbView {
-
-}

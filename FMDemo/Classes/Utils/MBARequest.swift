@@ -141,8 +141,7 @@ class MBARequest<T: BaseModel> : NSObject{
                           completionHandler:@escaping finished)
     {
 
-        
-        MBACache.fetchString(key: kBangAccessToken) { (accessToken) in
+        MBACache.fetchString(key: kUserAccessToken) { (accessToken) in
             if let accessToken = accessToken {
                 if var params = params {
                     params["access_token"] = accessToken
@@ -173,7 +172,7 @@ class MBARequest<T: BaseModel> : NSObject{
                 showHUD: Bool = false,
                 completionHandler:@escaping finished)
     {
-        MBACache.fetchString(key: kBangAccessToken) { (accessToken) in
+        MBACache.fetchString(key: kUserAccessToken) { (accessToken) in
             if let accessToken = accessToken {
                 if var params = params {
                     params["access_token"] = accessToken
@@ -210,27 +209,36 @@ class MBARequest<T: BaseModel> : NSObject{
                                         return
                                     }
                                     
-                                    
-                                    if let errcode = (json["errcode"] as? Int),
-                                        let errmsg = (json["errmsg"] as? String) { // 帮帮的错误判断
+                                    if let errcode = (json["errorno"] as? Int),
+                                        let errmsg = (json["error"] as? String){  // 以前的登录，wiki错误判断
                                         
-                                        if errcode != 1 {
-                                            if errcode == 10001 {// token 出错
-//                                                DispatchQueue.main.async {
-//                                                    UserService.Action_accessToken({ (bean) in
-//                                                         重新请求数据
-//                                                        DispatchQueue.main.async {
-//                                                            goSafeUpload(url: url, params: params, showHUD: showHUD, completionHandler: completionHandler)
-//                                                        }
-//                                                    }, failure: { (error) in
-//                                                    })
-//                                                }
-                                            }else {
-                                                MBAToast.show(text: errmsg)
-                                                let error = NSError(domain: errmsg, code: errcode, userInfo: nil)
-                                                completionHandler(nil, error)
+                                        if errcode == 10001 {// token 出错
+                                            
+                                            DispatchQueue.main.async {
+                                                KeService.actionAccessToken({ (isSuccess) in
+                                                    if isSuccess {
+                                                        DispatchQueue.main.async {
+                                                            goSafeUpload(url: url, params: params, showHUD: showHUD, completionHandler: completionHandler)
+                                                        }
+                                                    }
+                                                }, failure: { (error) in
+                                                })
                                             }
+                                        }else if errcode == 10002 {// loginToken 过期
+                                            let error = NSError(domain: errmsg, code: errcode, userInfo: nil)
+                                            completionHandler(nil, error)
+                                            return
+                                        }else{
+                                            MBAToast.show(text: errmsg)
+                                            let error = NSError(domain: errmsg, code: errcode, userInfo: nil)
+                                            completionHandler(nil, error)
+                                            return
+
                                         }
+                                        MBAToast.show(text: errmsg)
+                                        let error = NSError(domain: errmsg, code: errcode, userInfo: nil)
+                                        completionHandler(nil, error)
+                                        return
                                     }else {
                                         let object = transformBean(with: json)
                                         
@@ -327,69 +335,22 @@ class MBARequest<T: BaseModel> : NSObject{
                     return
                 }
                 
-                
-                if let errcode = (json["errcode"] as? Int),
-                    let errmsg = (json["errmsg"] as? String) { // 帮帮的错误判断
-                    
-//                    "errcode": 1,
-//                    "errmsg": "ok"
-                    
-                    if errcode != 1 {
-//                        if(errorBean.errorno == 10002) { // loginToken 过期
-//                            [UserInfo deleteUserInfo];
-//                            [Toast show:@"登录已过期，请重新登录"];
-//                        }
-                        
-                        if errcode == 10001 {// token 出错
-                            
-                            //                                                DispatchQueue.main.async {
-                            //                                                    UserService.Action_accessToken({ (bean) in
-                            //                                                         重新请求数据
-                            //                                                        DispatchQueue.main.async {
-                            //                                                            goSafe(url: url, method: method, params: params, cache: cache, showHUD: showHUD, completionHandler: completionHandler)
-                            //                                                        }
-                            //                                                    }, failure: { (error) in
-                            //                                                    })
-                            //                                                }
-                            
-                        }else if errcode == 10002 {// loginToken 过期
-                            let error = NSError(domain: errmsg, code: errcode, userInfo: nil)
-                            completionHandler(nil, error)
-                            return
-                        }else if errcode == 30601 {// 语音权限不足
-                            let error = NSError(domain: errmsg, code: errcode, userInfo: nil)
-                            completionHandler(nil, error)
-                            return
-                        }else{
-                            MBAToast.show(text: errmsg)
-                            let error = NSError(domain: errmsg, code: errcode, userInfo: nil)
-                            completionHandler(nil, error)
-                            return
-                        }
-
-                    }
-                    
-                }
-                
                 if let errcode = (json["errorno"] as? Int),
                     let errmsg = (json["error"] as? String){  // 以前的登录，wiki错误判断
 
                     if errcode == 10001 {// token 出错
 
-                        //                                                DispatchQueue.main.async {
-                        //                                                    UserService.Action_accessToken({ (bean) in
-                        //                                                         重新请求数据
-                        //                                                        DispatchQueue.main.async {
-                        //                                                            goSafe(url: url, method: method, params: params, cache: cache, showHUD: showHUD, completionHandler: completionHandler)
-                        //                                                        }
-                        //                                                    }, failure: { (error) in
-                        //                                                    })
-                        //                                                }
+                        DispatchQueue.main.async {
+                            KeService.actionAccessToken({ (isSuccess) in
+                                if isSuccess {
+                                    DispatchQueue.main.async {
+                                        goSafe(url: url, method: method, params: params, cache: cache, showHUD: showHUD, completionHandler: completionHandler)
+                                    }
+                                }
+                            }, failure: { (error) in
+                            })
+                        }
                     }else if errcode == 10002 {// loginToken 过期
-                        let error = NSError(domain: errmsg, code: errcode, userInfo: nil)
-                        completionHandler(nil, error)
-                        return
-                    }else if errcode == 30601 {// 语音权限不足
                         let error = NSError(domain: errmsg, code: errcode, userInfo: nil)
                         completionHandler(nil, error)
                         return
@@ -416,6 +377,7 @@ class MBARequest<T: BaseModel> : NSObject{
                 }
             
             case .failure(let error):
+                print(error.localizedDescription)
                 MBAToast.show(text: kServiceDontUse)
                 completionHandler(nil, error as NSError?)
             }
@@ -471,7 +433,7 @@ class MBARequest<T: BaseModel> : NSObject{
     }
     
     /// 发送登录请求
-    fileprivate static func postLoginNotification(){
+    static func postLoginNotification(){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: kUserShouldLoginNotification), object: nil, userInfo: nil)
     }
     

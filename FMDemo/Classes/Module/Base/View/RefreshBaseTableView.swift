@@ -1,7 +1,7 @@
 import UIKit
 import MJRefresh
 import ObjectMapper
-//import DZNEmptyDataSet
+import DZNEmptyDataSet
 
 class RefreshBaseTableView: UITableView {
         
@@ -35,6 +35,8 @@ class RefreshBaseTableView: UITableView {
         setDefauteUI()
         setUI()
     }
+    
+    
     
     /**
      初始化参数
@@ -215,7 +217,7 @@ extension RefreshBaseTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? RefreshBaseTableViewCell
-        cell!.setContent(tableView, cellForRowAtIndexPath: indexPath, dataList: dataList!)
+        cell?.setContent(tableView, cellForRowAtIndexPath: indexPath, dataList: dataList!)
         return cell!
     }
     
@@ -250,8 +252,8 @@ extension RefreshBaseTableView {
         delegate = self
         dataSource = self
         
-//        emptyDataSetSource = self
-//        emptyDataSetDelegate = self
+        emptyDataSetSource = self
+        emptyDataSetDelegate = self
         
         separatorStyle = UITableViewCellSeparatorStyle.none
         backgroundColor = UIColor.colorWithHexString(kGlobalBgColor)
@@ -282,9 +284,9 @@ extension RefreshBaseTableView {
 //}
 
 
-//// MARK: - DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
-//extension RefreshBaseTableView: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
-//    
+// MARK: - DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
+extension RefreshBaseTableView: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
+    
 //    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
 //        return UIImage(named: "none")
 //    }
@@ -294,35 +296,35 @@ extension RefreshBaseTableView {
 //        let text = "没有数据，请刷新"
 //        return NSAttributedString(string: text, attributes: attributes)
 //    }
-//    
-////    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-////        let attributes = [ NSFontAttributeName: UIFont.boldSystemFontOfSize(10.0), NSForegroundColorAttributeName: UIColor.grayColor()]
-////        let text = "关注精英后可捕捉最新动态"
-////        return NSAttributedString(string: text, attributes: attributes)
-////    }
-//    
-//    //    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
-//    //
-//    //    }
-//    
-//    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
-//        return true
+    
+//    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+//        let attributes = [ NSFontAttributeName: UIFont.boldSystemFontOfSize(10.0), NSForegroundColorAttributeName: UIColor.grayColor()]
+//        let text = "关注精英后可捕捉最新动态"
+//        return NSAttributedString(string: text, attributes: attributes)
 //    }
-//    
-//    func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
-//        return true
-//    }
-//   
-//    func emptyDataSetDidTap(_ scrollView: UIScrollView!) {
-//        loadRefresh()
-//    }
-//    
-//    func emptyDataSetWillAppear(_ scrollView: UIScrollView!) {
-//        mj_footer.isHidden = true
-//    }
-//    
-//    func emptyDataSetWillDisappear(_ scrollView: UIScrollView!) {
-//        mj_footer.isHidden = !canLoadMore
-//    }
-//}
+    
+    //    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
+    //
+    //    }
+    
+    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    
+    func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+   
+    func emptyDataSetDidTap(_ scrollView: UIScrollView!) {
+        loadRefresh()
+    }
+    
+    func emptyDataSetWillAppear(_ scrollView: UIScrollView!) {
+        mj_footer.isHidden = true
+    }
+    
+    func emptyDataSetWillDisappear(_ scrollView: UIScrollView!) {
+        mj_footer.isHidden = !canLoadMore
+    }
+}
 

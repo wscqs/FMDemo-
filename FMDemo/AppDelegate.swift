@@ -10,6 +10,7 @@ import UIKit
 import WechatKit
 import UserNotifications
 //import IQKeyboardManagerSwift
+//import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+//        print(AccessTokenModel.shared?.accessToken,AccessTokenModel.shared?.uid,AccessTokenModel.shared?.loginToken)
         
+
         setupGlobalStyle()        // 配置全局样式
         setupGlobalData()         // 配置全局数据
         setupRootViewController() // 配置控制器
@@ -50,14 +53,14 @@ extension AppDelegate {
     fileprivate func setupRootViewController() {
         
         window?.backgroundColor = UIColor.white
-//
+
 //        if AccessTokenModel.shared?.accessToken?.isEmpty ?? true{
 //            window?.rootViewController = LoginViewController()
 //        } else {
 //            let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController()
 //            window?.rootViewController = mainVC
 //        }
-//        
+        
         window?.makeKeyAndVisible()
     }
     

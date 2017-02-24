@@ -39,7 +39,7 @@ class QSNavigationController: UINavigationController, UIGestureRecognizerDelegat
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
 
         if childViewControllers.count > 0 {
-            backBtn.contentEdgeInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
+            backBtn.contentEdgeInsets = UIEdgeInsets(top: 0, left: -3, bottom: 0, right: 0)
             backBtn.adjustsImageWhenHighlighted = false
             
             viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)

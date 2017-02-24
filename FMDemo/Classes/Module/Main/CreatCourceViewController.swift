@@ -11,6 +11,8 @@ import UIKit
 class CreatCourceViewController: UIViewController {
 
     @IBOutlet weak var creatCourceTextView: BorderTextView!
+    var cid:String?
+    
     override func viewDidLoad() {
         creatCourceTextView.setPlaceholder("请输入课程标题，不要超过50个中文字符", maxTip: 50)
     }
@@ -20,16 +22,30 @@ class CreatCourceViewController: UIViewController {
             MBAProgressHUD.showInfoWithStatus("创建课程标题不能为空")
             return
         }
-        self.performSegue(withIdentifier: "pushToCourceMainVC", sender: self)
+        
+        
+        KeService.actionSaveCourse(title: creatCourceTextView.text, success: { (bean) in
+            self.cid = bean.cid
+            DispatchQueue.main.async {
+                self.preparePreEvent()
+            }
+        }) { (error) in}
     }
-}
+    
+    
+    func preparePreEvent() {
+        let courceMainVC = CourceMainViewController()
+        courceMainVC.creatTitle = creatCourceTextView.text
+        courceMainVC.cid = self.cid!
+        
+        navigationController?.pushViewController(courceMainVC, animated: true)
 
-extension CreatCourceViewController {
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if "pushToCourceMainVC" == segue.identifier {
-            let courceMainVC = segue.destination as? CourceMainViewController
-            courceMainVC?.creatTitle = creatCourceTextView.text
+        for i in 0 ..< (navigationController?.viewControllers.count ?? 0){
+            if navigationController?.viewControllers[i] is CreatCourceViewController {
+                navigationController?.viewControllers.remove(at: i)
+                break
+            }
         }
     }
 }
+

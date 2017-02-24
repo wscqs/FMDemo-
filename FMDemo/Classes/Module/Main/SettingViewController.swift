@@ -22,15 +22,21 @@ class SettingViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        userImageView.qs_setImageFromUrl(WechatUser.shared?.headimgurl ?? "", placeholder: #imageLiteral(resourceName: "course_chapt_state1_ico"), isAvatar: true)
-        userNameLabel.text = WechatUser.shared?.nickname
+//        MBACache.fetchString(key: kUserAvator) { (headimgurl) in
+//            self.userImageView.qs_setImageFromUrl(headimgurl ?? "", placeholder: #imageLiteral(resourceName: "course_chapt_state1_ico"), isAvatar: true)
+//        }
+//        MBACache.fetchString(key: kUserName) { (nickname) in
+//            self.userNameLabel.text = nickname
+//        }
+        self.userImageView.qs_setImageFromUrl(KeUserAccount.shared?.avatar ?? "", placeholder: #imageLiteral(resourceName: "course_chapt_state1_ico"), isAvatar: true)
+        self.userNameLabel.text = KeUserAccount.shared?.nickname
     }
     
     
     @IBAction func actionExitUser(_ sender: UIButton) {
-        AccessTokenModel.clearBean()
-        _ = navigationController?.popToRootViewController(animated: true)
+        //清除账号
+        KeUserAccount.cleanAccount()
+        _ = navigationController?.popToRootViewController(animated: false)
     }
     
 }
