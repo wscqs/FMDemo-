@@ -22,13 +22,12 @@ class CourceMainTableViewCell: RefreshBaseTableViewCell {
     override func setContent(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath, dataList: [Mappable]) {
         guard let bean = dataList[indexPath.row] as? GetMaterialsData else{return}
         titleLable.text = bean.title
-        if "0" == bean.time {
+        if "unrecorded" == bean.state {
             status(isRecord: false)
-            statusLabel.text = "0'00\""
-        } else {
+        } else if "recorded" == bean.state{
             status(isRecord: true)
-            statusLabel.text = bean.time
         }
+       statusLabel.text = Double(bean.time!)?.getFormatTime(isSpace: false)
     }
     
     override func awakeFromNib() {

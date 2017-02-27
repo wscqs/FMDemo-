@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import ZLPhotoBrowser
 
 class RecordImgCollectionView: UICollectionView {
 
-    var recordImgArray: [RecordImgModel]? = [RecordImgModel](){
-        didSet{
-            reloadData()
-        }
-    }
+    var recordImgArray: [RecordImgModel]? = [RecordImgModel]()
+//        {
+//        didSet{
+//            reloadData()
+//        }
+//    }
     
 //    let recordImg1Array: [RecordImgModel] = {
 //        let recordImg1 = RecordImgModel(img: #imageLiteral(resourceName: "new_feature_1"), isTapStatus: false, isEditStatus: false)
@@ -39,6 +41,7 @@ class RecordImgCollectionView: UICollectionView {
     }
     
     var parentVC: RecordViewController?
+    var mid: String!
     override func awakeFromNib() {
         super.awakeFromNib()
         delegate = self
@@ -60,6 +63,18 @@ extension RecordImgCollectionView: RecordImgCollectionCellDelegate {
             return
         }
         self.recordImgArray?.remove(at: row)
+        reloadData()
+    }
+    
+    
+    func actionResaveWidModel(recordImgCollectionCell: UICollectionViewCell, recordImgModel: RecordImgModel) {
+        let indexPath = self.indexPath(for: recordImgCollectionCell)
+        guard let row = indexPath?.row else {
+            return
+        }
+        self.recordImgArray?.remove(at: row)
+        self.recordImgArray?.insert(recordImgModel, at: row)
+//        reloadData()
     }
 }
 
@@ -71,13 +86,15 @@ extension RecordImgCollectionView: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionId", for: indexPath) as? RecordImgCollectionCell
+        cell?.mid = self.mid
+        cell?.delegate = self
         cell?.recordImgModel = recordImgArray?[indexPath.row]
         
         let longGes = UILongPressGestureRecognizer(target: self, action: #selector(actionLongGes))
         longGes.minimumPressDuration = 1
         cell?.addGestureRecognizer(longGes)
         
-        cell?.delegate = self
+        
         return cell!
     }
     
@@ -86,19 +103,28 @@ extension RecordImgCollectionView: UICollectionViewDelegate, UICollectionViewDat
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {       
+
+        /// 是否已经成功上传服务器
+        let model = recordImgArray?[indexPath.row]
+        if model?.wid?.isEmpty ?? true{
+            let cell = collectionView.cellForItem(at: indexPath) as! RecordImgCollectionCell
+            cell.actionUploadPicture()
+            return
+        }
         
+        /// 录音状态才能上屏
         if (parentVC?.recordBtn.isSelected ?? true) {
             return
         }
         
-        let model = recordImgArray?[indexPath.row]
         // 保存图片点击状态
-        parentVC?.saveImgClick(image: (model?.img)!)
+        parentVC?.saveImgClick(image: (model?.img)! , wid: (model?.wid) ?? "")
         model?.isTapStatus = true
         let cell = collectionView.cellForItem(at: indexPath) as! RecordImgCollectionCell
         cell.recordImgModel = model
         recordImgArray?[indexPath.row] = model!
+        reloadData()
     }
 }
 
@@ -110,68 +136,84 @@ extension RecordImgCollectionView {
     }
     
     func actionTap(sender: UITapGestureRecognizer) {
+        
         isEidtStatus = false
         parentVC?.view.removeGestureRecognizer(sender)
     }
 
 }
 
-extension RecordImgCollectionView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+extension RecordImgCollectionView {
     //选择图片
     func choseImg() {
-        isEidtStatus = false
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.delegate = self
-        picker.allowsEditing = true
-        self.parentVC?.present(picker, animated: true, completion: nil)
-    }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        //相册中还可能是视频，所以这里需要判断选择的是不是图片
-        let type: String = (info[UIImagePickerControllerMediaType] as! String)        
-        //当选择的类型是图片
-        if type == "public.image"
-        {
-            //修正图片的位置
-//            let image = (info[UIImagePickerControllerEditedImage] as! UIImage).fixOrientation()
-            let image = (info[UIImagePickerControllerEditedImage] as! UIImage)
-            picker.dismiss(animated: true, completion: nil)
-            let model = RecordImgModel(img: image, isTapStatus: false, isEditStatus: false)
-            recordImgArray?.append(model)
-          
-            //先把图片转成NSData
-            //            let data = UIImageJPEGRepresentation(image, 0.5)
-            //图片保存的路径
-            //这里将图片放在沙盒的documents文件夹中
-            //            let DocumentsPath:String = NSHomeDirectory().stringByAppendingString("Documents")
-            //
-            //            //文件管理器
-            //            let fileManager = NSFileManager.defaultManager()
-            //
-            //            //把刚刚图片转换的data对象拷贝至沙盒中 并保存为image.png
-            //            try! fileManager.createDirectoryAtPath(DocumentsPath, withIntermediateDirectories: true, attributes: nil)
-            //            fileManager.createFileAtPath(DocumentsPath + "/image.png", contents: data, attributes: nil)
-            //
-            //            //得到选择后沙盒中图片的完整路径
-            //            let filePath = DocumentsPath + "/image.png"
-            //利用Alamofire的表单提交来上传图片
-            //            Alamofire.upload(.POST, "http://192.168.3.16:9060/client/updateHeadUrl", multipartFormData: { multipartFormData in
-            //
-            //                multipartFormData.appendBodyPart(data: data!, name: "image")
-            //                }, encodingCompletion: { response in
-            //                    picker.dismissViewControllerAnimated(true, completion: nil)
-            //                    switch response {
-            //                    case .Success(let upload, _, _):
-            //                        upload.responseJSON(completionHandler: { (response) in
-            //                            print(response)
-            //                        })
-            //                    case .Failure(let encodingError):
-            //                        print(encodingError)
-            //                    }
-            //
-            //            })
+        let choseImg = ZLPhotoActionSheet()
+        choseImg.showPhotoLibrary(withSender: self.parentVC!, last: nil) { (imageArray: [UIImage], selctpotoModelArray: [ZLSelectPhotoModel]) in
+            print(self.mid)
+            for image in imageArray {
+                let model = RecordImgModel(img: image, wid: nil, isRequestUpload: true, isTapStatus: false, isEditStatus: false)
+                self.recordImgArray?.append(model)
+                self.reloadData()
+            }
         }
     }
 }
+
+//extension RecordImgCollectionView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//    
+//    //选择图片
+//    func choseImg() {
+//        isEidtStatus = false
+//        let picker = UIImagePickerController()
+//        picker.sourceType = .photoLibrary
+//        picker.delegate = self
+//        picker.allowsEditing = true
+//        self.parentVC?.present(picker, animated: true, completion: nil)
+//    }
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        //相册中还可能是视频，所以这里需要判断选择的是不是图片
+//        let type: String = (info[UIImagePickerControllerMediaType] as! String)        
+//        //当选择的类型是图片
+//        if type == "public.image"
+//        {
+//            //修正图片的位置
+////            let image = (info[UIImagePickerControllerEditedImage] as! UIImage).fixOrientation()
+//            let image = (info[UIImagePickerControllerEditedImage] as! UIImage)
+//            picker.dismiss(animated: true, completion: nil)
+//            let model = RecordImgModel(img: image, isTapStatus: false, isEditStatus: false)
+//            recordImgArray?.append(model)
+//          
+//            //先把图片转成NSData
+//            //            let data = UIImageJPEGRepresentation(image, 0.5)
+//            //图片保存的路径
+//            //这里将图片放在沙盒的documents文件夹中
+//            //            let DocumentsPath:String = NSHomeDirectory().stringByAppendingString("Documents")
+//            //
+//            //            //文件管理器
+//            //            let fileManager = NSFileManager.defaultManager()
+//            //
+//            //            //把刚刚图片转换的data对象拷贝至沙盒中 并保存为image.png
+//            //            try! fileManager.createDirectoryAtPath(DocumentsPath, withIntermediateDirectories: true, attributes: nil)
+//            //            fileManager.createFileAtPath(DocumentsPath + "/image.png", contents: data, attributes: nil)
+//            //
+//            //            //得到选择后沙盒中图片的完整路径
+//            //            let filePath = DocumentsPath + "/image.png"
+//            //利用Alamofire的表单提交来上传图片
+//            //            Alamofire.upload(.POST, "http://192.168.3.16:9060/client/updateHeadUrl", multipartFormData: { multipartFormData in
+//            //
+//            //                multipartFormData.appendBodyPart(data: data!, name: "image")
+//            //                }, encodingCompletion: { response in
+//            //                    picker.dismissViewControllerAnimated(true, completion: nil)
+//            //                    switch response {
+//            //                    case .Success(let upload, _, _):
+//            //                        upload.responseJSON(completionHandler: { (response) in
+//            //                            print(response)
+//            //                        })
+//            //                    case .Failure(let encodingError):
+//            //                        print(encodingError)
+//            //                    }
+//            //
+//            //            })
+//        }
+//    }
+//}

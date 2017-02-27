@@ -17,7 +17,8 @@ class CutRecordViewController: UIViewController {
         }
     }
     /// 保存点击图片
-    var imgDictArray: [[Int:UIImage]] = [[Int:UIImage]]()
+//    var imgDictArray: [[Int:UIImage]] = [[Int:UIImage]]()
+    var imgDictArray: [RecordSelectImgModel] = [RecordSelectImgModel]()
     
     
     /// 剪切后生成的url
@@ -47,14 +48,23 @@ class CutRecordViewController: UIViewController {
     
     func setSpannerImg() {
         for imgDict in imgDictArray {
-            guard let image = imgDict[thumbPointXIndex] else { continue }
-            bannerImg.image = image
-            let transition = CATransition()
-            transition.duration = 0.5
-            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-            transition.type = kCATransitionFade
-            bannerImg.layer.add(transition, forKey: nil)
-            break
+            if thumbPointXIndex == imgDict.thumbPointXIndex {
+                bannerImg.image = imgDict.image
+                let transition = CATransition()
+                transition.duration = 0.5
+                transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+                transition.type = kCATransitionFade
+                bannerImg.layer.add(transition, forKey: nil)
+                break
+            }
+            //            guard let image = imgDict[thumbPointXIndex] else { continue }
+            //            bannerImg.image = image
+            //            let transition = CATransition()
+            //            transition.duration = 0.5
+            //            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+            //            transition.type = kCATransitionFade
+            //            bannerImg.layer.add(transition, forKey: nil)
+            //            break
         }
     }
     
@@ -156,9 +166,12 @@ extension CutRecordViewController {
                     
                     for (index,imgDict) in self.imgDictArray.enumerated() {
                         for i in self.thumbPointXIndex ..< (self.pointXArray?.count)! {
-                            guard imgDict[i] != nil else { continue }
-                            self.imgDictArray.removeSubrange(Range(uncheckedBounds: (lower: index, upper: self.imgDictArray.count)))
-                            break
+//                            guard imgDict[i] != nil else { continue }
+                            if i == imgDict.thumbPointXIndex  {
+                                self.imgDictArray.removeSubrange(Range(uncheckedBounds: (lower: index, upper: self.imgDictArray.count)))
+                                break
+                            }
+
                         }
                     }
                 }

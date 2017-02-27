@@ -92,7 +92,7 @@ extension CourceMainTableView {
             }
             KeService.actionMaterial(cid: self.cid, title: textView.text, success: { (bean) in
                 
-                let object = GetMaterialsData(JSON: ["time":"0", "mid": bean.mid ?? "", "title": textView.text])
+                let object = GetMaterialsData(JSON: ["time":"0", "mid": bean.mid ?? "", "title": textView.text, "state": "unrecorded"])
                 self.dataList?.append(object!)
                 let indexPath = IndexPath(row: (self.dataList?.count)!-1, section: 0)
                 self.insertRows(at: [indexPath], with: .right)

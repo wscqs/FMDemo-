@@ -19,7 +19,7 @@ class LoginViewController: UIViewController {
 
     @IBAction func actionWechatLogin(_ sender: UIButton) {
         if !WechatManager.sharedInstance.isInstalled() {
-            MBAProgressHUD.showWithStatus("请安装微信")
+            MBAProgressHUD.showErrorWithStatus("请安装微信")
             return
         }
         

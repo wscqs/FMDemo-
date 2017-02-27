@@ -276,7 +276,7 @@ extension KeService {
     {
         let url = kKeBaseURL + "materialSort"
         let params = [
-            "sort": "[\(sort.joined(separator: ","))]"
+            "sort": sort.joined(separator: ",")
         ]
         MBARequest<StatusModel>.goSafe(url: url, method: .post, params: params, cache: .Default, completionHandler:{ (bean, error) in
             if let bean = bean {
@@ -323,6 +323,46 @@ extension KeService {
 
 
 extension KeService {
+    
+    /**
+     * action:UploadPicture(图片上传，支持多图上传)
+     *
+     * parameter:
+     * 		mid:章节ID
+     * 		file:文件资源
+     * 		access_token: 用户令牌
+     *
+     * return：
+     * 		{"state":"success","wid":"图片id"}
+     *
+     * error:
+     * 		40801：参数错误
+     * 		40802：权限不足
+     * 		40803：上传失败
+     */
+    class func actionUploadPicture(mid: String,
+                                 file: Data,
+                                 success:@escaping (_ bean: UploadPictureModel)->(),
+                                 failure:@escaping (_ error: NSError)->())
+    {
+        let url = kKeBaseURL + "uploadPicture"
+        //        [["time": "","wid": ""]]
+        let params = [
+            "mid": mid,
+            "file": file
+            ] as [String : Any]
+
+        MBARequest<UploadPictureModel>.goSafeUpload(url: url, params: params, dataType: .img, showHUD: false) { (bean, error) in
+            if let bean = bean {
+                success(bean)
+            }
+            if let error = error {
+                failure(error)
+            }
+        }
+    }
+
+    
     /**
      * action:recordAudio
      *
@@ -345,19 +385,21 @@ extension KeService {
     class func actionRecordAudio(mid: String,
                                 file: Data,
                                 time: String,
-                                ware: [[String: String]]? = nil,
+                                ware: [[String: Any]]? = nil,
                                 success:@escaping (_ bean: RecordAudioModel)->(),
                                 failure:@escaping (_ error: NSError)->())
     {
         let url = kKeBaseURL + "recordAudio"
 //        [["time": "","wid": ""]]
-        let params = [
+        var params = [
             "mid": mid,
             "file": file,
-            "time": time,
-//            "ware": ware,
+            "time": time
             ] as [String : Any]
-        
+        if (ware?.count ?? 0) > 0 {
+            print(ware.toJSONString())
+            params["ware"] = ware.toJSONString()
+        }
         
         MBARequest<RecordAudioModel>.goSafeUpload(url: url, params: params, showHUD: false) { (bean, error) in
             if let bean = bean {

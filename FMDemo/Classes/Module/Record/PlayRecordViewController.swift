@@ -24,7 +24,7 @@ class PlayRecordViewController: UIViewController {
     @IBOutlet weak var savaBtn: UIButton!
 
     /// 保存点击图片
-    var imgDictArray: [[Int:UIImage]] = [[Int:UIImage]]()
+    var imgDictArray: [RecordSelectImgModel] = [RecordSelectImgModel]()
     var thumbPointXIndex: Int = 0
     var totalTime: TimeInterval {
         return Double(pointXArray?.count ?? 0) * 0.2
@@ -32,14 +32,23 @@ class PlayRecordViewController: UIViewController {
     
     func setSpannerImg() {
         for imgDict in imgDictArray {
-            guard let image = imgDict[thumbPointXIndex] else { continue }
-            bannerImg.image = image
-            let transition = CATransition()
-            transition.duration = 0.5
-            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-            transition.type = kCATransitionFade
-            bannerImg.layer.add(transition, forKey: nil)
-            break
+            if thumbPointXIndex == imgDict.thumbPointXIndex {
+                bannerImg.image = imgDict.image
+                let transition = CATransition()
+                transition.duration = 0.5
+                transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+                transition.type = kCATransitionFade
+                bannerImg.layer.add(transition, forKey: nil)
+                break
+            }
+//            guard let image = imgDict[thumbPointXIndex] else { continue }
+//            bannerImg.image = image
+//            let transition = CATransition()
+//            transition.duration = 0.5
+//            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+//            transition.type = kCATransitionFade
+//            bannerImg.layer.add(transition, forKey: nil)
+//            break
         }
     }
     
@@ -214,22 +223,22 @@ extension PlayRecordViewController {
 }
 
 
-extension PlayRecordViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if "CutRecordViewController1" == segue.identifier {
-            let playVC = segue.destination as? CutRecordViewController
-            playVC?.url = self.url
-            playVC?.pointXArray = self.pointXArray
-            playVC?.imgDictArray = self.imgDictArray
-            for i in 0 ..< (navigationController?.viewControllers.count ?? 0){
-                if navigationController?.viewControllers[i] is PlayRecordViewController {
-                    navigationController?.viewControllers.remove(at: i)
-                    break
-                }
-            }
-        }
-    }
-}
+//extension PlayRecordViewController {
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if "CutRecordViewController1" == segue.identifier {
+//            let playVC = segue.destination as? CutRecordViewController
+//            playVC?.url = self.url
+//            playVC?.pointXArray = self.pointXArray
+//            playVC?.imgDictArray = self.imgDictArray
+//            for i in 0 ..< (navigationController?.viewControllers.count ?? 0){
+//                if navigationController?.viewControllers[i] is PlayRecordViewController {
+//                    navigationController?.viewControllers.remove(at: i)
+//                    break
+//                }
+//            }
+//        }
+//    }
+//}
 
 extension PlayRecordViewController: AVAudioPlayerDelegate{
     

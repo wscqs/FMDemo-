@@ -89,6 +89,8 @@
 		2C97D7F71E502B3F00FB407F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7F61E502B3F00FB407F /* SettingViewController.swift */; };
 		2C97D7FA1E513F7000FB407F /* DubPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7F81E513F7000FB407F /* DubPlayView.swift */; };
 		2C97D7FD1E51427700FB407F /* DubPlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C97D7FC1E51427700FB407F /* DubPlayView.xib */; };
+		2CAE5F801E63FFEC005DAA57 /* UploadPictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE5F7F1E63FFEC005DAA57 /* UploadPictureModel.swift */; };
+		2CAE5F821E6434E1005DAA57 /* JSON+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE5F811E6434E1005DAA57 /* JSON+Extension.swift */; };
 		2CB2F8D21E5E8A2000A0E010 /* RefreshBaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D11E5E8A2000A0E010 /* RefreshBaseTableView.swift */; };
 		2CB2F8D41E5EB36C00A0E010 /* SaveCourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D31E5EB36C00A0E010 /* SaveCourseModel.swift */; };
 		2CB2F8D71E5EC2B000A0E010 /* GetCoursesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D51E5EC2B000A0E010 /* GetCoursesData.swift */; };
@@ -195,6 +197,8 @@
 		2C97D7F61E502B3F00FB407F /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2C97D7F81E513F7000FB407F /* DubPlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DubPlayView.swift; sourceTree = "<group>"; };
 		2C97D7FC1E51427700FB407F /* DubPlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DubPlayView.xib; sourceTree = "<group>"; };
+		2CAE5F7F1E63FFEC005DAA57 /* UploadPictureModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPictureModel.swift; sourceTree = "<group>"; };
+		2CAE5F811E6434E1005DAA57 /* JSON+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSON+Extension.swift"; sourceTree = "<group>"; };
 		2CB2F8D11E5E8A2000A0E010 /* RefreshBaseTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshBaseTableView.swift; sourceTree = "<group>"; };
 		2CB2F8D31E5EB36C00A0E010 /* SaveCourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveCourseModel.swift; sourceTree = "<group>"; };
 		2CB2F8D51E5EC2B000A0E010 /* GetCoursesData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCoursesData.swift; sourceTree = "<group>"; };
@@ -438,6 +442,7 @@
 				2C97D7841E4B158A00FB407F /* IdsModel.swift */,
 				2CB2F8D31E5EB36C00A0E010 /* SaveCourseModel.swift */,
 				2CE6569E1E6017ED00A65116 /* RecordAudioModel.swift */,
+				2CAE5F7F1E63FFEC005DAA57 /* UploadPictureModel.swift */,
 				2CE656981E5EF05300A65116 /* SaveMaterialsModel.swift */,
 				2CE6569A1E5EF9ED00A65116 /* StatusModel.swift */,
 				2CE656971E5EE25600A65116 /* GetMaterials */,
@@ -485,6 +490,7 @@
 		2C97D7B01E4C441C00FB407F /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				2CAE5F811E6434E1005DAA57 /* JSON+Extension.swift */,
 				2C664D831E5A897100D9F4BA /* TimeInterval+Extension.swift */,
 				2CFA62CB1E5198F700583622 /* CALayer+Extension.swift */,
 				2C97D7C91E4C450F00FB407F /* String+Extension.swift */,
@@ -769,6 +775,7 @@
 				2C7818C11DEEA0F4001E3594 /* AppDelegate.swift in Sources */,
 				2C97D7C01E4C441C00FB407F /* UIColor+Extension.swift in Sources */,
 				2C94E7FD1E277C7A00D539DC /* FavoriteBtnViewController.swift in Sources */,
+				2CAE5F821E6434E1005DAA57 /* JSON+Extension.swift in Sources */,
 				2C0239B51E4B02EF00CD6008 /* MBAToast.swift in Sources */,
 				2C97D7F51E50288700FB407F /* AvatorView.swift in Sources */,
 				2C97D7CF1E4C586900FB407F /* MainTableViewCell.swift in Sources */,
@@ -777,6 +784,7 @@
 				2C97D7F71E502B3F00FB407F /* SettingViewController.swift in Sources */,
 				2C664D841E5A897100D9F4BA /* TimeInterval+Extension.swift in Sources */,
 				2C97D7E61E4D5AE700FB407F /* ColorCommon.swift in Sources */,
+				2CAE5F801E63FFEC005DAA57 /* UploadPictureModel.swift in Sources */,
 				2C97D7C31E4C441C00FB407F /* UILabel+Extension.swift in Sources */,
 				2C58C0981E56ADEE00310C1C /* CutBarWaveView.swift in Sources */,
 				2C94E8041E277C7A00D539DC /* TimeTool.swift in Sources */,

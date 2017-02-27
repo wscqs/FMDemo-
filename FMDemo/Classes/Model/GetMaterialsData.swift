@@ -14,11 +14,13 @@ public class GetMaterialsData: Mappable {
   private let kDataTimeKey: String = "time"
   private let kDataMidKey: String = "mid"
   private let kDataTitleKey: String = "title"
+  private let kDataStateKey: String = "state"
 
   // MARK: Properties
   public var time: String?
   public var mid: String?
   public var title: String?
+  public var state: String?
 
   // MARK: ObjectMapper Initalizers
   /**
@@ -37,6 +39,7 @@ public class GetMaterialsData: Mappable {
     time <- map[kDataTimeKey]
     mid <- map[kDataMidKey]
     title <- map[kDataTitleKey]
+    state <- map[kDataStateKey]
   }
 
   /**
@@ -48,6 +51,7 @@ public class GetMaterialsData: Mappable {
     if let value = time { dictionary[kDataTimeKey] = value }
     if let value = mid { dictionary[kDataMidKey] = value }
     if let value = title { dictionary[kDataTitleKey] = value }
+    if let value = state { dictionary[kDataStateKey] = value }
     return dictionary
   }
 

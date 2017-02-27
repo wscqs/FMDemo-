@@ -74,5 +74,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>CFBundleAllowMixedLocalizations</key>
+    <true/>
+<!--    <key>UIViewControllerBasedStatusBarAppearance</key>-->
+<!--    <false/>-->
 </dict>
 </plist>

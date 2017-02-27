@@ -146,10 +146,15 @@
                                                             <rect key="frame" x="58" y="0.0" width="22" height="22"/>
                                                             <state key="normal" image="record_del-ico"/>
                                                         </button>
+                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="acv-i0-gY7">
+                                                            <rect key="frame" x="30" y="15.5" width="20" height="20"/>
+                                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.359375" colorSpace="calibratedRGB"/>
+                                                        </activityIndicatorView>
                                                     </subviews>
                                                 </view>
                                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
+                                                    <constraint firstItem="acv-i0-gY7" firstAttribute="centerX" secondItem="NAo-Fu-xwd" secondAttribute="centerX" id="90o-uQ-a4D"/>
                                                     <constraint firstItem="PP3-HW-7b9" firstAttribute="top" secondItem="Qdc-Nz-iSG" secondAttribute="top" id="Dcw-LN-6Uy"/>
                                                     <constraint firstAttribute="trailing" secondItem="Qdc-Nz-iSG" secondAttribute="trailing" id="K7z-hs-Hmt"/>
                                                     <constraint firstItem="Z5k-Gb-oxa" firstAttribute="top" secondItem="Qdc-Nz-iSG" secondAttribute="top" id="cgH-Ns-FBV"/>
@@ -158,10 +163,12 @@
                                                     <constraint firstItem="PP3-HW-7b9" firstAttribute="leading" secondItem="Qdc-Nz-iSG" secondAttribute="leading" id="lxJ-UJ-Z34"/>
                                                     <constraint firstItem="Z5k-Gb-oxa" firstAttribute="trailing" secondItem="Qdc-Nz-iSG" secondAttribute="trailing" id="pCd-Hx-jmU"/>
                                                     <constraint firstItem="PP3-HW-7b9" firstAttribute="height" secondItem="Qdc-Nz-iSG" secondAttribute="height" id="qXG-xK-1dg"/>
+                                                    <constraint firstItem="acv-i0-gY7" firstAttribute="centerY" secondItem="NAo-Fu-xwd" secondAttribute="centerY" id="tIU-jD-wbS"/>
                                                     <constraint firstItem="Qdc-Nz-iSG" firstAttribute="leading" secondItem="NAo-Fu-xwd" secondAttribute="leading" id="vAl-EU-LlC"/>
                                                     <constraint firstItem="Qdc-Nz-iSG" firstAttribute="top" secondItem="NAo-Fu-xwd" secondAttribute="top" id="yS4-JO-XAr"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="activityIndicatorView" destination="acv-i0-gY7" id="hkE-W0-eWC"/>
                                                     <outlet property="delBtn" destination="Z5k-Gb-oxa" id="F27-5w-FSp"/>
                                                     <outlet property="grayMaskView" destination="PP3-HW-7b9" id="TP5-a2-l9l"/>
                                                     <outlet property="imgView" destination="Qdc-Nz-iSG" id="ZyB-Sg-Bhz"/>

@@ -9,6 +9,7 @@ target 'FMDemo' do
 pod 'MJRefresh' #https://github.com/CoderMJLee/MJRefresh
 pod 'DZNEmptyDataSet' #https://github.com/dzenbot/DZNEmptyDataSet
 pod 'SVProgressHUD' #https://github.com/SVProgressHUD/SVProgressHUD
+pod 'ZLPhotoBrowser' #https://github.com/longitachi/ZLPhotoBrowser
 
   pod 'Kingfisher'
 #  pod 'AlamofireObjectMapper'

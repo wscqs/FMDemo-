@@ -36,7 +36,7 @@ class RecordViewController: UIViewController {
     }
     
     /// 保存点击图片
-    var imgDictArray: [[Int:UIImage]] = [[Int:UIImage]]()
+    var imgDictArray: [RecordSelectImgModel] = [RecordSelectImgModel]()
     var thumbPointXIndex: Int = 0
     
     // 获取录音强度动画的计时器
@@ -109,7 +109,7 @@ class RecordViewController: UIViewController {
         isCuted = true
         mergeExportURL = cutCompleArray.first as? URL
         pointXArray = (cutCompleArray[1] as? [CGFloat])!
-        imgDictArray = (cutCompleArray.last as? [[Int:UIImage]])!
+        imgDictArray = (cutCompleArray.last as? [RecordSelectImgModel])!
         recordMetersTime = Double(pointXArray.count) * 0.2
         initOraginTimeStatue(time: recordMetersTime)
         lastRecordURL = MBAAudio.url
@@ -148,16 +148,36 @@ class RecordViewController: UIViewController {
 }
 
 extension RecordViewController {
-    func saveImgClick(image: UIImage) {
+    func saveImgClick(image: UIImage,wid: String) {
         bannerImg.image = image
-        let imgDict = [thumbPointXIndex: image]
-        imgDictArray.append(imgDict)
+        let recordSelectImgModel = RecordSelectImgModel(image: image, wid: wid, thumbPointXIndex: thumbPointXIndex)
+        imgDictArray.append(recordSelectImgModel)
+        print(recordSelectImgModel.thumbPointXIndex,recordSelectImgModel.wid,recordSelectImgModel.time)
+        
+        
+//        let imgDict = [thumbPointXIndex: image]
+//        imgDictArray.append(imgDict)
+    }
+}
+
+class RecordSelectImgModel {
+    var image: UIImage
+    var wid: String
+    var thumbPointXIndex: Int
+    var time: Int = 0
+    
+    init(image: UIImage, wid: String,thumbPointXIndex: Int) {
+        self.image = image
+        self.wid = wid
+        self.thumbPointXIndex = thumbPointXIndex
+        self.time = Int(Double(thumbPointXIndex) * 0.2)
     }
 }
 
 extension RecordViewController {
     func setup() {
         imgCollectionView.parentVC = self
+        imgCollectionView.mid = self.mid
         addDubBtn.adjustsImageWhenHighlighted = false
         addDubBtn.addTarget(self, action: #selector(actionAddDub), for: .touchUpInside)
         recordBtn.addTarget(self, action: #selector(actionRecordClick), for: .touchUpInside)
@@ -235,29 +255,41 @@ extension RecordViewController {
     func actionSave() {
         pauseRecord()
         let url = isCuted ? mergeExportURL : MBAAudio.url
-        let mp3url = MBAAudioUtil.changceToMp3(of: url, mp3Name: "cafTomp3")
-        
+
         let alertController = UIAlertController(title: "是否保存章节录音", message: nil, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
-            guard let saveURL = mp3url else {
-                MBAProgressHUD.showWithStatus("上传失败，请重试")
-                return
-            }
-            let mp3Data = try? Data(contentsOf: saveURL)
-            KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: String(self.recordMetersTime), success: { (bean) in
-                print(bean.audio)
-                
-                for vc in (self.navigationController?.viewControllers)! {
-                    if vc is CourceMainViewController {
-                         _ = self.navigationController?.popToViewController(vc, animated: true)
-                        break
+            var wareArray = [[String: Any]]()
+            for recordSelectImgModel in self.imgDictArray {
+                var dict: [String: Any] = ["time": recordSelectImgModel.time]
+                dict["wid"] = recordSelectImgModel.wid
+                wareArray.append(dict)
+            }            
+            MBAProgressHUD.show()
+            DispatchQueue.global().async {
+                let mp3url = MBAAudioUtil.changceToMp3(of: url, mp3Name: "cafTomp3")
+                DispatchQueue.main.async {
+                    guard let saveURL = mp3url else {
+                        MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
+                        return
                     }
+                    let mp3Data = try? Data(contentsOf: saveURL)
+
+                    KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: String(self.recordMetersTime),ware: wareArray, success: { (bean) in
+                        MBAProgressHUD.dismiss()
+                        for vc in (self.navigationController?.viewControllers)! {
+                            if vc is CourceMainViewController {
+                                _ = self.navigationController?.popToViewController(vc, animated: true)
+                                break
+                            }
+                        }
+                        
+                    }, failure: { (error) in
+                        MBAProgressHUD.dismiss()
+                        MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
+                    })
                 }
-               
-            }, failure: { (error) in
-                
-            })
+            }
         }
 
         alertController.addAction(okAction)
