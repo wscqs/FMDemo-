@@ -12,6 +12,7 @@ import AVFoundation
 class PlayRecordViewController: UIViewController {
     var url: URL?
     var pointXArray: [CGFloat]?
+    var mid: String!
 
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var bannerImg: UIImageView!
@@ -136,9 +137,53 @@ extension PlayRecordViewController {
     }
     
     func actionSave() {
-
+        listenStatusLabel.text = "播放"
+        pausePlay()
+        
+        let alertController = UIAlertController(title: "是否保存章节录音", message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
+            var wareArray = [[String: Any]]()
+            for recordSelectImgModel in self.imgDictArray {
+                var dict: [String: Any] = ["time": recordSelectImgModel.time]
+                dict["wid"] = recordSelectImgModel.wid
+                wareArray.append(dict)
+            }
+            MBAProgressHUD.show()
+            DispatchQueue.global().async {
+                let mp3url = MBAAudioUtil.changceToMp3(of: self.url, mp3Name: "cafTomp3")
+                DispatchQueue.main.async {
+                    guard let saveURL = mp3url else {
+                        MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
+                        return
+                    }
+                    let mp3Data = try? Data(contentsOf: saveURL)
+                    
+                    KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: String(self.totalTime),ware: wareArray, success: { (bean) in
+                        MBAProgressHUD.dismiss()
+                        for vc in (self.navigationController?.viewControllers)! {
+                            if vc is CourceMainViewController {
+                                let courseMainVC = vc as? CourceMainViewController
+                                courseMainVC?.mainTb.dataList = nil
+                                _ = self.navigationController?.popToViewController(vc, animated: true)
+                                break
+                            }
+                        }
+                        
+                    }, failure: { (error) in
+                        MBAProgressHUD.dismiss()
+                        MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
+                    })
+                }
+            }
+        }
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+        
     }
-    
+
     
     func actionCut(sender: UIButton) {
         pausePlay()

@@ -18,15 +18,6 @@ class MainTableView: RefreshBaseTableView {
                 self.dataList?.removeAll()
             }
             if let datas = bean.data {
-//                if self.start == 1 {
-//                    if datas.count < 10 {
-//                        self.mj_footer.isHidden = true
-//                    }
-//                }else {
-//                    if datas.count < 10 {
-//                        self.mj_footer.resetNoMoreData()
-//                    }
-//                }
                 
                 for data in datas {
                     self.dataList?.append(data)
@@ -35,8 +26,17 @@ class MainTableView: RefreshBaseTableView {
             // 缓存就更新数据，服务端数据结束刷新
             //                        (bean.isCache) ? self.reloadData() : self.loadCompleted()
             self.loadCompleted()
+//            if bean.data?.count ?? 0 < 10 {
+//                self.mj_footer.isHidden = true
+//            }
+
         }) { (error) in
-            self.loadError(error)
+            if 40301 == error.code {
+                self.loadError(error, isEmptyData: true)
+            } else {
+                self.loadError(error, isEmptyData: false)
+            }
+            
         }
     }
 }

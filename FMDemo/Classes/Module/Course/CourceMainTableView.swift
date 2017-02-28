@@ -58,6 +58,7 @@ class CourceMainTableView: RefreshBaseTableView {
         KeService.actionGetMaterials(cid: cid, success: { (bean) in
             self.dataList = bean.data
             self.loadCompleted()
+            self.changceCourseStatus()
         }) { (error) in
             self.loadError(error)
         }
@@ -73,9 +74,23 @@ class CourceMainTableView: RefreshBaseTableView {
 
 
 
-// MARK: - Net
+// MARK: -
 extension CourceMainTableView {
-    
+    func changceCourseStatus() {
+        var isComplet = true
+        for bean in (self.dataList as? [GetMaterialsData])! {
+            if "unrecorded" == bean.state {
+                isComplet = isComplet && false
+            } else if "recorded" == bean.state {
+                isComplet = isComplet && true
+            }
+        }
+        if isComplet {
+            tbHeadView.courceStatusLabel.text = "课程未上架"
+        }else{
+            tbHeadView.courceStatusLabel.text = "课程未完善"
+        }
+    }
 }
 
 extension CourceMainTableView {
@@ -96,6 +111,7 @@ extension CourceMainTableView {
                 self.dataList?.append(object!)
                 let indexPath = IndexPath(row: (self.dataList?.count)!-1, section: 0)
                 self.insertRows(at: [indexPath], with: .right)
+                self.changceCourseStatus()
             }, failure: { (error) in
             })
 
@@ -220,6 +236,10 @@ extension CourceMainTableView {
         }
         
         let deleteAction = UITableViewRowAction(style: .normal, title: "删除") { (action, index) in
+            if self.dataList?.count ?? 0 <= 1 {
+                MBAProgressHUD.showErrorWithStatus("章节需要保留一个")
+                return
+            }
             let object = self.dataList?[index.row] as? GetMaterialsData
             KeService.actionMaterialDelete(mid: object?.mid ?? "", success: { (bean) in
                 
@@ -231,6 +251,7 @@ extension CourceMainTableView {
             
             self.dataList?.remove(at: index.row)
             tableView.deleteRows(at: [index], with: .fade)
+            self.changceCourseStatus()
         }
         
         reNameAction.backgroundColor = UIColor.colorWithHexString("62d9a0")

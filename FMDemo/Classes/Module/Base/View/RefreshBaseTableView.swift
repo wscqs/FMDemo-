@@ -146,6 +146,11 @@ class RefreshBaseTableView: UITableView {
         self.loadCompleted()
     }
     
+    func loadError(_ error: NSError, isEmptyData: Bool = false) {
+        self.start -= self.num
+        self.loadCompleted(isEmptyData: isEmptyData)
+    }
+    
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -46,6 +46,7 @@ class BorderTextView: UITextView {
         
         addSubview(placeholderLabel)
 //        addSubview(tipLabel)
+        font = UIFont.systemFont(ofSize: 14)
         
         NotificationCenter.default.addObserver(self, selector: #selector(BorderTextView.textChanged), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
     }

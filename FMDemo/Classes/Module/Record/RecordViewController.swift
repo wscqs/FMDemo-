@@ -253,9 +253,8 @@ extension RecordViewController {
 
     
     func actionSave() {
-        pauseRecord()
-        let url = isCuted ? mergeExportURL : MBAAudio.url
-
+        pauseRecord(function:{
+        let url = self.isCuted ? self.mergeExportURL : MBAAudio.url
         let alertController = UIAlertController(title: "是否保存章节录音", message: nil, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
@@ -266,8 +265,8 @@ extension RecordViewController {
                 wareArray.append(dict)
             }            
             MBAProgressHUD.show()
-            DispatchQueue.global().async {
-                let mp3url = MBAAudioUtil.changceToMp3(of: url, mp3Name: "cafTomp3")
+//            DispatchQueue.global().async {
+                let mp3url = MBAAudioUtil.changceToMp3(of: url, mp3Name: Date().formatDate)
                 DispatchQueue.main.async {
                     guard let saveURL = mp3url else {
                         MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
@@ -275,26 +274,33 @@ extension RecordViewController {
                     }
                     let mp3Data = try? Data(contentsOf: saveURL)
 
-                    KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: String(self.recordMetersTime),ware: wareArray, success: { (bean) in
-                        MBAProgressHUD.dismiss()
-                        for vc in (self.navigationController?.viewControllers)! {
-                            if vc is CourceMainViewController {
-                                _ = self.navigationController?.popToViewController(vc, animated: true)
-                                break
-                            }
-                        }
-                        
-                    }, failure: { (error) in
-                        MBAProgressHUD.dismiss()
-                        MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
-                    })
+                    let play = try? AVAudioPlayer(contentsOf: saveURL)
+                    
+                    
+                    print("=========",url,self.recordMetersTime,"total",play?.duration)
+//                    KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: String(self.recordMetersTime),ware: wareArray, success: { (bean) in
+//                        print(bean.audio)
+//                        MBAProgressHUD.dismiss()
+////                        for vc in (self.navigationController?.viewControllers)! {
+////                            if vc is CourceMainViewController {
+////                                let courseMainVC = vc as? CourceMainViewController
+////                                courseMainVC?.mainTb.dataList = nil
+////                                _ = self.navigationController?.popToViewController(vc, animated: true)
+////                                break
+////                            }
+////                        }
+//                    }, failure: { (error) in
+//                        MBAProgressHUD.dismiss()
+//                        MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
+//                    })
                 }
-            }
+//            }
         }
 
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
+        })
 
     }
 
@@ -348,7 +354,7 @@ extension RecordViewController {
     
     
     //暂停录音
-    func pauseRecord() {
+    func pauseRecord(function:(()->Void)? = nil) {
         recordBtnShow(isRecord: false)
         MBAAudio.pauseRecord()
         timerPause()
@@ -367,6 +373,8 @@ extension RecordViewController {
             MBAAudioUtil.mergeAudio(url1: mergeExportURL, url2: recodedVoiceURL, handleComplet: { (mergeExportURL) in
                 if let mergeExportURL = mergeExportURL {
                     self.mergeExportURL = mergeExportURL
+                    guard let function = function else { return}
+                    function()
                 }
             })
             
@@ -451,6 +459,7 @@ extension RecordViewController {
             playVC?.url = self.mergeExportURL
             playVC?.pointXArray = self.pointXArray
             playVC?.imgDictArray = self.imgDictArray
+            playVC?.mid = self.mid
         }else if "CutRecordViewController" == segue.identifier {
             let playVC = segue.destination as? CutRecordViewController
             playVC?.url = self.mergeExportURL

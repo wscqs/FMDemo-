@@ -100,6 +100,7 @@ class CutBarWaveView: UIView {
         
         addSubview(thumbBarImage)
         thumbBarImage.image = #imageLiteral(resourceName: "record_volume_control_ico")
+        thumbBarImage.contentMode = .scaleAspectFit
         
         thumbBarImage.isUserInteractionEnabled = true
         let panGes = UIPanGestureRecognizer(target: self, action: #selector(actionPan(sender:)))
@@ -188,7 +189,7 @@ class CutBarWaveView: UIView {
         } else {
             thumbBarX = scrollView.contentSize.width - spaceW * 5 * minSecond
         }
-        thumbBarImage.frame = CGRect(x: thumbBarX, y: 0, width: 20, height: bounds.height)
+        thumbBarImage.frame = CGRect(x: thumbBarX, y: 0, width: 30, height: bounds.height)
     }
     
     fileprivate func updateCutView() {

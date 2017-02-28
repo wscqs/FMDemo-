@@ -32,8 +32,7 @@ class MainViewController: BaseViewController {
             MBARequest.postLoginNotification()
             return
         }
-        
-        
+   
         mainTb.start(true)
     }
 
@@ -43,6 +42,7 @@ class MainViewController: BaseViewController {
 
     // MARK: - 监听方法
     func userLogin(n: Notification) {
+        mainTb.dataList?.removeAll()
         //清除账号
         KeUserAccount.cleanAccount()
         let loginVC = LoginViewController()
