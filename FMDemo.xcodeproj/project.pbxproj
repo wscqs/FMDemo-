@@ -39,7 +39,6 @@
 		2C94E8041E277C7A00D539DC /* TimeTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7F21E277C7A00D539DC /* TimeTool.swift */; };
 		2C94E8051E277C7A00D539DC /* Lame2mp3Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7F71E277C7A00D539DC /* Lame2mp3Tool.m */; };
 		2C94E8061E277C7A00D539DC /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C94E7F81E277C7A00D539DC /* libmp3lame.a */; };
-		2C94E8101E28AC2700D539DC /* 节奏2.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C94E80E1E28AC2700D539DC /* 节奏2.caf */; };
 		2C97D7741E4B13D100FB407F /* BaseSrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D76C1E4B13D100FB407F /* BaseSrollView.swift */; };
 		2C97D7751E4B13D100FB407F /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D76D1E4B13D100FB407F /* BaseTableView.swift */; };
 		2C97D7771E4B13D100FB407F /* RefreshBaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D76F1E4B13D100FB407F /* RefreshBaseTableViewCell.swift */; };
@@ -91,6 +90,8 @@
 		2C97D7FD1E51427700FB407F /* DubPlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C97D7FC1E51427700FB407F /* DubPlayView.xib */; };
 		2CAE5F801E63FFEC005DAA57 /* UploadPictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE5F7F1E63FFEC005DAA57 /* UploadPictureModel.swift */; };
 		2CAE5F821E6434E1005DAA57 /* JSON+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE5F811E6434E1005DAA57 /* JSON+Extension.swift */; };
+		2CAE5F851E66D377005DAA57 /* 欢快大气背景音乐.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CAE5F831E66D377005DAA57 /* 欢快大气背景音乐.mp3 */; };
+		2CAE5F861E66D377005DAA57 /* 新闻联播开场.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CAE5F841E66D377005DAA57 /* 新闻联播开场.mp3 */; };
 		2CB2F8D21E5E8A2000A0E010 /* RefreshBaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D11E5E8A2000A0E010 /* RefreshBaseTableView.swift */; };
 		2CB2F8D41E5EB36C00A0E010 /* SaveCourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D31E5EB36C00A0E010 /* SaveCourseModel.swift */; };
 		2CB2F8D71E5EC2B000A0E010 /* GetCoursesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D51E5EC2B000A0E010 /* GetCoursesData.swift */; };
@@ -147,7 +148,6 @@
 		2C94E7F61E277C7A00D539DC /* Lame2mp3Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lame2mp3Tool.h; sourceTree = "<group>"; };
 		2C94E7F71E277C7A00D539DC /* Lame2mp3Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lame2mp3Tool.m; sourceTree = "<group>"; };
 		2C94E7F81E277C7A00D539DC /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
-		2C94E80E1E28AC2700D539DC /* 节奏2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "节奏2.caf"; sourceTree = "<group>"; };
 		2C97D76C1E4B13D100FB407F /* BaseSrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseSrollView.swift; sourceTree = "<group>"; };
 		2C97D76D1E4B13D100FB407F /* BaseTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableView.swift; sourceTree = "<group>"; };
 		2C97D76F1E4B13D100FB407F /* RefreshBaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshBaseTableViewCell.swift; sourceTree = "<group>"; };
@@ -199,6 +199,8 @@
 		2C97D7FC1E51427700FB407F /* DubPlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DubPlayView.xib; sourceTree = "<group>"; };
 		2CAE5F7F1E63FFEC005DAA57 /* UploadPictureModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPictureModel.swift; sourceTree = "<group>"; };
 		2CAE5F811E6434E1005DAA57 /* JSON+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSON+Extension.swift"; sourceTree = "<group>"; };
+		2CAE5F831E66D377005DAA57 /* 欢快大气背景音乐.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "欢快大气背景音乐.mp3"; sourceTree = "<group>"; };
+		2CAE5F841E66D377005DAA57 /* 新闻联播开场.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "新闻联播开场.mp3"; sourceTree = "<group>"; };
 		2CB2F8D11E5E8A2000A0E010 /* RefreshBaseTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshBaseTableView.swift; sourceTree = "<group>"; };
 		2CB2F8D31E5EB36C00A0E010 /* SaveCourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveCourseModel.swift; sourceTree = "<group>"; };
 		2CB2F8D51E5EC2B000A0E010 /* GetCoursesData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCoursesData.swift; sourceTree = "<group>"; };
@@ -408,7 +410,8 @@
 			isa = PBXGroup;
 			children = (
 				2C664D981E5D38F900D9F4BA /* 配乐1.mp3 */,
-				2C94E80E1E28AC2700D539DC /* 节奏2.caf */,
+				2CAE5F831E66D377005DAA57 /* 欢快大气背景音乐.mp3 */,
+				2CAE5F841E66D377005DAA57 /* 新闻联播开场.mp3 */,
 			);
 			path = Asset;
 			sourceTree = "<group>";
@@ -649,10 +652,11 @@
 				2C97D79C1E4C1B6A00FB407F /* LoginViewController.xib in Resources */,
 				2C97D7DD1E4C810900FB407F /* CourceMainTableViewCell.xib in Resources */,
 				2C97D7F31E4DB60800FB407F /* CourceHeadTbView.xib in Resources */,
-				2C94E8101E28AC2700D539DC /* 节奏2.caf in Resources */,
+				2CAE5F851E66D377005DAA57 /* 欢快大气背景音乐.mp3 in Resources */,
 				2C97D7D01E4C586900FB407F /* MainTableViewCell.xib in Resources */,
 				2C7818CB1DEEA0F4001E3594 /* LaunchScreen.storyboard in Resources */,
 				2C664D991E5D38F900D9F4BA /* 配乐1.mp3 in Resources */,
+				2CAE5F861E66D377005DAA57 /* 新闻联播开场.mp3 in Resources */,
 				2C7818C81DEEA0F4001E3594 /* Assets.xcassets in Resources */,
 				2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */,
 				2C664D9C1E5D3DDE00D9F4BA /* Record.storyboard in Resources */,

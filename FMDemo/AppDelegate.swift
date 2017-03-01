@@ -64,7 +64,7 @@ extension AppDelegate {
 //        let vc = RecordViewController()
         let navigation = QSNavigationController(rootViewController: vc!)
         window?.rootViewController = navigation
-        
+        MBAProgressHUD.show()
         window?.makeKeyAndVisible()
     }
     

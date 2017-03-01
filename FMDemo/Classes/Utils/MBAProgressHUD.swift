@@ -18,6 +18,8 @@ class MBAProgressHUD: NSObject {
         SVProgressHUD.setFont(UIFont.boldSystemFont(ofSize: 16))
         SVProgressHUD.setMinimumDismissTimeInterval(2.0)
         
+        SVProgressHUD.setDefaultMaskType(.clear) // 设置是否背景可以点击
+        
         /*
          + (void)setDefaultStyle:(SVProgressHUDStyle)style;                  // default is SVProgressHUDStyleLight
          + (void)setDefaultMaskType:(SVProgressHUDMaskType)maskType;         // default is SVProgressHUDMaskTypeNone

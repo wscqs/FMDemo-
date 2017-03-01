@@ -12,6 +12,10 @@ enum RecordType{
     case onlyRecord,dub,recordAndDub
 }
 
+enum RecordVCClick{
+    case no,play,reRecord,cut,save,pause
+}
+
 class RecordViewController: UIViewController {
     
     var mid: String!
@@ -45,6 +49,9 @@ class RecordViewController: UIViewController {
 
     /// 是否已经有录制
     var isRecorded: Bool? = false
+    
+    let dispatchGroup = DispatchGroup()
+//    var recordVCClick = RecordVCClick.no
     
     // 顶层图片
     @IBOutlet weak var bannerImg: UIImageView!
@@ -80,12 +87,30 @@ class RecordViewController: UIViewController {
         
         // 后退处理
         let backBtn: UIButton = UIButton(imageName:"nav_details_top_left", backTarget: self, action: #selector(actionNavBackBtnClick))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
-        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
+    deinit {
+        MBACache.clearRecordCache()
     }
     
     func actionNavBackBtnClick() {
-        pauseRecord()
+        pauseRecord(recordVCClick: .no)
         if isRecorded ?? false {
             let alertController = UIAlertController(title: nil, message: "录制未保存，确定放弃吗？", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler:nil)
@@ -115,22 +140,20 @@ class RecordViewController: UIViewController {
         lastRecordURL = MBAAudio.url
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        pauseRecord()
-    }
+
     
     
     // MARK: - StroyBoard action
     @IBAction func actionStartRecord(_ sender: UIButton) {
+        if !canRecord() {
+            let alertController = UIAlertController(title: "请求授权", message: "app需要访问您的麦克风。\n请启用麦克风-设置/隐私/麦克风", preferredStyle: .alert )
+            let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: nil)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        
+
         isRecorded = true
         bottomInitView.isHidden = true
         topStatusView.isHidden = false
@@ -144,6 +167,25 @@ class RecordViewController: UIViewController {
     
     @IBAction func popRecordVC(_ sender: UIStoryboardSegue) {
     }
+    
+    
+    @IBAction func actionOpration(_ sender: UIButton) {
+        
+        if 10 == sender.tag { // 试听
+            pauseRecord(recordVCClick: .play)
+        } else if 11 == sender.tag { // 重录
+            pauseRecord(recordVCClick: .reRecord)
+        } else if 12 == sender.tag { //剪切
+            pauseRecord(recordVCClick: .cut)
+        } else if 13 == sender.tag { //保存
+            pauseRecord(recordVCClick: .save)
+        }
+//        else if 11 == sender.tag { // 试听
+//            
+//        }
+        
+    }
+    
     
 }
 
@@ -181,8 +223,9 @@ extension RecordViewController {
         addDubBtn.adjustsImageWhenHighlighted = false
         addDubBtn.addTarget(self, action: #selector(actionAddDub), for: .touchUpInside)
         recordBtn.addTarget(self, action: #selector(actionRecordClick), for: .touchUpInside)
+        recordBtn.adjustsImageWhenHighlighted = false
 //        listenPlayBtn.addTarget(self, action: #selector(actionPlayClick), for: .touchUpInside)
-        savaBtn.addTarget(self, action: #selector(actionSave), for: .touchUpInside)
+//        savaBtn.addTarget(self, action: #selector(actionSave), for: .touchUpInside)
 //        cutBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
         reRecordBtn.addTarget(self, action: #selector(actionReRecord), for: .touchUpInside)
         
@@ -239,13 +282,14 @@ extension RecordViewController {
 extension RecordViewController {
     
     func actionAddDub() {
+        pauseRecord()
         navigationController?.pushViewController(seletctDubVC, animated: true)
     }
     
     func actionRecordClick(sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected { // 选中为暂停
-            pauseRecord()            
+            pauseRecord(recordVCClick: .pause)
         }else{ // 不选中 录音
             continueRecord()
         }
@@ -253,10 +297,10 @@ extension RecordViewController {
 
     
     func actionSave() {
-        pauseRecord(function:{
-        let url = self.isCuted ? self.mergeExportURL : MBAAudio.url
+        let url = mergeExportURL
         let alertController = UIAlertController(title: "是否保存章节录音", message: nil, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
         let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
             var wareArray = [[String: Any]]()
             for recordSelectImgModel in self.imgDictArray {
@@ -265,42 +309,46 @@ extension RecordViewController {
                 wareArray.append(dict)
             }            
             MBAProgressHUD.show()
-//            DispatchQueue.global().async {
-                let mp3url = MBAAudioUtil.changceToMp3(of: url, mp3Name: Date().formatDate)
-                DispatchQueue.main.async {
-                    guard let saveURL = mp3url else {
-                        MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
-                        return
-                    }
-                    let mp3Data = try? Data(contentsOf: saveURL)
+            var mp3url: URL?
+            let disItem = DispatchWorkItem(block: { 
+                mp3url = MBAAudioUtil.changceToMp3(of: url, mp3Name: Date().formatDate)
+            })
+            let queueToMP3 = DispatchQueue(label: "queueToMP3")
+            queueToMP3.async(group: self.dispatchGroup, execute: disItem)
+            
+            self.dispatchGroup.notify(queue: .main, execute: {
 
-                    let play = try? AVAudioPlayer(contentsOf: saveURL)
-                    
-                    
-                    print("=========",url,self.recordMetersTime,"total",play?.duration)
-//                    KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: String(self.recordMetersTime),ware: wareArray, success: { (bean) in
-//                        print(bean.audio)
-//                        MBAProgressHUD.dismiss()
-////                        for vc in (self.navigationController?.viewControllers)! {
-////                            if vc is CourceMainViewController {
-////                                let courseMainVC = vc as? CourceMainViewController
-////                                courseMainVC?.mainTb.dataList = nil
-////                                _ = self.navigationController?.popToViewController(vc, animated: true)
-////                                break
-////                            }
-////                        }
-//                    }, failure: { (error) in
-//                        MBAProgressHUD.dismiss()
-//                        MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
-//                    })
+                guard let saveURL = mp3url else {
+                    MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
+                    return
                 }
-//            }
+                let mp3Data = try? Data(contentsOf: saveURL)
+                
+                let play = try? AVAudioPlayer(contentsOf: saveURL)
+                
+                
+                print("=========",saveURL,self.recordMetersTime,"total",play?.duration)
+                KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: String(self.recordMetersTime),ware: wareArray, success: { (bean) in
+                    print(bean.audio)
+                    MBAProgressHUD.dismiss()
+                    for vc in (self.navigationController?.viewControllers)! {
+                        if vc is CourceMainViewController {
+                            let courseMainVC = vc as? CourceMainViewController
+                            courseMainVC?.mainTb.dataList = nil
+                            _ = self.navigationController?.popToViewController(vc, animated: true)
+                            break
+                        }
+                    }
+                }, failure: { (error) in
+                    MBAProgressHUD.dismiss()
+                    MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
+                })
+            })
         }
 
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
-        self.present(alertController, animated: true, completion: nil)
-        })
+        present(alertController, animated: true, completion: nil)
 
     }
 
@@ -354,7 +402,7 @@ extension RecordViewController {
     
     
     //暂停录音
-    func pauseRecord(function:(()->Void)? = nil) {
+    func pauseRecord(recordVCClick: RecordVCClick? = .no) {
         recordBtnShow(isRecord: false)
         MBAAudio.pauseRecord()
         timerPause()
@@ -362,7 +410,10 @@ extension RecordViewController {
         dubPlayView.playPause()
         
         if isCuted { // 如果裁剪过，就合并
-            if lastRecordURL == MBAAudio.url { return}
+            if lastRecordURL == MBAAudio.url { // 剪切后未开始重新录
+                self.pushToClick(recordVCClick: recordVCClick!)
+                return
+            }
             lastRecordURL = MBAAudio.url
             guard let mergeExportURL = self.mergeExportURL,
                 let recodedVoiceURL = MBAAudio.url
@@ -370,16 +421,44 @@ extension RecordViewController {
                     print("mergeExportURL error")
                     return
             }
+            if !(recordVCClick == .no){
+                MBAProgressHUD.show()
+            }
+            
             MBAAudioUtil.mergeAudio(url1: mergeExportURL, url2: recodedVoiceURL, handleComplet: { (mergeExportURL) in
                 if let mergeExportURL = mergeExportURL {
                     self.mergeExportURL = mergeExportURL
-                    guard let function = function else { return}
-                    function()
+                    MBAProgressHUD.dismiss()
+                    self.pushToClick(recordVCClick: recordVCClick!)
+                } else {
+                    MBAProgressHUD.showErrorWithStatus("出错")
                 }
             })
-            
         } else {
             self.mergeExportURL = MBAAudio.url
+            self.pushToClick(recordVCClick: recordVCClick!)
+        }
+    }
+    
+    func pushToClick(recordVCClick: RecordVCClick) {
+
+        self.recordMetersTime = MBAAudioPlayer(contentsOf: self.mergeExportURL!).duration
+        let lower = Int(self.recordMetersTime / 0.2)
+        if lower < self.pointXArray.count {
+            self.pointXArray.removeSubrange(Range(uncheckedBounds: (lower: lower, upper: self.pointXArray.count)))
+        }
+        
+        switch recordVCClick {
+        case .play:
+            self.performSegue(withIdentifier: "PlayRecordViewController", sender: self)
+        case .cut:
+            self.performSegue(withIdentifier: "CutRecordViewController", sender: self)
+        case .save:
+            actionSave()
+        case .reRecord:
+            actionReRecord()
+        default:
+            break
         }
     }
     
@@ -402,10 +481,8 @@ extension RecordViewController {
     }
     
     func timerInit(){
-//        recordTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(recordTimerEvent), userInfo: nil, repeats: true)
-        
         recordMetersTimer = Timer.scheduledTimer(timeInterval: TimeInterval(kWaveTime), target: self, selector: #selector(recordMetersTimerEvent), userInfo: nil, repeats: true)
-        
+        RunLoop.current.add(recordMetersTimer!, forMode: .commonModes)
         recordPowerTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.001), target: self, selector: #selector(updatePower), userInfo: nil, repeats: true)
     }
     
@@ -453,7 +530,6 @@ extension RecordViewController {
 
 extension RecordViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        pauseRecord()
         if "PlayRecordViewController" == segue.identifier {
             let playVC = segue.destination as? PlayRecordViewController
             playVC?.url = self.mergeExportURL
@@ -472,6 +548,16 @@ extension RecordViewController {
 
 // MARK: - AVAudioRecorderDelegate
 extension RecordViewController: AVAudioRecorderDelegate{
+    /// 是否可录音控制
+    func canRecord() -> Bool{
+        var bCanRecord = true
+        let audioSession = AVAudioSession.sharedInstance()
+        audioSession.requestRecordPermission { (granted) in
+            bCanRecord = granted
+        }
+        return bCanRecord
+    }
+    
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag {
             print("录音完成")
@@ -489,12 +575,14 @@ extension RecordViewController: AVAudioRecorderDelegate{
 
 extension RecordViewController: DubPlayViewDelegate {    
     func changceDubClick(_ dubPlayView: DubPlayView) {
+        pauseRecord()
         let sheetVc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let canAction = UIAlertAction(title: "关闭", style: .cancel, handler: nil)
         let changceAction = UIAlertAction(title: "更换配乐", style: .destructive) { (action) in
             self.navigationController?.pushViewController(self.seletctDubVC, animated: true)
         }
         let removeAction = UIAlertAction(title: "移除配乐", style: .default) { (action) in
+            self.dubPlayView.playPause()
             self.dubPlayView.isHidden = true
         }
         sheetVc.addAction(canAction)

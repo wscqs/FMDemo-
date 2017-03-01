@@ -252,35 +252,41 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZPg-Pw-baQ">
                                         <rect key="frame" x="-2" y="130" width="339" height="35"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HeN-E7-dkV" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
+                                            <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HeN-E7-dkV" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="72" height="35"/>
                                                 <state key="normal" title="试听" image="record_tool1_ico">
                                                     <color key="titleColor" red="0.32156862749999998" green="0.73333333329999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="hKV-i9-e2Y" kind="push" identifier="PlayRecordViewController" id="y7d-2P-5Hj"/>
+                                                    <action selector="actionOpration:" destination="26a-zz-pYy" eventType="touchUpInside" id="bNX-b2-bXe"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbZ-5t-MWf" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
+                                            <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbZ-5t-MWf" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
                                                 <rect key="frame" x="89" y="0.0" width="72" height="35"/>
                                                 <state key="normal" title="重录" image="record_tool2_ico">
                                                     <color key="titleColor" red="0.32156862749999998" green="0.73333333329999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="actionOpration:" destination="26a-zz-pYy" eventType="touchUpInside" id="gVT-b8-b79"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQG-F4-4W6" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
+                                            <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQG-F4-4W6" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
                                                 <rect key="frame" x="178" y="0.0" width="72" height="35"/>
                                                 <state key="normal" title="裁剪" image="record_tool3_ico">
                                                     <color key="titleColor" red="0.32156862749999998" green="0.73333333329999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="1Ch-eJ-mbS" kind="push" identifier="CutRecordViewController" id="aHA-SP-mhF"/>
+                                                    <action selector="actionOpration:" destination="26a-zz-pYy" eventType="touchUpInside" id="ORW-SI-fKC"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQO-10-yle" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
+                                            <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQO-10-yle" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
                                                 <rect key="frame" x="267" y="0.0" width="72" height="35"/>
                                                 <state key="normal" title="保存" image="record_tool4_ico">
                                                     <color key="titleColor" red="0.32156862749999998" green="0.73333333329999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="actionOpration:" destination="26a-zz-pYy" eventType="touchUpInside" id="BxB-cr-o22"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.32156862749999998" green="0.73333333329999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -398,6 +404,8 @@
                         <outlet property="topMusicPower" destination="VYG-fO-2tK" id="0OQ-FE-nj3"/>
                         <outlet property="topRecordPower" destination="BJ7-9f-doM" id="eur-QS-0Lg"/>
                         <outlet property="topStatusView" destination="Vil-cV-zRl" id="MZ6-85-44H"/>
+                        <segue destination="hKV-i9-e2Y" kind="push" identifier="PlayRecordViewController" id="dwD-Ne-1iO"/>
+                        <segue destination="1Ch-eJ-mbS" kind="push" identifier="CutRecordViewController" id="S7m-Z8-Cbg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Owi-S6-Me9" userLabel="First Responder" sceneMemberID="firstResponder"/>

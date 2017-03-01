@@ -52,6 +52,7 @@ class RecordImgCollectionView: UICollectionView {
     
 
     @IBAction func actionChoseImg(_ sender: UIButton) {
+        parentVC?.pauseRecord()
         choseImg()
     }
 }
@@ -148,7 +149,6 @@ extension RecordImgCollectionView {
     func choseImg() {
         let choseImg = ZLPhotoActionSheet()
         choseImg.showPhotoLibrary(withSender: self.parentVC!, last: nil) { (imageArray: [UIImage], selctpotoModelArray: [ZLSelectPhotoModel]) in
-            print(self.mid)
             for image in imageArray {
                 let model = RecordImgModel(img: image, wid: nil, isRequestUpload: true, isTapStatus: false, isEditStatus: false)
                 self.recordImgArray?.append(model)

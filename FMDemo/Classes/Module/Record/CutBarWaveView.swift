@@ -189,11 +189,11 @@ class CutBarWaveView: UIView {
         } else {
             thumbBarX = scrollView.contentSize.width - spaceW * 5 * minSecond
         }
-        thumbBarImage.frame = CGRect(x: thumbBarX, y: 0, width: 30, height: bounds.height)
+        thumbBarImage.frame = CGRect(x: thumbBarX, y: 0, width: 40, height: bounds.height)
     }
     
     fileprivate func updateCutView() {
-        let point = thumbBarImage.convert(CGPoint(x: 0, y: 0), from: scrollView)
+        let point = thumbBarImage.convert(CGPoint(x: -thumbBarImage.width/2, y: 0), from: scrollView)
         thumbPointXIndex = Int(-point.x / spaceW)
         slider.value = Float(thumbPointXIndex)
         
