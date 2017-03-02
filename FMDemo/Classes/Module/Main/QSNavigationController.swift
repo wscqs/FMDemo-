@@ -25,6 +25,10 @@ class QSNavigationController: UINavigationController, UIGestureRecognizerDelegat
 //        navigationBar.tintColor = UIColor.white
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     lazy var backBtn: UIButton = UIButton(imageName:"nav_details_top_left", backTarget: self, action: #selector(QSNavigationController.backBtnAction))
 //    lazy var homeBtn: UIButton = UIButton(imageName:"nav_home", backTarget: self, action: #selector(QSNavigationController.popToRootAction))
     

@@ -90,8 +90,11 @@
 		2C97D7FD1E51427700FB407F /* DubPlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C97D7FC1E51427700FB407F /* DubPlayView.xib */; };
 		2CAE5F801E63FFEC005DAA57 /* UploadPictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE5F7F1E63FFEC005DAA57 /* UploadPictureModel.swift */; };
 		2CAE5F821E6434E1005DAA57 /* JSON+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE5F811E6434E1005DAA57 /* JSON+Extension.swift */; };
-		2CAE5F851E66D377005DAA57 /* 欢快大气背景音乐.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CAE5F831E66D377005DAA57 /* 欢快大气背景音乐.mp3 */; };
 		2CAE5F861E66D377005DAA57 /* 新闻联播开场.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CAE5F841E66D377005DAA57 /* 新闻联播开场.mp3 */; };
+		2CAE5F8D1E67CD25005DAA57 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE5F881E67CD25005DAA57 /* libWeChatSDK.a */; };
+		2CAE5F8E1E67CD26005DAA57 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CAE5F891E67CD25005DAA57 /* README.txt */; };
+		2CAE5F921E67FF42005DAA57 /* 纯音乐.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CAE5F911E67FF42005DAA57 /* 纯音乐.mp3 */; };
+		2CAE5F941E680D7C005DAA57 /* PlayCourceMaterialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE5F931E680D7C005DAA57 /* PlayCourceMaterialViewController.swift */; };
 		2CB2F8D21E5E8A2000A0E010 /* RefreshBaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D11E5E8A2000A0E010 /* RefreshBaseTableView.swift */; };
 		2CB2F8D41E5EB36C00A0E010 /* SaveCourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D31E5EB36C00A0E010 /* SaveCourseModel.swift */; };
 		2CB2F8D71E5EC2B000A0E010 /* GetCoursesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D51E5EC2B000A0E010 /* GetCoursesData.swift */; };
@@ -199,8 +202,14 @@
 		2C97D7FC1E51427700FB407F /* DubPlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DubPlayView.xib; sourceTree = "<group>"; };
 		2CAE5F7F1E63FFEC005DAA57 /* UploadPictureModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPictureModel.swift; sourceTree = "<group>"; };
 		2CAE5F811E6434E1005DAA57 /* JSON+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSON+Extension.swift"; sourceTree = "<group>"; };
-		2CAE5F831E66D377005DAA57 /* 欢快大气背景音乐.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "欢快大气背景音乐.mp3"; sourceTree = "<group>"; };
 		2CAE5F841E66D377005DAA57 /* 新闻联播开场.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "新闻联播开场.mp3"; sourceTree = "<group>"; };
+		2CAE5F881E67CD25005DAA57 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		2CAE5F891E67CD25005DAA57 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		2CAE5F8A1E67CD25005DAA57 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		2CAE5F8B1E67CD25005DAA57 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		2CAE5F8C1E67CD25005DAA57 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		2CAE5F911E67FF42005DAA57 /* 纯音乐.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "纯音乐.mp3"; sourceTree = "<group>"; };
+		2CAE5F931E680D7C005DAA57 /* PlayCourceMaterialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayCourceMaterialViewController.swift; sourceTree = "<group>"; };
 		2CB2F8D11E5E8A2000A0E010 /* RefreshBaseTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshBaseTableView.swift; sourceTree = "<group>"; };
 		2CB2F8D31E5EB36C00A0E010 /* SaveCourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveCourseModel.swift; sourceTree = "<group>"; };
 		2CB2F8D51E5EC2B000A0E010 /* GetCoursesData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCoursesData.swift; sourceTree = "<group>"; };
@@ -227,6 +236,7 @@
 			files = (
 				2C9099431E5E7F0400E2FA28 /* CoreTelephony.framework in Frameworks */,
 				2C9099411E5E7EFC00E2FA28 /* SystemConfiguration.framework in Frameworks */,
+				2CAE5F8D1E67CD25005DAA57 /* libWeChatSDK.a in Frameworks */,
 				2C90993F1E5E7EF200E2FA28 /* libz.tbd in Frameworks */,
 				2C90993D1E5E7EE800E2FA28 /* libc++.tbd in Frameworks */,
 				2C90993B1E5E7EDD00E2FA28 /* libsqlite3.tbd in Frameworks */,
@@ -390,6 +400,7 @@
 		2C94E7F31E277C7A00D539DC /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				2CAE5F871E67CD25005DAA57 /* WeChat */,
 				2C94E7F41E277C7A00D539DC /* lame */,
 			);
 			path = Vender;
@@ -410,7 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				2C664D981E5D38F900D9F4BA /* 配乐1.mp3 */,
-				2CAE5F831E66D377005DAA57 /* 欢快大气背景音乐.mp3 */,
+				2CAE5F911E67FF42005DAA57 /* 纯音乐.mp3 */,
 				2CAE5F841E66D377005DAA57 /* 新闻联播开场.mp3 */,
 			);
 			path = Asset;
@@ -520,6 +531,7 @@
 				2C97D7DB1E4C810900FB407F /* CourceMainTableViewCell.xib */,
 				2C97D7D61E4C7FEA00FB407F /* CourceHeadTbView.swift */,
 				2C97D7F21E4DB60800FB407F /* CourceHeadTbView.xib */,
+				2CAE5F931E680D7C005DAA57 /* PlayCourceMaterialViewController.swift */,
 			);
 			path = Course;
 			sourceTree = "<group>";
@@ -545,6 +557,18 @@
 				2C435C351E54341C00FDD1E7 /* NoGapSlider.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		2CAE5F871E67CD25005DAA57 /* WeChat */ = {
+			isa = PBXGroup;
+			children = (
+				2CAE5F881E67CD25005DAA57 /* libWeChatSDK.a */,
+				2CAE5F891E67CD25005DAA57 /* README.txt */,
+				2CAE5F8A1E67CD25005DAA57 /* WechatAuthSDK.h */,
+				2CAE5F8B1E67CD25005DAA57 /* WXApi.h */,
+				2CAE5F8C1E67CD25005DAA57 /* WXApiObject.h */,
+			);
+			path = WeChat;
 			sourceTree = "<group>";
 		};
 		2CB2F8D91E5EC36800A0E010 /* GetCourses */ = {
@@ -649,10 +673,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C97D7FD1E51427700FB407F /* DubPlayView.xib in Resources */,
+				2CAE5F921E67FF42005DAA57 /* 纯音乐.mp3 in Resources */,
 				2C97D79C1E4C1B6A00FB407F /* LoginViewController.xib in Resources */,
 				2C97D7DD1E4C810900FB407F /* CourceMainTableViewCell.xib in Resources */,
+				2CAE5F8E1E67CD26005DAA57 /* README.txt in Resources */,
 				2C97D7F31E4DB60800FB407F /* CourceHeadTbView.xib in Resources */,
-				2CAE5F851E66D377005DAA57 /* 欢快大气背景音乐.mp3 in Resources */,
 				2C97D7D01E4C586900FB407F /* MainTableViewCell.xib in Resources */,
 				2C7818CB1DEEA0F4001E3594 /* LaunchScreen.storyboard in Resources */,
 				2C664D991E5D38F900D9F4BA /* 配乐1.mp3 in Resources */,
@@ -734,6 +759,7 @@
 				2C97D7E51E4D5AE700FB407F /* BaseAPI.swift in Sources */,
 				2C664DA31E5DAC0900D9F4BA /* KeUserAccount.swift in Sources */,
 				2C97D7D71E4C7FEA00FB407F /* CourceHeadTbView.swift in Sources */,
+				2CAE5F941E680D7C005DAA57 /* PlayCourceMaterialViewController.swift in Sources */,
 				2C94E7FC1E277C7A00D539DC /* DOFavoriteButton.swift in Sources */,
 				2C97D7E71E4D5AE700FB407F /* QSCommon.swift in Sources */,
 				2C97D7AF1E4C3F3700FB407F /* QSNavigationController.swift in Sources */,
@@ -946,6 +972,32 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/FMDemo/lame",
 					"$(PROJECT_DIR)/FMDemo/Classes/Vender/lame",
+					"$(PROJECT_DIR)/FMDemo/Classes/Vender/WeChat",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"DZNEmptyDataSet\"",
+					"-framework",
+					"\"Haneke\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"ObjectMapper\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"Toaster\"",
+					"-framework",
+					"\"ZLPhotoBrowser\"",
+					"-Objc",
+					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbalib.ios.ke;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -973,6 +1025,32 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/FMDemo/lame",
 					"$(PROJECT_DIR)/FMDemo/Classes/Vender/lame",
+					"$(PROJECT_DIR)/FMDemo/Classes/Vender/WeChat",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"DZNEmptyDataSet\"",
+					"-framework",
+					"\"Haneke\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"ObjectMapper\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"Toaster\"",
+					"-framework",
+					"\"ZLPhotoBrowser\"",
+					"-Objc",
+					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbalib.ios.ke;
 				PRODUCT_NAME = "$(TARGET_NAME)";

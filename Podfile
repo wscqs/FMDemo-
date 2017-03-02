@@ -14,7 +14,7 @@ pod 'ZLPhotoBrowser' #https://github.com/longitachi/ZLPhotoBrowser
   pod 'Kingfisher'
 #  pod 'AlamofireObjectMapper'
   pod 'SnapKit'
-  pod 'WechatKit'
+  #pod 'WechatKit'
   #-Networking
   pod 'Alamofire', '~> 4.0' #https://github.com/Alamofire/Alamofire
   #pod 'SwiftyJSON'

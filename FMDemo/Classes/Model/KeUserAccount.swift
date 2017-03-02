@@ -8,7 +8,7 @@
 
 import Foundation
 import ObjectMapper
-import WechatKit
+//import WechatKit
 
 fileprivate let userAccountKey = "userAccount"
 
@@ -40,7 +40,7 @@ class KeUserAccount {
         MBACache.removeString(key: kUserAccessToken)
 //        MBACache.removeString(key: kUserName)
 //        MBACache.removeString(key: kUserAvator)
-        WechatManager.sharedInstance.logout()
+//        WechatManager.sharedInstance.logout()
     }
     
     

@@ -390,14 +390,12 @@ extension KeService {
                                 failure:@escaping (_ error: NSError)->())
     {
         let url = kKeBaseURL + "recordAudio"
-//        [["time": "","wid": ""]]
         var params = [
             "mid": mid,
             "file": file,
             "time": time
             ] as [String : Any]
         if (ware?.count ?? 0) > 0 {
-            print(ware.toJSONString())
             params["ware"] = ware.toJSONString()
         }
         

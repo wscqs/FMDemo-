@@ -34,6 +34,8 @@ class CourceMainViewController: BaseViewController {
         mainTb.setcid(cid: cid)
         mainTb.start(true)
     }
+    
+    
 }
 
 
@@ -42,5 +44,11 @@ extension CourceMainViewController {
         let recordVC = UIStoryboard(name: "Record", bundle: nil).instantiateInitialViewController() as? RecordViewController
         recordVC?.mid = mid
         self.navigationController?.pushViewController(recordVC!, animated: true)
+    }
+    
+    func pushToPlayCourceMaterialViewController(url: String) {
+        let playCourceMaterialVC = PlayCourceMaterialViewController()
+        playCourceMaterialVC.url = url
+        self.navigationController?.pushViewController(playCourceMaterialVC, animated: true)
     }
 }

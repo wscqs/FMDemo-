@@ -46,7 +46,8 @@ class MainViewController: BaseViewController {
         //清除账号
         KeUserAccount.cleanAccount()
         let loginVC = LoginViewController()
-        self.present(loginVC, animated: false, completion: nil)
+        self.navigationController?.present(loginVC, animated: false, completion: nil)
+//        self.present(loginVC, animated: false, completion: nil)
     }
 }
 

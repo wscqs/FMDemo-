@@ -194,11 +194,6 @@ extension RecordViewController {
         bannerImg.image = image
         let recordSelectImgModel = RecordSelectImgModel(image: image, wid: wid, thumbPointXIndex: thumbPointXIndex)
         imgDictArray.append(recordSelectImgModel)
-        print(recordSelectImgModel.thumbPointXIndex,recordSelectImgModel.wid,recordSelectImgModel.time)
-        
-        
-//        let imgDict = [thumbPointXIndex: image]
-//        imgDictArray.append(imgDict)
     }
 }
 
@@ -252,6 +247,7 @@ extension RecordViewController {
         
         bannerImg.image = #imageLiteral(resourceName: "record_bannerBg")
         imgCollectionView.recordImgArray?.removeAll()
+        imgCollectionView.reloadData()
         topStatusView.isHidden = true
         bottomInitView.isHidden = false
         initOraginTimeStatue(time:recordMetersTime)
@@ -261,6 +257,8 @@ extension RecordViewController {
         
         imgDictArray.removeAll()
         thumbPointXIndex = 0
+        
+        MBACache.clearRecordCache()
     }
     
     
@@ -271,7 +269,6 @@ extension RecordViewController {
         timerInvalidate()
         
         initStates()
-        MBACache.clearRecordCache()
     }
 }
 
@@ -323,11 +320,7 @@ extension RecordViewController {
                     return
                 }
                 let mp3Data = try? Data(contentsOf: saveURL)
-                
-                let play = try? AVAudioPlayer(contentsOf: saveURL)
-                
-                
-                print("=========",saveURL,self.recordMetersTime,"total",play?.duration)
+
                 KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: String(self.recordMetersTime),ware: wareArray, success: { (bean) in
                     print(bean.audio)
                     MBAProgressHUD.dismiss()

@@ -16,7 +16,7 @@ class SeletceDubViewController: UITableViewController {
     var btn = UIButton()
     
     var dubURLArray = [Bundle.main.url(forResource: "配乐1", withExtension: "mp3")!,
-                       Bundle.main.url(forResource: "欢快大气背景音乐", withExtension: "mp3")!,
+                       Bundle.main.url(forResource: "纯音乐", withExtension: "mp3")!,
                        Bundle.main.url(forResource: "新闻联播开场", withExtension: "mp3")!]
     var titleNameArray = [String]()
     

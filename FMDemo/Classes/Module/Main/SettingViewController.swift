@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import WechatKit
 
 class SettingViewController: BaseViewController {
 

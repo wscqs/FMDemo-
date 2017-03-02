@@ -3,3 +3,5 @@
 //
 
 #import "Lame2mp3Tool.h"
+
+#import "WXApi.h"

@@ -269,8 +269,12 @@ extension CourceMainTableView {
 //    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let mid = (self.dataList?[indexPath.row] as? GetMaterialsData)?.mid else { return }
-        parentVC?.pushToRecordViewController(mid: mid)
+        guard let bean = self.dataList?[indexPath.row] as? GetMaterialsData else { return }
+        if bean.url?.isEmpty ?? true{
+            parentVC?.pushToRecordViewController(mid: (bean.mid)!)
+        } else {
+            parentVC?.pushToPlayCourceMaterialViewController(url: (bean.url)!)
+        }        
     }
 }
 

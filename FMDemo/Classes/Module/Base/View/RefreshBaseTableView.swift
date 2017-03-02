@@ -265,6 +265,7 @@ extension RefreshBaseTableView {
         
         mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(RefreshBaseTableView.loadRefresh))
         mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(RefreshBaseTableView.loadMore))
+
     }
     
     func setUI() {

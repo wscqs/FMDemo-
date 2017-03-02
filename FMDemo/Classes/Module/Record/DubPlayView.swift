@@ -115,7 +115,7 @@ class DubPlayView: UIView {
             playPause()
             playSwitch.isSelected = false
         } else {
-            audioPlayer?.startPlay()
+            audioPlayer?.continuePlay()
             playSwitch.isSelected = true
             timerContinue()
         }
