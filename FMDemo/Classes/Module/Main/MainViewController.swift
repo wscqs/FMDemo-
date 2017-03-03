@@ -64,6 +64,13 @@ extension MainViewController {
         courceMainVC.creatTitle = title
         navigationController?.pushViewController(courceMainVC, animated: true)
     }
+    
+    func pushPlayCourseVC(url: String) {
+        let playCourseVC = PlayCourceMaterialViewController()
+        playCourseVC.url = url
+        playCourseVC.isMaterial = false
+        navigationController?.pushViewController(playCourseVC, animated: true)
+    }
 }
 
 

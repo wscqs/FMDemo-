@@ -226,7 +226,7 @@ extension CourceMainTableView {
             }
             
             
-            KeService.actionMaterialSort(sort: sort, success: { (bean) in
+            KeService.actionMaterialSort(cid:self.cid, sort: sort, success: { (bean) in
                 
             }, failure: { (error) in
                 self.dataList?.remove(at: destinationIndex)

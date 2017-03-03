@@ -101,6 +101,7 @@ class RecordViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
@@ -322,7 +323,6 @@ extension RecordViewController {
                 let mp3Data = try? Data(contentsOf: saveURL)
 
                 KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: String(self.recordMetersTime),ware: wareArray, success: { (bean) in
-                    print(bean.audio)
                     MBAProgressHUD.dismiss()
                     for vc in (self.navigationController?.viewControllers)! {
                         if vc is CourceMainViewController {
@@ -342,7 +342,6 @@ extension RecordViewController {
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
-
     }
 
     
@@ -396,7 +395,9 @@ extension RecordViewController {
     
     //暂停录音
     func pauseRecord(recordVCClick: RecordVCClick? = .no) {
+
         recordBtnShow(isRecord: false)
+
         MBAAudio.pauseRecord()
         timerPause()
         

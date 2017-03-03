@@ -62,7 +62,11 @@ extension MainTableView{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let bean = self.dataList?[indexPath.row] as? GetCoursesData {
-            parentVC?.pushCourseDetailVC(cid: bean.cid ?? "",title: bean.title ?? "")
+            if let url = bean.url {
+                parentVC?.pushPlayCourseVC(url: url)
+            } else {
+                parentVC?.pushCourseDetailVC(cid: bean.cid ?? "",title: bean.title ?? "")
+            }
         }        
     }
 }

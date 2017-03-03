@@ -27,14 +27,6 @@ class KeService: NSObject {
         MBARequest<LoginModel>.go(url: url, method: .post, params: params, cache: .Default, completionHandler:{ (bean, error) in
             if let loginToken = bean?.login_token {
                 MBACache.setString(value: loginToken, key: kUserLoginToken)
-//                if let bean = bean {
-//                    
-//                    success(bean)
-//                }
-                if let error = error {
-                    failure(error)
-                }
-                
                 DispatchQueue.main.async {
                     actionAccessToken({ (bean) in
                         success(true)
@@ -42,6 +34,9 @@ class KeService: NSObject {
                         
                     })
                 }
+            }
+            if let error = error {
+                failure(error)
             }
         })
         
@@ -83,10 +78,10 @@ class KeService: NSObject {
                         success(true)
                     }
                     if let error = error {
+                        failure(error)
                         if 10002 == error.code { // logintoken 过期
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kUserShouldLoginNotification), object: nil, userInfo: nil)
                         }
-                        failure(error)
                     }
                 })
                 
@@ -270,12 +265,14 @@ extension KeService {
      * 		40601:参数错误
      * 		40602:排序失败
      */
-    class func actionMaterialSort(sort: [String],
+    class func actionMaterialSort(cid: String,
+                                  sort: [String],
                                   success:@escaping (_ bean: StatusModel)->(),
                                   failure:@escaping (_ error: NSError)->())
     {
         let url = kKeBaseURL + "materialSort"
         let params = [
+            "cid": cid,
             "sort": sort.joined(separator: ",")
         ]
         MBARequest<StatusModel>.goSafe(url: url, method: .post, params: params, cache: .Default, completionHandler:{ (bean, error) in

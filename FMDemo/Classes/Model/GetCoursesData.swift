@@ -15,12 +15,15 @@ public class GetCoursesData: Mappable {
   private let kDataCidKey: String = "cid"
   private let kDataTitleKey: String = "title"
   private let kDataCreatetimeKey: String = "createtime"
+  private let kDataURLKey: String = "url"
 
   // MARK: Properties
   public var state: String?
   public var cid: String?
   public var title: String?
   public var createtime: String?
+  public var url: String?
+    
 
   // MARK: ObjectMapper Initalizers
   /**
@@ -40,6 +43,7 @@ public class GetCoursesData: Mappable {
     cid <- map[kDataCidKey]
     title <- map[kDataTitleKey]
     createtime <- map[kDataCreatetimeKey]
+    url <- map[kDataURLKey]
   }
 
   /**
@@ -52,6 +56,7 @@ public class GetCoursesData: Mappable {
     if let value = cid { dictionary[kDataCidKey] = value }
     if let value = title { dictionary[kDataTitleKey] = value }
     if let value = createtime { dictionary[kDataCreatetimeKey] = value }
+    if let value = url { dictionary[kDataURLKey] = value }
     return dictionary
   }
 
