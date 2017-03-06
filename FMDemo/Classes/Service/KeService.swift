@@ -17,13 +17,19 @@ class KeService: NSObject {
                                 refresh_token: String,
                                  _ success:@escaping (_ isSuccess: Bool)->(),
                                  failure:@escaping (_ error: NSError)->()){
-        let url = kUserBaseURL + "accessToken"
+        let url = kUserBaseURL + "loginweixin"
         let params = [
             "openid": openid,
             "unionid": unionid,
             "weixin_token": refresh_token,
             "channel": "ketang"
             ]
+//        let params = [
+//            "openid": "offEEv8lEjTGBYhZ9Y84IxHd1oQ8",
+//            "unionid": "on1rljhfO2IofrN9rBBRAQVzyR4o",
+//            "weixin_token": "r47rF-YK8g0LWob_FE_SgCx0VUXoiIbh383rl8QEl4Ua-x8Q0uPwj-znQq9FDU_2afQXhMaC5iFRczUVID1R5IJYZUfl0DEYLbS2yGCXL0s",
+//            "channel": "ketang"
+//        ]
         MBARequest<LoginModel>.go(url: url, method: .post, params: params, cache: .Default, completionHandler:{ (bean, error) in
             if let loginToken = bean?.login_token {
                 MBACache.setString(value: loginToken, key: kUserLoginToken)
@@ -31,7 +37,7 @@ class KeService: NSObject {
                     actionAccessToken({ (bean) in
                         success(true)
                     }, failure: { (error) in
-                        
+                        failure(error)
                     })
                 }
             }

@@ -14,9 +14,10 @@ var kKeBaseURL:String {
 }
 
 /// 用户模块
+//return "http://passport.mbalib.com/api2/loginweixin/"
 var kUserBaseURL:String{
-    //线上    return "http://passport.mbalib.com/api2/loginweixin/"
-    return "http://192.168.1.12:8082/api2/loginweixin/" //线下
+    //线上    return "http://passport.mbalib.com/api2/"
+    return "http://192.168.1.12:8082/api2/" //线下
 }
 
 

@@ -19,6 +19,7 @@
 		2C664D991E5D38F900D9F4BA /* 配乐1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C664D981E5D38F900D9F4BA /* 配乐1.mp3 */; };
 		2C664D9C1E5D3DDE00D9F4BA /* Record.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C664D9A1E5D3DDE00D9F4BA /* Record.storyboard */; };
 		2C664DA31E5DAC0900D9F4BA /* KeUserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C664DA21E5DAC0900D9F4BA /* KeUserAccount.swift */; };
+		2C672AD81E6D0EF800966689 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C672AD71E6D0EF800966689 /* Notification+Extension.swift */; };
 		2C7818C11DEEA0F4001E3594 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */; };
 		2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C41DEEA0F4001E3594 /* Main.storyboard */; };
 		2C7818C81DEEA0F4001E3594 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7818C71DEEA0F4001E3594 /* Assets.xcassets */; };
@@ -127,6 +128,7 @@
 		2C664D981E5D38F900D9F4BA /* 配乐1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "配乐1.mp3"; sourceTree = "<group>"; };
 		2C664D9B1E5D3DDE00D9F4BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Record.storyboard; sourceTree = "<group>"; };
 		2C664DA21E5DAC0900D9F4BA /* KeUserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeUserAccount.swift; sourceTree = "<group>"; };
+		2C672AD71E6D0EF800966689 /* Notification+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
 		2C7818BD1DEEA0F4001E3594 /* FMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C7818C01DEEA0F4001E3594 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C7818C51DEEA0F4001E3594 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 		2C97D7B01E4C441C00FB407F /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				2C672AD71E6D0EF800966689 /* Notification+Extension.swift */,
 				2CAE5F811E6434E1005DAA57 /* JSON+Extension.swift */,
 				2C664D831E5A897100D9F4BA /* TimeInterval+Extension.swift */,
 				2CFA62CB1E5198F700583622 /* CALayer+Extension.swift */,
@@ -830,6 +833,7 @@
 				2C97D7FA1E513F7000FB407F /* DubPlayView.swift in Sources */,
 				2CFA62CC1E5198F700583622 /* CALayer+Extension.swift in Sources */,
 				2C97D7ED1E4D612800FB407F /* CreatCourceViewController.swift in Sources */,
+				2C672AD81E6D0EF800966689 /* Notification+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

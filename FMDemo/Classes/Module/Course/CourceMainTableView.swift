@@ -46,7 +46,7 @@ class CourceMainTableView: RefreshBaseTableView {
         mj_footer.isHidden = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func setcid(cid: String) {
@@ -97,7 +97,7 @@ extension CourceMainTableView {
     func actionAdd(sender: UIButton) {
         self.alert = UIAlertController(title: "\n\n", message: "", preferredStyle: .alert)
         let textView = BorderTextView(frame: CGRect(x: 5, y: 5, width: 270 - 10, height: 80), textContainer: nil)
-        textView.setPlaceholder(kCreatMaterialTitleString, maxTip: 50)
+        textView.setPlaceholder(kCreatMaterialTitleString, maxTip: 50)        
         alert?.view.addSubview(textView)
         let cancelAction = UIAlertAction(title: "取消", style: .default, handler: nil)
         let okAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
@@ -120,7 +120,7 @@ extension CourceMainTableView {
         alert?.addAction(okAction)
         
         self.parentVC?.present(alert!, animated: true, completion: {
-            
+            textView.becomeFirstResponder()
         })
     }
 }
@@ -291,7 +291,7 @@ extension CourceMainTableView {
         let duration = kbInfo?[UIKeyboardAnimationDurationUserInfoKey] as! Double
         
         //界面偏移动画
-        UIView.animate(withDuration: duration) {
+        UIView.animate(withDuration: 0.5) {
             self.alert?.view.transform = CGAffineTransform(translationX: 0, y: changeY/2)
         }
     }

@@ -23,6 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        NotificationCenter.default.post(name: NSNotification.Name.LifeCycle.WillResignActive, object: nil)
+    }
+    
     //微信的跳转回调
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool    {
         return  WXApi.handleOpen(url, delegate: WXApiManager.share)

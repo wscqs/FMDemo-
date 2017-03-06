@@ -84,10 +84,12 @@ class RecordViewController: UIViewController {
         setup()
         
         NotificationCenter.default.addObserver(self, selector: #selector(cutComple(notification:)), name: Notification.Name(rawValue: "cutComplet"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: NSNotification.Name.LifeCycle.WillResignActive, object: nil)
         
         // 后退处理
         let backBtn: UIButton = UIButton(imageName:"nav_details_top_left", backTarget: self, action: #selector(actionNavBackBtnClick))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,6 +110,13 @@ class RecordViewController: UIViewController {
     
     deinit {
         MBACache.clearRecordCache()
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    
+    /// 应用程序进入后台
+    func willResignActive () {
+        pauseRecord(recordVCClick: .no)
     }
     
     func actionNavBackBtnClick() {

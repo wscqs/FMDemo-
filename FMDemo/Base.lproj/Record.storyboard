@@ -49,10 +49,12 @@
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="177.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGP-fh-6vI">
-                                                <rect key="frame" x="143.5" y="140.5" width="66.5" height="29"/>
+                                                <rect key="frame" x="143" y="139.5" width="67.5" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <color key="shadowColor" red="0.52156862749999999" green="0.52156862749999999" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="shadowOffset" width="1" height="1"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sound1_ico" translatesAutoresizingMaskIntoConstraints="NO" id="JEs-Ga-gUR">
                                                 <rect key="frame" x="5" y="23" width="20" height="20"/>
@@ -628,7 +630,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtX-9i-aFd" customClass="VerticalButton" customModule="FMDemo" customModuleProvider="target">
                                         <rect key="frame" x="18.5" y="20" width="72" height="35"/>
-                                        <state key="normal" title="取消" image="record_tool3_ico">
+                                        <state key="normal" title="取消" image="record_tool5_ico">
                                             <color key="titleColor" red="0.1960784314" green="0.59607843140000005" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -743,6 +745,7 @@
         <image name="record_tool2_ico" width="35" height="35"/>
         <image name="record_tool3_ico" width="35" height="35"/>
         <image name="record_tool4_ico" width="35" height="35"/>
+        <image name="record_tool5_ico" width="35" height="35"/>
         <image name="record_volume2_ico" width="18" height="18"/>
         <image name="recording_ico" width="55" height="55"/>
         <image name="sound1_ico" width="18" height="18"/>

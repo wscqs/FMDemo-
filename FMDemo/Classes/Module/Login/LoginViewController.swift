@@ -31,7 +31,18 @@ class LoginViewController: UIViewController {
 
     @IBAction func actionWechatLogin(_ sender: UIButton) {
         sendWXAuthRequest()
+        //测:
+//        KeService.actionLoginToken(openid: "", unionid: "", refresh_token: "", { (isSuccess) in
+//            if isSuccess {
+//                self.dismiss(animated: true, completion: {
+//                    
+//                })
+//            }
+//        }, failure: { (error) in
+//            
+//        })
     }
+    
     func sendWXAuthRequest() {
         let req : SendAuthReq = SendAuthReq()
         req.scope = "snsapi_userinfo,snsapi_base"
