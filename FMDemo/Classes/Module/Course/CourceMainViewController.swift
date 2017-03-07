@@ -20,7 +20,7 @@ class CourceMainViewController: BaseViewController {
         view.addSubview(mainTb)
         mainTb.parentVC = self
         
-        mainTb.initWithParams("CourceMainTableViewCell", heightForRowAtIndexPath: 80, canLoadRefresh: true, canLoadMore: false)
+        mainTb.initWithParams("CourceMainTableViewCell", heightForRowAtIndexPath: 85, canLoadRefresh: true, canLoadMore: false)
     }
 
     override func viewWillAppear(_ animated: Bool) {

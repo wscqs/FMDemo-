@@ -22,9 +22,23 @@ class RecordImgCollectionCell: UICollectionViewCell {
         didSet{
             guard let recordImgModel = recordImgModel else { return }
             imgView.image = recordImgModel.img
-            grayMaskView.isHidden = !recordImgModel.isTapStatus!
+//            grayMaskView.isHidden = !recordImgModel.isTapStatus!
             delBtn.isHidden = !recordImgModel.isEditStatus!
 
+            let imgStatus = recordImgModel.imgStatus!
+            switch imgStatus {
+            case .normal:
+                grayMaskView.isHidden = true
+                contentView.layer.borderWidth = 0
+            case .pageup:
+                grayMaskView.isHidden = false
+                contentView.layer.borderWidth = 0
+            case .selctor:
+                grayMaskView.isHidden = true
+                contentView.layer.borderColor = UIColor.colorWithHexString(kGlobalNavBgColor).cgColor
+                contentView.layer.borderWidth = 2
+            }
+            
             if recordImgModel.isRequestUpload ?? true{ // 上传
                 actionUploadPicture()
             }
@@ -66,6 +80,12 @@ class RecordImgCollectionCell: UICollectionViewCell {
         delegate?.actionDel(recordImgCollectionCell: self)
     }
     
+    
+    
+}
+
+enum ImgStatus {
+    case normal,pageup,selctor // 默认（黑），上屏，选中
 }
 
 class RecordImgModel {
@@ -75,12 +95,21 @@ class RecordImgModel {
     var isTapStatus: Bool? = false // 点击上屏状态
     var isEditStatus: Bool? = false // 编辑状态，出现删除
     
+    var imgStatus: ImgStatus? = .normal
+    
     
     init(img: UIImage, wid: String? = "",isRequestUpload: Bool? = true, isTapStatus: Bool? = false, isEditStatus: Bool? = false) {
         self.img = img
         self.wid = wid
         self.isRequestUpload = isRequestUpload
         self.isTapStatus = isTapStatus!
+        self.isEditStatus = isEditStatus!
+    }
+    init(img: UIImage, wid: String? = "",isRequestUpload: Bool? = true, imgStatus: ImgStatus? = .normal, isEditStatus: Bool? = false) {
+        self.img = img
+        self.wid = wid
+        self.isRequestUpload = isRequestUpload
+        self.imgStatus = imgStatus!
         self.isEditStatus = isEditStatus!
     }
 }

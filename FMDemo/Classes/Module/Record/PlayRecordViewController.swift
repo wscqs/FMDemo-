@@ -79,7 +79,7 @@ class PlayRecordViewController: UIViewController {
         player.player?.delegate = self
         slider.pointXArray = pointXArray
         actionPlayClick(sender: listenPlayBtn)
-        totalTimeLabel.text = TimeTool.getFormatTime(timerInval: totalTime)
+        totalTimeLabel.text = totalTime.getFormatTime()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -88,11 +88,6 @@ class PlayRecordViewController: UIViewController {
     }
     
     func updateTime() {
-//        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime))//player.currentTime  第一秒0.9几
-////        let endTime = TimeTool.getFormatTime(timerInval: player.duration)
-//        timeLabel.text = "\(playTime)"
-//        slider.value = Float(player.currentTime / player.duration * Double(pointXArray?.count ?? 0))
-        
         if thumbPointXIndex >= (pointXArray?.count ?? 0){
             stopPlay()
             thumbPointXIndex = 0
@@ -102,7 +97,7 @@ class PlayRecordViewController: UIViewController {
         
         thumbPointXIndex = thumbPointXIndex + 1
         slider.setPlayProgress(thumbPointXIndex: thumbPointXIndex)
-        timeLabel.text = TimeTool.getFormatTime(timerInval:(Double(thumbPointXIndex) * 0.2))
+        timeLabel.text = (Double(thumbPointXIndex) * 0.2).getFormatTime()
         setSpannerImg()
     }
     

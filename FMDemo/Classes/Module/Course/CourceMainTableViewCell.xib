@@ -27,30 +27,30 @@
                                         <rect key="frame" x="295" y="0.0" width="60" height="89"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="course_chapt_state4_ico" translatesAutoresizingMaskIntoConstraints="NO" id="nwq-NI-m0J">
-                                                <rect key="frame" x="16.5" y="20.5" width="28" height="28"/>
+                                                <rect key="frame" x="17" y="22" width="25" height="25"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="28" id="33D-3e-TNI"/>
-                                                    <constraint firstAttribute="height" constant="28" id="HPN-il-8Iq"/>
+                                                    <constraint firstAttribute="width" constant="25" id="33D-3e-TNI"/>
+                                                    <constraint firstAttribute="height" constant="25" id="HPN-il-8Iq"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="修改" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJE-bb-Z7T">
-                                                <rect key="frame" x="17" y="53.5" width="27" height="16"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJE-bb-Z7T">
+                                                <rect key="frame" x="13.5" y="54" width="31.5" height="13.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="OJE-bb-Z7T" firstAttribute="top" secondItem="nwq-NI-m0J" secondAttribute="bottom" constant="5" id="IuR-Te-cHT"/>
+                                            <constraint firstItem="OJE-bb-Z7T" firstAttribute="top" secondItem="nwq-NI-m0J" secondAttribute="bottom" constant="7" id="IuR-Te-cHT"/>
                                             <constraint firstItem="nwq-NI-m0J" firstAttribute="centerY" secondItem="fch-Wa-hKG" secondAttribute="centerY" constant="-10" id="O7D-bf-AFz"/>
-                                            <constraint firstItem="nwq-NI-m0J" firstAttribute="centerX" secondItem="fch-Wa-hKG" secondAttribute="centerX" id="OuX-1d-SsD"/>
                                             <constraint firstItem="OJE-bb-Z7T" firstAttribute="centerX" secondItem="nwq-NI-m0J" secondAttribute="centerX" id="Se1-UG-Hhj"/>
                                             <constraint firstAttribute="width" constant="60" id="rry-xD-Uyr"/>
+                                            <constraint firstAttribute="trailing" secondItem="OJE-bb-Z7T" secondAttribute="trailing" constant="15" id="vxZ-Py-4Ho"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="牙科路就拉倒就发生的理发师大法师打发" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xVK-xR-R6x">
-                                        <rect key="frame" x="10" y="10" width="285" height="69"/>
+                                        <rect key="frame" x="15" y="10" width="280" height="69"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -61,7 +61,7 @@
                                     <constraint firstItem="fch-Wa-hKG" firstAttribute="leading" secondItem="xVK-xR-R6x" secondAttribute="trailing" id="5Xd-sD-gjR"/>
                                     <constraint firstAttribute="bottom" secondItem="fch-Wa-hKG" secondAttribute="bottom" id="GTs-vS-Fxy"/>
                                     <constraint firstAttribute="trailing" secondItem="fch-Wa-hKG" secondAttribute="trailing" id="Gsb-Fw-n3E"/>
-                                    <constraint firstItem="xVK-xR-R6x" firstAttribute="leading" secondItem="FIv-pb-9CJ" secondAttribute="leading" constant="10" id="Y4k-Od-YsS"/>
+                                    <constraint firstItem="xVK-xR-R6x" firstAttribute="leading" secondItem="FIv-pb-9CJ" secondAttribute="leading" constant="15" id="Y4k-Od-YsS"/>
                                     <constraint firstAttribute="bottom" secondItem="xVK-xR-R6x" secondAttribute="bottom" constant="10" id="a6b-qR-e35"/>
                                     <constraint firstItem="fch-Wa-hKG" firstAttribute="top" secondItem="FIv-pb-9CJ" secondAttribute="top" id="bO5-EQ-Q3T"/>
                                     <constraint firstItem="xVK-xR-R6x" firstAttribute="top" secondItem="FIv-pb-9CJ" secondAttribute="top" constant="10" id="pvo-c3-tsX"/>

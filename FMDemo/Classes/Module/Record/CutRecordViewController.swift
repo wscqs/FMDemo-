@@ -77,6 +77,7 @@ class CutRecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        slider.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,10 +90,11 @@ class CutRecordViewController: UIViewController {
         guard let url = url else {
             return
         }
+        slider.isHidden = false
         player = MBAAudioPlayer(contentsOf: url)
         slider.pointXArray = pointXArray
-        slider.delegate = self
-        timeLabel.text = "00:00-\(TimeTool.getFormatTime(timerInval: totalTime))"
+        slider.delegate = self        
+        timeLabel.text = "00:00-\(totalTime.getFormatTime())"
         initTimer()
         pauseTimer()
     }
@@ -113,7 +115,7 @@ class CutRecordViewController: UIViewController {
         
         thumbPointXIndex = thumbPointXIndex + 1
         slider.setPlayProgress(thumbPointXIndex: thumbPointXIndex)
-        listenShowTimeLabel.text = "\(playTime.getFormatTime())-\(totalTime.getFormatTime())"
+        listenShowTimeLabel.text = "\(playTime.getFormatTime()) - \(totalTime.getFormatTime())"
         setSpannerImg()
     }
     
@@ -246,7 +248,7 @@ extension CutRecordViewController: CutBarWaveViewDelegate {
         self.thumbPointXIndex = thumbPointXIndex
         self.cutTime = Double(thumbPointXIndex) * 0.2
         player.currentTime = playTime
-        timeLabel.text = "\(cutTime.getFormatTime())-\(totalTime.getFormatTime())"
+        timeLabel.text = "\(cutTime.getFormatTime()) - \(totalTime.getFormatTime())"
         setSpannerImg()
     }
 }

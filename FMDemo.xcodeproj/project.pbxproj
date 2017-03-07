@@ -37,7 +37,6 @@
 		2C94E8011E277C7A00D539DC /* MBAAudioUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7EF1E277C7A00D539DC /* MBAAudioUtil.swift */; };
 		2C94E8021E277C7A00D539DC /* MBACache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7F01E277C7A00D539DC /* MBACache.swift */; };
 		2C94E8031E277C7A00D539DC /* MBAPlayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7F11E277C7A00D539DC /* MBAPlayerHelper.swift */; };
-		2C94E8041E277C7A00D539DC /* TimeTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7F21E277C7A00D539DC /* TimeTool.swift */; };
 		2C94E8051E277C7A00D539DC /* Lame2mp3Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94E7F71E277C7A00D539DC /* Lame2mp3Tool.m */; };
 		2C94E8061E277C7A00D539DC /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C94E7F81E277C7A00D539DC /* libmp3lame.a */; };
 		2C97D7741E4B13D100FB407F /* BaseSrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D76C1E4B13D100FB407F /* BaseSrollView.swift */; };
@@ -148,7 +147,6 @@
 		2C94E7EF1E277C7A00D539DC /* MBAAudioUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBAAudioUtil.swift; sourceTree = "<group>"; };
 		2C94E7F01E277C7A00D539DC /* MBACache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBACache.swift; sourceTree = "<group>"; };
 		2C94E7F11E277C7A00D539DC /* MBAPlayerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBAPlayerHelper.swift; sourceTree = "<group>"; };
-		2C94E7F21E277C7A00D539DC /* TimeTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTool.swift; sourceTree = "<group>"; };
 		2C94E7F51E277C7A00D539DC /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		2C94E7F61E277C7A00D539DC /* Lame2mp3Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lame2mp3Tool.h; sourceTree = "<group>"; };
 		2C94E7F71E277C7A00D539DC /* Lame2mp3Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lame2mp3Tool.m; sourceTree = "<group>"; };
@@ -374,7 +372,6 @@
 				2C97D7881E4B17FC00FB407F /* MBARequest.swift */,
 				2C94E7F01E277C7A00D539DC /* MBACache.swift */,
 				2C94E7F11E277C7A00D539DC /* MBAPlayerHelper.swift */,
-				2C94E7F21E277C7A00D539DC /* TimeTool.swift */,
 				2C97D7861E4B163500FB407F /* MBAProgressHUD.swift */,
 				2C0239B41E4B02EF00CD6008 /* MBAToast.swift */,
 			);
@@ -825,7 +822,6 @@
 				2CAE5F801E63FFEC005DAA57 /* UploadPictureModel.swift in Sources */,
 				2C97D7C31E4C441C00FB407F /* UILabel+Extension.swift in Sources */,
 				2C58C0981E56ADEE00310C1C /* CutBarWaveView.swift in Sources */,
-				2C94E8041E277C7A00D539DC /* TimeTool.swift in Sources */,
 				2CB2F8D71E5EC2B000A0E010 /* GetCoursesData.swift in Sources */,
 				2C94E8051E277C7A00D539DC /* Lame2mp3Tool.m in Sources */,
 				2C97D7911E4B2AC500FB407F /* LoginModel.swift in Sources */,

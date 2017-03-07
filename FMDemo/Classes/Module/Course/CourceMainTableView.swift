@@ -16,9 +16,14 @@ class CourceMainTableView: RefreshBaseTableView {
     var tbHeadView = CourceHeadTbView.courceHeadTbView()
     var footAddBtn: UIButton = {
         let footAddBtn = UIButton()
-        footAddBtn.setTitle("+", for: .normal)
-        footAddBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 25)
-        footAddBtn.setTitleColor(UIColor.white, for: .normal)
+//        footAddBtn.setTitle("+", for: .normal)
+//        footAddBtn.titleLabel?.font = UIFont.systemFont(ofSize: 50)
+//        footAddBtn.titleLabel?.center = footAddBtn.center
+//        footAddBtn.setTitleColor(UIColor.white, for: .normal)
+        
+        
+        footAddBtn.setImage(UIImage.init(named: "add")?.resizeImageWithNewSize(CGSize(width: 30, height: 30)), for: .normal)
+        footAddBtn.adjustsImageWhenHighlighted = false
         footAddBtn.backgroundColor = UIColor.colorWithHexString("41A0FD")
         footAddBtn.addTarget(self, action: #selector(actionAdd(sender:)), for: .touchUpInside)
         footAddBtn.layer.cornerRadius = 5
@@ -39,15 +44,34 @@ class CourceMainTableView: RefreshBaseTableView {
         tbFootView.backgroundColor = UIColor.clear
         tbFootView.addSubview(footAddBtn)
         footAddBtn.frame = CGRect(x: 10, y: 20, width: tbFootView.frame.size.width - 20, height: 40)
-        tableFooterView = tbFootView
         
-        estimatedRowHeight = 90
-        rowHeight = 90
+        tableFooterView = tbFootView
+//        setBottomAdd()
+        
         mj_footer.isHidden = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
+    
+    
+//    func setBottomAdd() {
+//        let footAddBtnView = UIView(frame: CGRect(x: 10, y: 20, width: tbFootView.frame.size.width - 20, height: 40))
+//        tbFootView.addSubview(footAddBtnView)
+//        footAddBtnView.backgroundColor = UIColor.colorWithHexString("41A0FD")
+//        footAddBtnView.isUserInteractionEnabled = true
+//        let tapGes = UITapGestureRecognizer(target: self, action: #selector(actionAdd(sender:)))
+//        footAddBtnView.addGestureRecognizer(tapGes)
+//        footAddBtnView.layer.cornerRadius = 5
+//        footAddBtnView.layer.masksToBounds = true
+//        let addLabel = UILabel()
+//        addLabel.text = "+"
+//        addLabel.font = UIFont.systemFont(ofSize: 50)
+//        addLabel.sizeToFit()
+//        addLabel.textColor = UIColor.white
+//        footAddBtnView.addSubview(addLabel)
+//        addLabel.center = footAddBtnView.center
+//        layoutIfNeeded()
+//    }
     
     func setcid(cid: String) {
         self.cid = cid
@@ -138,7 +162,7 @@ extension CourceMainTableView {
         let titleH:CGFloat = 30
         let view = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: titleH))
         titleHeadLabel.frame = CGRect(x: 10, y: 5, width: view.size.width, height: titleH)
-        titleHeadLabel.font = UIFont.systemFont(ofSize: 11)
+        titleHeadLabel.font = UIFont.systemFont(ofSize: 13)
         view.addSubview(titleHeadLabel)
         titleHeadLabel.textColor = UIColor.gray
         view.backgroundColor = UIColor.colorWithHexString(kGlobalBgColor)
@@ -162,8 +186,7 @@ extension CourceMainTableView {
 //    }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-
-        
+      
         let reNameAction = UITableViewRowAction(style: .normal, title: "编辑") { (action, index) in
 
             let sourceIndex = indexPath.row
@@ -288,7 +311,7 @@ extension CourceMainTableView {
         //键盘的y偏移量
         let changeY = kbRect.origin.y - UIScreen.main.bounds.height
         //键盘弹出的时间
-        let duration = kbInfo?[UIKeyboardAnimationDurationUserInfoKey] as! Double
+//        let duration = kbInfo?[UIKeyboardAnimationDurationUserInfoKey] as! Double
         
         //界面偏移动画
         UIView.animate(withDuration: 0.5) {

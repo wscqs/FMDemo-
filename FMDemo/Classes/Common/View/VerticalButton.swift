@@ -30,7 +30,7 @@ class VerticalButton: UIButton {
     
     func setUI() {
         self.frame = bounds
-        titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        titleLabel?.font = UIFont.systemFont(ofSize: 15)
         titleLabel?.textColor = UIColor.lightGray
         adjustsImageWhenHighlighted = false
     }

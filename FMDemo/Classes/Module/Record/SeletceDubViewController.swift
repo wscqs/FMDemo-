@@ -82,7 +82,7 @@ extension SeletceDubViewController {
         cell.textLabel?.text = titleNameArray[indexPath.row]
         cell.detailTextLabel?.text = "00:30"
         cell.imageView?.image = #imageLiteral(resourceName: "select_dub_add-music1")
-        btn = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        btn = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         btn.setImage(#imageLiteral(resourceName: "select_dub_add-music3"), for: .normal)
         btn.setTitle("试听", for: .normal)
         btn.setImage(#imageLiteral(resourceName: "select_dub_add-music2"), for: .selected)
@@ -90,8 +90,8 @@ extension SeletceDubViewController {
         btn.setTitleColor(UIColor.lightGray, for: .selected)
         btn.setTitleColor(UIColor.lightGray, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        btn.titleEdgeInsets = UIEdgeInsets(top: btn.imageView!.frame.size.height + 5, left: -btn.imageView!.frame.size.width, bottom: 0, right: 0)
-        btn.imageEdgeInsets = UIEdgeInsets(top: -btn.titleLabel!.bounds.size.height, left: 2, bottom: 0, right: -btn.titleLabel!.bounds.size.width)
+        btn.titleEdgeInsets = UIEdgeInsets(top: btn.imageView!.frame.size.height + 5, left: -btn.imageView!.frame.size.width + 8, bottom: 0, right: 0)
+        btn.imageEdgeInsets = UIEdgeInsets(top: -btn.titleLabel!.bounds.size.height, left: 8, bottom: 0, right: -btn.titleLabel!.bounds.size.width)
         btn.addTarget(self, action: #selector(actionClick(sender:)), for: .touchUpInside)
         btn.tag = indexPath.row
         cell.accessoryView = btn
@@ -134,7 +134,7 @@ extension SeletceDubViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
         label.text = "     推荐配乐"
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor.gray
         label.sizeToFit()
         return label

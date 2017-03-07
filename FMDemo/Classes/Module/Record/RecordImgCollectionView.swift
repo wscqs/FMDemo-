@@ -121,10 +121,21 @@ extension RecordImgCollectionView: UICollectionViewDelegate, UICollectionViewDat
         
         // 保存图片点击状态
         parentVC?.saveImgClick(image: (model?.img)! , wid: (model?.wid) ?? "")
-        model?.isTapStatus = true
+//        model?.isTapStatus = true
+        
+        var newRecordImgArray = [RecordImgModel]()
+        for newModel in recordImgArray! {
+            if newModel.imgStatus == ImgStatus.selctor {
+                newModel.imgStatus = ImgStatus.pageup
+            }
+            newRecordImgArray.append(newModel)
+        }
+        model?.imgStatus = ImgStatus.selctor
+        
         let cell = collectionView.cellForItem(at: indexPath) as! RecordImgCollectionCell
         cell.recordImgModel = model
         recordImgArray?[indexPath.row] = model!
+
         reloadData()
     }
 }

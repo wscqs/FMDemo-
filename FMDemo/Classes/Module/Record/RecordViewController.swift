@@ -50,7 +50,7 @@ class RecordViewController: UIViewController {
     /// 是否已经有录制
     var isRecorded: Bool? = false
     
-    let dispatchGroup = DispatchGroup()
+
 //    var recordVCClick = RecordVCClick.no
     
     // 顶层图片
@@ -320,10 +320,10 @@ extension RecordViewController {
             let disItem = DispatchWorkItem(block: { 
                 mp3url = MBAAudioUtil.changceToMp3(of: url, mp3Name: Date().formatDate)
             })
+            let dispatchGroup = DispatchGroup()
             let queueToMP3 = DispatchQueue(label: "queueToMP3")
-            queueToMP3.async(group: self.dispatchGroup, execute: disItem)
-            
-            self.dispatchGroup.notify(queue: .main, execute: {
+            queueToMP3.async(group: dispatchGroup, execute: disItem)            
+            dispatchGroup.notify(queue: .main, execute: {
 
                 guard let saveURL = mp3url else {
                     MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
@@ -411,6 +411,8 @@ extension RecordViewController {
         timerPause()
         
         dubPlayView.playPause()
+        topRecordPower.value = 1
+        topMusicPower.value = 1
         
         if isCuted { // 如果裁剪过，就合并
             if lastRecordURL == MBAAudio.url { // 剪切后未开始重新录
@@ -478,9 +480,7 @@ extension RecordViewController {
 extension RecordViewController {
     
     func initOraginTimeStatue(time: TimeInterval){
-        
-//        self.time = time
-        timeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(time))
+        timeLabel.text = TimeInterval(time).getFormatTime()
     }
     
     func timerInit(){

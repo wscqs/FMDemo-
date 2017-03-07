@@ -12,9 +12,6 @@ let kWaveTime = 0.2
 let kUserShouldLoginNotification = "kUserShouldLoginNotification"
 let kUserAccessToken = "kUserAccessToken"
 let kUserLoginToken = "kUserLoginToken"
-let kUserName = "kUserName"
-let kUserAvator = "kUserAvator"
-
 
 let kCreatCourceTitleString = "请输入课程标题，不要超过50个中文字符"
 let kCreatMaterialTitleString = "请输入章节标题，不要超过50个中文字符"

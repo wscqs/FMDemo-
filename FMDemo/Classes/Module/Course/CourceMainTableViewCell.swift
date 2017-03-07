@@ -27,7 +27,7 @@ class CourceMainTableViewCell: RefreshBaseTableViewCell {
         } else if "recorded" == bean.state{
             status(isRecord: true)
         }
-       statusLabel.text = Double(bean.time!)?.getFormatTime(isSpace: false)
+       statusLabel.text = Double(bean.time!)?.getFormatTime()
     }
     
     override func awakeFromNib() {

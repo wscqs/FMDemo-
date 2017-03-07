@@ -17,7 +17,7 @@ class CutBarWaveView: UIView {
     
     var pointXArray: Array<CGFloat>? {
         didSet{
-            guard let pointXArray = pointXArray else {
+            guard pointXArray != nil else {
                 return
             }
             setNeedsDisplay()
@@ -54,7 +54,7 @@ class CutBarWaveView: UIView {
     }
     
     /// 声波的颜色
-    var waveStrokeColor = UIColor.darkGray {
+    var waveStrokeColor = UIColor.colorWithHexString("2e80d1") {
         didSet {
             
         }

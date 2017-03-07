@@ -98,11 +98,11 @@ class DubPlayView: UIView {
         timerInit()
         initStatus()
         
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 10, height: 10)
-        layer.cornerRadius = 5
-        layer.borderColor = UIColor.colorWithHexString("f1f8ff").cgColor
-        layer.borderWidth = 1
+//        layer.shadowColor = UIColor.black.cgColor
+//        layer.shadowOffset = CGSize(width: 10, height: 10)
+//        layer.cornerRadius = 5
+//        layer.borderColor = UIColor.colorWithHexString("f1f8ff").cgColor
+//        layer.borderWidth = 1
         
     }
     
@@ -136,17 +136,7 @@ class DubPlayView: UIView {
     // xcode8 xib读取（0，0，1000，1000） 的bug
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-    }
-    
-    
-
-    
-//    @IBOutlet weak var playBtn: UIButton!
-//    @IBOutlet weak var cycleBtn: UIButton!
-//    @IBOutlet weak var playProgress: UIProgressView!
-//    @IBOutlet weak var changceDubBtn: UIButton!
-//    @IBOutlet weak var changceVolumeBtn: UIButton!
- 
+    } 
 }
 
 // MARK: - timer 一些控制
@@ -165,7 +155,7 @@ extension DubPlayView {
     
     func actionTimer() {
         let remainTime = (audioPlayer?.duration)! - (audioPlayer?.currentTime)!
-        playTimeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(remainTime))
+        playTimeLabel.text = remainTime.getFormatTime()
     }
     
     
@@ -186,7 +176,7 @@ extension DubPlayView {
         audioPlayer = MBAAudioPlayer(contentsOf: url)
         audioPlayer?.numberOfLoops = -1
         dubTitleLabel.text = url.lastPathComponent.components(separatedBy: ".").first
-        playTimeLabel.text = TimeTool.getFormatTime(timerInval: (audioPlayer?.duration ?? 0))
+        playTimeLabel.text = (audioPlayer?.duration ?? 0.0).getFormatTime()
         audioPlayer?.volume = volume! / 100
         playSwitch.isSelected = false
     }

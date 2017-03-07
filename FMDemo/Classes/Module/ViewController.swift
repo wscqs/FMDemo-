@@ -166,7 +166,7 @@ class ViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
-            print(alertController.textFields?.first?.text)
+            print(alertController.textFields?.first?.text ?? "")
         }
         alertController.addAction(okAction)
         alertController.addTextField { (textFiled) in
@@ -425,7 +425,7 @@ extension ViewController {
     
     func initOraginTimeStatue(time: TimeInterval){
         self.time = time
-        timeLabel.text = TimeTool.getFormatTime(timerInval: TimeInterval(time))
+        timeLabel.text = TimeInterval(time).getFormatTime()
     }
     
     func timerInit(){
@@ -597,8 +597,8 @@ extension ViewController {
         listenPlayBtn.isSelected = false
         playStatusBtn(isEnabel: true)
         if cutBtn.isSelected {
-            let playTime = TimeTool.getFormatTime(timerInval: Double(cutSlider.value))
-            let endTime = TimeTool.getFormatTime(timerInval: player.duration)
+            let playTime = Double(cutSlider.value).getFormatTime()
+            let endTime = player.duration.getFormatTime()
             timeLabel.text = "\(playTime)\\\(endTime)"
         }
     }
@@ -618,8 +618,8 @@ extension ViewController {
     
     
     func updateLabel() {
-        let playTime = TimeTool.getFormatTime(timerInval:(player.currentTime + 0.2))//player.currentTime  第一秒0.9几
-        let endTime = TimeTool.getFormatTime(timerInval: player.duration)
+        let playTime = (player.currentTime + 0.2).getFormatTime()//player.currentTime  第一秒0.9几
+        let endTime = player.duration.getFormatTime()
         timeLabel.text = "\(playTime)\\\(endTime)"
     }
 

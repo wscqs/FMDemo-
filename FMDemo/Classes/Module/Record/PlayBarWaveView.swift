@@ -33,7 +33,7 @@ class PlayBarWaveView: UIView {
     }
     
     /// 声波的颜色
-    var waveStrokeColor = UIColor.darkGray {
+    var waveStrokeColor = UIColor.colorWithHexString("2e80d1") {
         didSet {
             
         }

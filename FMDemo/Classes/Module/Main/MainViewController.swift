@@ -19,7 +19,7 @@ class MainViewController: BaseViewController {
         title = "智库课堂导师版"
         view.insertSubview(mainTb, at: 0)
         mainTb.parentVC = self
-        mainTb.initWithParams("MainTableViewCell", heightForRowAtIndexPath: 0, canLoadRefresh: true, canLoadMore: true)
+        mainTb.initWithParams("MainTableViewCell", heightForRowAtIndexPath: 100, canLoadRefresh: true, canLoadMore: true)
         mainTb.separatorStyle = .none
         mainTb.backgroundColor = UIColor.colorWithHexString(kGlobalBgColor)
 

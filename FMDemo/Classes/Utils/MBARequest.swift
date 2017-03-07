@@ -222,6 +222,8 @@ class MBARequest<T: BaseModel> : NSObject{
                                                         }
                                                     }
                                                 }, failure: { (error) in
+                                                    let error   = NSError(domain: errmsg, code: errcode, userInfo: nil)
+                                                    completionHandler(nil, error)
                                                 })
                                             }
                                         }else if errcode == 10002 {// loginToken 过期
@@ -235,10 +237,6 @@ class MBARequest<T: BaseModel> : NSObject{
                                             return
 
                                         }
-                                        MBAToast.show(text: errmsg)
-                                        let error = NSError(domain: errmsg, code: errcode, userInfo: nil)
-                                        completionHandler(nil, error)
-                                        return
                                     }else {
                                         let object = transformBean(with: json)
                                         
