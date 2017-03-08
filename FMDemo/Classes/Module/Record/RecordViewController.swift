@@ -94,6 +94,17 @@ class RecordViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if !canRecord() {
+            let alertController = UIAlertController(title: "无法录音", message: "请允许“智库课堂”访问麦克风", preferredStyle: .alert )
+            let alertAction = UIAlertAction(title: "立即允许", style: .default, handler: { (action) in
+                let url = URL(string: UIApplicationOpenSettingsURLString)
+                if UIApplication.shared.canOpenURL(url!) {
+                    UIApplication.shared.openURL(url!)
+                }
+            })
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -150,20 +161,8 @@ class RecordViewController: UIViewController {
         lastRecordURL = MBAAudio.url
     }
     
-
-    
-    
     // MARK: - StroyBoard action
     @IBAction func actionStartRecord(_ sender: UIButton) {
-        if !canRecord() {
-            let alertController = UIAlertController(title: "请求授权", message: "app需要访问您的麦克风。\n请启用麦克风-设置/隐私/麦克风", preferredStyle: .alert )
-            let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: nil)
-            alertController.addAction(alertAction)
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
-        
-
         isRecorded = true
         bottomInitView.isHidden = true
         topStatusView.isHidden = false
@@ -562,11 +561,11 @@ extension RecordViewController: AVAudioRecorderDelegate{
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        if flag {
-            print("录音完成")
-        }else{
-            print("录音失败")
-        }
+//        if flag {
+//            print("录音完成")
+//        }else{
+//            print("录音失败")
+//        }
     }
     
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {

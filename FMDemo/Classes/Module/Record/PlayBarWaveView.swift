@@ -93,7 +93,8 @@ class PlayBarWaveView: UIView {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
-        let boundsH = self.bounds.size.height
+        let spaceTop: CGFloat = 2
+        let boundsH = self.bounds.size.height - spaceTop
         let boundsW = self.bounds.size.width
         
         if CGFloat(pointXArray.count * 4) > boundsW {
@@ -116,7 +117,7 @@ class PlayBarWaveView: UIView {
             context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
         }
 
-        slider.frame = CGRect(x: 0, y: 0, width: CGFloat(pointXArray.count) * spaceW , height: boundsH)
+        slider.frame = CGRect(x: 0, y: 6, width: CGFloat(pointXArray.count) * spaceW , height: boundsH - 4)
         
         let numberOfSteps = pointXArray.count
         slider.maximumValue = Float(numberOfSteps)

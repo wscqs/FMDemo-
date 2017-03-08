@@ -91,7 +91,7 @@ class CutBarWaveView: UIView {
         layer.masksToBounds = true
         
         addSubview(scrollView)
-        scrollView.frame = bounds
+
         scrollView.bounces = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
@@ -132,7 +132,8 @@ class CutBarWaveView: UIView {
             return
         }
         if pointXArray.count == 0 {return}
-        boundsH = self.bounds.size.height
+        let spaceTop: CGFloat = 2
+        boundsH = self.bounds.size.height - spaceTop
         boundsW = self.bounds.size.width
 
         // 下面方法，第一个参数表示区域大小。第二个参数表示是否是非透明的。如果需要显示半透明效果，需要传NO，否则传YES。第三个参数就是屏幕密度了
@@ -169,7 +170,9 @@ class CutBarWaveView: UIView {
         scrollViewContenW = maxiBarTrackImageW
         slider.frame = CGRect(x: 0, y: 0, width: maxiBarTrackImageW, height: boundsH)
         scrollView.contentSize = slider.frame.size
-        scrollView.frame = bounds
+        var cgRect = bounds
+        cgRect.origin.y = 4
+        scrollView.frame = cgRect
         
         if scrollViewContenW - boundsW > 0 {
             scrollView.contentOffset = CGPoint(x: scrollViewContenW - boundsW, y: 0)
@@ -189,7 +192,7 @@ class CutBarWaveView: UIView {
         } else {
             thumbBarX = scrollView.contentSize.width - spaceW * 5 * minSecond
         }
-        thumbBarImage.frame = CGRect(x: thumbBarX, y: 0, width: 40, height: bounds.height)
+        thumbBarImage.frame = CGRect(x: thumbBarX, y: 2, width: 40, height: bounds.height)
     }
     
     fileprivate func updateCutView() {

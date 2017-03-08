@@ -12,7 +12,7 @@ import ObjectMapper
 import Toaster
 
 let kNetworkDontUse = "网络不可用"
-let kServiceDontUse = "服务端出错，请稍后重试"
+let kServiceDontUse = "连接超时，请稍后重试"
 
 /// 上传的data 真实格式
 enum dataType: String {

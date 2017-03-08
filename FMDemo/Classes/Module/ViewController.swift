@@ -313,7 +313,6 @@ class ViewController: UIViewController {
         let alertController = UIAlertController(title: "重新录制", message: "是否重新录制？", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .default, handler:nil)
         let alertAction = UIAlertAction(title: "确定", style: .cancel, handler: { (action) in
-            print("删除成功")
             self.resetStatus()
         })
 

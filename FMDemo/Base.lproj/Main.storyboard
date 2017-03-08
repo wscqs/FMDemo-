@@ -217,12 +217,12 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PJC-ko-fb6">
-                                <rect key="frame" x="10" y="184" width="300" height="35"/>
+                                <rect key="frame" x="10" y="184" width="300" height="40"/>
                                 <color key="backgroundColor" red="0.25490196079999999" green="0.62745098040000002" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="lSa-k3-MZ8"/>
+                                    <constraint firstAttribute="height" constant="40" id="lSa-k3-MZ8"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="退出登录"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">

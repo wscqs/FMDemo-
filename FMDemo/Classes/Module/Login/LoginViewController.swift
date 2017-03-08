@@ -61,7 +61,7 @@ class LoginViewController: UIViewController {
             let data = try? Data(contentsOf: requestURL, options: NSData.ReadingOptions())
             DispatchQueue.main.async {
                 let jsonResult: NSDictionary = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
-                print(jsonResult.debugDescription)
+//                print(jsonResult.debugDescription)
                 let refresh_token: String = jsonResult["refresh_token"] as! String
                 let openid: String = jsonResult["openid"] as! String
                 let unionid: String = jsonResult["unionid"] as! String

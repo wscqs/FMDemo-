@@ -55,7 +55,7 @@ class MBAAudioPlayer {
             try player = AVAudioPlayer(contentsOf: url)
             player?.isMeteringEnabled = true
             player?.prepareToPlay()
-            print("initPlayer!!")
+//            print("initPlayer!!")
         } catch {
             print("initPlayerError!!")
         }
@@ -68,25 +68,25 @@ extension MBAAudioPlayer{
 
     /// 开始播放
     func startPlay() {
-        print("startPlay!!")
+//        print("startPlay!!")
         play(atTime: 0)
     }
 
     /// 暂停播放
     func pausePlay() {
-        print("pausePlaying!!")
+//        print("pausePlaying!!")
         player?.pause()
     }
     
     /// 继续播放
     func continuePlay() {
-        print("continuePlaying!!")
+//        print("continuePlaying!!")
         player?.play()
     }
     
     /// 停止播放
     func stopPlay() {
-        print("stopPlaying!!")
+//        print("stopPlaying!!")
         player?.stop()
         player = nil
     }

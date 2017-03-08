@@ -184,7 +184,7 @@ extension CutRecordViewController {
                 NotificationCenter.default.post(notification)
                 
                 _ = self.navigationController?.popViewController(animated: true)
-                print(cutExportURL)
+//                print(cutExportURL)
             } else {
                 print("剪切失败")
             }

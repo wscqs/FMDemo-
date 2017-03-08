@@ -22,7 +22,7 @@ class CourceMainTableView: RefreshBaseTableView {
 //        footAddBtn.setTitleColor(UIColor.white, for: .normal)
         
         
-        footAddBtn.setImage(UIImage.init(named: "add")?.resizeImageWithNewSize(CGSize(width: 30, height: 30)), for: .normal)
+        footAddBtn.setImage(UIImage.init(named: "add"), for: .normal)
         footAddBtn.adjustsImageWhenHighlighted = false
         footAddBtn.backgroundColor = UIColor.colorWithHexString("41A0FD")
         footAddBtn.addTarget(self, action: #selector(actionAdd(sender:)), for: .touchUpInside)

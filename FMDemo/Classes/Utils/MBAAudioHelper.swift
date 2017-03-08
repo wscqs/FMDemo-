@@ -78,7 +78,7 @@ extension MBAAudioHelper{
         do {
             try audioSession?.setActive(true)
             audioRecorder?.record()
-            print("startRecord!")
+//            print("startRecord!")
         } catch {
             print("recordError!")
         }
@@ -91,13 +91,13 @@ extension MBAAudioHelper{
     
     /// 暂停录音
     func pauseRecord() {
-        print("pauseRecord!!")
+//        print("pauseRecord!!")
         audioRecorder?.pause()
     }
     
     /// 继续录音
     func continueRecord() {
-        print("continueRecord!!")
+//        print("continueRecord!!")
         audioRecorder?.record()
     }
 
