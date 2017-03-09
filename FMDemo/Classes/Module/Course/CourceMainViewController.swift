@@ -30,15 +30,14 @@ class CourceMainViewController: BaseViewController {
             print("CourceMainViewController ，cid或标题为空！")
         }
         
-        mainTb.tbHeadView.titleLabel.text = creatTitle
-        mainTb.setcid(cid: cid)
+        mainTb.setcid(cid: cid, title: creatTitle)
         mainTb.start(true)
     }
-    
-    
+ 
 }
 
 
+// MARK: - push
 extension CourceMainViewController {
     func pushToRecordViewController(mid: String) {
         let recordVC = UIStoryboard(name: "Record", bundle: nil).instantiateInitialViewController() as? RecordViewController

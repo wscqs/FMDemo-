@@ -42,14 +42,6 @@ class PlayRecordViewController: UIViewController {
                 bannerImg.layer.add(transition, forKey: nil)
                 break
             }
-//            guard let image = imgDict[thumbPointXIndex] else { continue }
-//            bannerImg.image = image
-//            let transition = CATransition()
-//            transition.duration = 0.5
-//            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-//            transition.type = kCATransitionFade
-//            bannerImg.layer.add(transition, forKey: nil)
-//            break
         }
     }
     
@@ -61,7 +53,6 @@ class PlayRecordViewController: UIViewController {
     }
     
     var sliderTimer: Timer?
-    var tipTimer: Timer?
     var player: MBAAudioPlayer!
     
     
@@ -76,7 +67,7 @@ class PlayRecordViewController: UIViewController {
             return
         }
         player = MBAAudioPlayer(contentsOf: url)
-        player.player?.delegate = self
+//        player.player?.delegate = self
         slider.pointXArray = pointXArray
         actionPlayClick(sender: listenPlayBtn)
         totalTimeLabel.text = totalTime.getFormatTime()
@@ -207,8 +198,6 @@ extension PlayRecordViewController {
     func actionSlider(sender: UISlider) {
         pausePlay()
         thumbPointXIndex = Int(sender.value)
-//        let progress = Double(sender.value) / Double(pointXArray?.count ?? 0)
-//        player.currentTime = TimeInterval(progress * player.duration)
         sliderTime = Double(thumbPointXIndex) * 0.2
         if listenPlayBtn.isSelected {// 在播放中
             continuePlay()
@@ -219,30 +208,27 @@ extension PlayRecordViewController {
     }
 }
 
+// MARK: - Timer
 extension PlayRecordViewController {
     func initTimer() {
-//        tipTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(tipTimerEvent), userInfo: nil, repeats: true)
         sliderTimer = Timer.scheduledTimer(timeInterval: kWaveTime, target: self, selector: #selector(sliderTimerEvent), userInfo: nil, repeats: true)
     }
     
     func pauseTimer() {
-        tipTimer?.fireDate = Date.distantFuture
         sliderTimer?.fireDate = Date.distantFuture
     }
     
     func continueTimer() {
-        tipTimer?.fireDate = Date()
         sliderTimer?.fireDate = Date()
     }
     
     func stopTimer() {
         sliderTimer?.invalidate()
         sliderTimer = nil
-        tipTimer?.invalidate()
-        tipTimer = nil
     }
 }
 
+// MARK: - playStatus
 extension PlayRecordViewController {
     
     func startPlay() {
@@ -266,34 +252,4 @@ extension PlayRecordViewController {
         listenPlayBtn.isSelected = false
         listenStatusLabel.text = "播放"
     }
-}
-
-
-//extension PlayRecordViewController {
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if "CutRecordViewController1" == segue.identifier {
-//            let playVC = segue.destination as? CutRecordViewController
-//            playVC?.url = self.url
-//            playVC?.pointXArray = self.pointXArray
-//            playVC?.imgDictArray = self.imgDictArray
-//            for i in 0 ..< (navigationController?.viewControllers.count ?? 0){
-//                if navigationController?.viewControllers[i] is PlayRecordViewController {
-//                    navigationController?.viewControllers.remove(at: i)
-//                    break
-//                }
-//            }
-//        }
-//    }
-//}
-
-extension PlayRecordViewController: AVAudioPlayerDelegate{
-    
-//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-//        if flag {
-//            print("finishS")
-//            stopPlay()
-//        } else {
-//            print("finishError")
-//        }
-//    }
 }

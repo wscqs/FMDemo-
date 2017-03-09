@@ -8,10 +8,10 @@
 
 import UIKit
 
-fileprivate var kMainCellId = "MainTableViewCell"
 class MainTableView: RefreshBaseTableView {
     var parentVC: MainViewController?
 
+    /// 加载刷新数据
     override func loadData() {
         KeService.actionGetCourses(start: start, num: num, success: { (bean) in
             if self.action == .loadNew {
@@ -23,12 +23,7 @@ class MainTableView: RefreshBaseTableView {
                     self.dataList?.append(data)
                 }
             }
-            // 缓存就更新数据，服务端数据结束刷新
-            //                        (bean.isCache) ? self.reloadData() : self.loadCompleted()
             self.loadCompleted()
-//            if bean.data?.count ?? 0 < 10 {
-//                self.mj_footer.isHidden = true
-//            }
 
         }) { (error) in
             if 40301 == error.code {
@@ -41,23 +36,7 @@ class MainTableView: RefreshBaseTableView {
     }
 }
 
-//extension MainTableView: UITableViewDelegate, UITableViewDataSource{
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//         return 3
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = dequeueReusableCell(withIdentifier: kMainCellId, for: indexPath)
-//        return cell
-//    }
-//    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        parentVC?.pushCourseDetailVC()
-//    }
-//
-//}
-
+// MARK: - tableviewDelegate
 extension MainTableView{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -72,6 +51,7 @@ extension MainTableView{
 }
 
 
+// MARK: - DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
 extension MainTableView {
     
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {

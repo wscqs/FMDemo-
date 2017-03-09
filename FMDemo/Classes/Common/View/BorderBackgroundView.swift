@@ -41,10 +41,6 @@ class BorderBackgroundView: UIView {
         layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 0.1
         
-//                layer.shadowColor = UIColor.gray.cgColor
-//                layer.shadowOffset = CGSize(width: 1, height: 1)
-//                layer.shadowRadius = 5
-//                layer.shadowOpacity = 0.8
     }
     
     override func layoutSubviews() {

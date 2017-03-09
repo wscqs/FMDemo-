@@ -14,15 +14,8 @@ class QSNavigationController: UINavigationController, UIGestureRecognizerDelegat
         super.viewDidLoad()
 
         self.interactivePopGestureRecognizer!.delegate = nil
-        
         // 禁用左滑动返回
         interactivePopGestureRecognizer?.isEnabled = false
-        
-//        // navBar整个背景颜色 ,解决系统右边白色闪烁的bug
-//        navigationBar.barTintColor = UIColor.colorWithHexString("F6F6F6")
-//        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.darkGray]
-        // 系统文字渲染
-//        navigationBar.tintColor = UIColor.white
     }
     
     override func viewWillAppear(_ animated: Bool) {

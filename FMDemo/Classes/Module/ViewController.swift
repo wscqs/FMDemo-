@@ -11,7 +11,7 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var slider: WaveformView!
+    @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var listenPlayBtn: UIButton!
     @IBOutlet weak var cutBtn: UIButton!
     @IBOutlet weak var pauseBtn: UIButton!
@@ -489,7 +489,7 @@ extension ViewController  {
         player.player?.delegate = self
         initCutUI()
         
-        slider.url = url
+//        slider.url = url
     }
     
     func initCutUI() {

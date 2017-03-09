@@ -29,9 +29,6 @@ class CutBarWaveView: UIView {
     fileprivate var scrollView = UIScrollView()
     fileprivate var thumbBarImage: UIImageView = UIImageView()
     fileprivate var thumbPointXIndex: Int = 0
-//    fileprivate var playMaxiBarTrackImage: UIImage = UIImage()
-//    fileprivate var playMiniBarTrackImage: UIImage = UIImage()
-    
     
     var widthScaling: CGFloat = 1.0
     let heightScaling: CGFloat = 0.9

@@ -22,7 +22,6 @@ class RecordImgCollectionCell: UICollectionViewCell {
         didSet{
             guard let recordImgModel = recordImgModel else { return }
             imgView.image = recordImgModel.img
-//            grayMaskView.isHidden = !recordImgModel.isTapStatus!
             delBtn.isHidden = !recordImgModel.isEditStatus!
 
             let imgStatus = recordImgModel.imgStatus!

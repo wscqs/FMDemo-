@@ -73,6 +73,18 @@ class MBACache {
         }
     }
     
+    //删除保存的录音缓存文件
+    class func clearSaveRecordCache() {
+        let docPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
+        let path = (docPath)! + "/saveRecord"
+        if FileManager.default.fileExists(atPath: path) {
+            do {
+                try FileManager.default.removeItem(atPath: path)
+            } catch {
+            }
+        }
+    }
+    
 }
 
 

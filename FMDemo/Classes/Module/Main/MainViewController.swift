@@ -8,12 +8,10 @@
 
 import UIKit
 
-fileprivate var barHeight: CGFloat = 60
 class MainViewController: BaseViewController {
     
     var mainTb = MainTableView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT - NAVIGATION_AND_STATUSBAR_HEIGHT))
     
-//    @IBOutlet weak var mainTb: MainTableView!
     override func setupUI() {
         
         title = "智库课堂导师版"
@@ -43,17 +41,10 @@ class MainViewController: BaseViewController {
     // MARK: - 监听方法
     func userLogin(n: Notification) {
         mainTb.dataList?.removeAll()
-        //清除账号
         KeUserAccount.cleanAccount()
         let loginVC = LoginViewController()
         self.navigationController?.present(loginVC, animated: false, completion: nil)
-//        self.present(loginVC, animated: false, completion: nil)
     }
-}
-
-extension MainViewController {
-    
-
 }
 
 extension MainViewController {

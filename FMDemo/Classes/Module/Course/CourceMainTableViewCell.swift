@@ -32,7 +32,6 @@ class CourceMainTableViewCell: RefreshBaseTableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         backgroundColor = UIColor.colorWithHexString(kGlobalBgColor)
         selectionStyle = .none
     }
@@ -47,11 +46,9 @@ extension CourceMainTableViewCell {
     func status(isRecord: Bool) {
         if isRecord {
             statusImg.image = #imageLiteral(resourceName: "course_chapt_state2_ico")
-//            statusLabel.text = "已保存"
             statusLabel.textColor = UIColor.colorWithHexString("5dd89d")
         } else {
             statusImg.image = #imageLiteral(resourceName: "course_chapt_state1_ico")
-//            statusLabel.text = "未录制"
             statusLabel.textColor = UIColor.colorWithHexString("f45e5e")
         }
     }

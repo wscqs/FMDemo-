@@ -11,7 +11,7 @@ import AVFoundation
 
 
 protocol DubPlayViewDelegate : NSObjectProtocol{
-    func playBtnClick(_ dubPlayView: DubPlayView, playBtn: UIButton)
+//    func playBtnClick(_ dubPlayView: DubPlayView, playBtn: UIButton)
     func changceDubClick(_ dubPlayView: DubPlayView)
 }
 
@@ -97,13 +97,6 @@ class DubPlayView: UIView {
         changceDubBtn.addTarget(self, action: #selector(DubPlayView.actionChangceDub), for: .touchUpInside)
         timerInit()
         initStatus()
-        
-//        layer.shadowColor = UIColor.black.cgColor
-//        layer.shadowOffset = CGSize(width: 10, height: 10)
-//        layer.cornerRadius = 5
-//        layer.borderColor = UIColor.colorWithHexString("f1f8ff").cgColor
-//        layer.borderWidth = 1
-        
     }
     
     func actionVolumeSlider(sender: UISlider) {
@@ -119,7 +112,7 @@ class DubPlayView: UIView {
             playSwitch.isSelected = true
             timerContinue()
         }
-        delegate?.playBtnClick(self, playBtn: btn)
+//        delegate?.playBtnClick(self, playBtn: btn)
     }
     
     func playPause() {

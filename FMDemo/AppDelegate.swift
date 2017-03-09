@@ -39,7 +39,6 @@ extension AppDelegate {
     /**
      根控制器
      */
-    // MARK: - rootVC
     fileprivate func setupRootViewController() {
         
         window?.backgroundColor = UIColor.white
@@ -67,8 +66,6 @@ extension AppDelegate {
     }
     
     fileprivate func setupGlobalData() {
-//        WechatManager.appid = kAppKeyWXID
-//        WechatManager.appSecret = kAppKeyWXAppSecret
         WXApi.registerApp(kAppKeyWXID)
     }
     

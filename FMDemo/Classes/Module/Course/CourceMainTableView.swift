@@ -13,15 +13,10 @@ class CourceMainTableView: RefreshBaseTableView {
  
     var parentVC: CourceMainViewController?
     var cid: String!
-    var tbHeadView = CourceHeadTbView.courceHeadTbView()
-    var footAddBtn: UIButton = {
+    
+    fileprivate var tbHeadView = CourceHeadTbView.courceHeadTbView()
+    fileprivate var footAddBtn: UIButton = {
         let footAddBtn = UIButton()
-//        footAddBtn.setTitle("+", for: .normal)
-//        footAddBtn.titleLabel?.font = UIFont.systemFont(ofSize: 50)
-//        footAddBtn.titleLabel?.center = footAddBtn.center
-//        footAddBtn.setTitleColor(UIColor.white, for: .normal)
-        
-        
         footAddBtn.setImage(UIImage.init(named: "add"), for: .normal)
         footAddBtn.adjustsImageWhenHighlighted = false
         footAddBtn.backgroundColor = UIColor.colorWithHexString("41A0FD")
@@ -30,8 +25,8 @@ class CourceMainTableView: RefreshBaseTableView {
         footAddBtn.layer.masksToBounds = true
         return footAddBtn
     }()
-    
-    var tbFootView = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 80))
+    fileprivate var tbFootView = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 80))
+    fileprivate var alert: UIAlertController?
 
     override func setUI() {
         let nib = UINib(nibName: kMainCellId, bundle: nil)
@@ -44,39 +39,14 @@ class CourceMainTableView: RefreshBaseTableView {
         tbFootView.backgroundColor = UIColor.clear
         tbFootView.addSubview(footAddBtn)
         footAddBtn.frame = CGRect(x: 10, y: 20, width: tbFootView.frame.size.width - 20, height: 40)
-        
         tableFooterView = tbFootView
-//        setBottomAdd()
-        
+
         mj_footer.isHidden = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
     
-    
-//    func setBottomAdd() {
-//        let footAddBtnView = UIView(frame: CGRect(x: 10, y: 20, width: tbFootView.frame.size.width - 20, height: 40))
-//        tbFootView.addSubview(footAddBtnView)
-//        footAddBtnView.backgroundColor = UIColor.colorWithHexString("41A0FD")
-//        footAddBtnView.isUserInteractionEnabled = true
-//        let tapGes = UITapGestureRecognizer(target: self, action: #selector(actionAdd(sender:)))
-//        footAddBtnView.addGestureRecognizer(tapGes)
-//        footAddBtnView.layer.cornerRadius = 5
-//        footAddBtnView.layer.masksToBounds = true
-//        let addLabel = UILabel()
-//        addLabel.text = "+"
-//        addLabel.font = UIFont.systemFont(ofSize: 50)
-//        addLabel.sizeToFit()
-//        addLabel.textColor = UIColor.white
-//        footAddBtnView.addSubview(addLabel)
-//        addLabel.center = footAddBtnView.center
-//        layoutIfNeeded()
-//    }
-    
-    func setcid(cid: String) {
-        self.cid = cid
-        tbHeadView.cid = cid
-    }
+
     
     override func loadData() {
         KeService.actionGetMaterials(cid: cid, success: { (bean) in
@@ -91,8 +61,6 @@ class CourceMainTableView: RefreshBaseTableView {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
-    fileprivate var alert: UIAlertController?
 }
 
 
@@ -100,7 +68,15 @@ class CourceMainTableView: RefreshBaseTableView {
 
 // MARK: -
 extension CourceMainTableView {
-    func changceCourseStatus() {
+    
+    /// 设置hbHeadView
+    open func setcid(cid: String, title: String) {
+        self.cid = cid
+        tbHeadView.cid = cid
+        tbHeadView.titleLabel.text = title
+    }
+    
+    fileprivate func changceCourseStatus() {
         var isComplet = true
         for bean in (self.dataList as? [GetMaterialsData])! {
             if "unrecorded" == bean.state {
@@ -248,7 +224,6 @@ extension CourceMainTableView {
                 sort.append(object.mid ?? "")
             }
             
-            
             KeService.actionMaterialSort(cid:self.cid, sort: sort, success: { (bean) in
                 
             }, failure: { (error) in
@@ -282,14 +257,6 @@ extension CourceMainTableView {
         deleteAction.backgroundColor = UIColor.colorWithHexString("f45e5e")
         return [deleteAction, moveAction, reNameAction]
     }
-
-    
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell: CourceMainTableViewCell = tableView.dequeueReusableCell(withIdentifier: kMainCellId, for: indexPath) as! CourceMainTableViewCell
-//        cell.titleLable.text = dataList[indexPath.row]
-//        cell.selectionStyle = .none
-//        return cell
-//    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let bean = self.dataList?[indexPath.row] as? GetMaterialsData else { return }

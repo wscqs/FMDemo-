@@ -51,18 +51,11 @@ class PlayCourceMaterialViewController: UIViewController {
     /// 请求
     @objc fileprivate func requst() {
         self.progressView.frame = CGRect(x:0,y:0,width:self.view.frame.size.width,height:3)
-        //        self.progressView.isHidden = false
-        //        UIView.animate(withDuration: 1.0) {
-        //            self.progressView.progress = 0.1
-        //        }
-        
-        //        MBAProgressHUD.show()
         self.progressView.alpha = 1
         self.progressView.setProgress(0.1, animated: true)
         KeService.actionAccessToken({ (isSucess) in
             self.webRequst()
         }) { (error) in
-            //            MBAProgressHUD.dismiss()
             self.progressView.alpha = 0.0
 //            MBAProgressHUD.showErrorWithStatus("加载失败，请重试")
         }
@@ -80,7 +73,7 @@ class PlayCourceMaterialViewController: UIViewController {
             urlString = "\(url)?access_token=\(accesToken)"
         }
         
-        print(urlString)
+//        print(urlString)
         let requestURL = URL(string: urlString )
         let request = URLRequest(url: requestURL!)
         webView.load(request)
@@ -111,7 +104,6 @@ extension PlayCourceMaterialViewController: WKNavigationDelegate {
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 //        MBAProgressHUD.dismiss()
-
     }
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
 //        MBAProgressHUD.dismiss()

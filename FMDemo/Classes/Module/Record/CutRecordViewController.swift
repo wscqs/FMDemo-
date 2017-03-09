@@ -17,7 +17,6 @@ class CutRecordViewController: UIViewController {
         }
     }
     /// 保存点击图片
-//    var imgDictArray: [[Int:UIImage]] = [[Int:UIImage]]()
     var imgDictArray: [RecordSelectImgModel] = [RecordSelectImgModel]()
     
     
@@ -33,13 +32,11 @@ class CutRecordViewController: UIViewController {
     @IBOutlet weak var listenPlayBtn: UIButton!
     @IBOutlet weak var listenStatusLabel: UILabel!
     @IBOutlet weak var cutBtn: UIButton!
-//    @IBOutlet weak var savaBtn: UIButton!
     
 
     var thumbPointXIndex: Int = 0 {
         didSet {
             playTime = Double(thumbPointXIndex) * 0.2
-//            player.currentTime = playTime
         }
     }
     var totalTime: TimeInterval = 0
@@ -57,20 +54,11 @@ class CutRecordViewController: UIViewController {
                 bannerImg.layer.add(transition, forKey: nil)
                 break
             }
-            //            guard let image = imgDict[thumbPointXIndex] else { continue }
-            //            bannerImg.image = image
-            //            let transition = CATransition()
-            //            transition.duration = 0.5
-            //            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-            //            transition.type = kCATransitionFade
-            //            bannerImg.layer.add(transition, forKey: nil)
-            //            break
         }
     }
     
     /// 播放的计时器
     var sliderTimer: Timer?
-//    var tipTimer: Timer?
     var player: MBAAudioPlayer!
     
     
@@ -160,20 +148,15 @@ extension CutRecordViewController {
         
         MBAAudioUtil.cutAudio(of: url!, startTime: startCutTime, stopTime: stopCutTime) { (cutExportURL) in
             if let cutExportURL = cutExportURL {
-//                self.mergeExportURL = cutExportURL
-//                self.loadPlay(url: cutExportURL)
-                
 
+                // 剪切成功后，重新设置[cutExportURL,self.pointXArray ?? [],self.imgDictArray]]
                 if self.imgDictArray.count > 0 {
-                    
                     for (index,imgDict) in self.imgDictArray.enumerated() {
                         for i in self.thumbPointXIndex ..< (self.pointXArray?.count)! {
-//                            guard imgDict[i] != nil else { continue }
                             if i == imgDict.thumbPointXIndex  {
                                 self.imgDictArray.removeSubrange(Range(uncheckedBounds: (lower: index, upper: self.imgDictArray.count)))
                                 break
                             }
-
                         }
                     }
                 }
@@ -195,25 +178,20 @@ extension CutRecordViewController {
 
 extension CutRecordViewController {
     func initTimer() {
-        //        tipTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(tipTimerEvent), userInfo: nil, repeats: true)
         sliderTimer = Timer.scheduledTimer(timeInterval: kWaveTime, target: self, selector: #selector(sliderTimerEvent), userInfo: nil, repeats: true)
     }
     
     func pauseTimer() {
-//        tipTimer?.fireDate = Date.distantFuture
         sliderTimer?.fireDate = Date.distantFuture
     }
     
     func continueTimer() {
-//        tipTimer?.fireDate = Date()
         sliderTimer?.fireDate = Date()
     }
     
     func stopTimer() {
         sliderTimer?.invalidate()
         sliderTimer = nil
-//        tipTimer?.invalidate()
-//        tipTimer = nil
     }
 }
 
@@ -236,7 +214,9 @@ extension CutRecordViewController {
     }
 }
 
+// MARK: - CutBarWaveViewDelegate
 extension CutRecordViewController: CutBarWaveViewDelegate {
+    // 根据截取音频的滑块，变换时间位置，及播放时间
     func changceTimeLabel(cutBarWaveView: CutBarWaveView, centerX: CGFloat, thumbPointXIndex: Int) {
         
         let sliderTime = Double(thumbPointXIndex) * 0.2

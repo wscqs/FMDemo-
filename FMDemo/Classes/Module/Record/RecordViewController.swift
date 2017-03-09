@@ -189,10 +189,7 @@ class RecordViewController: UIViewController {
         } else if 13 == sender.tag { //保存
             pauseRecord(recordVCClick: .save)
         }
-//        else if 11 == sender.tag { // 试听
-//            
-//        }
-        
+
     }
     
     
@@ -359,7 +356,6 @@ extension RecordViewController {
         let alertController = UIAlertController(title: nil, message: "确定要重录吗？", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler:nil)
         let alertAction = UIAlertAction(title: "确定", style: .default, handler: { (action) in
-            print("删除成功")
             self.resetStatus()
         })
         
@@ -560,19 +556,19 @@ extension RecordViewController: AVAudioRecorderDelegate{
         return bCanRecord
     }
     
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-//        if flag {
-//            print("录音完成")
-//        }else{
-//            print("录音失败")
+//    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+////        if flag {
+////            print("录音完成")
+////        }else{
+////            print("录音失败")
+////        }
+//    }
+//    
+//    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
+//        if error != nil {
+//            //            print(error)
 //        }
-    }
-    
-    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
-        if error != nil {
-            //            print(error)
-        }
-    }
+//    }
 }
 
 extension RecordViewController: DubPlayViewDelegate {    
@@ -591,15 +587,6 @@ extension RecordViewController: DubPlayViewDelegate {
         sheetVc.addAction(changceAction)
         sheetVc.addAction(removeAction)        
         navigationController?.present(sheetVc, animated: true, completion: nil)
-    }
-    
-    func playBtnClick(_ dubPlayView: DubPlayView, playBtn: UIButton) {
-//        if playBtn.isSelected {
-//            timerContinue()
-//            recordType = .dub
-//        } else {
-//            timerPause()
-//        }
     }
 }
 

@@ -126,11 +126,6 @@ extension SeletceDubViewController {
         _ = navigationController?.popViewController(animated: true)
     }
     
-    
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return "推荐配乐"
-//    }
-    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
         label.text = "     推荐配乐"

@@ -100,14 +100,7 @@ class PlayBarWaveView: UIView {
         if CGFloat(pointXArray.count * 4) > boundsW {
             widthScaling = boundsW / CGFloat(pointXArray.count * 4)
         }
-        
-        
-        //3. 设置画布的缩放和上下左右间距
-//        context.scaleBy(x: widthScaling, y: heightScaling)
-//        let xOffset = bounds.size.width - (bounds.size.width * widthScaling)
-//        let yOffset = bounds.size.height - (bounds.size.height * heightScaling)
-//        context.translateBy(x: boundsW / 2, y: boundsH / 2) 
-        
+
         kLineWidth = kLineWidth * widthScaling
         context.setLineWidth(kLineWidth)
         let spaceW = kLineWidth * 2
@@ -117,7 +110,7 @@ class PlayBarWaveView: UIView {
             context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
         }
 
-        slider.frame = CGRect(x: 0, y: 6, width: CGFloat(pointXArray.count) * spaceW , height: boundsH - 4)
+        slider.frame = CGRect(x: 0, y: 6,  width: CGFloat(pointXArray.count) * spaceW , height: boundsH - 4)
         
         let numberOfSteps = pointXArray.count
         slider.maximumValue = Float(numberOfSteps)
@@ -148,7 +141,6 @@ class PlayBarWaveView: UIView {
 extension PlayBarWaveView {
     /// 传入播放的进度
     func setPlayProgress(thumbPointXIndex :Int) {
-//        self.thumbPointXIndex = thumbPointXIndex
         slider.setValue(Float(thumbPointXIndex), animated: true)
     }
 }
