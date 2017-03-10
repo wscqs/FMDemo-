@@ -80,10 +80,8 @@ extension RecordImgCollectionView: UICollectionViewDelegate, UICollectionViewDat
         cell?.recordImgModel = recordImgArray?[indexPath.row]
         
         let longGes = UILongPressGestureRecognizer(target: self, action: #selector(actionLongGes))
-        longGes.minimumPressDuration = 1
         cell?.addGestureRecognizer(longGes)
-        
-        
+
         return cell!
     }
     

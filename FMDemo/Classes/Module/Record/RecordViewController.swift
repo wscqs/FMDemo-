@@ -20,17 +20,13 @@ class RecordViewController: UIViewController {
     
     var mid: String!
     var pointXArray = [CGFloat]()
-    // 录音的计时器
-//    var recordTimer: Timer?
-//    var time:TimeInterval = 0
-    var isCuted: Bool = false
+
+    fileprivate var isCuted: Bool = false
     var mergeExportURL: URL?
     
     /// 上次录音的url
     var lastRecordURL: URL?
-    
-    /// 跳到 播放或裁剪 的url
-//    var voiceURL: URL?
+
     // 获取录音频率的计时器 // 0.2 也是录音的时间
     var recordMetersTimer: Timer?
     var recordMetersTime: TimeInterval = 0.0 {
@@ -49,9 +45,6 @@ class RecordViewController: UIViewController {
 
     /// 是否已经有录制
     var isRecorded: Bool? = false
-    
-
-//    var recordVCClick = RecordVCClick.no
     
     // 顶层图片
     @IBOutlet weak var bannerImg: UIImageView!
@@ -79,10 +72,12 @@ class RecordViewController: UIViewController {
     let seletctDubVC = SeletceDubViewController()
     let dubPlayView = DubPlayView.dubPlayView()
 
+    // MARK: - LeftRycel
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         
+        // 剪切与app竟然后台通知
         NotificationCenter.default.addObserver(self, selector: #selector(cutComple(notification:)), name: Notification.Name(rawValue: "cutComplet"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: NSNotification.Name.LifeCycle.WillResignActive, object: nil)
         
@@ -195,28 +190,7 @@ class RecordViewController: UIViewController {
     
 }
 
-extension RecordViewController {
-    func saveImgClick(image: UIImage,wid: String) {
-        bannerImg.image = image
-        let recordSelectImgModel = RecordSelectImgModel(image: image, wid: wid, thumbPointXIndex: thumbPointXIndex)
-        imgDictArray.append(recordSelectImgModel)
-    }
-}
-
-class RecordSelectImgModel {
-    var image: UIImage
-    var wid: String
-    var thumbPointXIndex: Int
-    var time: Int = 0
-    
-    init(image: UIImage, wid: String,thumbPointXIndex: Int) {
-        self.image = image
-        self.wid = wid
-        self.thumbPointXIndex = thumbPointXIndex
-        self.time = Int(Double(thumbPointXIndex) * 0.2)
-    }
-}
-
+// MARK: - init
 extension RecordViewController {
     func setup() {
         imgCollectionView.parentVC = self
@@ -275,6 +249,16 @@ extension RecordViewController {
         timerInvalidate()
         
         initStates()
+    }
+    
+    /// 是否可录音控制
+    func canRecord() -> Bool{
+        var bCanRecord = true
+        let audioSession = AVAudioSession.sharedInstance()
+        audioSession.requestRecordPermission { (granted) in
+            bCanRecord = granted
+        }
+        return bCanRecord
     }
 }
 
@@ -371,7 +355,7 @@ extension RecordViewController {
         MBAAudio.startRecord()
         timerInit()
         // 代理设为本身
-        MBAAudio.audioRecorder?.delegate = self
+//        MBAAudio.audioRecorder?.delegate = self
         recordBtnShow(isRecord: true)
     }
     
@@ -440,28 +424,6 @@ extension RecordViewController {
         }
     }
     
-    func pushToClick(recordVCClick: RecordVCClick) {
-
-        self.recordMetersTime = MBAAudioPlayer(contentsOf: self.mergeExportURL!).duration
-        let lower = Int(self.recordMetersTime / 0.2)
-        if lower < self.pointXArray.count {
-            self.pointXArray.removeSubrange(Range(uncheckedBounds: (lower: lower, upper: self.pointXArray.count)))
-        }
-        
-        switch recordVCClick {
-        case .play:
-            self.performSegue(withIdentifier: "PlayRecordViewController", sender: self)
-        case .cut:
-            self.performSegue(withIdentifier: "CutRecordViewController", sender: self)
-        case .save:
-            actionSave()
-        case .reRecord:
-            actionReRecord()
-        default:
-            break
-        }
-    }
-    
     //停止录音
     func stopRecord() {
         MBAAudio.stopRecord()
@@ -485,32 +447,20 @@ extension RecordViewController {
     }
     
     func timerPause() {
-//        recordTimer?.fireDate = Date.distantFuture
         recordMetersTimer?.fireDate = Date.distantFuture
         recordPowerTimer?.fireDate = Date.distantFuture
     }
     
     func timerContinue() {
-//        recordTimer?.fireDate = Date()
         recordMetersTimer?.fireDate = Date()
         recordPowerTimer?.fireDate = Date()
     }
     
     func timerInvalidate(){
-//        recordTimer?.invalidate()
-//        recordTimer = nil
         recordMetersTimer?.invalidate()
         recordMetersTimer = nil
         recordPowerTimer?.invalidate()
         recordPowerTimer = nil
-    }
-    
-    func recordTimerEvent() { // 20分钟，1200 秒
-//        time = time + 1
-//        initOraginTimeStatue(time:time)
-//        if time == 1200 {
-//            //            结束？
-//        }
     }
     
     func recordMetersTimerEvent() {
@@ -526,7 +476,31 @@ extension RecordViewController {
     }
 }
 
+// MARK: - push
 extension RecordViewController {
+    
+    func pushToClick(recordVCClick: RecordVCClick) {
+        
+        self.recordMetersTime = MBAAudioPlayer(contentsOf: self.mergeExportURL!).duration
+        let lower = Int(self.recordMetersTime / 0.2)
+        if lower < self.pointXArray.count {
+            self.pointXArray.removeSubrange(Range(uncheckedBounds: (lower: lower, upper: self.pointXArray.count)))
+        }
+        
+        switch recordVCClick {
+        case .play:
+            self.performSegue(withIdentifier: "PlayRecordViewController", sender: self)
+        case .cut:
+            self.performSegue(withIdentifier: "CutRecordViewController", sender: self)
+        case .save:
+            actionSave()
+        case .reRecord:
+            actionReRecord()
+        default:
+            break
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if "PlayRecordViewController" == segue.identifier {
             let playVC = segue.destination as? PlayRecordViewController
@@ -544,34 +518,8 @@ extension RecordViewController {
     }
 }
 
-// MARK: - AVAudioRecorderDelegate
-extension RecordViewController: AVAudioRecorderDelegate{
-    /// 是否可录音控制
-    func canRecord() -> Bool{
-        var bCanRecord = true
-        let audioSession = AVAudioSession.sharedInstance()
-        audioSession.requestRecordPermission { (granted) in
-            bCanRecord = granted
-        }
-        return bCanRecord
-    }
-    
-//    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-////        if flag {
-////            print("录音完成")
-////        }else{
-////            print("录音失败")
-////        }
-//    }
-//    
-//    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
-//        if error != nil {
-//            //            print(error)
-//        }
-//    }
-}
-
-extension RecordViewController: DubPlayViewDelegate {    
+// MARK: - DubPlayViewDelegate
+extension RecordViewController: DubPlayViewDelegate {
     func changceDubClick(_ dubPlayView: DubPlayView) {
         pauseRecord()
         let sheetVc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -589,4 +537,28 @@ extension RecordViewController: DubPlayViewDelegate {
         navigationController?.present(sheetVc, animated: true, completion: nil)
     }
 }
+
+// MARK: - 点击后保存图片
+extension RecordViewController {
+    func saveImgClick(image: UIImage,wid: String) {
+        bannerImg.image = image
+        let recordSelectImgModel = RecordSelectImgModel(image: image, wid: wid, thumbPointXIndex: thumbPointXIndex)
+        imgDictArray.append(recordSelectImgModel)
+    }
+}
+
+class RecordSelectImgModel {
+    var image: UIImage
+    var wid: String
+    var thumbPointXIndex: Int
+    var time: Int = 0
+    
+    init(image: UIImage, wid: String,thumbPointXIndex: Int) {
+        self.image = image
+        self.wid = wid
+        self.thumbPointXIndex = thumbPointXIndex
+        self.time = Int(Double(thumbPointXIndex) * 0.2)
+    }
+}
+
 

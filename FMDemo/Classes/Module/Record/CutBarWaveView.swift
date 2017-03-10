@@ -9,6 +9,7 @@
 import UIKit
 protocol CutBarWaveViewDelegate: NSObjectProtocol{
     func changceTimeLabel(cutBarWaveView: CutBarWaveView, centerX: CGFloat, thumbPointXIndex: Int)
+//    func changceEndDraggingTimeLabel(cutBarWaveView: CutBarWaveView, centerX: CGFloat, thumbPointXIndex: Int)
 }
 
 class CutBarWaveView: UIView {
@@ -120,7 +121,7 @@ class CutBarWaveView: UIView {
         newCenter.x = min(min(scrollViewContenW - space, boundsW - space), newCenter.x)
         sender.view?.center = newCenter
         sender.setTranslation(CGPoint.zero, in: self)
-        updateCutView()
+        updateCutView(isEndDragging: true)
     }
     
     override func draw(_ rect: CGRect) {
@@ -192,13 +193,20 @@ class CutBarWaveView: UIView {
         thumbBarImage.frame = CGRect(x: thumbBarX, y: 2, width: 40, height: bounds.height)
     }
     
-    fileprivate func updateCutView() {
+    fileprivate func updateCutView(isEndDragging: Bool? = false) {
         let point = thumbBarImage.convert(CGPoint(x: -thumbBarImage.width/2, y: 0), from: scrollView)
         thumbPointXIndex = Int(-point.x / spaceW)
         slider.value = Float(thumbPointXIndex)
         
         let transPoint = thumbBarImage.convert(CGPoint(x: 0, y: 0), from: self)
+        
         delegate?.changceTimeLabel(cutBarWaveView: self, centerX: -transPoint.x + thumbBarImage.bounds.size.width/2, thumbPointXIndex: thumbPointXIndex)
+        
+//        if isEndDragging! {
+//            delegate?.changceEndDraggingTimeLabel(cutBarWaveView: self, centerX: -transPoint.x + thumbBarImage.bounds.size.width/2, thumbPointXIndex: thumbPointXIndex)
+//        } else {
+//            delegate?.changceTimeLabel(cutBarWaveView: self, centerX: -transPoint.x + thumbBarImage.bounds.size.width/2, thumbPointXIndex: thumbPointXIndex)
+//        }        
     }
 }
 
@@ -215,5 +223,9 @@ extension CutBarWaveView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateCutView()
     }
+    
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        updateCutView(isEndDragging: true)
+//    }
 }
 

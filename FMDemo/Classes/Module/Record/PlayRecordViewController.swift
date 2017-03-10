@@ -31,19 +31,6 @@ class PlayRecordViewController: UIViewController {
         return Double(pointXArray?.count ?? 0) * 0.2
     }
     
-    func setSpannerImg() {
-        for imgDict in imgDictArray {
-            if thumbPointXIndex == imgDict.thumbPointXIndex {
-                bannerImg.image = imgDict.image
-                let transition = CATransition()
-                transition.duration = 0.5
-                transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-                transition.type = kCATransitionFade
-                bannerImg.layer.add(transition, forKey: nil)
-                break
-            }
-        }
-    }
     
     var sliderTime: TimeInterval = 0 {
         didSet{
@@ -251,5 +238,51 @@ extension PlayRecordViewController {
         pauseTimer()
         listenPlayBtn.isSelected = false
         listenStatusLabel.text = "播放"
+    }
+}
+
+// MARK: - 图片播放设置
+extension PlayRecordViewController {
+    
+    func setSpannerImg() {
+        for (index,imgDict) in imgDictArray.enumerated() {
+            if thumbPointXIndex == imgDict.thumbPointXIndex {
+                bannerImg.image = imgDict.image
+                imgAnimation()
+                break
+            }
+            if index == 0 {
+                if thumbPointXIndex < imgDictArray[index].thumbPointXIndex {
+                    bannerImg.image = #imageLiteral(resourceName: "record_bannerBg")
+                    imgAnimation()
+                    break
+                }
+            } else if index == imgDictArray.count - 1 {
+                if thumbPointXIndex >= imgDictArray[index].thumbPointXIndex {
+                    bannerImg.image = imgDictArray[index].image
+                    imgAnimation()
+                    break
+                } else {
+                    bannerImg.image = imgDictArray[index - 1].image
+                    imgAnimation()
+                    break
+                }
+            } else {
+                if imgDictArray[index - 1].thumbPointXIndex < thumbPointXIndex &&
+                    thumbPointXIndex < imgDictArray[index].thumbPointXIndex {
+                    bannerImg.image = imgDictArray[index - 1].image
+                    imgAnimation()
+                    break
+                }
+            }
+        }
+    }
+    
+    func imgAnimation() {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        transition.type = kCATransitionFade
+        bannerImg.layer.add(transition, forKey: nil)
     }
 }

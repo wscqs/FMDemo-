@@ -92,6 +92,8 @@ class PlayBarWaveView: UIView {
         // 下面方法，第一个参数表示区域大小。第二个参数表示是否是非透明的。如果需要显示半透明效果，需要传NO，否则传YES。第三个参数就是屏幕密度了
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
         guard let context = UIGraphicsGetCurrentContext() else { return }
+
+        let path = UIBezierPath()
         
         let spaceTop: CGFloat = 2
         let boundsH = self.bounds.size.height - spaceTop
@@ -106,9 +108,12 @@ class PlayBarWaveView: UIView {
         let spaceW = kLineWidth * 2
         for i in 0 ..< pointXArray.count {
             let x = CGFloat(i) * spaceW
-            context.move(to: CGPoint(x: x, y: boundsH))
-            context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
+//            context.move(to: CGPoint(x: x, y: boundsH))
+//            context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
+            path.move(to: CGPoint(x: x, y: boundsH))
+            path.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
         }
+        context.addPath(path.cgPath)
 
         slider.frame = CGRect(x: 0, y: 6,  width: CGFloat(pointXArray.count) * spaceW , height: boundsH - 4)
         

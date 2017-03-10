@@ -73,7 +73,7 @@ class PlayCourceMaterialViewController: UIViewController {
             urlString = "\(url)?access_token=\(accesToken)"
         }
         
-//        print(urlString)
+        print(urlString)
         let requestURL = URL(string: urlString )
         let request = URLRequest(url: requestURL!)
         webView.load(request)

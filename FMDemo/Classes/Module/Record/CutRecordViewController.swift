@@ -43,19 +43,7 @@ class CutRecordViewController: UIViewController {
     var playTime: TimeInterval = 0
     var cutTime: TimeInterval = 0
     
-    func setSpannerImg() {
-        for imgDict in imgDictArray {
-            if thumbPointXIndex == imgDict.thumbPointXIndex {
-                bannerImg.image = imgDict.image
-                let transition = CATransition()
-                transition.duration = 0.5
-                transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-                transition.type = kCATransitionFade
-                bannerImg.layer.add(transition, forKey: nil)
-                break
-            }
-        }
-    }
+
     
     /// 播放的计时器
     var sliderTimer: Timer?
@@ -216,19 +204,67 @@ extension CutRecordViewController {
 
 // MARK: - CutBarWaveViewDelegate
 extension CutRecordViewController: CutBarWaveViewDelegate {
+
     // 根据截取音频的滑块，变换时间位置，及播放时间
     func changceTimeLabel(cutBarWaveView: CutBarWaveView, centerX: CGFloat, thumbPointXIndex: Int) {
-        
+        setSliderTime(centerX: centerX, thumbPointXIndex: thumbPointXIndex)
+        setSpannerImg()
+    }
+    
+    func setSliderTime(centerX: CGFloat, thumbPointXIndex: Int) {
         let sliderTime = Double(thumbPointXIndex) * 0.2
         sliderTimeLabel.text = sliderTime.getFormatTime()
         sliderTimeLabel.sizeToFit()
         sliderTimeLabel.textAlignment = .center
         sliderTimeLabel.center = CGPoint(x: centerX, y: 12)
-
+        
         self.thumbPointXIndex = thumbPointXIndex
         self.cutTime = Double(thumbPointXIndex) * 0.2
         player.currentTime = playTime
         timeLabel.text = "\(cutTime.getFormatTime()) - \(totalTime.getFormatTime())"
-        setSpannerImg()
+    }
+    
+    func setSpannerImg() {
+        for (index,imgDict) in imgDictArray.enumerated() {
+            if thumbPointXIndex == imgDict.thumbPointXIndex {
+                bannerImg.image = imgDict.image
+                imgAnimation()
+                break
+            }
+            
+            if index == 0 {
+                if thumbPointXIndex < imgDictArray[index].thumbPointXIndex {
+                    bannerImg.image = #imageLiteral(resourceName: "record_bannerBg")
+                    imgAnimation()
+                    break
+                }
+            } else if index == imgDictArray.count - 1 {
+                if thumbPointXIndex >= imgDictArray[index].thumbPointXIndex {
+                    bannerImg.image = imgDictArray[index].image
+                    imgAnimation()
+                    break
+                } else {
+                    bannerImg.image = imgDictArray[index - 1 ].image
+                    imgAnimation()
+                    break
+                }
+            } else {
+                if imgDictArray[index - 1].thumbPointXIndex < thumbPointXIndex &&
+                    thumbPointXIndex < imgDictArray[index].thumbPointXIndex {
+                    bannerImg.image = imgDictArray[index - 1].image
+                    imgAnimation()
+                    break
+                }
+            }
+
+        }
+    }
+  
+    func imgAnimation() {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        transition.type = kCATransitionFade
+        bannerImg.layer.add(transition, forKey: nil)
     }
 }
