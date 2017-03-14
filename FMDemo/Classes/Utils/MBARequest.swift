@@ -249,17 +249,12 @@ class MBARequest<T: BaseModel> : NSObject{
                                     MBAToast.show(text: kNetworkDontUse)
                                     completionHandler(nil, error as NSError?)
                                 }
-                                
-                                
-                                
                             })
                             
                         case .failure(let error):
                             completionHandler(nil, error as NSError?)
                         }
                     }
-                    
-                    
                 }
                 
             } else {

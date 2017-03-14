@@ -49,10 +49,10 @@ extension AppDelegate {
 //            let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController()
 //            window?.rootViewController = mainVC
 //        }
-//        let vc = UIStoryboard(name: "Record", bundle: nil).instantiateInitialViewController()
-////        let vc = RecordViewController()
-//        let navigation = QSNavigationController(rootViewController: vc!)
-//        window?.rootViewController = navigation
+        let vc = UIStoryboard(name: "Record", bundle: nil).instantiateInitialViewController()
+//        let vc = RecordViewController()
+        let navigation = QSNavigationController(rootViewController: vc!)
+        window?.rootViewController = navigation
         
         window?.makeKeyAndVisible()
     }

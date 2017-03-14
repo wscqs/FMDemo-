@@ -88,52 +88,57 @@ class PlayBarWaveView: UIView {
             return
         }
         if pointXArray.count == 0 {return}
-
+        
         // 下面方法，第一个参数表示区域大小。第二个参数表示是否是非透明的。如果需要显示半透明效果，需要传NO，否则传YES。第三个参数就是屏幕密度了
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
         guard let context = UIGraphicsGetCurrentContext() else { return }
-
-        let path = UIBezierPath()
+        context.setAlpha(1)
+        context.setShouldAntialias(true) // 去除锯齿
         
         let spaceTop: CGFloat = 2
         let boundsH = self.bounds.size.height - spaceTop
         let boundsW = self.bounds.size.width
+        let spaceW = kLineWidth * 1.5
         
-        if CGFloat(pointXArray.count * 4) > boundsW {
-            widthScaling = boundsW / CGFloat(pointXArray.count * 4)
-        }
-
-        kLineWidth = kLineWidth * widthScaling
-        context.setLineWidth(kLineWidth)
-        let spaceW = kLineWidth * 2
-        for i in 0 ..< pointXArray.count {
-            let x = CGFloat(i) * spaceW
-//            context.move(to: CGPoint(x: x, y: boundsH))
-//            context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
-            path.move(to: CGPoint(x: x, y: boundsH))
-            path.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
-        }
-        context.addPath(path.cgPath)
-
-        slider.frame = CGRect(x: 0, y: 6,  width: CGFloat(pointXArray.count) * spaceW , height: boundsH - 4)
         
+        if CGFloat(pointXArray.count) * spaceW > boundsW {
+            widthScaling = boundsW / (CGFloat(pointXArray.count) * spaceW)
+            context.scaleBy(x: widthScaling, y: 1)
+            slider.frame = CGRect(x: 0, y: 6,  width: boundsW , height: boundsH - 4)
+        } else {
+            slider.frame = CGRect(x: 0, y: 6,  width: CGFloat(pointXArray.count) * spaceW , height: boundsH - 4)
+        }
         let numberOfSteps = pointXArray.count
         slider.maximumValue = Float(numberOfSteps)
         slider.minimumValue = 0
         slider.value = 0
-
-        context.setAlpha(1.0)
-        context.setShouldAntialias(true) // 去除锯齿
-        context.setStrokeColor(self.waveStrokeColor.cgColor)
-        context.setFillColor(self.waveStrokeColor.cgColor)
-        context.strokePath()
-
-        let maxiTrackImage = UIGraphicsGetImageFromCurrentImageContext()
         
+        context.setLineWidth(kLineWidth)
+        for i in 0 ..< pointXArray.count {
+            let x = CGFloat(i) * spaceW
+            context.move(to: CGPoint(x: x, y: boundsH))
+            context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
+        }
+        context.setStrokeColor(self.waveHightStrokeColor.cgColor)
         context.setFillColor(self.waveHightStrokeColor.cgColor)
-        UIRectFillUsingBlendMode(bounds, .sourceAtop)
+        context.strokePath()
+        
         
         let minxTrackImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        guard let context1 = UIGraphicsGetCurrentContext() else { return }
+        context1.setAlpha(1)
+        context1.setShouldAntialias(true) // 去除锯齿
+        for i in 0 ..< pointXArray.count {
+            let x = CGFloat(i) * spaceW
+            context1.move(to: CGPoint(x: x, y: boundsH))
+            context1.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
+        }
+        context1.setStrokeColor(self.waveStrokeColor.cgColor)
+        context1.setFillColor(self.waveStrokeColor.cgColor)
+        context1.strokePath()
+        
+        let maxiTrackImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         slider.setMaximumTrackImage(maxiTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)

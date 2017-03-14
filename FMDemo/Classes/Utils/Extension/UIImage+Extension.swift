@@ -108,59 +108,6 @@ extension UIImage {
      - returns: 调整后的图片
      */
     func fixOrientation() -> UIImage {
-        //        // No-op if the orientation is already correct
-        //        if self.imageOrientation == .Up {
-        //            return self
-        //        }
-        //        // We need to calculate the proper transformation to make the image upright.
-        //        // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
-        //        var transform: CGAffineTransform = CGAffineTransformIdentity
-        //        switch self.imageOrientation {
-        //        case .Down, .DownMirrored:
-        //            transform = CGAffineTransformTranslate(transform, self.size.width, self.size.height)
-        //            transform = CGAffineTransformRotate(transform, CGFloat(M_PI))
-        //        case .Left, .LeftMirrored:
-        //            transform = CGAffineTransformTranslate(transform, self.size.width, 0)
-        //            transform = CGAffineTransformRotate(transform, CGFloat(M_PI_2))
-        //        case .Right, .RightMirrored:
-        //            transform = CGAffineTransformTranslate(transform, 0, self.size.height)
-        //            transform = CGAffineTransformRotate(transform, CGFloat(-M_PI_2))
-        //        default:
-        //            break
-        //        }
-        //
-        //        switch self.imageOrientation {
-        //        case .UpMirrored, .DownMirrored:
-        //            transform = CGAffineTransformTranslate(transform, self.size.width, 0)
-        //            transform = CGAffineTransformScale(transform, -1, 1)
-        //        case .LeftMirrored, .RightMirrored:
-        //            transform = CGAffineTransformTranslate(transform, self.size.height, 0)
-        //            transform = CGAffineTransformScale(transform, -1, 1)
-        //        default:
-        //            break
-        //        }
-        //
-        //        // Now we draw the underlying CGImage into a new context, applying the transform
-        //        // calculated above.
-        //
-        //
-        //        //这里需要注意下CGImageGetBitmapInfo，它的类型是Int32的，CGImageGetBitmapInfo(self.CGImage).rawValue，这样写才不会报错
-        //        let ctx: CGContextRef = CGBitmapContextCreate(nil, Int(self.size.width), Int(self.size.height), CGImageGetBitsPerComponent(self.CGImage), 0, CGImageGetColorSpace(self.CGImage), CGImageGetBitmapInfo(self.CGImage).rawValue)!
-        //        CGContextConcatCTM(ctx, transform)
-        //        switch self.imageOrientation {
-        //        case .Left, .LeftMirrored, .Right, .RightMirrored:
-        //            // Grr...
-        //            CGContextDrawImage(ctx, CGRectMake(0, 0, self.size.height, self.size.width), self.CGImage)
-        //        default:
-        //            CGContextDrawImage(ctx, CGRectMake(0, 0, self.size.width, self.size.height), self.CGImage)
-        //        }
-        //
-        //        // And now we just create a new UIImage from the drawing context
-        //        let cgimg: CGImageRef = CGBitmapContextCreateImage(ctx)!
-        //        let img: UIImage = UIImage(CGImage: cgimg)
-        //        return img
-        
-        
         if imageOrientation == .up {
             return self
         }
