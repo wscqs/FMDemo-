@@ -157,15 +157,19 @@ class RecordViewController: UIViewController {
         
 //        [<AVAudioSessionPortDescription: 0x174016f50, type = MicrophoneBuiltIn; name = iPhone 麦克风; UID = Built-In Microphone; selectedDataSource = 下>, <AVAudioSessionPortDescription: 0x174016a30, type = MicrophoneWired; name = 耳机麦克风; UID = Wired Microphone; selectedDataSource = (null)>]
         
-//        let inputArray = AVAudioSession.sharedInstance().availableInputs
+        let inputArray = AVAudioSession.sharedInstance().availableInputs
 //        try? AVAudioSession.sharedInstance().setPreferredInput(inputArray?.first!)
-////        try? AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+//        try? AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
 //        print(notification.userInfo.debugDescription)
 //        print(inputArray.debugDescription)
+        if (inputArray?.count ?? 1) == 1 {
+            try? AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+        }
 //        for desc in inputArray! {
 //            print(desc.portType.debugDescription)
-//            if desc.portType == AVAudioSessionPortHeadphones { // 耳机
-//                try? AVAudioSession.sharedInstance().setPreferredInput(desc)
+//            if desc.portType != AVAudioSessionPortHeadphones { // 耳机
+////                try? AVAudioSession.sharedInstance().setPreferredInput(desc)
+//                
 ////                try? AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.none)
 //                break
 //            }
@@ -409,6 +413,8 @@ extension RecordViewController {
         // 代理设为本身
 //        MBAAudio.audioRecorder?.delegate = self
         recordBtnShow(isRecord: true)
+        
+        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
     }
     
     //继续录音
@@ -436,6 +442,7 @@ extension RecordViewController {
     //暂停录音
     func pauseRecord(recordVCClick: RecordVCClick? = .no) {
 
+        
         recordBtnShow(isRecord: false)
 
         MBAAudio.pauseRecord()
@@ -541,8 +548,12 @@ extension RecordViewController {
         
         switch recordVCClick {
         case .play:
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+//            try? AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
             self.performSegue(withIdentifier: "PlayRecordViewController", sender: self)
         case .cut:
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+//            try? AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
             self.performSegue(withIdentifier: "CutRecordViewController", sender: self)
         case .save:
             actionSave()
