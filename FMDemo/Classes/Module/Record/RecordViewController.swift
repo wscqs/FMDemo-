@@ -81,9 +81,12 @@ class RecordViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(cutComple(notification:)), name: Notification.Name(rawValue: "cutComplet"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: NSNotification.Name.LifeCycle.WillResignActive, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(audioRouteChangeListenerCallback), name: NSNotification.Name.AVAudioSessionRouteChange, object: nil)
+        
         // 后退处理
         let backBtn: UIButton = UIButton(imageName:"nav_details_top_left", backTarget: self, action: #selector(actionNavBackBtnClick))
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+        
         
     }
     
@@ -119,6 +122,55 @@ class RecordViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    
+    func audioRouteChangeListenerCallback(notification: Notification) {
+//        NSDictionary *interuptionDict = notification.userInfo;
+//        NSInteger routeChangeReason = [[interuptionDict valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+//        switch (routeChangeReason) {
+//        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
+//            NSLog(@"AVAudioSessionRouteChangeReasonNewDeviceAvailable");
+//            tipWithMessage(@"耳机插入");
+//            break;
+//        case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
+//            NSLog(@"AVAudioSessionRouteChangeReasonOldDeviceUnavailable");
+//            tipWithMessage(@"耳机拔出，停止播放操作");
+//            break;
+//        case AVAudioSessionRouteChangeReasonCategoryChange:
+//            // called at start - also when other audio wants to play
+//            tipWithMessage(@"AVAudioSessionRouteChangeReasonCategoryChange");
+//            break;
+//        }
+        
+//        let interuptionDict = notification.userInfo
+//        let routeChangeReason = interuptionDict?[AVAudioSessionRouteChangeReasonKey] as! NSInteger
+//        switch routeChangeReason {
+//        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
+//        }
+        
+//        NSArray* inputArray = [[AVAudioSession sharedInstance] availableInputs];
+//        for (AVAudioSessionPortDescription* desc in inputArray) {
+//            if ([desc.portType isEqualToString:AVAudioSessionPortBuiltInMic]) {
+//                NSError* error;
+//                [[AVAudioSession sharedInstance] setPreferredInput:desc error:&error];
+//            }
+//        }
+        
+//        [<AVAudioSessionPortDescription: 0x174016f50, type = MicrophoneBuiltIn; name = iPhone 麦克风; UID = Built-In Microphone; selectedDataSource = 下>, <AVAudioSessionPortDescription: 0x174016a30, type = MicrophoneWired; name = 耳机麦克风; UID = Wired Microphone; selectedDataSource = (null)>]
+        
+//        let inputArray = AVAudioSession.sharedInstance().availableInputs
+//        try? AVAudioSession.sharedInstance().setPreferredInput(inputArray?.first!)
+////        try? AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+//        print(notification.userInfo.debugDescription)
+//        print(inputArray.debugDescription)
+//        for desc in inputArray! {
+//            print(desc.portType.debugDescription)
+//            if desc.portType == AVAudioSessionPortHeadphones { // 耳机
+//                try? AVAudioSession.sharedInstance().setPreferredInput(desc)
+////                try? AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.none)
+//                break
+//            }
+//        }
+    }
     
     /// 应用程序进入后台
     func willResignActive () {
