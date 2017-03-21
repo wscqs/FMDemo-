@@ -218,7 +218,7 @@
                                     <constraint firstItem="bmd-3w-H4U" firstAttribute="leading" secondItem="UdO-Mc-o9I" secondAttribute="leading" id="qIP-GI-dtd"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvw-0L-A1c">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvw-0L-A1c">
                                 <rect key="frame" x="15" y="275.5" width="345" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="497-2h-799">

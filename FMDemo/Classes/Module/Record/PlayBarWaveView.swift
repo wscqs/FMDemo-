@@ -93,9 +93,7 @@ class PlayBarWaveView: UIView {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
         guard let context = UIGraphicsGetCurrentContext() else { return }
         context.setAlpha(1)
-        context.setAllowsAntialiasing(true)
         context.setShouldAntialias(true) // 去除锯齿
-        context.interpolationQuality = .high
         
         let spaceTop: CGFloat = 2
         let boundsH = self.bounds.size.height - spaceTop
@@ -129,20 +127,15 @@ class PlayBarWaveView: UIView {
         let minxTrackImage = UIGraphicsGetImageFromCurrentImageContext()
         
         guard let context1 = UIGraphicsGetCurrentContext() else { return }
-        context1.clear(bounds)
         context1.setAlpha(1)
-        context1.setAllowsAntialiasing(true)
         context1.setShouldAntialias(true) // 去除锯齿
-        context1.interpolationQuality = .high
         for i in 0 ..< pointXArray.count {
             let x = CGFloat(i) * spaceW
             context1.move(to: CGPoint(x: x, y: boundsH))
             context1.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
         }
         context1.setStrokeColor(self.waveHightStrokeColor.cgColor)
-//        context1.setFillColor(self.waveStrokeColor.cgColor)
         context1.strokePath()
-//        context1.fillPath()
         
         let maxiTrackImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -150,7 +143,6 @@ class PlayBarWaveView: UIView {
         slider.setMaximumTrackImage(minxTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         slider.setMinimumTrackImage(maxiTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         
-        self.layer.shouldRasterize = true
     }
 }
 

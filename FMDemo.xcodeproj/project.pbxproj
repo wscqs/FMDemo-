@@ -103,6 +103,7 @@
 		2CE656991E5EF05300A65116 /* SaveMaterialsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE656981E5EF05300A65116 /* SaveMaterialsModel.swift */; };
 		2CE6569B1E5EF9ED00A65116 /* StatusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6569A1E5EF9ED00A65116 /* StatusModel.swift */; };
 		2CE6569F1E6017ED00A65116 /* RecordAudioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6569E1E6017ED00A65116 /* RecordAudioModel.swift */; };
+		2CEE8A551E812DA30060027C /* TestComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEE8A541E812DA30060027C /* TestComment.swift */; };
 		2CFA62CC1E5198F700583622 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA62CB1E5198F700583622 /* CALayer+Extension.swift */; };
 		47E9246E1E59E3FC00A4C325 /* PlayBarWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E9246D1E59E3FC00A4C325 /* PlayBarWaveView.swift */; };
 		993532958BBE045BD82BCE1D /* Pods_FMDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4E378304C0A729E333B5DE /* Pods_FMDemo.framework */; };
@@ -214,6 +215,7 @@
 		2CE656981E5EF05300A65116 /* SaveMaterialsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveMaterialsModel.swift; sourceTree = "<group>"; };
 		2CE6569A1E5EF9ED00A65116 /* StatusModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusModel.swift; sourceTree = "<group>"; };
 		2CE6569E1E6017ED00A65116 /* RecordAudioModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordAudioModel.swift; sourceTree = "<group>"; };
+		2CEE8A541E812DA30060027C /* TestComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestComment.swift; sourceTree = "<group>"; };
 		2CFA62CB1E5198F700583622 /* CALayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		47E9246D1E59E3FC00A4C325 /* PlayBarWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayBarWaveView.swift; sourceTree = "<group>"; };
 		8AF07FFC73EC8A0F3B362031 /* Pods-FMDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-FMDemo/Pods-FMDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 		2C8574431E488A8B00D4119C /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				2CEE8A541E812DA30060027C /* TestComment.swift */,
 				2C8574441E488A9500D4119C /* TestViewController.swift */,
 			);
 			path = Test;
@@ -767,6 +770,7 @@
 				2C97D78D1E4B23C800FB407F /* AccessTokenModel.swift in Sources */,
 				2CE6569F1E6017ED00A65116 /* RecordAudioModel.swift in Sources */,
 				2C97D7F11E4D71B000FB407F /* VerticalButton.swift in Sources */,
+				2CEE8A551E812DA30060027C /* TestComment.swift in Sources */,
 				2C97D7891E4B17FC00FB407F /* MBARequest.swift in Sources */,
 				2C7818C11DEEA0F4001E3594 /* AppDelegate.swift in Sources */,
 				2C97D7C01E4C441C00FB407F /* UIColor+Extension.swift in Sources */,

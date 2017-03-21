@@ -162,9 +162,11 @@ class RecordViewController: UIViewController {
 //        try? AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
 //        print(notification.userInfo.debugDescription)
 //        print(inputArray.debugDescription)
+        
         if (inputArray?.count ?? 1) == 1 {
             try? AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
         }
+        
 //        for desc in inputArray! {
 //            print(desc.portType.debugDescription)
 //            if desc.portType != AVAudioSessionPortHeadphones { // 耳机
@@ -414,13 +416,25 @@ extension RecordViewController {
 //        MBAAudio.audioRecorder?.delegate = self
         recordBtnShow(isRecord: true)
         
-        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
+        sessionCategory(isRecord: true)
+    }
+    
+    /// session状态
+    ///
+    /// - Parameter isRecord: 录音状态，默认true，   false 则设置为播放状态
+    func sessionCategory(isRecord: Bool? = true) {
+        if isRecord ?? true {
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
+        } else {
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+        }
     }
     
     //继续录音
     func continueRecord() {
         if isCuted {
             MBAAudio.startRecord()
+            sessionCategory(isRecord: true)
         } else {
             MBAAudio.continueRecord()
         }
@@ -470,9 +484,11 @@ extension RecordViewController {
             
             MBAAudioUtil.mergeAudio(url1: mergeExportURL, url2: recodedVoiceURL, handleComplet: { (mergeExportURL) in
                 if let mergeExportURL = mergeExportURL {
-                    self.mergeExportURL = mergeExportURL
-                    MBAProgressHUD.dismiss()
-                    self.pushToClick(recordVCClick: recordVCClick!)
+                    DispatchQueue.main.async {
+                        self.mergeExportURL = mergeExportURL
+                        MBAProgressHUD.dismiss()
+                        self.pushToClick(recordVCClick: recordVCClick!)
+                    }
                 } else {
                     MBAProgressHUD.showErrorWithStatus("出错")
                 }
@@ -548,12 +564,10 @@ extension RecordViewController {
         
         switch recordVCClick {
         case .play:
-            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
-//            try? AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+            sessionCategory(isRecord: false)// 播放
             self.performSegue(withIdentifier: "PlayRecordViewController", sender: self)
         case .cut:
-            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
-//            try? AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+            sessionCategory(isRecord: false)
             self.performSegue(withIdentifier: "CutRecordViewController", sender: self)
         case .save:
             actionSave()
