@@ -65,8 +65,8 @@ class PlayRecordViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         MBAProgressHUD.show()
-        slider.pointXArray = pointXArray
-//        slider.pointXArray = testArray
+//        slider.pointXArray = pointXArray
+        slider.pointXArray = testArray
         slider.isRenderSucess = { isRenderRuselt in
             if isRenderRuselt  {
                 self.slider.slider.isHidden = false
