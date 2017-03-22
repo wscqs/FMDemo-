@@ -55,14 +55,25 @@ class PlayRecordViewController: UIViewController {
         }
         player = MBAAudioPlayer(contentsOf: url)
 //        player.player?.delegate = self
-        slider.pointXArray = pointXArray // 画图太耗性能
-//        slider.pointXArray = testArray
+
+    
         totalTimeLabel.text = totalTime.getFormatTime()
+        
+        slider.slider.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        actionPlayClick(sender: listenPlayBtn)
+        MBAProgressHUD.show()
+        slider.pointXArray = pointXArray
+//        slider.pointXArray = testArray
+        slider.isRenderSucess = { isRenderRuselt in
+            if isRenderRuselt  {
+                self.slider.slider.isHidden = false
+                MBAProgressHUD.dismiss()
+                self.actionPlayClick(sender: self.listenPlayBtn)
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

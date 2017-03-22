@@ -15,10 +15,13 @@ class PlayBarWaveView: UIView {
             guard let pointXArray = pointXArray else {
                 return
             }
+            print(pointXArray.count)
             slider.maximumValue = Float(pointXArray.count)
             setNeedsDisplay()
         }
     }
+    
+    var isRenderSucess: ((_ resulet: Bool) -> Void)?
     
     var slider: UISlider = NoGapSlider()
     
@@ -103,6 +106,7 @@ class PlayBarWaveView: UIView {
         
         if CGFloat(pointXArray.count) * spaceW > boundsW {
             widthScaling = boundsW / (CGFloat(pointXArray.count) * spaceW)
+            print(widthScaling)
             context.scaleBy(x: widthScaling, y: 1)
             slider.frame = CGRect(x: 0, y: 6,  width: boundsW , height: boundsH - 4)
         } else {
@@ -120,7 +124,6 @@ class PlayBarWaveView: UIView {
             context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
         }
         context.setStrokeColor(self.waveStrokeColor.cgColor)
-//        context.setFillColor(self.waveHightStrokeColor.cgColor)
         context.strokePath()
         
         
@@ -143,6 +146,7 @@ class PlayBarWaveView: UIView {
         slider.setMaximumTrackImage(minxTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         slider.setMinimumTrackImage(maxiTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         
+        isRenderSucess?(true)
     }
 }
 
