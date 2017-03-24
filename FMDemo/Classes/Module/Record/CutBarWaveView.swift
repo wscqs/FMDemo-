@@ -134,8 +134,14 @@ class CutBarWaveView: UIView {
         boundsH = self.bounds.size.height - spaceTop
         boundsW = self.bounds.size.width
 
+        let maxiBarTrackImageW = CGFloat(pointXArray.count) * spaceW
+        scrollViewContenW = maxiBarTrackImageW
+        
         // 下面方法，第一个参数表示区域大小。第二个参数表示是否是非透明的。如果需要显示半透明效果，需要传NO，否则传YES。第三个参数就是屏幕密度了
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
+        let imageSize = CGSize(width: maxiBarTrackImageW, height: boundsH)
+//        UIGraphicsBeginImageContextWithOptions(imageSize, false, UIScreen.main.scale)
+        print(imageSize.debugDescription)
         guard let context = UIGraphicsGetCurrentContext() else { return }
         context.setLineWidth(kLineWidth)
         
@@ -154,7 +160,9 @@ class CutBarWaveView: UIView {
         let maxiTrackImage = UIGraphicsGetImageFromCurrentImageContext()
         
         context.setFillColor(self.waveHightStrokeColor.cgColor)
+//        UIRectFillUsingBlendMode(CGRect(origin: CGPoint.zero, size: imageSize), .sourceAtop)
         UIRectFillUsingBlendMode(bounds, .sourceAtop)
+        
         
         let minxTrackImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -164,8 +172,7 @@ class CutBarWaveView: UIView {
         slider.setMaximumTrackImage(maxiTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         slider.setMinimumTrackImage(minxTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         
-        let maxiBarTrackImageW = CGFloat(pointXArray.count) * spaceW
-        scrollViewContenW = maxiBarTrackImageW
+        
         slider.frame = CGRect(x: 0, y: 0, width: maxiBarTrackImageW, height: boundsH)
         scrollView.contentSize = slider.frame.size
         var cgRect = bounds

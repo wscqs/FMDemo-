@@ -490,7 +490,18 @@ extension RecordViewController {
                         self.pushToClick(recordVCClick: recordVCClick!)
                     }
                 } else {
-                    MBAProgressHUD.showErrorWithStatus("出错")
+                    MBAProgressHUD.showWithStatus("请稍等")
+                    MBAAudioUtil.mergeAudio(url1: self.mergeExportURL!, url2: recodedVoiceURL, handleComplet: { (mergeExportURL) in
+                        if let mergeExportURL = mergeExportURL {
+                            DispatchQueue.main.async {
+                                self.mergeExportURL = mergeExportURL
+                                MBAProgressHUD.dismiss()
+                                self.pushToClick(recordVCClick: recordVCClick!)
+                            }
+                        } else {
+                            MBAProgressHUD.showErrorWithStatus("程序出错，请重录")
+                        }
+                    })
                 }
             })
         } else {

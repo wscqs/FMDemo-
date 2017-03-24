@@ -68,7 +68,8 @@ class CutRecordViewController: UIViewController {
         }
         slider.isHidden = false
         player = MBAAudioPlayer(contentsOf: url)
-        slider.pointXArray = pointXArray
+//        slider.pointXArray = pointXArray
+        slider.pointXArray = testArray
         slider.delegate = self        
         timeLabel.text = "00:00-\(totalTime.getFormatTime())"
         initTimer()

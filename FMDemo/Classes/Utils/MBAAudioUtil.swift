@@ -92,11 +92,16 @@ class MBAAudioUtil {
                 DispatchQueue.main.async {
                     return handleComplet(exportURL)
                 }
-            } else if AVAssetExportSessionStatus.failed == exportSession?.status {
-                print("AVAssetExportSessionStatusFailed")
             } else {
-                print("Export Session Status: %d", exportSession?.status ?? "")
+                DispatchQueue.main.async {
+                    return handleComplet(nil)
+                }
             }
+//            else if AVAssetExportSessionStatus.failed == exportSession?.status {
+//                print("AVAssetExportSessionStatusFailed")
+//            } else {
+//                print("Export Session Status: %d", exportSession?.status ?? "")
+//            }
         }
     }
     

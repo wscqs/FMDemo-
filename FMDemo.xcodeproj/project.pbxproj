@@ -16,7 +16,6 @@
 		2C58C0981E56ADEE00310C1C /* CutBarWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C58C0971E56ADEE00310C1C /* CutBarWaveView.swift */; };
 		2C664D841E5A897100D9F4BA /* TimeInterval+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C664D831E5A897100D9F4BA /* TimeInterval+Extension.swift */; };
 		2C664D971E5B10B300D9F4BA /* SeletceDubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C664D961E5B10B300D9F4BA /* SeletceDubViewController.swift */; };
-		2C664D991E5D38F900D9F4BA /* 配乐1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C664D981E5D38F900D9F4BA /* 配乐1.mp3 */; };
 		2C664D9C1E5D3DDE00D9F4BA /* Record.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C664D9A1E5D3DDE00D9F4BA /* Record.storyboard */; };
 		2C664DA31E5DAC0900D9F4BA /* KeUserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C664DA21E5DAC0900D9F4BA /* KeUserAccount.swift */; };
 		2C672AD81E6D0EF800966689 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C672AD71E6D0EF800966689 /* Notification+Extension.swift */; };
@@ -89,15 +88,15 @@
 		2C97D7FD1E51427700FB407F /* DubPlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C97D7FC1E51427700FB407F /* DubPlayView.xib */; };
 		2CAE5F801E63FFEC005DAA57 /* UploadPictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE5F7F1E63FFEC005DAA57 /* UploadPictureModel.swift */; };
 		2CAE5F821E6434E1005DAA57 /* JSON+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE5F811E6434E1005DAA57 /* JSON+Extension.swift */; };
-		2CAE5F861E66D377005DAA57 /* 新闻联播开场.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CAE5F841E66D377005DAA57 /* 新闻联播开场.mp3 */; };
 		2CAE5F8D1E67CD25005DAA57 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE5F881E67CD25005DAA57 /* libWeChatSDK.a */; };
 		2CAE5F8E1E67CD26005DAA57 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CAE5F891E67CD25005DAA57 /* README.txt */; };
-		2CAE5F921E67FF42005DAA57 /* 纯音乐.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CAE5F911E67FF42005DAA57 /* 纯音乐.mp3 */; };
 		2CAE5F941E680D7C005DAA57 /* PlayCourceMaterialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE5F931E680D7C005DAA57 /* PlayCourceMaterialViewController.swift */; };
 		2CB2F8D21E5E8A2000A0E010 /* RefreshBaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D11E5E8A2000A0E010 /* RefreshBaseTableView.swift */; };
 		2CB2F8D41E5EB36C00A0E010 /* SaveCourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D31E5EB36C00A0E010 /* SaveCourseModel.swift */; };
 		2CB2F8D71E5EC2B000A0E010 /* GetCoursesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D51E5EC2B000A0E010 /* GetCoursesData.swift */; };
 		2CB2F8D81E5EC2B000A0E010 /* GetCoursesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F8D61E5EC2B000A0E010 /* GetCoursesModel.swift */; };
+		2CD55B5F1E84D289005A6BE0 /* 新闻联播开场.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CD55B5D1E84D289005A6BE0 /* 新闻联播开场.mp3 */; };
+		2CD55B601E84D289005A6BE0 /* 纯音乐.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CD55B5E1E84D289005A6BE0 /* 纯音乐.mp3 */; };
 		2CE656951E5EE24D00A65116 /* GetMaterialsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE656931E5EE24D00A65116 /* GetMaterialsData.swift */; };
 		2CE656961E5EE24D00A65116 /* GetMaterialsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE656941E5EE24D00A65116 /* GetMaterialsModel.swift */; };
 		2CE656991E5EF05300A65116 /* SaveMaterialsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE656981E5EF05300A65116 /* SaveMaterialsModel.swift */; };
@@ -121,7 +120,6 @@
 		2C58C0971E56ADEE00310C1C /* CutBarWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutBarWaveView.swift; sourceTree = "<group>"; };
 		2C664D831E5A897100D9F4BA /* TimeInterval+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extension.swift"; sourceTree = "<group>"; };
 		2C664D961E5B10B300D9F4BA /* SeletceDubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeletceDubViewController.swift; sourceTree = "<group>"; };
-		2C664D981E5D38F900D9F4BA /* 配乐1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "配乐1.mp3"; sourceTree = "<group>"; };
 		2C664D9B1E5D3DDE00D9F4BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Record.storyboard; sourceTree = "<group>"; };
 		2C664DA21E5DAC0900D9F4BA /* KeUserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeUserAccount.swift; sourceTree = "<group>"; };
 		2C672AD71E6D0EF800966689 /* Notification+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
@@ -198,18 +196,18 @@
 		2C97D7FC1E51427700FB407F /* DubPlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DubPlayView.xib; sourceTree = "<group>"; };
 		2CAE5F7F1E63FFEC005DAA57 /* UploadPictureModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPictureModel.swift; sourceTree = "<group>"; };
 		2CAE5F811E6434E1005DAA57 /* JSON+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSON+Extension.swift"; sourceTree = "<group>"; };
-		2CAE5F841E66D377005DAA57 /* 新闻联播开场.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "新闻联播开场.mp3"; sourceTree = "<group>"; };
 		2CAE5F881E67CD25005DAA57 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		2CAE5F891E67CD25005DAA57 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		2CAE5F8A1E67CD25005DAA57 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		2CAE5F8B1E67CD25005DAA57 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		2CAE5F8C1E67CD25005DAA57 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		2CAE5F911E67FF42005DAA57 /* 纯音乐.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "纯音乐.mp3"; sourceTree = "<group>"; };
 		2CAE5F931E680D7C005DAA57 /* PlayCourceMaterialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayCourceMaterialViewController.swift; sourceTree = "<group>"; };
 		2CB2F8D11E5E8A2000A0E010 /* RefreshBaseTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshBaseTableView.swift; sourceTree = "<group>"; };
 		2CB2F8D31E5EB36C00A0E010 /* SaveCourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveCourseModel.swift; sourceTree = "<group>"; };
 		2CB2F8D51E5EC2B000A0E010 /* GetCoursesData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCoursesData.swift; sourceTree = "<group>"; };
 		2CB2F8D61E5EC2B000A0E010 /* GetCoursesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCoursesModel.swift; sourceTree = "<group>"; };
+		2CD55B5D1E84D289005A6BE0 /* 新闻联播开场.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "新闻联播开场.mp3"; sourceTree = "<group>"; };
+		2CD55B5E1E84D289005A6BE0 /* 纯音乐.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "纯音乐.mp3"; sourceTree = "<group>"; };
 		2CE656931E5EE24D00A65116 /* GetMaterialsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMaterialsData.swift; sourceTree = "<group>"; };
 		2CE656941E5EE24D00A65116 /* GetMaterialsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMaterialsModel.swift; sourceTree = "<group>"; };
 		2CE656981E5EF05300A65116 /* SaveMaterialsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveMaterialsModel.swift; sourceTree = "<group>"; };
@@ -324,10 +322,10 @@
 		2C94E7DC1E277C7A00D539DC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2CD55B5C1E84D289005A6BE0 /* Asset */,
 				2C97D7E01E4D5AE700FB407F /* Common */,
 				2C97D7831E4B157800FB407F /* Model */,
 				2C8574431E488A8B00D4119C /* Test */,
-				2C94E80C1E28AC2700D539DC /* Asset */,
 				2C94E7DE1E277C7A00D539DC /* Module */,
 				2C94E7E51E277C7A00D539DC /* Service */,
 				2C94E7E61E277C7A00D539DC /* Utils */,
@@ -390,16 +388,6 @@
 				2C94E7F81E277C7A00D539DC /* libmp3lame.a */,
 			);
 			path = lame;
-			sourceTree = "<group>";
-		};
-		2C94E80C1E28AC2700D539DC /* Asset */ = {
-			isa = PBXGroup;
-			children = (
-				2C664D981E5D38F900D9F4BA /* 配乐1.mp3 */,
-				2CAE5F911E67FF42005DAA57 /* 纯音乐.mp3 */,
-				2CAE5F841E66D377005DAA57 /* 新闻联播开场.mp3 */,
-			);
-			path = Asset;
 			sourceTree = "<group>";
 		};
 		2C97D76B1E4B13D100FB407F /* View */ = {
@@ -557,6 +545,15 @@
 			name = GetCourses;
 			sourceTree = "<group>";
 		};
+		2CD55B5C1E84D289005A6BE0 /* Asset */ = {
+			isa = PBXGroup;
+			children = (
+				2CD55B5D1E84D289005A6BE0 /* 新闻联播开场.mp3 */,
+				2CD55B5E1E84D289005A6BE0 /* 纯音乐.mp3 */,
+			);
+			path = Asset;
+			sourceTree = "<group>";
+		};
 		2CE656971E5EE25600A65116 /* GetMaterials */ = {
 			isa = PBXGroup;
 			children = (
@@ -644,16 +641,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CD55B5F1E84D289005A6BE0 /* 新闻联播开场.mp3 in Resources */,
 				2C97D7FD1E51427700FB407F /* DubPlayView.xib in Resources */,
-				2CAE5F921E67FF42005DAA57 /* 纯音乐.mp3 in Resources */,
 				2C97D79C1E4C1B6A00FB407F /* LoginViewController.xib in Resources */,
+				2CD55B601E84D289005A6BE0 /* 纯音乐.mp3 in Resources */,
 				2C97D7DD1E4C810900FB407F /* CourceMainTableViewCell.xib in Resources */,
 				2CAE5F8E1E67CD26005DAA57 /* README.txt in Resources */,
 				2C97D7F31E4DB60800FB407F /* CourceHeadTbView.xib in Resources */,
 				2C97D7D01E4C586900FB407F /* MainTableViewCell.xib in Resources */,
 				2C7818CB1DEEA0F4001E3594 /* LaunchScreen.storyboard in Resources */,
-				2C664D991E5D38F900D9F4BA /* 配乐1.mp3 in Resources */,
-				2CAE5F861E66D377005DAA57 /* 新闻联播开场.mp3 in Resources */,
 				2C7818C81DEEA0F4001E3594 /* Assets.xcassets in Resources */,
 				2C7818C61DEEA0F4001E3594 /* Main.storyboard in Resources */,
 				2C664D9C1E5D3DDE00D9F4BA /* Record.storyboard in Resources */,

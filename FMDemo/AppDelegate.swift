@@ -8,6 +8,8 @@
 
 import UIKit
 
+// FIXME: 如果配乐打开， 要把文件夹里面Asset 拉进来
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

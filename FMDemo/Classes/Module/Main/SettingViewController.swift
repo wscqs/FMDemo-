@@ -27,7 +27,7 @@ class SettingViewController: BaseViewController {
 //        MBACache.fetchString(key: kUserName) { (nickname) in
 //            self.userNameLabel.text = nickname
 //        }
-        self.userImageView.qs_setImageFromUrl(KeUserAccount.shared?.avatar ?? "", placeholder: #imageLiteral(resourceName: "course_chapt_state1_ico"), isAvatar: true)
+        self.userImageView.qs_setImageFromUrl(KeUserAccount.shared?.avatar ?? "", placeholder: #imageLiteral(resourceName: "user-ico"), isAvatar: true)
         self.userNameLabel.text = KeUserAccount.shared?.nickname
     }
     
