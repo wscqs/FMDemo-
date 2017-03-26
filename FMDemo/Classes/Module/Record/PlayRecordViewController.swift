@@ -59,8 +59,8 @@ class PlayRecordViewController: UIViewController {
         
 //        slider.slider.isHidden = true
         
-        slider.pointXArray = pointXArray
-//        slider.pointXArray = testArray
+//        slider.pointXArray = pointXArray
+        slider.pointXArray = testArray
         self.actionPlayClick(sender: self.listenPlayBtn)
     }
     
@@ -80,7 +80,16 @@ class PlayRecordViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        pausePlay()
+        player.stopPlay()
+    }
+
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+        if self.isViewLoaded && (self.view.window != nil) {
+            self.view = nil
+        }
     }
     
     func updateTime() {

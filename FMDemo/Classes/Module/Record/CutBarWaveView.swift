@@ -9,11 +9,14 @@
 import UIKit
 protocol CutBarWaveViewDelegate: NSObjectProtocol{
     func changceTimeLabel(cutBarWaveView: CutBarWaveView, centerX: CGFloat, thumbPointXIndex: Int)
-//    func changceEndDraggingTimeLabel(cutBarWaveView: CutBarWaveView, centerX: CGFloat, thumbPointXIndex: Int)
+    //    func changceEndDraggingTimeLabel(cutBarWaveView: CutBarWaveView, centerX: CGFloat, thumbPointXIndex: Int)
 }
 
 class CutBarWaveView: UIView {
     
+    var playHightView: UIView = UIView()
+    var playBackView: UIView = UIView()
+//    var play
     weak var delegate: CutBarWaveViewDelegate?
     
     var pointXArray: Array<CGFloat>? {
@@ -33,7 +36,7 @@ class CutBarWaveView: UIView {
     
     var widthScaling: CGFloat = 1.0
     let heightScaling: CGFloat = 0.9
-
+    
     let kLineWidth: CGFloat = 2.0
     let spaceW: CGFloat = 2.0 * 2
     
@@ -47,11 +50,10 @@ class CutBarWaveView: UIView {
             layer.borderWidth = 3.0
             layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
             backgroundColor = waveBackgroundColor
-            setNeedsDisplay()
         }
     }
     
-    /// 声波的颜色
+    /// 声波的颜色.colorWithHexString("2e80d1")
     var waveStrokeColor = UIColor.colorWithHexString("2e80d1") {
         didSet {
             
@@ -70,7 +72,7 @@ class CutBarWaveView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
+        //        fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
         setupView()
     }
@@ -89,12 +91,15 @@ class CutBarWaveView: UIView {
         layer.masksToBounds = true
         
         addSubview(scrollView)
-
+        scrollView.addSubview(playBackView)
+        scrollView.addSubview(playHightView)
+        
+        
         scrollView.bounces = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.delegate = self
-
+        
         
         addSubview(thumbBarImage)
         thumbBarImage.image = #imageLiteral(resourceName: "record_volume_control_ico")
@@ -104,8 +109,8 @@ class CutBarWaveView: UIView {
         let panGes = UIPanGestureRecognizer(target: self, action: #selector(actionPan(sender:)))
         thumbBarImage.addGestureRecognizer(panGes)
         
-        scrollView.addSubview(slider)
-        slider.setThumbImage(#imageLiteral(resourceName: "sound_slider_thum"), for: .normal)
+        //        scrollView.addSubview(slider)
+        //        slider.setThumbImage(#imageLiteral(resourceName: "sound_slider_thum"), for: .normal)
         slider.isUserInteractionEnabled = false
         
     }
@@ -133,47 +138,83 @@ class CutBarWaveView: UIView {
         let spaceTop: CGFloat = 2
         boundsH = self.bounds.size.height - spaceTop
         boundsW = self.bounds.size.width
-
+        
         let maxiBarTrackImageW = CGFloat(pointXArray.count) * spaceW
         scrollViewContenW = maxiBarTrackImageW
+        
+        
+        let path = UIBezierPath()
+        path.lineWidth = kLineWidth
+        for i in 0 ..< pointXArray.count {
+            let x = CGFloat(i) * spaceW
+            path.move(to: CGPoint(x: x, y: boundsH))
+            path.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
+        }
+        path.close()
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = self.waveStrokeColor.cgColor
+        shapeLayer.path = path.cgPath
+        playBackView.layer.addSublayer(shapeLayer)
+        
+        let shapeLayer1 = CAShapeLayer()
+        shapeLayer1.strokeColor = self.waveHightStrokeColor.cgColor
+        shapeLayer1.path = path.cgPath
+        playHightView.layer.addSublayer(shapeLayer1)
         
         // 下面方法，第一个参数表示区域大小。第二个参数表示是否是非透明的。如果需要显示半透明效果，需要传NO，否则传YES。第三个参数就是屏幕密度了
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
         let imageSize = CGSize(width: maxiBarTrackImageW, height: boundsH)
-//        UIGraphicsBeginImageContextWithOptions(imageSize, false, UIScreen.main.scale)
+        //        UIGraphicsBeginImageContextWithOptions(imageSize, false, 20)
         print(imageSize.debugDescription)
         guard let context = UIGraphicsGetCurrentContext() else { return }
-        context.setLineWidth(kLineWidth)
+        context.synchronize()
+        context.scaleBy(x: 1, y: 1)
+        //        context.setLineWidth(kLineWidth)
+        //
+        //        for i in 0 ..< pointXArray.count {
+        //            let x = CGFloat(i) * spaceW
+        //            context.move(to: CGPoint(x: x, y: boundsH))
+        //            context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
+        //        }
+        //
+        //        context.setAlpha(1.0)
+        //        context.setShouldAntialias(true) // 去除锯齿
+        //        context.setStrokeColor(self.waveStrokeColor.cgColor)
+        //        context.setFillColor(self.waveStrokeColor.cgColor)
+        //        context.strokePath()
         
-        for i in 0 ..< pointXArray.count {
-            let x = CGFloat(i) * spaceW
-            context.move(to: CGPoint(x: x, y: boundsH))
-            context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
-        }
         
-        context.setAlpha(1.0)
-        context.setShouldAntialias(true) // 去除锯齿
-        context.setStrokeColor(self.waveStrokeColor.cgColor)
-        context.setFillColor(self.waveStrokeColor.cgColor)
-        context.strokePath()
+        
+        //        playHightView.backgroundColor = UIColor.green
+        //        playHightView.layer.backgroundColor = UIColor.white.cgColor
         
         let maxiTrackImage = UIGraphicsGetImageFromCurrentImageContext()
         
         context.setFillColor(self.waveHightStrokeColor.cgColor)
-//        UIRectFillUsingBlendMode(CGRect(origin: CGPoint.zero, size: imageSize), .sourceAtop)
-        UIRectFillUsingBlendMode(bounds, .sourceAtop)
+        UIRectFillUsingBlendMode(CGRect(origin: CGPoint.zero, size: imageSize), .sourceAtop)
+        //        UIRectFillUsingBlendMode(bounds, .sourceAtop)
         
         
         let minxTrackImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-
+        
         slider.maximumValue = Float(pointXArray.count)
         slider.minimumValue = 0
+        slider.frame = CGRect(x: 0, y: 0, width: maxiBarTrackImageW, height: boundsH)
+        DispatchQueue.main.async {
+            self.render(maxiTrackImage: maxiTrackImage, minxTrackImage: minxTrackImage)
+        }
+        
+    }
+    
+    func render(maxiTrackImage:UIImage?, minxTrackImage: UIImage?) {
+        
         slider.setMaximumTrackImage(maxiTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         slider.setMinimumTrackImage(minxTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
         
         
-        slider.frame = CGRect(x: 0, y: 0, width: maxiBarTrackImageW, height: boundsH)
+        
         scrollView.contentSize = slider.frame.size
         var cgRect = bounds
         cgRect.origin.y = 4
@@ -182,15 +223,15 @@ class CutBarWaveView: UIView {
         if scrollViewContenW - boundsW > 0 {
             scrollView.contentOffset = CGPoint(x: scrollViewContenW - boundsW, y: 0)
         }
-
+        
         initThumbRect()
         updateCutView()
     }
     
     
-    fileprivate func initThumbRect() {   
-//        // 初始位置 在结束前3秒
-//        minSecond = 3
+    fileprivate func initThumbRect() {
+        //        // 初始位置 在结束前3秒
+        //        minSecond = 3
         var thumbBarX: CGFloat = 0
         if scrollViewContenW > boundsW {
             thumbBarX = boundsW - spaceW * 5 * minSecond
@@ -201,7 +242,8 @@ class CutBarWaveView: UIView {
     }
     
     fileprivate func updateCutView(isEndDragging: Bool? = false) {
-        let point = thumbBarImage.convert(CGPoint(x: -thumbBarImage.width/2, y: 0), from: scrollView)
+        updatePlayViewFrame()
+        let point = thumbBarImage.convert(CGPoint(x: -thumbBarImage.bounds.width/2, y: 0), from: scrollView)
         thumbPointXIndex = Int(-point.x / spaceW)
         slider.value = Float(thumbPointXIndex)
         
@@ -209,11 +251,11 @@ class CutBarWaveView: UIView {
         
         delegate?.changceTimeLabel(cutBarWaveView: self, centerX: -transPoint.x + thumbBarImage.bounds.size.width/2, thumbPointXIndex: thumbPointXIndex)
         
-//        if isEndDragging! {
-//            delegate?.changceEndDraggingTimeLabel(cutBarWaveView: self, centerX: -transPoint.x + thumbBarImage.bounds.size.width/2, thumbPointXIndex: thumbPointXIndex)
-//        } else {
-//            delegate?.changceTimeLabel(cutBarWaveView: self, centerX: -transPoint.x + thumbBarImage.bounds.size.width/2, thumbPointXIndex: thumbPointXIndex)
-//        }        
+        //        if isEndDragging! {
+        //            delegate?.changceEndDraggingTimeLabel(cutBarWaveView: self, centerX: -transPoint.x + thumbBarImage.bounds.size.width/2, thumbPointXIndex: thumbPointXIndex)
+        //        } else {
+        //            delegate?.changceTimeLabel(cutBarWaveView: self, centerX: -transPoint.x + thumbBarImage.bounds.size.width/2, thumbPointXIndex: thumbPointXIndex)
+        //        }
     }
 }
 
@@ -223,6 +265,19 @@ extension CutBarWaveView {
     func setPlayProgress(thumbPointXIndex :Int) {
         self.thumbPointXIndex = thumbPointXIndex
         slider.value = Float(thumbPointXIndex)
+//        updatePlayViewFrame()
+        setPlayStatusFrame()
+    }
+    
+    
+    func updatePlayViewFrame() {
+        playHightView.frame = CGRect(x: 0, y: 0, width: -thumbBarImage.convert(CGPoint(x: -thumbBarImage.bounds.width/2, y: 0), from: scrollView).x, height: boundsH)
+        playHightView.layer.masksToBounds = true
+        playBackView.frame = CGRect(x: 0, y: 0, width: scrollViewContenW, height: boundsH)
+    }
+    
+    func setPlayStatusFrame() {
+        playHightView.frame = CGRect(x: 0, y: 0, width: CGFloat(thumbPointXIndex * 4), height: boundsH)
     }
 }
 
@@ -231,8 +286,8 @@ extension CutBarWaveView: UIScrollViewDelegate {
         updateCutView()
     }
     
-//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        updateCutView(isEndDragging: true)
-//    }
+    //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    //        updateCutView(isEndDragging: true)
+    //    }
 }
 
