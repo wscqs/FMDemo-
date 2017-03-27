@@ -43,6 +43,10 @@ class PlayRecordViewController: UIViewController {
     var player: MBAAudioPlayer!
     
     
+    deinit {
+        print("deinit----------")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -57,10 +61,8 @@ class PlayRecordViewController: UIViewController {
 //        player.player?.delegate = self
         totalTimeLabel.text = totalTime.getFormatTime()
         
-//        slider.slider.isHidden = true
-        
-//        slider.pointXArray = pointXArray
-        slider.pointXArray = testArray
+        slider.pointXArray = pointXArray
+//        slider.pointXArray = testArray
         self.actionPlayClick(sender: self.listenPlayBtn)
     }
     
@@ -81,8 +83,9 @@ class PlayRecordViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         player.stopPlay()
+        player = nil
     }
-
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -92,7 +95,7 @@ class PlayRecordViewController: UIViewController {
         }
     }
     
-    func updateTime() {
+    func updateTime(isTimer: Bool? = false) {
         if thumbPointXIndex >= (pointXArray?.count ?? 0){
             stopPlay()
             thumbPointXIndex = 0
@@ -100,14 +103,17 @@ class PlayRecordViewController: UIViewController {
             return
         }
         
-        thumbPointXIndex = thumbPointXIndex + 1
-        slider.setPlayProgress(thumbPointXIndex: thumbPointXIndex)
+        if isTimer! {
+            thumbPointXIndex = thumbPointXIndex + 1
+            slider.setPlayProgress(thumbPointXIndex: thumbPointXIndex)
+        }
+        
         timeLabel.text = (Double(thumbPointXIndex) * 0.2).getFormatTime()
         setSpannerImg()
     }
     
     func sliderTimerEvent() {
-        updateTime()
+        updateTime(isTimer: true)
     }
 
 }
@@ -118,7 +124,7 @@ extension PlayRecordViewController {
         listenPlayBtn.adjustsImageWhenHighlighted = false
         savaBtn.addTarget(self, action: #selector(actionSave), for: .touchUpInside)
         cutBtn.addTarget(self, action: #selector(actionCut), for: .touchUpInside)
-        slider.slider.addTarget(self, action: #selector(actionSlider), for: .valueChanged)        
+        slider.delegate = self
     }
 }
 
@@ -207,18 +213,6 @@ extension PlayRecordViewController {
                 break
             }
         }
-    }
-    
-    func actionSlider(sender: UISlider) {
-        pausePlay()
-        thumbPointXIndex = Int(sender.value)
-        sliderTime = Double(thumbPointXIndex) * 0.2
-        if listenPlayBtn.isSelected {// 在播放中
-            continuePlay()
-        } else {
-            
-        }
-        
     }
 }
 
@@ -311,5 +305,20 @@ extension PlayRecordViewController {
         transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
         transition.type = kCATransitionFade
         bannerImg.layer.add(transition, forKey: nil)
+    }
+}
+
+// MARK: - 图片播放设置
+extension PlayRecordViewController: PlayBarWaveViewDelegate {
+    func changceTimeLabel(cutBarWaveView: PlayBarWaveView, thumbPointXIndex: Int) {
+        pausePlay()
+        self.thumbPointXIndex = thumbPointXIndex
+        sliderTime = Double(thumbPointXIndex) * 0.2
+
+        if listenPlayBtn.isSelected {// 在播放中
+            continuePlay()
+        } else {
+            
+        }
     }
 }

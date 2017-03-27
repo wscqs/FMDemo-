@@ -7,22 +7,37 @@
 //
 
 import UIKit
+protocol PlayBarWaveViewDelegate: NSObjectProtocol{
+    func changceTimeLabel(cutBarWaveView: PlayBarWaveView, thumbPointXIndex: Int)
+}
 
 class PlayBarWaveView: UIView {
+
+    weak var delegate: PlayBarWaveViewDelegate?
     
     var pointXArray: Array<CGFloat>? {
         didSet{
-            guard let pointXArray = pointXArray else {
+            guard pointXArray != nil else {
                 return
             }
-            slider.maximumValue = Float(pointXArray.count)
 //            setNeedsDisplay()
         }
     }
+
+    fileprivate var thumbBarImage: UIImageView = UIImageView()
+    fileprivate var playHightView: UIView = UIView()
+    fileprivate var playBackView: UIView = UIView()
+    fileprivate var thumbPointXIndex: Int = 0
     
-//    var isRenderSucess: ((_ resulet: Bool) -> Void)?
+    var kLineWidth: CGFloat = 2.0
+    var spaceW: CGFloat = 2.0 * 2
     
-    var slider: UISlider = NoGapSlider()
+    var boundsH: CGFloat = 0
+    var boundsW: CGFloat = 0
+    var scrollViewContenW: CGFloat = 0
+    
+    var viewspaceTop: CGFloat = 4
+    var viewspaceLeft: CGFloat = 2
     
     /// 边框及底部颜色
     var waveBackgroundColor = UIColor.colorWithHexString("2b95ff") {
@@ -46,20 +61,13 @@ class PlayBarWaveView: UIView {
         }
     }
     
-    var widthScaling: CGFloat = 1.0
-    let heightScaling: CGFloat = 0.9
-    
-
-    
-    var kLineWidth:CGFloat = 2.0
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }
     
     required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
+        //        fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
         setupView()
     }
@@ -70,17 +78,44 @@ class PlayBarWaveView: UIView {
     }
     
     func setupView() {
-        self.clearsContextBeforeDrawing = true
         frame = bounds
         backgroundColor = waveBackgroundColor
         layer.cornerRadius = 3.0
         layer.borderWidth = 0.5
         layer.borderColor = UIColor.lightGray.cgColor
         layer.masksToBounds = true
+
+        addSubview(playBackView)
+        addSubview(playHightView)
+
+        addSubview(thumbBarImage)
+        thumbBarImage.image = #imageLiteral(resourceName: "record_volume_control_ico")
+        thumbBarImage.contentMode = .scaleAspectFit
         
-        addSubview(slider)
-        slider.setThumbImage(#imageLiteral(resourceName: "record_volume_control_ico"), for: .normal)
-        slider.minimumValue = 0
+        thumbBarImage.isUserInteractionEnabled = true
+        let panGes = UIPanGestureRecognizer(target: self, action: #selector(actionPan(sender:)))
+        thumbBarImage.addGestureRecognizer(panGes)
+        thumbBarImage.frame = CGRect(x: 0, y: 2, width: 60, height: bounds.height)
+    }
+    
+    var isDraging: Bool? = false
+    func actionPan(sender: UIPanGestureRecognizer) {
+        if sender.state == .ended {
+            isDraging = false
+        } else {
+            isDraging = true
+        }
+        let transPoint = sender.translation(in: self)
+        let transX = transPoint.x
+        
+        var newCenter = CGPoint(x: (sender.view?.center.x)! + transX, y: (sender.view?.center.y)!)
+        // 设置边界
+        let space:CGFloat = viewspaceLeft
+        newCenter.x = max(space, newCenter.x)
+        newCenter.x = min(min(scrollViewContenW + viewspaceLeft, boundsW + viewspaceLeft), newCenter.x)
+        sender.view?.center = newCenter
+        sender.setTranslation(CGPoint.zero, in: self)
+        updateCutView()
     }
     
     override func draw(_ rect: CGRect) {
@@ -89,113 +124,74 @@ class PlayBarWaveView: UIView {
             return
         }
         if pointXArray.count == 0 {return}
-        
         let spaceTop: CGFloat = 2
-        let boundsH = self.bounds.size.height - spaceTop
-        let boundsW = self.bounds.size.width
-        var screenScale = UIScreen.main.scale
-        //大于10分钟无间距
-        if pointXArray.count < 3000 {
-            if CGFloat(pointXArray.count * 4) > boundsW {
-                widthScaling = boundsW / CGFloat(pointXArray.count * 4)
-                screenScale = 10
-            }
-        } else {
-            if CGFloat(pointXArray.count * 2) > boundsW {
+        boundsH = self.bounds.size.height - spaceTop
+        boundsW = self.bounds.size.width - viewspaceLeft * 2
+        
+        
+        var widthScaling: CGFloat = 1
+        var space: CGFloat = 2
+        if CGFloat(pointXArray.count * 4) > boundsW {
+            widthScaling = boundsW / CGFloat(pointXArray.count * 4)
+            scrollViewContenW = boundsW
+            //大于10分钟无间距
+            if pointXArray.count > 3000 {
+                space = 1
                 widthScaling = boundsW / CGFloat(pointXArray.count * 2)
             }
-            screenScale = 20
+        }else {
+            scrollViewContenW = CGFloat(pointXArray.count * 4)
         }
-        
-        
-        screenScale = 0.0
-        // 下面方法，第一个参数表示区域大小。第二个参数表示是否是非透明的。如果需要显示半透明效果，需要传NO，否则传YES。第三个参数就是屏幕密度了
-        UIGraphicsBeginImageContextWithOptions(bounds.size, false, screenScale)
-        guard let context = UIGraphicsGetCurrentContext() else { return }
-        context.setAlpha(1)
-        context.setShouldAntialias(true) // 去除锯齿
-
-        
-        
-//        if CGFloat(pointXArray.count) * spaceW > boundsW {
-//            widthScaling = boundsW / (CGFloat(pointXArray.count) * spaceW)
-//            print(widthScaling)
-//            context.scaleBy(x: widthScaling, y: 1)
-//            slider.frame = CGRect(x: 0, y: 6,  width: boundsW , height: boundsH - 4)
-//        } else {
-//            slider.frame = CGRect(x: 0, y: 6,  width: CGFloat(pointXArray.count) * spaceW , height: boundsH - 4)
-//        }
-//        let numberOfSteps = pointXArray.count
-//        slider.maximumValue = Float(numberOfSteps)
-//        slider.minimumValue = 0
-//        slider.value = 0
-//        
-//        context.setLineWidth(kLineWidth)
-//        for i in 0 ..< pointXArray.count {
-//            let x = CGFloat(i) * spaceW
-//            context.move(to: CGPoint(x: x, y: boundsH))
-//            context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
-//        }
-//        context.setStrokeColor(self.waveStrokeColor.cgColor)
-//        context.strokePath()
-//        
-//        
-//        let minxTrackImage = UIGraphicsGetImageFromCurrentImageContext()
-//        
-//        guard let context1 = UIGraphicsGetCurrentContext() else { return }
-//        context1.setAlpha(1)
-//        context1.setShouldAntialias(true) // 去除锯齿
-//        for i in 0 ..< pointXArray.count {
-//            let x = CGFloat(i) * spaceW
-//            context1.move(to: CGPoint(x: x, y: boundsH))
-//            context1.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
-//        }
-//        context1.setStrokeColor(self.waveHightStrokeColor.cgColor)
-//        context1.strokePath()
-//        
-//        let maxiTrackImage = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
-
-        
-
-        
-        
-        
         kLineWidth = kLineWidth * widthScaling
-        context.setLineWidth(kLineWidth)
-        var spaceW:CGFloat = kLineWidth * 2
-        if pointXArray.count > 3000 { //大于10分钟无间距
-            spaceW = kLineWidth
-        }
-
+        spaceW = kLineWidth * space
+        
+        let path = UIBezierPath()
         for i in 0 ..< pointXArray.count {
-            let x = CGFloat(i) * spaceW
-            context.move(to: CGPoint(x: x, y: boundsH))
-            context.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
+            let x = viewspaceLeft + CGFloat(i) * spaceW
+            path.move(to: CGPoint(x: x, y: boundsH))
+            path.addLine(to: CGPoint(x: x, y: boundsH * (1 - pointXArray[i])))
         }
+        path.close()
         
-        slider.frame = CGRect(x: 0, y: 6,  width: CGFloat(pointXArray.count) * spaceW , height: boundsH  - 4)
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = self.waveStrokeColor.cgColor
+        shapeLayer.path = path.cgPath
+        shapeLayer.lineWidth = kLineWidth
+        playBackView.layer.addSublayer(shapeLayer)
         
-        let numberOfSteps = pointXArray.count
-        slider.maximumValue = Float(numberOfSteps)
-        slider.minimumValue = 0
-        slider.value = 0
+        let shapeLayer1 = CAShapeLayer()
+        shapeLayer1.strokeColor = self.waveHightStrokeColor.cgColor
+        shapeLayer1.path = path.cgPath
+        shapeLayer1.lineWidth = kLineWidth
+        playHightView.layer.addSublayer(shapeLayer1)
         
-        context.setStrokeColor(self.waveHightStrokeColor.cgColor)
-        context.strokePath()
+        playHightView.layer.masksToBounds = true
+        playBackView.frame = CGRect(x: viewspaceLeft, y: viewspaceTop, width: boundsW, height: boundsH)
+
+//        updateCutView()
         
-        let maxiTrackImage = UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    
+    
+    fileprivate func updateCutView() {
+        let point = thumbBarImage.convert(CGPoint(x: -thumbBarImage.bounds.width/2, y: 0), from: self)
+        thumbPointXIndex = Int(-point.x / spaceW)
+        playHightView.frame = CGRect(x: viewspaceLeft, y: viewspaceTop, width: -point.x, height: boundsH)
         
-        context.setFillColor(self.waveStrokeColor.cgColor)
-        UIRectFillUsingBlendMode(bounds, .sourceAtop)
-        
-        let minxTrackImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
- 
-        slider.setMaximumTrackImage(minxTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
-        slider.setMinimumTrackImage(maxiTrackImage?.resizableImage(withCapInsets: .zero), for: .normal)
-        
-//        isRenderSucess?(true)
+        delegate?.changceTimeLabel(cutBarWaveView: self, thumbPointXIndex: thumbPointXIndex)
+    }
+    
+    /// 父控件拦截了手势，所以特殊处理
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        var view = super.hitTest(point, with: event)
+        if view == nil {
+            let newPoint = self.thumbBarImage.convert(point, from: self)
+            if self.thumbBarImage.bounds.contains(newPoint) {
+                view = self.thumbBarImage
+            }
+        }
+        return view
     }
 }
 
@@ -203,7 +199,12 @@ class PlayBarWaveView: UIView {
 extension PlayBarWaveView {
     /// 传入播放的进度
     func setPlayProgress(thumbPointXIndex :Int) {
-        slider.setValue(Float(thumbPointXIndex), animated: true)
+        if isDraging!{
+            return
+        }
+        self.thumbPointXIndex = thumbPointXIndex
+        playHightView.frame = CGRect(x: viewspaceLeft, y: viewspaceTop, width: CGFloat(thumbPointXIndex) * spaceW, height: boundsH)
+        thumbBarImage.frame = CGRect(x: playHightView.frame.maxX - 30 - 1, y: 2, width: 60, height: bounds.height)
     }
 }
 
