@@ -22,6 +22,13 @@ class MainViewController: BaseViewController {
         mainTb.backgroundColor = UIColor.colorWithHexString(kGlobalBgColor)
 
         NotificationCenter.default.addObserver(self, selector: #selector(userLogin(n:)), name: NSNotification.Name(rawValue: kUserShouldLoginNotification), object: nil)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(shouldReLoadMainData), name: .shouldReLoadMainData, object: nil)
+    }
+    
+    func shouldReLoadMainData() {
+        mainTb.mj_header.beginRefreshing()
     }
     
     override func viewWillAppear(_ animated: Bool) {

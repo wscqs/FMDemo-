@@ -432,6 +432,13 @@ extension RecordViewController {
     
     //继续录音
     func continueRecord() {
+        
+                self.recordMetersTime = MBAAudioPlayer(contentsOf: self.mergeExportURL!).duration
+                let lower = Int(self.recordMetersTime / 0.2)
+                if lower < self.pointXArray.count {
+                    self.pointXArray.removeSubrange(Range(uncheckedBounds: (lower: lower, upper: self.pointXArray.count)))
+                }
+
         if isCuted {
             MBAAudio.startRecord()
             sessionCategory(isRecord: true)
@@ -567,11 +574,11 @@ extension RecordViewController {
     
     func pushToClick(recordVCClick: RecordVCClick) {
         
-        self.recordMetersTime = MBAAudioPlayer(contentsOf: self.mergeExportURL!).duration
-        let lower = Int(self.recordMetersTime / 0.2)
-        if lower < self.pointXArray.count {
-            self.pointXArray.removeSubrange(Range(uncheckedBounds: (lower: lower, upper: self.pointXArray.count)))
-        }
+//        self.recordMetersTime = MBAAudioPlayer(contentsOf: self.mergeExportURL!).duration
+//        let lower = Int(self.recordMetersTime / 0.2)
+//        if lower < self.pointXArray.count {
+//            self.pointXArray.removeSubrange(Range(uncheckedBounds: (lower: lower, upper: self.pointXArray.count)))
+//        }
         
         switch recordVCClick {
         case .play:

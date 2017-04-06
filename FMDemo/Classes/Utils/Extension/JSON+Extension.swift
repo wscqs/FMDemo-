@@ -32,8 +32,8 @@ extension CGYJSON {
             return nil
         }
         let data = try? JSONSerialization.data(withJSONObject: jsonModel, options: [])
-        let str = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-        return str as? String
+        let str = String(data: data!, encoding: .utf8)
+        return str
     }
 }
 

@@ -29,6 +29,6 @@ class RecordSoundSliderView: UISlider {
         setThumbImage(#imageLiteral(resourceName: "sound_slider_thum"), for: .normal)
         isUserInteractionEnabled = false
         value = 0
-        transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_2))
+        transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2))
     }
 }

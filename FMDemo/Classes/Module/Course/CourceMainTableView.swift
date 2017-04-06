@@ -77,6 +77,9 @@ extension CourceMainTableView {
     }
     
     fileprivate func changceCourseStatus() {
+        
+        NotificationCenter.default.post(name: .shouldReLoadMainData, object: nil, userInfo: nil)
+        
         var isComplet = true
         for bean in (self.dataList as? [GetMaterialsData])! {
             if "unrecorded" == bean.state {

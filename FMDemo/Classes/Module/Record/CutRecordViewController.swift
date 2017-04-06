@@ -143,15 +143,19 @@ extension CutRecordViewController {
                     for (index,imgDict) in self.imgDictArray.enumerated() {
                         for i in self.thumbPointXIndex ..< (self.pointXArray?.count)! {
                             if i == imgDict.thumbPointXIndex  {
-                                self.imgDictArray.removeSubrange(Range(uncheckedBounds: (lower: index, upper: self.imgDictArray.count)))
+                                if index < self.imgDictArray.count {
+                                    self.imgDictArray.removeSubrange(Range(uncheckedBounds: (lower: index, upper: self.imgDictArray.count)))
+                                }
                                 break
                             }
                         }
                     }
                 }
-                self.pointXArray?.removeSubrange(Range(uncheckedBounds: (lower: self.thumbPointXIndex, upper: (self.pointXArray?.count)!)))
-
                 
+                if Int(self.cutTime*5) < (self.pointXArray?.count)! {
+                    self.pointXArray?.removeSubrange(Range(uncheckedBounds: (lower: Int(self.cutTime*5), upper: (self.pointXArray?.count)!)))
+                }
+      
                 let notification = Notification(name: Notification.Name(rawValue: "cutComplet"), object: nil, userInfo: ["cutComplet":[cutExportURL,self.pointXArray ?? [],self.imgDictArray]])
                 NotificationCenter.default.post(notification)
                 
