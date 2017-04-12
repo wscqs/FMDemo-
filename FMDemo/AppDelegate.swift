@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        UIApplication.shared.isIdleTimerDisabled = true// 禁止锁屏
         setupGlobalStyle()        // 配置全局样式
         setupGlobalData()         // 配置全局数据
         setupRootViewController() // 配置控制器
@@ -25,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    
+
     func applicationWillResignActive(_ application: UIApplication) {
         NotificationCenter.default.post(name: NSNotification.Name.LifeCycle.WillResignActive, object: nil)
     }

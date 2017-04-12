@@ -10,14 +10,15 @@ import UIKit
 
 /// 基础url
 var kKeBaseURL:String {
-    return "http://192.168.1.12:8013/api/"
+//    return "http://192.168.1.12:8013/api/"
+    return "http://ke.mbalib.com/api/"
 }
 
 /// 用户模块
 //return "http://passport.mbalib.com/api2/loginweixin/"
 var kUserBaseURL:String{
-    //线上    return "http://passport.mbalib.com/api2/"
-    return "http://192.168.1.12:8082/api2/" //线下
+    return "http://passport.mbalib.com/api2/" //线上
+//    return "http://192.168.1.12:8082/api2/" //线下
 }
 
 

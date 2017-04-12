@@ -82,7 +82,6 @@
 		2C97D7ED1E4D612800FB407F /* CreatCourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7EC1E4D612800FB407F /* CreatCourceViewController.swift */; };
 		2C97D7F11E4D71B000FB407F /* VerticalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7F01E4D71B000FB407F /* VerticalButton.swift */; };
 		2C97D7F31E4DB60800FB407F /* CourceHeadTbView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C97D7F21E4DB60800FB407F /* CourceHeadTbView.xib */; };
-		2C97D7F51E50288700FB407F /* AvatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7F41E50288700FB407F /* AvatorView.swift */; };
 		2C97D7F71E502B3F00FB407F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7F61E502B3F00FB407F /* SettingViewController.swift */; };
 		2C97D7FA1E513F7000FB407F /* DubPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7F81E513F7000FB407F /* DubPlayView.swift */; };
 		2C97D7FD1E51427700FB407F /* DubPlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C97D7FC1E51427700FB407F /* DubPlayView.xib */; };
@@ -190,7 +189,6 @@
 		2C97D7EC1E4D612800FB407F /* CreatCourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatCourceViewController.swift; sourceTree = "<group>"; };
 		2C97D7F01E4D71B000FB407F /* VerticalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalButton.swift; sourceTree = "<group>"; };
 		2C97D7F21E4DB60800FB407F /* CourceHeadTbView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourceHeadTbView.xib; sourceTree = "<group>"; };
-		2C97D7F41E50288700FB407F /* AvatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatorView.swift; sourceTree = "<group>"; };
 		2C97D7F61E502B3F00FB407F /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2C97D7F81E513F7000FB407F /* DubPlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DubPlayView.swift; sourceTree = "<group>"; };
 		2C97D7FC1E51427700FB407F /* DubPlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DubPlayView.xib; sourceTree = "<group>"; };
@@ -518,7 +516,6 @@
 				2C97D7EA1E4D5B4D00FB407F /* BorderTextView.swift */,
 				2C97D7E81E4D5B0700FB407F /* BorderBackgroundView.swift */,
 				2C97D7F01E4D71B000FB407F /* VerticalButton.swift */,
-				2C97D7F41E50288700FB407F /* AvatorView.swift */,
 				2C435C351E54341C00FDD1E7 /* NoGapSlider.swift */,
 			);
 			path = View;
@@ -772,7 +769,6 @@
 				2C97D7C01E4C441C00FB407F /* UIColor+Extension.swift in Sources */,
 				2CAE5F821E6434E1005DAA57 /* JSON+Extension.swift in Sources */,
 				2C0239B51E4B02EF00CD6008 /* MBAToast.swift in Sources */,
-				2C97D7F51E50288700FB407F /* AvatorView.swift in Sources */,
 				2C97D7CF1E4C586900FB407F /* MainTableViewCell.swift in Sources */,
 				2C97D79B1E4C1B6A00FB407F /* LoginViewController.swift in Sources */,
 				2C435C2A1E51D0D200FDD1E7 /* RecordImgCollectionCell.swift in Sources */,

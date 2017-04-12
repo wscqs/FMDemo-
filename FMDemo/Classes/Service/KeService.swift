@@ -77,10 +77,11 @@ class KeService: NSObject {
                 let params = [
                     "login_token": loginToken,
                     ]
-                MBARequest<AccessTokenModel>.go(url: url, method: .post, params: params as [String : AnyObject]?, cache: .Default, completionHandler: { (bean, error) in
+                MBARequest<AccessTokenModel>.go(url: url, method: .post, params: params, cache: .Default, completionHandler: { (bean, error) in
                     if let bean = bean {
                         KeUserAccount.saveAccount(userAccount: bean)
                         MBACache.setString(value: bean.accessToken!, key: kUserAccessToken)
+                        
                         success(true)
                     }
                     if let error = error {
