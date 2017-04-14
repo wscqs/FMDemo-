@@ -5,7 +5,6 @@ PODS:
   - Kingfisher (3.2.4)
   - MJRefresh (3.1.12)
   - ObjectMapper (2.2.2)
-  - SnapKit (3.1.2)
   - SVProgressHUD (2.1.2)
   - Toaster (2.0.1)
   - ZLPhotoBrowser (2.0.3)
@@ -17,7 +16,6 @@ DEPENDENCIES:
   - Kingfisher
   - MJRefresh
   - ObjectMapper
-  - SnapKit
   - SVProgressHUD
   - Toaster (~> 2.0)
   - ZLPhotoBrowser
@@ -39,11 +37,10 @@ SPEC CHECKSUMS:
   Kingfisher: 8d80f39da403cd9c9ee11984e1655f4d6a566cdb
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
-  SnapKit: 12b24f569cb7c143acc9c22b9d91b23e7b1c84a2
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   Toaster: be65cd48e93a525b2a9cc4bd25a2bfc900e02d9f
   ZLPhotoBrowser: c32ea20d26d425fe64bed43f85444c205cf6ac9b
 
-PODFILE CHECKSUM: f253f4bde5277aa9c5f665fe94524d899322084f
+PODFILE CHECKSUM: 6a16ad72a74c91484a58fe3208c1228bec419b98
 
 COCOAPODS: 1.2.0.beta.1

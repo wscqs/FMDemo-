@@ -246,7 +246,7 @@ class MBARequest<T: BaseModel> : NSObject{
                                     }
                                     
                                 case .failure(let error):
-                                    MBAToast.show(text: kNetworkDontUse)
+                                    MBAToast.show(text: "图片上传失败，请重试")
                                     completionHandler(nil, error as NSError?)
                                 }
                             })

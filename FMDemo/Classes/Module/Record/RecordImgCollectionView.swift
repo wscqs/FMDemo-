@@ -30,12 +30,14 @@ class RecordImgCollectionView: UICollectionView {
     
     var parentVC: RecordViewController?
     var mid: String!
+    var tapGes: UITapGestureRecognizer?
     override func awakeFromNib() {
         super.awakeFromNib()
         delegate = self
         dataSource = self
         showsHorizontalScrollIndicator = false
         bounces = false
+        tapGes = UITapGestureRecognizer(target: self, action: #selector(actionTap))
     }
     
 
@@ -43,9 +45,11 @@ class RecordImgCollectionView: UICollectionView {
         parentVC?.pauseRecord()
         choseImg()
     }
+    
 }
 
 extension RecordImgCollectionView: RecordImgCollectionCellDelegate {
+    // 删除
     func actionDel(recordImgCollectionCell: UICollectionViewCell) {
         let indexPath = self.indexPath(for: recordImgCollectionCell)
         guard let row = indexPath?.row else {
@@ -128,14 +132,24 @@ extension RecordImgCollectionView: UICollectionViewDelegate, UICollectionViewDat
 extension RecordImgCollectionView {
     func actionLongGes(sender: UILongPressGestureRecognizer) {
         isEidtStatus = true
-        let tapGes = UITapGestureRecognizer(target: self, action: #selector(actionTap))
-        parentVC?.view.addGestureRecognizer(tapGes)
+        editStatusBackMethod(addGes: true)
     }
     
     func actionTap(sender: UITapGestureRecognizer) {
-        
         isEidtStatus = false
-        parentVC?.view.removeGestureRecognizer(sender)
+        editStatusBackMethod(addGes: false)
+    }
+    
+    
+    func editStatusBackMethod(addGes: Bool) {
+        if addGes {
+            if (parentVC?.view.gestureRecognizers?.contains(tapGes!)) ?? false {
+            } else {
+                parentVC?.view.addGestureRecognizer(tapGes!)
+            }
+        } else {
+            parentVC?.view.removeGestureRecognizer(tapGes!)
+        }
     }
 
 }
