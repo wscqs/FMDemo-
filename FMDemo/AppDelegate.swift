@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        UserDefaults.standard.set(true, forKey: publicEnvironment)
+        
         UIApplication.shared.isIdleTimerDisabled = true// 禁止锁屏
         setupGlobalStyle()        // 配置全局样式
         setupGlobalData()         // 配置全局数据

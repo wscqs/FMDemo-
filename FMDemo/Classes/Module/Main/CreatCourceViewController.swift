@@ -18,18 +18,28 @@ class CreatCourceViewController: UIViewController {
         creatCourceTextView.setPlaceholder("请输入课程标题，不要超过50个中文字符", maxTip: 50)
     }
     
+    var isRequest: Bool = false
     @IBAction func actionNext(_ sender: UIButton) {
         if creatCourceTextView.text.isEmpty {
             MBAProgressHUD.showInfoWithStatus("创建课程标题不能为空")
             return
         }
         
+        if isRequest {
+            return
+        }
+        
+        isRequest = true
+        
         KeService.actionSaveCourse(title: creatCourceTextView.text, success: { (bean) in
             self.cid = bean.cid
             DispatchQueue.main.async {
                 self.pushToCourceMainVC()
+                self.isRequest = false
             }
-        }) { (error) in}
+        }) { (error) in
+            self.isRequest = false
+        }
     }
 }
 

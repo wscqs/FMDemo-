@@ -85,6 +85,7 @@
 		2C97D7F71E502B3F00FB407F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7F61E502B3F00FB407F /* SettingViewController.swift */; };
 		2C97D7FA1E513F7000FB407F /* DubPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C97D7F81E513F7000FB407F /* DubPlayView.swift */; };
 		2C97D7FD1E51427700FB407F /* DubPlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C97D7FC1E51427700FB407F /* DubPlayView.xib */; };
+		2CA20C201EADDEA4004DA2F9 /* ExtAudioConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA20C1F1EADDEA4004DA2F9 /* ExtAudioConverter.m */; };
 		2CAE5F801E63FFEC005DAA57 /* UploadPictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE5F7F1E63FFEC005DAA57 /* UploadPictureModel.swift */; };
 		2CAE5F821E6434E1005DAA57 /* JSON+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE5F811E6434E1005DAA57 /* JSON+Extension.swift */; };
 		2CAE5F8D1E67CD25005DAA57 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE5F881E67CD25005DAA57 /* libWeChatSDK.a */; };
@@ -192,6 +193,8 @@
 		2C97D7F61E502B3F00FB407F /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2C97D7F81E513F7000FB407F /* DubPlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DubPlayView.swift; sourceTree = "<group>"; };
 		2C97D7FC1E51427700FB407F /* DubPlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DubPlayView.xib; sourceTree = "<group>"; };
+		2CA20C1E1EADDEA4004DA2F9 /* ExtAudioConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtAudioConverter.h; sourceTree = "<group>"; };
+		2CA20C1F1EADDEA4004DA2F9 /* ExtAudioConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtAudioConverter.m; sourceTree = "<group>"; };
 		2CAE5F7F1E63FFEC005DAA57 /* UploadPictureModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPictureModel.swift; sourceTree = "<group>"; };
 		2CAE5F811E6434E1005DAA57 /* JSON+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSON+Extension.swift"; sourceTree = "<group>"; };
 		2CAE5F881E67CD25005DAA57 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
@@ -383,6 +386,8 @@
 				2C94E7F51E277C7A00D539DC /* lame.h */,
 				2C94E7F61E277C7A00D539DC /* Lame2mp3Tool.h */,
 				2C94E7F71E277C7A00D539DC /* Lame2mp3Tool.m */,
+				2CA20C1E1EADDEA4004DA2F9 /* ExtAudioConverter.h */,
+				2CA20C1F1EADDEA4004DA2F9 /* ExtAudioConverter.m */,
 				2C94E7F81E277C7A00D539DC /* libmp3lame.a */,
 			);
 			path = lame;
@@ -759,6 +764,7 @@
 				2C435C2B1E51D0D200FDD1E7 /* RecordImgCollectionView.swift in Sources */,
 				2C97D7C11E4C441C00FB407F /* UIImage+Extension.swift in Sources */,
 				2C97D7C61E4C441C00FB407F /* UIView+Extension.swift in Sources */,
+				2CA20C201EADDEA4004DA2F9 /* ExtAudioConverter.m in Sources */,
 				2C97D7851E4B158A00FB407F /* IdsModel.swift in Sources */,
 				2C97D78D1E4B23C800FB407F /* AccessTokenModel.swift in Sources */,
 				2CE6569F1E6017ED00A65116 /* RecordAudioModel.swift in Sources */,
@@ -965,6 +971,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "FMDemo/FMDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1015,6 +1022,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FMDemo/FMDemo-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

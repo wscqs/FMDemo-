@@ -49,7 +49,12 @@ class RecordImgCollectionCell: UICollectionViewCell {
         }
     }
     
+    var isRequest: Bool = false
     func actionUploadPicture() {
+        if isRequest {
+            return
+        }
+        isRequest = true
         activityIndicatorView.startAnimating()
         let data = UIImageJPEGRepresentation((recordImgModel?.img!)!, 0.8)
         KeService.actionUploadPicture(mid: self.mid, file: data!, success: { (bean) in
@@ -57,9 +62,11 @@ class RecordImgCollectionCell: UICollectionViewCell {
             self.recordImgModel?.isRequestUpload = false
             self.activityIndicatorView.isHidden = true
             self.delegate?.actionResaveWidModel(recordImgCollectionCell: self, recordImgModel: self.recordImgModel!)
+            self.isRequest = false
         }, failure: { (error) in
             self.recordImgModel?.isRequestUpload = false
             self.activityIndicatorView.stopAnimating()
+            self.isRequest = false
         })
     }
     

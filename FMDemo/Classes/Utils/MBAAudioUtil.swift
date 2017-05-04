@@ -35,8 +35,8 @@ class MBAAudioUtil {
         // 3.创建音频输出会话
         let exportSession = AVAssetExportSession(asset: songAsset, presetName: AVAssetExportPresetPassthrough)
 
-        let startTime = CMTime(seconds: startTime, preferredTimescale: 1000)
-        let stopTime = CMTime(seconds: stopTime, preferredTimescale: 1000)
+        let startTime = CMTime(seconds: startTime, preferredTimescale: 1)
+        let stopTime = CMTime(seconds: stopTime, preferredTimescale: 1)
         let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
         // 4.设置音频输出会话并执行
         exportSession?.outputURL = exportURL
@@ -116,7 +116,18 @@ class MBAAudioUtil {
         let path2 = (mp3Name1! + ".mp3").docSaveRecordDir()
         let mp3URL = URL(fileURLWithPath: path2)
         
-        Lame2mp3Tool.transformCAFPath(cafURL1, toMP3: mp3URL)
+//        Lame2mp3Tool.transformCAFPath(cafURL1, toMP3: mp3URL)
+        
+
+        let converter = ExtAudioConverter()
+        converter.inputFile = cafURL.path
+        converter.outputFile = path2
+        
+        converter.outputBitDepth = BitDepth_16;
+        converter.outputSampleRate = 11025
+        converter.outputFormatID = kAudioFormatMPEGLayer3
+        converter.outputFileType = kAudioFileMP3Type
+        converter.convert()
         return mp3URL
     }
 

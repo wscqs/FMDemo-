@@ -59,6 +59,7 @@ class CutRecordViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if (pointXArray?.count ?? 0 ) < 15 {
+            bannerImg.isHidden = true
             _ = navigationController?.popViewController(animated: true)
             MBAToast.show(text: "时间太短，不能剪切")
             return
@@ -230,6 +231,14 @@ extension CutRecordViewController: CutBarWaveViewDelegate {
     }
     
     func setSpannerImg() {
+        
+        if imgDictArray.count == 0 {
+            bannerImg.isHidden = true
+            return
+        }
+        
+        bannerImg.isHidden = false
+        
         for (index,imgDict) in imgDictArray.enumerated() {
             if thumbPointXIndex == imgDict.thumbPointXIndex {
                 bannerImg.image = imgDict.image
@@ -242,6 +251,13 @@ extension CutRecordViewController: CutBarWaveViewDelegate {
                     bannerImg.image = #imageLiteral(resourceName: "record_bannerBg")
                     imgAnimation()
                     break
+                }
+                if imgDictArray.count == 1{
+                    if thumbPointXIndex >= imgDictArray[index].thumbPointXIndex {
+                        bannerImg.image = imgDictArray[index].image
+                        imgAnimation()
+                        break
+                    }
                 }
             } else if index == imgDictArray.count - 1 {
                 if thumbPointXIndex >= imgDictArray[index].thumbPointXIndex {

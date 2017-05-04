@@ -62,22 +62,11 @@ class PlayRecordViewController: UIViewController {
         totalTimeLabel.text = totalTime.getFormatTime()
         
         slider.pointXArray = pointXArray
-//        slider.pointXArray = testArray
         self.actionPlayClick(sender: self.listenPlayBtn)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        MBAProgressHUD.show()
-////        slider.pointXArray = pointXArray
-//        slider.pointXArray = testArray
-//        slider.isRenderSucess = { isRenderRuselt in
-//            if isRenderRuselt  {
-//                self.slider.slider.isHidden = false
-//                MBAProgressHUD.dismiss()
-//                self.actionPlayClick(sender: self.listenPlayBtn)
-//            }
-//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -109,7 +98,10 @@ class PlayRecordViewController: UIViewController {
         }
         
         timeLabel.text = (Double(thumbPointXIndex) * 0.2).getFormatTime()
+        
         setSpannerImg()
+
+        
     }
     
     func sliderTimerEvent() {
@@ -266,6 +258,14 @@ extension PlayRecordViewController {
 extension PlayRecordViewController {
     
     func setSpannerImg() {
+        
+        if imgDictArray.count == 0 {
+            bannerImg.isHidden = true
+            return
+        }
+        
+        bannerImg.isHidden = false
+        
         for (index,imgDict) in imgDictArray.enumerated() {
             if thumbPointXIndex == imgDict.thumbPointXIndex {
                 bannerImg.image = imgDict.image
@@ -277,6 +277,13 @@ extension PlayRecordViewController {
                     bannerImg.image = #imageLiteral(resourceName: "record_bannerBg")
                     imgAnimation()
                     break
+                }
+                if imgDictArray.count == 1{
+                    if thumbPointXIndex >= imgDictArray[index].thumbPointXIndex {
+                        bannerImg.image = imgDictArray[index].image
+                        imgAnimation()
+                        break
+                    }
                 }
             } else if index == imgDictArray.count - 1 {
                 if thumbPointXIndex >= imgDictArray[index].thumbPointXIndex {

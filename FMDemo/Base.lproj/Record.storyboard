@@ -42,8 +42,9 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="record_bannerBg" translatesAutoresizingMaskIntoConstraints="NO" id="pRU-iO-bv5">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="177.5"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="record_bannerBg" translatesAutoresizingMaskIntoConstraints="NO" id="ZE5-iR-HOr">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZE5-iR-HOr">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="177.5"/>
+                                        <color key="backgroundColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vil-cV-zRl" userLabel="soundBgView">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="177.5"/>
@@ -443,8 +444,9 @@
                                             <constraint firstAttribute="width" secondItem="gvY-Bt-Qhv" secondAttribute="height" multiplier="2:1" id="w9B-gy-Jb5"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="record_bannerBg" translatesAutoresizingMaskIntoConstraints="NO" id="0WA-wc-FWX">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0WA-wc-FWX">
                                         <rect key="frame" x="10" y="95" width="355" height="177.5"/>
+                                        <color key="backgroundColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="0WA-wc-FWX" secondAttribute="height" multiplier="2:1" id="OOa-2M-pg6"/>
                                         </constraints>
@@ -589,8 +591,9 @@
                                             <constraint firstAttribute="width" secondItem="GtL-gx-tC9" secondAttribute="height" multiplier="2:1" id="juT-1V-vyq"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="record_bannerBg" translatesAutoresizingMaskIntoConstraints="NO" id="fb9-xh-W8W">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fb9-xh-W8W">
                                         <rect key="frame" x="10" y="96" width="355" height="177.5"/>
+                                        <color key="backgroundColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="fb9-xh-W8W" secondAttribute="height" multiplier="2:1" id="7Hk-Je-tYO"/>
                                         </constraints>

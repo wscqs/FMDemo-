@@ -32,7 +32,7 @@ public enum CachePolicy: String {
 
 let alamofireManager: SessionManager = {
     let configuration = URLSessionConfiguration.default
-    configuration.timeoutIntervalForRequest = 5    // 秒
+    //configuration.timeoutIntervalForRequest = 5    // 秒
     return Alamofire.SessionManager(configuration: configuration)
 }()
 
@@ -177,6 +177,7 @@ class MBARequest<T: BaseModel> : NSObject{
                 if var params = params {
                     params["access_token"] = accessToken
 
+                    
                     alamofireManager.upload(multipartFormData: { (multipartFormData) in
                         
                         for (key, value) in params {
@@ -246,7 +247,13 @@ class MBARequest<T: BaseModel> : NSObject{
                                     }
                                     
                                 case .failure(let error):
-                                    MBAToast.show(text: "图片上传失败，请重试")
+                                    switch dataType {
+                                    case .mp3:
+                                        MBAToast.show(text: "语音上传失败，请重试")
+                                    case .img:
+                                        MBAToast.show(text: "图片上传失败，请重试")
+                                    }
+                                    
                                     completionHandler(nil, error as NSError?)
                                 }
                             })

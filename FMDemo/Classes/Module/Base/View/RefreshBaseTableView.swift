@@ -222,7 +222,10 @@ extension RefreshBaseTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? RefreshBaseTableViewCell
-        cell?.setContent(tableView, cellForRowAtIndexPath: indexPath, dataList: dataList!)
+        guard let dataList = dataList else {
+            return cell!
+        }
+        cell?.setContent(tableView, cellForRowAtIndexPath: indexPath, dataList: dataList)
         return cell!
     }
     

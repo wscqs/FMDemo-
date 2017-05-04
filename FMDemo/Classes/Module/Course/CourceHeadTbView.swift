@@ -60,6 +60,7 @@ class CourceHeadTbView: UIView {
         textView.text = titleLabel.text
     }
     
+    var isRequest: Bool = false
     @IBAction func actionOk(_ sender: UIButton) {
         
         if textView.text.isEmpty {
@@ -67,12 +68,19 @@ class CourceHeadTbView: UIView {
             return
         }
         if titleLabel.text != textView.text {
+            if isRequest {
+                return
+            }
+            
+            isRequest = true
             KeService.actionSaveCourse(title: textView.text, cid: cid, success: { (bean) in
                 self.titleLabel.text = self.textView.text
                 self.tbHeadChangceView.isHidden = true
+                self.isRequest = false
             }) { (error) in
                 MBAProgressHUD.showInfoWithStatus("课程标题修改失败，请重试")
                 self.tbHeadChangceView.isHidden = true
+                self.isRequest = false
             }
         } else {
             self.tbHeadChangceView.isHidden = true
