@@ -36,7 +36,7 @@ class MBAAudioHelper: NSObject {
     
     ////定义音频的编码参数，这部分比较重要，决定录制音频文件的格式、音质、容量大小等，建议采用AAC的编码方式
     let recordSettings: [String : Any] = [AVFormatIDKey : Int(kAudioFormatLinearPCM),//设置录音格式
-        AVSampleRateKey : Float(11025.0),//设置录音采样率(Hz) 如：AVSampleRateKey==8000/44100/96000（影响音频的质量）, 采样率必须要设为11025才能使转化成mp3格式后不会失真
+        AVSampleRateKey : Float(44100),//设置录音采样率(Hz) 如：AVSampleRateKey==8000/44100/96000（影响音频的质量）, 采样率必须要设为11025才能使转化成mp3格式后不会失真
         AVNumberOfChannelsKey : 2,//录音通道数  1 或 2 ，要转换成mp3格式必须为双通道
         AVEncoderAudioQualityKey : Int(AVAudioQuality.medium.rawValue),//音频质量
         AVLinearPCMBitDepthKey : 16//采样位数 默认 16

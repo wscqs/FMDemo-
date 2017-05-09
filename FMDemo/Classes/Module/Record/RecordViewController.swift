@@ -346,9 +346,6 @@ extension RecordViewController {
         let alertController = UIAlertController(title: "是否保存章节录音", message: nil, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
-        print("mergeTime",CMTimeGetSeconds((AVPlayer(url: mergeExportURL!).currentItem?.asset.duration)!))
-        print("mergerate",AVPlayer(url: mergeExportURL!).currentItem?.asset.preferredRate ?? 10)
-        
         let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
             var wareArray = [[String: Any]]()
             for recordSelectImgModel in self.imgDictArray {
@@ -366,10 +363,10 @@ extension RecordViewController {
             queueToMP3.async(group: dispatchGroup, execute: disItem)            
             dispatchGroup.notify(queue: .main, execute: {
 
-                print("mp3urlTime",CMTimeGetSeconds((AVPlayer(url: mp3url!).currentItem?.asset.duration)!))
+                
+                print("mp3urlTime",CMTimeGetSeconds(AVURLAsset(url: mp3url!).duration))
 
                 print("time",String(self.recordMetersTime))
-                print("rate",AVPlayer(url: mp3url!).currentItem?.asset.preferredRate ?? 10)
                 
                 guard let saveURL = mp3url else {
                     MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
@@ -377,7 +374,9 @@ extension RecordViewController {
                 }
                 let mp3Data = try? Data(contentsOf: saveURL)
 
-                KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: String(self.recordMetersTime),ware: wareArray, success: { (bean) in
+                
+                let time = String(CMTimeGetSeconds(AVURLAsset(url: mp3url!).duration)) //String(self.recordMetersTime)
+                KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: time,ware: wareArray, success: { (bean) in
                     MBAProgressHUD.dismiss()
                     for vc in (self.navigationController?.viewControllers)! {
                         if vc is CourceMainViewController {

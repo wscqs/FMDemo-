@@ -116,18 +116,18 @@ class MBAAudioUtil {
         let path2 = (mp3Name1! + ".mp3").docSaveRecordDir()
         let mp3URL = URL(fileURLWithPath: path2)
         
-//        Lame2mp3Tool.transformCAFPath(cafURL1, toMP3: mp3URL)
+        Lame2mp3Tool.transformCAFPath(cafURL1, toMP3: mp3URL)
         
 
-        let converter = ExtAudioConverter()
-        converter.inputFile = cafURL.path
-        converter.outputFile = path2
-        
-        converter.outputBitDepth = BitDepth_16;
-        converter.outputSampleRate = 11025
-        converter.outputFormatID = kAudioFormatMPEGLayer3
-        converter.outputFileType = kAudioFileMP3Type
-        converter.convert()
+//        let converter = ExtAudioConverter()
+//        converter.inputFile = cafURL.path
+//        converter.outputFile = path2
+//        
+//        converter.outputBitDepth = BitDepth_16;
+//        converter.outputSampleRate = 11025
+//        converter.outputFormatID = kAudioFormatMPEGLayer3
+//        converter.outputFileType = kAudioFileMP3Type
+//        converter.convert()
         return mp3URL
     }
 

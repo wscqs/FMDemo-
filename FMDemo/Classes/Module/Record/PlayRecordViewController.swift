@@ -165,8 +165,8 @@ extension PlayRecordViewController {
                     return
                 }
                 let mp3Data = try? Data(contentsOf: saveURL)
-                
-                KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: String(self.totalTime),ware: wareArray, success: { (bean) in
+                let time = String(CMTimeGetSeconds(AVURLAsset(url: mp3url!).duration))
+                KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: time,ware: wareArray, success: { (bean) in
                     MBAProgressHUD.dismiss()
                     for vc in (self.navigationController?.viewControllers)! {
                         if vc is CourceMainViewController {
