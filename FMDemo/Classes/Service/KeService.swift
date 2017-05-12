@@ -12,7 +12,7 @@ import UIKit
 class KeService: NSObject {
     
 //    http://192.168.1.12:8082/api2/loginweixin?openid=offEEv8lEjTGBYhZ9Y84IxHd1oQ8&unionid=on1rljhfO2IofrN9rBBRAQVzyR4o&weixin_token=q67ch6BoemjCv3UoY9wlGBThJ-c8EmcxxTvqRFvmkSwG7SdASUKaqnHtV6AAj_oTqfe1IMFIsDWNrokiyV4_B1ffY51LWsLJ7zn1XmQJfPo&channel=ketang
-    class func actionLoginToken(openid: String,
+    class func actionWeiXinLoginToken(openid: String,
                                 unionid: String,
                                 refresh_token: String,
                                  _ success:@escaping (_ isSuccess: Bool)->(),
@@ -49,6 +49,78 @@ class KeService: NSObject {
     }
 
     
+    class func actionMBALoginToken(username:String,
+                                   password:String,
+                                      _ success:@escaping (_ isSuccess: Bool)->(),
+                                      failure:@escaping (_ error: NSError)->()){
+        
+        
+        actionCheckUser(username: username, { (bean) in
+            
+            
+            
+            let url = kUserBaseURL + "login"
+            let params = [
+                "username": username,
+                "password": password.md5(),
+                ]
+            MBARequest<LoginModel>.go(url: url, method: .post, params: params, cache: .Default, completionHandler:{ (bean, error) in
+                if let loginToken = bean?.login_token {
+                    MBACache.setString(value: loginToken, key: kUserLoginToken)
+                    DispatchQueue.main.async {
+                        actionAccessToken({ (bean) in
+                            success(true)
+                        }, failure: { (error) in
+                            failure(error)
+                        })
+                    }
+                }
+                if let error = error {
+                    failure(error)
+                }
+            })
+
+            
+            
+        }) { (error) in
+            failure(error)
+        }
+        
+        
+    }
+
+
+    
+    
+    
+    /**
+     * action:checkUser(校验当前用户名是否可以登录)
+     *
+     * parameter:
+     * 		username
+     *
+     * return:
+     * 		status
+     *
+     */
+    class func actionCheckUser(username: String,                                
+                                _ success:@escaping (_ isSuccess: StatusModel)->(),
+                                failure:@escaping (_ error: NSError)->()){
+        let url = kKeBaseURL + "checkUser"
+        let params = [
+            "username": username,
+        ]
+        MBARequest<StatusModel>.go(url: url, method: .post, params: params, cache: .Default, completionHandler:{ (bean, error) in
+            if let bean = bean {
+                success(bean)
+            }
+            if let error = error {
+                failure(error)
+            }
+        })
+    }
+
+
     
     /**
      *  action:accesstoken(获取access_token)
