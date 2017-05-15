@@ -369,14 +369,12 @@ extension RecordViewController {
                 print("time",String(self.recordMetersTime))
                 
                 guard let saveURL = mp3url else {
-                    MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
+                    MBAProgressHUD.showErrorWithStatus(kNetWorkErrorUpload)
                     return
                 }
-                let mp3Data = try? Data(contentsOf: saveURL)
-
-                
                 let time = String(CMTimeGetSeconds(AVURLAsset(url: mp3url!).duration)) //String(self.recordMetersTime)
-                KeService.actionRecordAudio(mid: self.mid, file: mp3Data!, time: time,ware: wareArray, success: { (bean) in
+                let ware = (wareArray.count ) > 0 ? wareArray.toJSONString() : nil
+                KeService.actionRecordAudio(mid: self.mid, fileURL: saveURL, time: time,ware: ware, success: { (bean) in
                     MBAProgressHUD.dismiss()
                     for vc in (self.navigationController?.viewControllers)! {
                         if vc is CourceMainViewController {
@@ -388,7 +386,7 @@ extension RecordViewController {
                     }
                 }, failure: { (error) in
                     MBAProgressHUD.dismiss()
-                    MBAProgressHUD.showErrorWithStatus("上传失败，请重试")
+                    MBAProgressHUD.showErrorWithStatus(kNetWorkErrorUpload)
                 })
             })
         }

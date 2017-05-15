@@ -11,7 +11,7 @@ import Alamofire
 import ObjectMapper
 import Toaster
 
-let kNetworkDontUse = "网络不可用"
+let kNetworkDontUse = "当前网络不可用"
 let kServiceDontUse = "连接超时，请稍后重试"
 
 /// 上传的data 真实格式

@@ -459,27 +459,40 @@ extension KeService {
      *		401004:上传音频失败
      */
     class func actionRecordAudio(mid: String,
-                                file: Data,
+                                 fileURL: URL,
+//                                file: Data,
                                 time: String,
-                                ware: [[String: Any]]? = nil,
+//                                ware: [[String: Any]]? = nil,
+                                ware:String? = nil,
                                 success:@escaping (_ bean: RecordAudioModel)->(),
                                 failure:@escaping (_ error: NSError)->())
     {
         let url = kKeBaseURL + "recordAudio"
+
+        let mp3Data = try? Data(contentsOf: fileURL)
         var params = [
             "mid": mid,
-            "file": file,
+            "file": mp3Data!,
             "time": time
             ] as [String : Any]
-        if (ware?.count ?? 0) > 0 {
-            params["ware"] = ware.toJSONString()
+        if !(ware?.isEmpty ?? true) {
+            params["ware"] = ware!
         }
         
+//        if !NetworkTool.isReachable() {
+//            MBAToast.show(text: kNetWorkDontUseUpload)
+//            params["file"] = fileURL.lastPathComponent
+//            MBACache.setJson(value: params, key: "uploadError")
+//        }
+ 
         MBARequest<RecordAudioModel>.goSafeUpload(url: url, params: params, showHUD: false) { (bean, error) in
             if let bean = bean {
+                MBACache.removeJson(key: "uploadError")
                 success(bean)
             }
             if let error = error {
+                params["file"] = fileURL.lastPathComponent
+                MBACache.setJson(value: params, key: "uploadError")
                 failure(error)
             }
         }

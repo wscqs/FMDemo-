@@ -16,6 +16,11 @@ let kUserLoginToken = "kUserLoginToken"
 let kCreatCourceTitleString = "请输入课程标题，不要超过50个中文字符"
 let kCreatMaterialTitleString = "请输入章节标题，不要超过50个中文字符"
 
+
+let kNetWorkDontUseUpload = "当前网络不可用，无法上传"
+let kNetWorkErrorUpload = "网络状态不佳，请重新上传"
+
+
 // MARK: UI
 /// 屏幕bounds
 let SCREEN_BOUNDS = UIScreen.main.bounds

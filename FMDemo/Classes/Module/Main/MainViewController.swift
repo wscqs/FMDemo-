@@ -40,6 +40,47 @@ class MainViewController: BaseViewController {
    
         mainTb.start(true)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        MBACache.fetchJson(key: "uploadError") { (uploadJson) in
+            guard let fileString = uploadJson?["file"] as? String,
+                let mid = uploadJson?["mid"] as? String,
+                let time = uploadJson?["time"] as? String else {
+                    return
+            }
+            
+            let saveURL = URL(fileURLWithPath: fileString.docSaveRecordDir())
+            let ware = uploadJson?["ware"] as? String
+            
+            
+            let alertController = UIAlertController(title: "上传上次未成功课程", message: nil, preferredStyle: .alert)
+            
+            let cancel = UIAlertAction(title: "删除", style: .cancel, handler: { (action) in
+                MBACache.removeJson(key: "uploadError")
+            })
+            
+            let ok = UIAlertAction(title: "确定", style: .default, handler: { (action) in
+                if !NetworkTool.isReachable() {
+                    MBAToast.show(text: kNetWorkDontUseUpload)
+                    return
+                }
+                
+                MBAProgressHUD.show()
+                KeService.actionRecordAudio(mid: mid, fileURL: saveURL, time: time,ware: ware, success: { (bean) in
+                    MBAProgressHUD.dismiss()
+                    MBAProgressHUD.showSuccessWithStatus("上传成功")                    
+                }, failure: { (error) in
+                    MBAProgressHUD.dismiss()
+                    MBAProgressHUD.showErrorWithStatus(kNetWorkErrorUpload)
+                })
+            })
+            alertController.addAction(cancel)
+            alertController.addAction(ok)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -48,6 +89,7 @@ class MainViewController: BaseViewController {
     // MARK: - 监听方法
     func userLogin(n: Notification) {
         mainTb.dataList?.removeAll()
+        mainTb.reloadData()
         KeUserAccount.cleanAccount()
         let loginVC = LoginViewController()
         self.navigationController?.present(loginVC, animated: false, completion: nil)
