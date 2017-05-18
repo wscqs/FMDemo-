@@ -137,6 +137,7 @@ extension PlayRecordViewController {
     func actionSave() {
         listenStatusLabel.text = "播放"
         pausePlay()
+        listenPlayBtn.isSelected = false
         
         let alertController = UIAlertController(title: "是否保存章节录音", message: nil, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)

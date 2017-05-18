@@ -70,7 +70,8 @@ class MainViewController: BaseViewController {
                 MBAProgressHUD.show()
                 KeService.actionRecordAudio(mid: mid, fileURL: saveURL, time: time,ware: ware, success: { (bean) in
                     MBAProgressHUD.dismiss()
-                    MBAProgressHUD.showSuccessWithStatus("上传成功")                    
+                    MBAProgressHUD.showSuccessWithStatus("上传成功")
+                    self.shouldReLoadMainData()
                 }, failure: { (error) in
                     MBAProgressHUD.dismiss()
                     MBAProgressHUD.showErrorWithStatus(kNetWorkErrorUpload)
